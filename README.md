@@ -1,31 +1,6 @@
-# Timetable
-
-## Schedule of couples at the university
-
-### Aims:
-- 1 вкладка (расписание)
-    - растянуть ячейки
-    - добаить номер пары
-    - добавить время пары
-    - добавить обед
-- 2 вкладка (задачи)
-    - опустить 2 кнопки
-    - создать 2 контроллера
-    - отображать список задач
-    - сделать историю задач
-- 3 вкладка (люди)
-    - добавить отображение людей
-    - добавить поиск по ним
-    - возможность написать
-- 4 вкладка (профиль)
-    - сделать профиль
-    - сделать настройки
-    - сделать оформеление
-    - выбор группы для расписание
-    - регистриация
-    - поделится приложением
-    - о приложении
-- разобраться как работать с BaseVC
-- мб пересмотреть видосики по созданию
-
-    
+# Notes
+<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%201.png" 
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%202.png"
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%203.png" 
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%204.png" 
+     alt="Screenshot" width="410"/>
