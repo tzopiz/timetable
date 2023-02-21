@@ -74,7 +74,7 @@ extension OverviewController {
         header.configure(with: "\(currentDateString)")
         
         for i in 0..<lectionsList.count{
-            lectionsList[i].configure(with: "Лекция", subtitle: "Математический анализ", teacher: "Бочкарёв Анатолий Олегович", classroom: "Университеский проспект, д 35, 208")
+            lectionsList[i].configure(with: "Лекция", subtitle: "Математический анализ", teacher: "Бочкарёв Анатолий Олегович", classroom: "Университетский проспект, д. 35, лит. Д, 210Д")
             lectionsList[i].layoutIfNeeded()
             lectionsList[i].roundCorners([.bottomRight, .bottomLeft], radius: 5)
         }
