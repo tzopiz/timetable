@@ -1,8 +1,8 @@
 //
-//  WABarsView.swift
-//  WorkoutApp
+//  TTBarsView.swift
+//  timetable
 //
-//  Created by Viktor Prikolota on 08.10.2022.
+//  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit

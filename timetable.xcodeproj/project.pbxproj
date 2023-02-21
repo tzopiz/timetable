@@ -22,12 +22,12 @@
 		7770915B283BEEEF00AD7841 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770915A283BEEEF00AD7841 /* TabBarController.swift */; };
 		7770915F283BEF8D00AD7841 /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7770915E283BEF8D00AD7841 /* UIColor + ext.swift */; };
 		77709162283BEFDE00AD7841 /* Resouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709161283BEFDE00AD7841 /* Resouces.swift */; };
-		77709164283BF45500AD7841 /* NavBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709163283BF45500AD7841 /* NavBarController.swift */; };
+		77709164283BF45500AD7841 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709163283BF45500AD7841 /* NavigationController.swift */; };
 		77709168283BF5A100AD7841 /* TTBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709167283BF5A100AD7841 /* TTBaseController.swift */; };
 		7770916A283BF70400AD7841 /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709169283BF70400AD7841 /* UIView + ext.swift */; };
-		77709172283BF82600AD7841 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709171283BF82600AD7841 /* SessionController.swift */; };
-		77709174283BF83D00AD7841 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709173283BF83D00AD7841 /* ProgressController.swift */; };
-		77709176283BF84E00AD7841 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709175283BF84E00AD7841 /* SettingsController.swift */; };
+		77709172283BF82600AD7841 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709171283BF82600AD7841 /* TasksController.swift */; };
+		77709174283BF83D00AD7841 /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709173283BF83D00AD7841 /* PeopleController.swift */; };
+		77709176283BF84E00AD7841 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709175283BF84E00AD7841 /* ProfileController.swift */; };
 		77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */; };
 		77A322ED2940665C00905950 /* TTChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A322EC2940665C00905950 /* TTChartsView.swift */; };
 		77A322EF294067D000905950 /* XAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A322EE294067D000905950 /* XAxisView.swift */; };
@@ -57,12 +57,12 @@
 		7770915A283BEEEF00AD7841 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		7770915E283BEF8D00AD7841 /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		77709161283BEFDE00AD7841 /* Resouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resouces.swift; sourceTree = "<group>"; };
-		77709163283BF45500AD7841 /* NavBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarController.swift; sourceTree = "<group>"; };
+		77709163283BF45500AD7841 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		77709167283BF5A100AD7841 /* TTBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseController.swift; sourceTree = "<group>"; };
 		77709169283BF70400AD7841 /* UIView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
-		77709171283BF82600AD7841 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
-		77709173283BF83D00AD7841 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
-		77709175283BF84E00AD7841 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		77709171283BF82600AD7841 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		77709173283BF83D00AD7841 /* PeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
+		77709175283BF84E00AD7841 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseInfoView.swift; sourceTree = "<group>"; };
 		77A322EC2940665C00905950 /* TTChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTChartsView.swift; sourceTree = "<group>"; };
 		77A322EE294067D000905950 /* XAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisView.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				7770915A283BEEEF00AD7841 /* TabBarController.swift */,
-				77709163283BF45500AD7841 /* NavBarController.swift */,
+				77709163283BF45500AD7841 /* NavigationController.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -207,9 +207,9 @@
 			children = (
 				7766B540284295C4000FF440 /* Navigation */,
 				7770916C283BF7FB00AD7841 /* Overview */,
-				7770916D283BF80300AD7841 /* Session */,
-				7770916E283BF80A00AD7841 /* Progress */,
-				7770916F283BF80F00AD7841 /* Settings */,
+				7770916D283BF80300AD7841 /* Tasks */,
+				7770916E283BF80A00AD7841 /* People */,
+				7770916F283BF80F00AD7841 /* Profile */,
 				7770916B283BF7EF00AD7841 /* Base */,
 			);
 			path = Controllers;
@@ -233,30 +233,30 @@
 			path = Overview;
 			sourceTree = "<group>";
 		};
-		7770916D283BF80300AD7841 /* Session */ = {
+		7770916D283BF80300AD7841 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
 				77040637285E17E2005ED76D /* Views */,
-				77709171283BF82600AD7841 /* SessionController.swift */,
+				77709171283BF82600AD7841 /* TasksController.swift */,
 			);
-			path = Session;
+			path = Tasks;
 			sourceTree = "<group>";
 		};
-		7770916E283BF80A00AD7841 /* Progress */ = {
+		7770916E283BF80A00AD7841 /* People */ = {
 			isa = PBXGroup;
 			children = (
 				77A322E2294056B800905950 /* Views */,
-				77709173283BF83D00AD7841 /* ProgressController.swift */,
+				77709173283BF83D00AD7841 /* PeopleController.swift */,
 			);
-			path = Progress;
+			path = People;
 			sourceTree = "<group>";
 		};
-		7770916F283BF80F00AD7841 /* Settings */ = {
+		7770916F283BF80F00AD7841 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				77709175283BF84E00AD7841 /* SettingsController.swift */,
+				77709175283BF84E00AD7841 /* ProfileController.swift */,
 			);
-			path = Settings;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		77854D04284BC4DD0095D8A5 /* Views */ = {
@@ -396,7 +396,7 @@
 			files = (
 				7766B53A284288C0000FF440 /* WeekView.swift in Sources */,
 				7766B53E28428BF9000FF440 /* Date + ext.swift in Sources */,
-				77709176283BF84E00AD7841 /* SettingsController.swift in Sources */,
+				77709176283BF84E00AD7841 /* ProfileController.swift in Sources */,
 				77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */,
 				77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */,
 				77C41E672995F707004ABAE6 /* TrainingCellView.swift in Sources */,
@@ -405,13 +405,13 @@
 				776BE2AC28F1D98B00316C05 /* TTBarView.swift in Sources */,
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
 				77A322ED2940665C00905950 /* TTChartsView.swift in Sources */,
-				77709172283BF82600AD7841 /* SessionController.swift in Sources */,
+				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
 				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,
 				77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */,
 				77A322F129406A0700905950 /* YAxisView.swift in Sources */,
 				77A322EF294067D000905950 /* XAxisView.swift in Sources */,
-				77709174283BF83D00AD7841 /* ProgressController.swift in Sources */,
-				77709164283BF45500AD7841 /* NavBarController.swift in Sources */,
+				77709174283BF83D00AD7841 /* PeopleController.swift in Sources */,
+				77709164283BF45500AD7841 /* NavigationController.swift in Sources */,
 				7770915F283BEF8D00AD7841 /* UIColor + ext.swift in Sources */,
 				77709162283BEFDE00AD7841 /* Resouces.swift in Sources */,
 				77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */,

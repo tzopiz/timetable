@@ -1,11 +1,18 @@
 //
 //  TabBarController.swift
-//  WorkoutApp
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit
+
+enum Tabs: Int, CaseIterable {
+    case overview
+    case tasks
+    case people
+    case profile
+}
 
 
 final class TabBarController: UITabBarController {
@@ -34,8 +41,8 @@ final class TabBarController: UITabBarController {
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
 
-        let controllers: [NavBarController] = Tabs.allCases.map { tab in
-            let controller = NavBarController(rootViewController: getController(for: tab))
+        let controllers: [NavigationController] = Tabs.allCases.map { tab in
+            let controller = NavigationController(rootViewController: getController(for: tab))
             controller.tabBarItem = UITabBarItem(title: App.Strings.TabBar.title(for: tab),
                                                  image: App.Images.TabBar.icon(for: tab),
                                                  tag: tab.rawValue)
@@ -48,9 +55,9 @@ final class TabBarController: UITabBarController {
     private func getController(for tab: Tabs) -> TTBaseController {
         switch tab {
         case .overview: return OverviewController()
-        case .tasks:    return  SessionController()
-        case .peoples: return ProgressController()
-        case .profile: return SettingsController()
+        case .tasks:    return  TasksController()
+        case .people: return PeopleController()
+        case .profile: return ProfileController()
         }
     }
 }

@@ -1,18 +1,12 @@
 //
 //  Resouces.swift
-//  WorkoutApp
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit
 
-enum Tabs: Int, CaseIterable {
-    case overview
-    case tasks
-    case peoples
-    case profile
-}
 
 
 enum App {
@@ -31,10 +25,10 @@ enum App {
         enum TabBar {
             static func title(for tab: Tabs) -> String {
                 switch tab {
-                case .overview: return ""
-                case .tasks:    return ""
-                case .peoples: return ""
-                case .profile: return ""
+                case .overview: return "Overview"
+                case .tasks:    return "Tasks"
+                case .people: return "People"
+                case .profile: return "Profile"
                 }
             }
         }
@@ -66,7 +60,7 @@ enum App {
                 switch tab {
                 case .overview: return UIImage(systemName: "note.text")
                 case .tasks:    return UIImage(systemName: "list.bullet.rectangle")
-                case .peoples: return UIImage(systemName: "magnifyingglass")
+                case .people: return UIImage(systemName: "magnifyingglass")
                 case .profile: return UIImage(systemName: "person")
                 }
             }

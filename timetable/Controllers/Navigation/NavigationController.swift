@@ -1,13 +1,13 @@
 //
-//  NavBarController.swift
-//  WorkoutApp
+//  NavigationController.swift
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
-//
+// timtable
 
 import UIKit
 
-final class NavBarController: UINavigationController {
+final class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

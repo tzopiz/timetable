@@ -1,6 +1,6 @@
 //
 //  XAxisView.swift
-//  WorkoutApp
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //

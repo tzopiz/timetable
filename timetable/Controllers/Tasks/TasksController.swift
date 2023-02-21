@@ -1,13 +1,13 @@
 //
-//  SessionController.swift
-//  WorkoutApp
+//  TasksController.swift
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit
 
-final class SessionController: TTBaseController {
+final class TasksController: TTBaseController {
 
 //    override func navBarLeftButtonHandler() {
 //        print("list new tasks")
@@ -18,7 +18,7 @@ final class SessionController: TTBaseController {
 //    }
 }
 
-extension SessionController {
+extension TasksController {
     override func setupViews() {
         super.setupViews()
 

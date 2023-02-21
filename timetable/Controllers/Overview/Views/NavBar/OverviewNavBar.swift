@@ -1,6 +1,6 @@
 //
 //  OverviewNavBar.swift
-//  WorkoutApp
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
@@ -26,12 +26,6 @@ final class OverviewNavBar: TTBaseView {
     }()
 
     private let weekView = WeekView()
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        addBottomBorder(with: App.Colors.separator, height: 1)
-    }
 
     func addAllWorkoutsAction(_ action: Selector, with target: Any?) {
         allWorkoutsButton.addTarget(target, action: action, for: .touchUpInside)
@@ -68,5 +62,10 @@ extension OverviewNavBar {
             weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             weekView.heightAnchor.constraint(equalToConstant: 47)
         ])
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        addBottomBorder(with: App.Colors.separator, height: 1)
     }
 }

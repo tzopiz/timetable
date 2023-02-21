@@ -1,20 +1,20 @@
 //
 //  SettingsController.swift
-//  WorkoutApp
+//  timtable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit
 
-final class SettingsController: TTBaseController {
+final class ProfileController: TTBaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
 
-extension SettingsController {
+extension ProfileController {
     override func setupViews() {
         super.setupViews()
       
