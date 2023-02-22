@@ -16,23 +16,8 @@ final class OverviewNavBar: TTBaseView {
         lable.font = App.Fonts.menloRegular(with: 22)
         return lable
     }()
-
-    private let allWorkoutsButton: TTButton = {
-        let button = TTButton(with: .secondary)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM"
-        button.setTitle(dateFormatter.string(from: Date()))
-        return button
-    }()
-
     private let weekView = WeekView()
-
-    func addAllWorkoutsAction(_ action: Selector, with target: Any?) {
-        allWorkoutsButton.addTarget(target, action: action, for: .touchUpInside)
-    }
-
-    func addAdditingAction(_ action: Selector, with target: Any?) {
-    }
+    
 }
 
 extension OverviewNavBar {
@@ -40,7 +25,6 @@ extension OverviewNavBar {
         super.setupViews()
 
         setupView(titleLabel)
-        setupView(allWorkoutsButton)
         setupView(weekView)
     }
 
@@ -48,15 +32,11 @@ extension OverviewNavBar {
         super.constaintViews()
 
         NSLayoutConstraint.activate([
-            allWorkoutsButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-            allWorkoutsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            allWorkoutsButton.heightAnchor.constraint(equalToConstant: 28),
-
-            titleLabel.centerYAnchor.constraint(equalTo: allWorkoutsButton.centerYAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: allWorkoutsButton.leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             
-            weekView.topAnchor.constraint(equalTo: allWorkoutsButton.bottomAnchor, constant: 15),
+            weekView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             weekView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             weekView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
@@ -65,7 +45,5 @@ extension OverviewNavBar {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        addBottomBorder(with: App.Colors.separator, height: 1)
     }
 }

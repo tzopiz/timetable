@@ -36,7 +36,7 @@ extension WeekView {
             let currenrDay = startOfWeek.agoForward(to: index)
             let day = Date.calendar.component(.day, from: currenrDay)
 
-            let isToday = currenrDay.stripTime() == Date().stripTime()
+            let isToday = currenrDay.stripTime(.Day) == Date().stripTime(.Day)
 
             backgroundColor = isToday ? App.Colors.active : App.Colors.background
 

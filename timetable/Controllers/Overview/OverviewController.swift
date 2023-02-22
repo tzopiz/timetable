@@ -50,14 +50,14 @@ extension OverviewController {
             lectionsList[0].topAnchor.constraint(equalTo: header.bottomAnchor),
             lectionsList[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             lectionsList[0].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            lectionsList[0].heightAnchor.constraint(equalToConstant: 75)
+            lectionsList[0].heightAnchor.constraint(equalToConstant: 120)
         ])
         for i in 1..<lectionsList.count {
             NSLayoutConstraint.activate([
                 lectionsList[i].topAnchor.constraint(equalTo: lectionsList[i - 1].bottomAnchor, constant: 7),
                 lectionsList[i].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
                 lectionsList[i].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                lectionsList[i].heightAnchor.constraint(equalToConstant: 75)
+                lectionsList[i].heightAnchor.constraint(equalToConstant: 120)
             ])
         }
     }
@@ -74,7 +74,7 @@ extension OverviewController {
         header.configure(with: "\(currentDateString)")
         
         for i in 0..<lectionsList.count{
-            lectionsList[i].configure(with: "Лекция", subtitle: "Математический анализ", teacher: "Бочкарёв Анатолий Олегович", classroom: "Университетский проспект, д. 35, лит. Д, 210Д")
+            lectionsList[i].configure(with: "Лекция", subtitle: "Математический анализ", teacher: "Бочкарёв Анатолий Олегович", classroom: "Университетский проспект, д. 35, лит. Д, 210Д", number: i + 1)
             lectionsList[i].layoutIfNeeded()
             lectionsList[i].roundCorners([.bottomRight, .bottomLeft], radius: 5)
         }
