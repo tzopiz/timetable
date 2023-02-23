@@ -55,9 +55,9 @@ final class TabBarController: UITabBarController {
     private func getController(for tab: Tabs) -> TTBaseController {
         switch tab {
         case .overview: return OverviewController()
-        case .tasks:    return  TasksController()
-        case .people: return PeopleController()
-        case .profile: return ProfileController()
+        case .tasks:    return TasksController()
+        case .people:   return PeopleController()
+        case .profile:  return ProfileController()
         }
     }
 }

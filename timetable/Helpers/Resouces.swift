@@ -50,6 +50,10 @@ enum App {
             static let navBarRight = "Найти"
 
         }
+        enum Tasks {
+            static let currentTasks = "Текущие задания"
+            static let completedTasks = "Завершенные задания"
+        }
 
         enum Settings {}
     }

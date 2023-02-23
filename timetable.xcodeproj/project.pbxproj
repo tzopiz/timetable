@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0E33B329A7E6D0009B9ECC /* TTTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E33B229A7E6D0009B9ECC /* TTTableView.swift */; };
+		0A0E33B729A7F464009B9ECC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E33B629A7F464009B9ECC /* TableViewCell.swift */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
+		0A80553E29A62BE900375192 /* TasksNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A80553D29A62BE900375192 /* TasksNavBar.swift */; };
 		774B893629517830001ED31E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B893529517830001ED31E /* ChartView.swift */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
 		7766B53C28428992000FF440 /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53B28428992000FF440 /* WeekdayView.swift */; };
@@ -40,7 +43,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A0E33B229A7E6D0009B9ECC /* TTTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTableView.swift; sourceTree = "<group>"; };
+		0A0E33B629A7F464009B9ECC /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0A80553D29A62BE900375192 /* TasksNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksNavBar.swift; sourceTree = "<group>"; };
 		774B893529517830001ED31E /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
@@ -85,11 +91,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		77040637285E17E2005ED76D /* Views */ = {
+		0A0E33B129A7E6C4009B9ECC /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				0A0E33B229A7E6D0009B9ECC /* TTTableView.swift */,
+				0A0E33B629A7F464009B9ECC /* TableViewCell.swift */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		0A80553929A62BA100375192 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A0E33B129A7E6C4009B9ECC /* Table */,
+				0A80553C29A62BD700375192 /* NavBar */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A80553A29A62BAA00375192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0A80553B29A62BAF00375192 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A80553C29A62BD700375192 /* NavBar */ = {
+			isa = PBXGroup;
+			children = (
+				0A80553D29A62BE900375192 /* TasksNavBar.swift */,
+			);
+			path = NavBar;
 			sourceTree = "<group>";
 		};
 		7766B538284288A9000FF440 /* WeekView */ = {
@@ -236,7 +275,7 @@
 		7770916D283BF80300AD7841 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				77040637285E17E2005ED76D /* Views */,
+				0A80553929A62BA100375192 /* Views */,
 				77709171283BF82600AD7841 /* TasksController.swift */,
 			);
 			path = Tasks;
@@ -245,7 +284,7 @@
 		7770916E283BF80A00AD7841 /* People */ = {
 			isa = PBXGroup;
 			children = (
-				77A322E2294056B800905950 /* Views */,
+				0A80553A29A62BAA00375192 /* Views */,
 				77709173283BF83D00AD7841 /* PeopleController.swift */,
 			);
 			path = People;
@@ -254,6 +293,7 @@
 		7770916F283BF80F00AD7841 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0A80553B29A62BAF00375192 /* Views */,
 				77709175283BF84E00AD7841 /* ProfileController.swift */,
 			);
 			path = Profile;
@@ -267,13 +307,6 @@
 				77B44805283FE26E00ADDB6E /* TTBaseView.swift */,
 				77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */,
 				77B44801283D4EC100ADDB6E /* TTButton.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		77A322E2294056B800905950 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -404,9 +437,12 @@
 				7770915B283BEEEF00AD7841 /* TabBarController.swift in Sources */,
 				776BE2AC28F1D98B00316C05 /* TTBarView.swift in Sources */,
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
+				0A0E33B329A7E6D0009B9ECC /* TTTableView.swift in Sources */,
 				77A322ED2940665C00905950 /* TTChartsView.swift in Sources */,
 				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
+				0A80553E29A62BE900375192 /* TasksNavBar.swift in Sources */,
 				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,
+				0A0E33B729A7F464009B9ECC /* TableViewCell.swift in Sources */,
 				77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */,
 				77A322F129406A0700905950 /* YAxisView.swift in Sources */,
 				77A322EF294067D000905950 /* XAxisView.swift in Sources */,
