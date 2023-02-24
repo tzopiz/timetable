@@ -1,5 +1,5 @@
 //
-//  TrainingCellView.swift
+//  TasksCellView.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
@@ -11,8 +11,9 @@ enum CellRoundedType {
     case top, bottom, all, notRounded
 }
 
-final class TrainingCellView: UICollectionViewCell {
-    static let id = "TrainingCellView"
+final class TasksCellView: UICollectionViewCell {
+    
+    static let id = "TasksCellView"
 
     private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
 
@@ -70,7 +71,7 @@ final class TrainingCellView: UICollectionViewCell {
     }
 }
 
-private extension TrainingCellView {
+private extension TasksCellView {
     func setupViews() {
         setupView(checkmarkView)
         setupView(stackView)

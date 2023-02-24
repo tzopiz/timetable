@@ -81,7 +81,7 @@ private extension TTButton {
 
         case .secondary:
             backgroundColor = App.Colors.secondary
-            layer.cornerRadius = 10
+            layer.cornerRadius = 7
             lable.textColor = App.Colors.active
             lable.font = App.Fonts.menloRegular(with: 15)
             iconView.tintColor = App.Colors.active

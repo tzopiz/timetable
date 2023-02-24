@@ -31,9 +31,7 @@ extension PeopleController {
 
         title = App.Strings.NavBar.progress
         navigationController?.tabBarItem.title = App.Strings.TabBar.title(for: .people)
-
-        addNavBarButton(at: .left, with: App.Strings.Progress.navBarLeft)
-        addNavBarButton(at: .right, with: App.Strings.Progress.navBarRight)
+        
     }
 }
 

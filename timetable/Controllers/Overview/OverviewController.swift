@@ -7,11 +7,12 @@
 
 import UIKit
 
-struct TraningData {
+struct TimatableData {
     struct Data {
         let title: String
         let subtitle: String
-        let isDone: Bool
+        let teacherNS: String
+        let time: String
     }
 
     let date: Date
@@ -22,7 +23,7 @@ class OverviewController: TTBaseController {
 
     private let navBar = OverviewNavBar()
 
-    private var dataSource: [TraningData] = []
+    private var dataSource: [TimatableData] = []
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,7 +65,7 @@ extension OverviewController {
         
         navigationController?.navigationBar.isHidden = true
 
-        collectionView.register(TrainingCellView.self, forCellWithReuseIdentifier: TrainingCellView.id)
+        collectionView.register(TimetableCellView.self, forCellWithReuseIdentifier: TimetableCellView.id)
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
@@ -75,36 +76,36 @@ extension OverviewController {
         dataSource = [
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: true),
-                    .init(title: "High Intensity Cardio", subtitle: "Treadmill • 50 minutes", isDone: false),
+                    .init(title: "Математический анализ, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "13:40–15:15"),
+                    .init(title: "Теория функции коплексной переменной, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
-                    .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Математический анализ, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "11:15–12:50"),
+                    .init(title: "Математический анализ, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "13:40–15:15"),
+                    .init(title: "Теория функции коплексной переменной, практика", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
-                    .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Математический анализ, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Бочкарёв А. О.", time: "11:15–12:50"),
+                    .init(title: "Теория функции коплексной переменной, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Распопова Н. В.", time: "13:40–15:15"),
+                    .init(title: "Теория функции коплексной переменной, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
-                    .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "11:15–12:50"),
+                    .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "13:40–15:15"),
+                    .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "15:25–17:00"),
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
-                    .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Дифференциальные уравнения, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Ногин В. Д.", time: "11:15–12:50"),
+                    .init(title: "Теория функции коплексной переменной, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "13:40–15:15"),
+                    .init(title: "Теоретическая механика, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Пупышева Ю. Ю.", time: "15:25–17:00"),
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false),
+                    .init(title: "Дифференциальные уравнения, лекция", subtitle:"Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Ногин В. Д.", time: "15:25–17:00"),
                   ])
         ]
         collectionView.reloadData()
@@ -121,11 +122,10 @@ extension OverviewController: UICollectionViewDataSource {
         dataSource[section].items.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TrainingCellView.id, for: indexPath
-        ) as? TrainingCellView else { return UICollectionViewCell() }
+            withReuseIdentifier: TimetableCellView.id, for: indexPath
+        ) as? TimetableCellView else { return UICollectionViewCell() }
 
         let item = dataSource[indexPath.section].items[indexPath.row]
 
@@ -140,13 +140,11 @@ extension OverviewController: UICollectionViewDataSource {
             roundedType = .notRounded
         }
 
-        cell.configure(with: item.title, subtitle: item.subtitle, isDone: item.isDone, roundedType: roundedType)
+        cell.configure(with: item.title, subtitle: item.subtitle,teacherNS: item.teacherNS ,time: item.time, roundedType: roundedType)
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath
         ) as? SectionHeaderView else { return UICollectionReusableView() }
@@ -158,15 +156,11 @@ extension OverviewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension OverviewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 70)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 120)
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 32)
     }
 }

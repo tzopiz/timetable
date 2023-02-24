@@ -22,6 +22,7 @@ final class OverviewNavBar: TTBaseView {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM"
         button.isUserInteractionEnabled = false
+        
         button.setTitle(dateFormatter.string(from: Date.now).uppercased())
         
         return button

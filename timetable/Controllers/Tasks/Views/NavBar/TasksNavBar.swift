@@ -41,7 +41,7 @@ final class TasksNavBar: TTBaseView {
     func competedTasksAction(_ action: Selector, with target: Any?) {
         completedTasks.addTarget(target, action: action, for: .touchUpInside)
     }
-    func changeTasksList(to type: TaskType, with tasks: [TTBaseTableView], button: UIButton) {
+    func changeTasksList(to type: TaskType, with tasks: [UICollectionView], button: UIButton) {
         switch type {
         case .completed:
             if currentTasks.tintColor != App.Colors.inactive {
@@ -53,9 +53,9 @@ final class TasksNavBar: TTBaseView {
                     var buttonFrame = button.frame
                     
                     bottomSeparatorFrame.origin.x += bottomSeparatorFrame.size.width
-                    completedTasksTableViewFrame.origin.x -= completedTasksTableViewFrame.size.width
-                    activeTasksTableViewFrame.origin.x -= activeTasksTableViewFrame.size.width
-                    buttonFrame.origin.x -= activeTasksTableViewFrame.size.width
+                    completedTasksTableViewFrame.origin.x -= bottomSeparatorFrame.size.width * 2
+                    activeTasksTableViewFrame.origin.x -= bottomSeparatorFrame.size.width * 2
+                    buttonFrame.origin.x -= bottomSeparatorFrame.size.width * 2
                  
                     self.bottomSeparator.frame = bottomSeparatorFrame
                     tasks[0].frame = completedTasksTableViewFrame
@@ -76,9 +76,9 @@ final class TasksNavBar: TTBaseView {
                     var buttonFrame = button.frame
                     
                     bottomSeparatorFrame.origin.x -= bottomSeparatorFrame.size.width
-                    completedTasksTableViewFrame.origin.x += completedTasksTableViewFrame.size.width
-                    activeTasksTableViewFrame.origin.x += activeTasksTableViewFrame.size.width
-                    buttonFrame.origin.x += activeTasksTableViewFrame.size.width
+                    completedTasksTableViewFrame.origin.x += bottomSeparatorFrame.size.width * 2
+                    activeTasksTableViewFrame.origin.x += bottomSeparatorFrame.size.width * 2
+                    buttonFrame.origin.x += bottomSeparatorFrame.size.width * 2
                  
                     self.bottomSeparator.frame = bottomSeparatorFrame
                     tasks[0].frame = completedTasksTableViewFrame
