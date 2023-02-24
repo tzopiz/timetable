@@ -72,7 +72,9 @@ enum App {
 
         enum Common {
             static let downArrow = UIImage(named: "down_arrow")
-            static let add = UIImage(named: "add_button")
+            static let add = UIImage(systemName: "plus.circle.fill")
+            static let isDoneTask = UIImage(systemName: "checkmark.circle")
+            static let isActiveTask = UIImage(systemName: "circle")
         }
     }
 

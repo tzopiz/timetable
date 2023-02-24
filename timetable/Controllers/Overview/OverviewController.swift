@@ -19,7 +19,7 @@ class OverviewController: TTBaseController {
         }
         return cell
     }()
-    
+    private let timeTable = TTBaseTableView(frame: .zero, style: .plain)
 }
 
 extension OverviewController {
@@ -28,9 +28,10 @@ extension OverviewController {
 
         view.setupView(navBar)
         view.setupView(header)
-        for i in 0..<lectionsList.count{
-            view.setupView(lectionsList[i])
-        }
+        view.setupView(timeTable)
+//        for i in 0..<lectionsList.count{
+//            view.setupView(lectionsList[i])
+//        }
     }
 
     override func constraintViews() {
@@ -45,21 +46,27 @@ extension OverviewController {
             header.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             header.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             header.heightAnchor.constraint(equalToConstant: 32),
+            
+            timeTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            timeTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            timeTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            timeTable.topAnchor.constraint(equalTo: header.bottomAnchor)
+            ])
 
             
-            lectionsList[0].topAnchor.constraint(equalTo: header.bottomAnchor),
-            lectionsList[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            lectionsList[0].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            lectionsList[0].heightAnchor.constraint(equalToConstant: 120)
-        ])
-        for i in 1..<lectionsList.count {
-            NSLayoutConstraint.activate([
-                lectionsList[i].topAnchor.constraint(equalTo: lectionsList[i - 1].bottomAnchor, constant: 7),
-                lectionsList[i].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                lectionsList[i].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                lectionsList[i].heightAnchor.constraint(equalToConstant: 120)
-            ])
-        }
+//            lectionsList[0].topAnchor.constraint(equalTo: header.bottomAnchor),
+//            lectionsList[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            lectionsList[0].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//            lectionsList[0].heightAnchor.constraint(equalToConstant: 120)
+//        ])
+//        for i in 1..<lectionsList.count {
+//            NSLayoutConstraint.activate([
+//                lectionsList[i].topAnchor.constraint(equalTo: lectionsList[i - 1].bottomAnchor, constant: 7),
+//                lectionsList[i].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//                lectionsList[i].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//                lectionsList[i].heightAnchor.constraint(equalToConstant: 120)
+//            ])
+//        }
     }
 
     override func configureAppearance() {

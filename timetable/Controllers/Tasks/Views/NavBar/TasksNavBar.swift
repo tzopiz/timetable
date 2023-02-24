@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum TypeTasks: CaseIterable {
-    case current
-    case completed
-}
 
 final class TasksNavBar: TTBaseView {
     
@@ -30,6 +26,7 @@ final class TasksNavBar: TTBaseView {
     private let midleSeparator: TTBaseView = {
         let view = TTBaseView()
         view.backgroundColor = App.Colors.active
+        view.isHidden = true
         return view
     }()
     private let bottomSeparator: TTBaseView = {
@@ -44,31 +41,54 @@ final class TasksNavBar: TTBaseView {
     func competedTasksAction(_ action: Selector, with target: Any?) {
         completedTasks.addTarget(target, action: action, for: .touchUpInside)
     }
-    func changeTasksList(to type: TypeTasks) {
+    func changeTasksList(to type: TaskType, with tasks: [TTBaseTableView], button: UIButton) {
         switch type {
         case .completed:
             if currentTasks.tintColor != App.Colors.inactive {
-                TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                    var basketTopFrame = self.bottomSeparator.frame
-                    basketTopFrame.origin.x += basketTopFrame.size.width
+                TTBaseView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                    
+                    var bottomSeparatorFrame = self.bottomSeparator.frame
+                    var completedTasksTableViewFrame = tasks[0].frame
+                    var activeTasksTableViewFrame = tasks[1].frame
+                    var buttonFrame = button.frame
+                    
+                    bottomSeparatorFrame.origin.x += bottomSeparatorFrame.size.width
+                    completedTasksTableViewFrame.origin.x -= completedTasksTableViewFrame.size.width
+                    activeTasksTableViewFrame.origin.x -= activeTasksTableViewFrame.size.width
+                    buttonFrame.origin.x -= activeTasksTableViewFrame.size.width
                  
-                    self.bottomSeparator.frame = basketTopFrame
+                    self.bottomSeparator.frame = bottomSeparatorFrame
+                    tasks[0].frame = completedTasksTableViewFrame
+                    tasks[1].frame = activeTasksTableViewFrame
+                    button.frame = buttonFrame
+                    
                   }, completion:  {_ in })
             }
             currentTasks.tintColor = App.Colors.inactive
             completedTasks.tintColor = App.Colors.active
            
-        case .current:
+        case .active:
             if currentTasks.tintColor != App.Colors.active {
-                TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                    var basketTopFrame = self.bottomSeparator.frame
-                    basketTopFrame.origin.x -= basketTopFrame.size.width
+                TTBaseView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                    var bottomSeparatorFrame = self.bottomSeparator.frame
+                    var completedTasksTableViewFrame = tasks[0].frame
+                    var activeTasksTableViewFrame = tasks[1].frame
+                    var buttonFrame = button.frame
+                    
+                    bottomSeparatorFrame.origin.x -= bottomSeparatorFrame.size.width
+                    completedTasksTableViewFrame.origin.x += completedTasksTableViewFrame.size.width
+                    activeTasksTableViewFrame.origin.x += activeTasksTableViewFrame.size.width
+                    buttonFrame.origin.x += activeTasksTableViewFrame.size.width
                  
-                    self.bottomSeparator.frame = basketTopFrame
+                    self.bottomSeparator.frame = bottomSeparatorFrame
+                    tasks[0].frame = completedTasksTableViewFrame
+                    tasks[1].frame = activeTasksTableViewFrame
+                    button.frame = buttonFrame
                   }, completion:  {_ in })
             }
             currentTasks.tintColor = App.Colors.active
             completedTasks.tintColor = App.Colors.inactive
+        case .none: break
         }
         
     }
@@ -91,7 +111,7 @@ extension TasksNavBar {
             
             midleSeparator.centerXAnchor.constraint(equalTo: centerXAnchor),
             midleSeparator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            midleSeparator.widthAnchor.constraint(equalToConstant: 3),
+            midleSeparator.widthAnchor.constraint(equalToConstant: 1),
             midleSeparator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             
             bottomSeparator.heightAnchor.constraint(equalToConstant: 3),
