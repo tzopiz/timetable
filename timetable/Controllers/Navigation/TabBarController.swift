@@ -1,6 +1,6 @@
 //
 //  TabBarController.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
@@ -21,7 +21,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
         configureAppearance()
-        switchTo(tab: .tasks)
+        switchTo(tab: .overview)
     }
 
     required init?(coder: NSCoder) {

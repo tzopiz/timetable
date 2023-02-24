@@ -1,69 +1,43 @@
 //
 //  TrainingCellView.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
 import UIKit
 
+enum CellRoundedType {
+    case top, bottom, all, notRounded
+}
+
 final class TrainingCellView: UICollectionViewCell {
-    
     static let id = "TrainingCellView"
+
+    private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
 
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 7
+        view.spacing = 3
         return view
-    }()
-    private let firstLine: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.spacing = 20
-        return view
-    }()
-    
-    private let numberLesson: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 14)
-        label.textColor = App.Colors.active
-        return label
     }()
 
     private let title: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 14)
-        label.textColor = App.Colors.inactive
-        return label
+        let lable = UILabel()
+        lable.font = App.Fonts.menloRegular(with: 17)
+        lable.textColor = App.Colors.titleGray
+        return lable
     }()
+
     private let subtitle: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 17)
-        label.textColor = App.Colors.titleGray
-        return label
+        let lable = UILabel()
+        lable.font = App.Fonts.menloRegular(with: 13)
+        lable.textColor = App.Colors.inactive
+        return lable
     }()
-    private let teacher: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 14)
-        label.textColor = App.Colors.inactive
-       
-        return label
-    }()
-    private let classroom: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 14)
-        label.textColor = App.Colors.inactive
-        label.numberOfLines = 0
-        return label
-    }()
-    private let fon: TTBaseView = {
-        let view = TTBaseView(frame: .zero)
-        view.alpha = 0.5
-        return view
-    }()
-    
-    
+
+    private let rightArrowView = UIImageView(image: App.Images.Overview.rightArrow)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,64 +55,50 @@ final class TrainingCellView: UICollectionViewCell {
         configureAppearance()
     }
 
-    func configure(with title: String, subtitle: String, teacher: String, classroom: String, number lesson: Int) {
-        self.subtitle.text = subtitle
-        self.teacher.text = teacher
-        self.classroom.text = classroom
+    func configure(with title: String, subtitle: String, isDone: Bool, roundedType: CellRoundedType) {
         self.title.text = title
-        self.numberLesson.text = "\(lesson)"
-        let startOfWeek = Date().startOfWeek
-        let currenrDay = startOfWeek.agoForward(to: lesson - 1) // ? +
-        let isCurrentLesson = currenrDay.stripTime(.Day) == Date().stripTime(.Day)
-        
-        switch isCurrentLesson { // TODO: highlighting current lesson
-        case true:
-            self.numberLesson.textColor = App.Colors.background
-            self.fon.backgroundColor = App.Colors.active
-            self.fon.alpha = 1
-        case false:
-            self.numberLesson.textColor = App.Colors.inactive
-            self.fon.alpha = 0
-            
+        self.subtitle.text = subtitle
+
+        checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
+
+        switch roundedType {
+        case .all: self.roundCorners([.allCorners], radius: 5)
+        case .bottom: self.roundCorners([.bottomLeft, .bottomRight], radius: 5)
+        case .top: self.roundCorners([.topLeft, .topRight], radius: 5)
+        case .notRounded: self.roundCorners([.allCorners], radius: 0)
         }
     }
 }
 
 private extension TrainingCellView {
     func setupViews() {
-        setupView(fon)
+        setupView(checkmarkView)
         setupView(stackView)
-        setupView(firstLine)
-        firstLine.addArrangedSubview(numberLesson)
-        firstLine.addArrangedSubview(title)
-        stackView.addArrangedSubview(firstLine)
+        stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
-        stackView.addArrangedSubview(teacher)
-        stackView.addArrangedSubview(classroom)
+        setupView(rightArrowView)
     }
 
     func constaintViews() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            checkmarkView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            checkmarkView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkmarkView.heightAnchor.constraint(equalToConstant: 28),
+            checkmarkView.widthAnchor.constraint(equalTo: checkmarkView.heightAnchor),
+
+            stackView.leadingAnchor.constraint(equalTo: checkmarkView.trailingAnchor, constant: 15),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            
-//            fon.topAnchor.constraint(equalTo: topAnchor, constant: 7),
-            fon.leadingAnchor.constraint(equalTo: leadingAnchor),
-            fon.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            fon.heightAnchor.constraint(equalToConstant: 20),
-            fon.widthAnchor.constraint(equalToConstant: 40),
-            title.leadingAnchor.constraint(equalTo: fon.trailingAnchor, constant: 7),
-            
-            firstLine.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            firstLine.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
-      
+            stackView.trailingAnchor.constraint(equalTo: rightArrowView.leadingAnchor, constant: -15),
+
+            rightArrowView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rightArrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            rightArrowView.heightAnchor.constraint(equalToConstant: 12),
+            rightArrowView.widthAnchor.constraint(equalToConstant: 7),
         ])
     }
 
     func configureAppearance() {
         backgroundColor = .white
     }
-
 }
 

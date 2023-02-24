@@ -1,6 +1,6 @@
 //
 //  SectionHeaderView.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
@@ -8,12 +8,11 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    
     static let id = "SectionHeaderView"
 
     private let title: UILabel = {
         let lable = UILabel()
-        lable.font = App.Fonts.menloRegular(with: 14)
+        lable.font = App.Fonts.menloRegular(with: 13)
         lable.textColor = App.Colors.inactive
         lable.textAlignment = .center
         return lable
@@ -35,13 +34,15 @@ final class SectionHeaderView: UICollectionReusableView {
         configureAppearance()
     }
 
-    func configure(with title: String) {
-        self.title.text = title.uppercased()
+    func configure(with date: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM dd"
+
+        self.title.text = dateFormatter.string(from: date).uppercased()
     }
 }
 
 private extension SectionHeaderView {
-    
     func setupViews() {
         setupView(title)
     }
@@ -55,4 +56,3 @@ private extension SectionHeaderView {
 
     func configureAppearance() {}
 }
-

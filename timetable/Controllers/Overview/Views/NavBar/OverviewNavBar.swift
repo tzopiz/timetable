@@ -1,6 +1,6 @@
 //
 //  OverviewNavBar.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
@@ -17,6 +17,16 @@ final class OverviewNavBar: TTBaseView {
         return lable
     }()
     private let weekView = WeekView()
+    private let allWorkoutsButton: TTButton = {
+        let button = TTButton(with: .secondary)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, dd MMMM"
+        button.isUserInteractionEnabled = false
+        button.setTitle(dateFormatter.string(from: Date.now).uppercased())
+        
+        return button
+    }()
+
     
 }
 
@@ -26,6 +36,7 @@ extension OverviewNavBar {
 
         setupView(titleLabel)
         setupView(weekView)
+        setupView(allWorkoutsButton)
     }
 
     override func constaintViews() {
@@ -35,6 +46,11 @@ extension OverviewNavBar {
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            
+            
+            allWorkoutsButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            allWorkoutsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            allWorkoutsButton.heightAnchor.constraint(equalToConstant: 28),
             
             weekView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             weekView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),

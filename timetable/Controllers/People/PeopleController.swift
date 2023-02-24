@@ -1,6 +1,6 @@
 //
 //  PeopleController.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //

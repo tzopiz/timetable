@@ -1,6 +1,6 @@
 //
 //  Resouces.swift
-//  timtable
+//  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
@@ -75,6 +75,11 @@ enum App {
             static let add = UIImage(systemName: "plus.circle.fill")
             static let isDoneTask = UIImage(systemName: "checkmark.circle")
             static let isActiveTask = UIImage(systemName: "circle")
+        }
+        enum Overview {
+            static let checkmarkNotDone = UIImage(named: "checkmark_not_done")
+            static let checkmarkDone = UIImage(named: "checkmark_done")
+            static let rightArrow = UIImage(named: "right_arrow")
         }
     }
 
