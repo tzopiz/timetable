@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct TasksData {
+struct TraningData {
     struct Data {
         let title: String
         let subtitle: String
@@ -18,22 +18,13 @@ struct TasksData {
     let items: [Data]
 }
 
-
-
 class TasksController: TTBaseController {
-    
-    private var tasks: [TasksData] = []
-    
-    private let navBar = TasksNavBar()
-    
-    private let addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setBackgroundImage(App.Images.Common.add, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFill
-        button.backgroundColor = .clear
-        return button
-    }()
-    private let activeTasksCollectionView: UICollectionView = {
+
+    private let untiBag = UIView(frame: .zero)
+
+    private var dataSource: [TraningData] = []
+
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
 
@@ -43,114 +34,99 @@ class TasksController: TTBaseController {
 
         return view
     }()
-    private let completedTasksCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
-
-        return view
-    }()
+    
     
 }
-
 
 extension TasksController {
     override func setupViews() {
         super.setupViews()
-        view.setupView(navBar)
-        view.setupView(activeTasksCollectionView)
-        view.setupView(completedTasksCollectionView)
-        view.setupView(addButton)
-        navBar.currentTasksAction(#selector(currentTasksPressed), with: self)
-        navBar.competedTasksAction(#selector(competedTasksPressed), with: self)
-        addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        view.setupView(untiBag)
+        view.setupView(collectionView)
     }
 
     override func constraintViews() {
         super.constraintViews()
 
         NSLayoutConstraint.activate([
-            navBar.topAnchor.constraint(equalTo: view.topAnchor),
-            navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navBar.heightAnchor.constraint(equalToConstant: 90),
-
-            activeTasksCollectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            activeTasksCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            activeTasksCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            activeTasksCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            completedTasksCollectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            completedTasksCollectionView.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
-            completedTasksCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
-            completedTasksCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            addButton.heightAnchor.constraint(equalToConstant: 68),
-            addButton.widthAnchor.constraint(equalToConstant: 68)
-
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
 
     override func configureAppearance() {
         super.configureAppearance()
-        
-        navigationController?.navigationBar.isHidden = true
+        untiBag.isHidden = true
+        title = App.Strings.NavBar.tasks
 
-        activeTasksCollectionView.register(TasksCellView.self, forCellWithReuseIdentifier: TasksCellView.id)
-        activeTasksCollectionView.register(SectionHeaderView.self,
+        collectionView.register(TasksCellView.self, forCellWithReuseIdentifier: TasksCellView.id)
+        collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
 
-        activeTasksCollectionView.delegate = self
-        activeTasksCollectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        addNavBarButton(at: .right, with: "Добавить")
 
-        tasks = [
+        dataSource = [
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: true),
-                    .init(title: "High Intensity Cardio", subtitle: "Treadmill • 50 minutes", isDone: false),
+                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: true),
+                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: true)
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
-                    .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Матан", subtitle: "2432, 2433, 2434, 2434, 2435", isDone: false),
+                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: false),
+                    .init(title: "Англ", subtitle: "пересказ статьи на 40к символов", isDone: false)
                   ]),
             .init(date: Date(),
                   items: [
-                    .init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false),
-                  ])
+                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: true),
+                    .init(title: "Англ", subtitle: "пересказ статьи на 40к символов", isDone: false)
+                  ]),
+            .init(date: Date(),
+                  items: [
+                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: true),
+                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: true),
+                    .init(title: "Матан", subtitle: "2432, 2433, 2434, 2434, 2435", isDone: false),
+                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: false),
+                    .init(title: "Англ", subtitle: "пересказ статьи на 40к символов", isDone: false)
+                  ]),
+            
         ]
-        activeTasksCollectionView.reloadData()
+        collectionView.reloadData()
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension TasksController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        tasks.count
+        dataSource.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        tasks[section].items.count
+        dataSource[section].items.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TasksCellView.id, for: indexPath) as? TasksCellView else { return UICollectionViewCell() }
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TasksCellView.id, for: indexPath
+        ) as? TasksCellView else { return UICollectionViewCell() }
 
-        let item = tasks[indexPath.section].items[indexPath.row]
+        let item = dataSource[indexPath.section].items[indexPath.row]
+
         let roundedType: CellRoundedType
-        
-        if indexPath.row == 0 && indexPath.row == tasks[indexPath.section].items.count - 1 {
+        if indexPath.row == 0 && indexPath.row == dataSource[indexPath.section].items.count - 1 {
             roundedType = .all
         } else if indexPath.row == 0 {
             roundedType = .top
-        } else if indexPath.row == tasks[indexPath.section].items.count - 1 {
+        } else if indexPath.row == dataSource[indexPath.section].items.count - 1 {
             roundedType = .bottom
         } else {
             roundedType = .notRounded
@@ -167,33 +143,22 @@ extension TasksController: UICollectionViewDataSource {
             ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath
         ) as? SectionHeaderView else { return UICollectionReusableView() }
 
-        view.configure(with: tasks[indexPath.section].date)
+        view.configure(with: dataSource[indexPath.section].date)
         return view
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension TasksController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 70)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 32)
-    }
-}
-
-
-@objc extension TasksController {
-    func currentTasksPressed() {
-        navBar.changeTasksList(to: .active, with: [activeTasksCollectionView, completedTasksCollectionView], button: addButton)
-    }
-    func competedTasksPressed() {
-        navBar.changeTasksList(to: .completed, with: [activeTasksCollectionView, completedTasksCollectionView], button: addButton)
-    }
-    func addButtonPressed(){
-        tasks.append( .init(date: Date(),
-                            items: [.init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: true)]))
-        activeTasksCollectionView.reloadData()
     }
 }

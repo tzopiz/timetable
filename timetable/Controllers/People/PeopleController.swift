@@ -29,7 +29,7 @@ extension PeopleController {
     override func configureAppearance() {
         super.configureAppearance()
 
-        title = App.Strings.NavBar.progress
+        title = App.Strings.NavBar.people
         navigationController?.tabBarItem.title = App.Strings.TabBar.title(for: .people)
         
     }

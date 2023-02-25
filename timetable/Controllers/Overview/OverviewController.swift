@@ -14,7 +14,6 @@ struct TimatableData {
         let teacherNS: String
         let time: String
     }
-
     let date: Date
     let items: [Data]
 }
@@ -22,7 +21,6 @@ struct TimatableData {
 class OverviewController: TTBaseController {
 
     private let navBar = OverviewNavBar()
-
     private var dataSource: [TimatableData] = []
 
     private let collectionView: UICollectionView = {

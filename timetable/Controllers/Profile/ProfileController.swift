@@ -28,7 +28,7 @@ extension ProfileController {
 
     override func configureAppearance() {
         super.configureAppearance()
-        title = App.Strings.NavBar.settings
+        title = App.Strings.NavBar.profile
         navigationController?.tabBarItem.title = App.Strings.TabBar.title(for: .profile)
     }
 }

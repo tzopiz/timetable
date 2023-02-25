@@ -13,9 +13,16 @@ enum CellRoundedType {
 
 final class TasksCellView: UICollectionViewCell {
     
+    var isDone = false
     static let id = "TasksCellView"
-
+    
     private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
+    private let rightArrowView = UIImageView(image: App.Images.Overview.rightArrow)
+    
+    private let buttonCheckmark: UIButton = {
+        let button = UIButton()
+        return button
+    }()
 
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -38,8 +45,6 @@ final class TasksCellView: UICollectionViewCell {
         return lable
     }()
 
-    private let rightArrowView = UIImageView(image: App.Images.Overview.rightArrow)
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -61,7 +66,8 @@ final class TasksCellView: UICollectionViewCell {
         self.subtitle.text = subtitle
 
         checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
-
+        buttonCheckmark.setImage(checkmarkView.image, for: .normal)
+        
         switch roundedType {
         case .all: self.roundCorners([.allCorners], radius: 5)
         case .bottom: self.roundCorners([.bottomLeft, .bottomRight], radius: 5)
@@ -69,11 +75,12 @@ final class TasksCellView: UICollectionViewCell {
         case .notRounded: self.roundCorners([.allCorners], radius: 0)
         }
     }
+    
 }
 
 private extension TasksCellView {
     func setupViews() {
-        setupView(checkmarkView)
+        setupView(buttonCheckmark)
         setupView(stackView)
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
@@ -82,12 +89,12 @@ private extension TasksCellView {
 
     func constaintViews() {
         NSLayoutConstraint.activate([
-            checkmarkView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            checkmarkView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            checkmarkView.heightAnchor.constraint(equalToConstant: 28),
-            checkmarkView.widthAnchor.constraint(equalTo: checkmarkView.heightAnchor),
+            buttonCheckmark.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            buttonCheckmark.centerYAnchor.constraint(equalTo: centerYAnchor),
+            buttonCheckmark.heightAnchor.constraint(equalToConstant: 28),
+            buttonCheckmark.widthAnchor.constraint(equalTo: buttonCheckmark.heightAnchor),
 
-            stackView.leadingAnchor.constraint(equalTo: checkmarkView.trailingAnchor, constant: 15),
+            stackView.leadingAnchor.constraint(equalTo: buttonCheckmark.trailingAnchor, constant: 15),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: rightArrowView.leadingAnchor, constant: -15),
 

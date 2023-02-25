@@ -25,19 +25,19 @@ enum App {
         enum TabBar {
             static func title(for tab: Tabs) -> String {
                 switch tab {
-                case .overview: return "Overview"
-                case .tasks:    return "Tasks"
-                case .people: return "People"
-                case .profile: return "Profile"
+                case .overview: return "Расписание"
+                case .tasks: return "Задачи"
+                case .people: return "Люди"
+                case .profile: return "Профиль"
                 }
             }
         }
 
         enum NavBar {
             static let overview = "Сегодня"
-            static let session  = "Мои задачи"
-            static let progress = "Люди"
-            static let settings = "Профиль"
+            static let tasks  = "Мои задачи"
+            static let people = "Люди"
+            static let profile = "Профиль"
         }
 
         enum Session {

@@ -12,10 +12,7 @@ extension UIView {
         let separator = UIView()
         separator.backgroundColor = color
         separator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        separator.frame = CGRect(x: 0,
-                                 y: frame.height - height,
-                                 width: frame.width,
-                                 height: height)
+        separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
         addSubview(separator)
     }
 
@@ -48,10 +45,7 @@ extension UIView {
     }
 
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds,
-                                byRoundingCorners: corners,
-                                cornerRadii: CGSize(width: radius, height: radius))
-
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let borderLayer = CAShapeLayer()
         borderLayer.frame = bounds
         borderLayer.path = path.cgPath

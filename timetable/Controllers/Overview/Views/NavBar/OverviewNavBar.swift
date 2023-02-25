@@ -8,6 +8,8 @@
 import UIKit
 
 final class OverviewNavBar: TTBaseView {
+    
+    private let weekView = WeekView()
 
     private let titleLabel: UILabel = {
         let lable = UILabel()
@@ -16,19 +18,16 @@ final class OverviewNavBar: TTBaseView {
         lable.font = App.Fonts.menloRegular(with: 22)
         return lable
     }()
-    private let weekView = WeekView()
+    
     private let allWorkoutsButton: TTButton = {
         let button = TTButton(with: .secondary)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM"
         button.isUserInteractionEnabled = false
-        
         button.setTitle(dateFormatter.string(from: Date.now).uppercased())
         
         return button
     }()
-
-    
 }
 
 extension OverviewNavBar {
@@ -62,5 +61,6 @@ extension OverviewNavBar {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        addBottomBorder(with: App.Colors.separator, height: 1)
     }
 }

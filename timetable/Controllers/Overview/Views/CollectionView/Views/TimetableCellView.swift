@@ -25,8 +25,6 @@ final class TimetableCellView: UICollectionViewCell {
         view.spacing = 5
         return view
     }()
-    
-    
 
     private let title: UILabel = {
         let label = UILabel()
@@ -43,6 +41,7 @@ final class TimetableCellView: UICollectionViewCell {
         label.numberOfLines = 2
         return label
     }()
+    
     private let teacherNS: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.menloRegular(with: 13)
@@ -50,6 +49,7 @@ final class TimetableCellView: UICollectionViewCell {
         label.numberOfLines = 2
         return label
     }()
+    
     private let time: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.menloRegular(with: 15)
@@ -57,18 +57,19 @@ final class TimetableCellView: UICollectionViewCell {
         label.numberOfLines = 2
         return label
     }()
+    
     private let clock: UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "clock"))
         return iv
     }()
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     required init?(coder: NSCoder) {
@@ -77,6 +78,7 @@ final class TimetableCellView: UICollectionViewCell {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     func configure(with title: String, subtitle: String, teacherNS: String, time: String, roundedType: CellRoundedType) {
