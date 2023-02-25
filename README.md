@@ -1,6 +1,6 @@
 # Notes
-<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot new.png" 
-     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%202.png"
+<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/timetable.png" 
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/tasks.png"
      alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%203.png" 
      alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%204.png" 
      alt="Screenshot" width="410"/>
