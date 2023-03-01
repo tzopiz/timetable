@@ -49,12 +49,13 @@ enum App {
             static let completedTasks = "Завершенные задания"
         }
 
-        enum Settings {
+        enum Profile {
             static let changeGroup = "Сменить группу"
             static let appearance = "Оформление"
             static let share = "Поделиться"
             static let feedback = "Обратная связь"
             static let aboutApp = "О приложении"
+            static let exit = "Выйти"
 
         }
     }
@@ -89,14 +90,14 @@ enum App {
             static let share = UIImage(systemName: "square.and.arrow.up")
             static let feedback = UIImage(systemName: "bubble.left")
             static let aboutApp = UIImage(systemName: "info.circle")
-
+            static let exit = UIImage(systemName: "rectangle.portrait.and.arrow.forward")
 
         }
     }
 
     enum Fonts {
-        static func menloRegular(with size: CGFloat) -> UIFont {
-            UIFont(name: "Menlo-Regular", size: size) ?? UIFont()
+        static func helveticaNeue(with size: CGFloat) -> UIFont {
+            UIFont(name: "HelveticaNeue", size: size) ?? UIFont()
         }
     }
 }

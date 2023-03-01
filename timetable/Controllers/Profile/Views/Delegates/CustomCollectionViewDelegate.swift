@@ -21,7 +21,8 @@ class CustomCollectionViewDelegate: DefaultCollectionViewDelegate {
         let itemSize: CGSize
         if indexPath.item == 0 {
             let itemWidth = collectionView.bounds.width - (sectionInsets.left + sectionInsets.right)
-            itemSize = CGSize(width: itemWidth, height: 112)
+            itemSize = CGSize(width: itemWidth, height: 100)
+            
         } else {
             let itemWidth = collectionView.bounds.width - (sectionInsets.left + sectionInsets.right)
             itemSize = CGSize(width: itemWidth, height: 50)

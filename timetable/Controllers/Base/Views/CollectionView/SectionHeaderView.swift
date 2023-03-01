@@ -12,7 +12,7 @@ final class SectionHeaderView: UICollectionReusableView {
 
     private let title: UILabel = {
         let lable = UILabel()
-        lable.font = App.Fonts.menloRegular(with: 13)
+        lable.font = App.Fonts.helveticaNeue(with: 13)
         lable.textColor = App.Colors.inactive
         lable.textAlignment = .center
         return lable

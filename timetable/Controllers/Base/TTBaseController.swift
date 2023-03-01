@@ -47,7 +47,7 @@ extension TTBaseController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(App.Colors.active, for: .normal)
         button.setTitleColor(App.Colors.inactive, for: .disabled)
-        button.titleLabel?.font = App.Fonts.menloRegular(with: 17)
+        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
 
         switch position {
         case .left:

@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class SettingsCellView: UICollectionViewCell {
+final class ProfileCellView: UICollectionViewCell {
     
-    static let reuseID = String(describing: SettingsCellView.self)
-    static let nib = UINib(nibName: String(describing: SettingsCellView.self), bundle: nil)
+    static let reuseID = String(describing: ProfileCellView.self)
+    static let nib = UINib(nibName: String(describing: ProfileCellView.self), bundle: nil)
     
     private let title: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 17)
+        label.font = App.Fonts.helveticaNeue(with: 17)
         label.textColor = App.Colors.titleGray
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -23,7 +23,7 @@ final class SettingsCellView: UICollectionViewCell {
 
     private var subtitle: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 15)
+        label.font = App.Fonts.helveticaNeue(with: 15)
         label.textColor = App.Colors.inactive
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -42,15 +42,20 @@ final class SettingsCellView: UICollectionViewCell {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    func configure(title: String,type: cellType,  image: UIImage, roundedType: CellRoundedType) {
+    func configure(title: String,type: cellType, image: UIImage, roundedType: CellRoundedType) {
         
         if type == .profile {
             self.subtitle.text = "21.Б04"
             stackInfoView.axis = .vertical
+            stackInfoView.spacing = 10
             photoProfile.tintColor = App.Colors.separator
-            photoProfile.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+            photoProfile.topAnchor.constraint(equalTo: topAnchor, constant: 7).isActive = true
             stackInfoView.addArrangedSubview(subtitle)
+            isUserInteractionEnabled = false
             sizeImage = -1
+        } else if type == .exit{
+            photoProfile.tintColor = UIColor.red
+            photoProfile.heightAnchor.constraint(equalToConstant: sizeImage).isActive = true
         } else {
             photoProfile.tintColor = App.Colors.active
             photoProfile.heightAnchor.constraint(equalToConstant: sizeImage).isActive = true
@@ -92,7 +97,7 @@ final class SettingsCellView: UICollectionViewCell {
     
 }
 
-private extension SettingsCellView {
+private extension ProfileCellView {
     func setupViews() {
         setupView(stackInfoView)
         setupView(photoProfile)
@@ -106,7 +111,7 @@ private extension SettingsCellView {
         
         NSLayoutConstraint.activate([
 
-            photoProfile.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            photoProfile.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 7),
             photoProfile.centerYAnchor.constraint(equalTo: centerYAnchor),
             photoProfile.widthAnchor.constraint(equalTo: photoProfile.heightAnchor),
             

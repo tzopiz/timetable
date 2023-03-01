@@ -33,14 +33,14 @@ final class TasksCellView: UICollectionViewCell {
 
     private let title: UILabel = {
         let lable = UILabel()
-        lable.font = App.Fonts.menloRegular(with: 17)
+        lable.font = App.Fonts.helveticaNeue(with: 17)
         lable.textColor = App.Colors.titleGray
         return lable
     }()
 
     private let subtitle: UILabel = {
         let lable = UILabel()
-        lable.font = App.Fonts.menloRegular(with: 13)
+        lable.font = App.Fonts.helveticaNeue(with: 13)
         lable.textColor = App.Colors.inactive
         return lable
     }()

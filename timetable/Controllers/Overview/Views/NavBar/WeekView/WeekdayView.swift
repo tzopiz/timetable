@@ -12,14 +12,14 @@ extension WeekView {
 
         private let nameLabel: UILabel = {
             let lable = UILabel()
-            lable.font = App.Fonts.menloRegular(with: 9)
+            lable.font = App.Fonts.helveticaNeue(with: 9)
             lable.textAlignment = .center
             return lable
         }()
 
         private let dateLabel: UILabel = {
             let lable = UILabel()
-            lable.font = App.Fonts.menloRegular(with: 15)
+            lable.font = App.Fonts.helveticaNeue(with: 15)
             lable.textAlignment = .center
             return lable
         }()

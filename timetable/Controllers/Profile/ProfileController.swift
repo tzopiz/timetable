@@ -9,6 +9,7 @@ import UIKit
 enum cellType {
     case base
     case profile
+    case exit
 }
 struct SettingsData {
     struct Data {
@@ -83,7 +84,7 @@ extension ProfileController {
         super.configureAppearance()
         title = App.Strings.NavBar.profile
 
-        collectionView.register(SettingsCellView.self, forCellWithReuseIdentifier: SettingsCellView.reuseID)
+        collectionView.register(ProfileCellView.self, forCellWithReuseIdentifier: ProfileCellView.reuseID)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.performBatchUpdates({
@@ -91,14 +92,14 @@ extension ProfileController {
         }, completion: nil)
         dataSource = [
             .init(item: .init(title: "Корчагин Дмитрий Сергеевич", image: App.Images.Profile.imageProfile!, type: .profile)),
-            .init(item: .init(title: App.Strings.Settings.changeGroup, image: App.Images.Profile.changeGroup!, type: .base)),
-            .init(item: .init(title: App.Strings.Settings.appearance, image: App.Images.Profile.appearance!, type: .base)),
-            .init(item: .init(title: App.Strings.Settings.share, image: App.Images.Profile.share!, type: .base)),
-            .init(item: .init(title: App.Strings.Settings.feedback, image: App.Images.Profile.feedback!, type: .base)),
-            .init(item: .init(title: App.Strings.Settings.aboutApp,  image: App.Images.Profile.aboutApp!, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.changeGroup, image: App.Images.Profile.changeGroup!, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.appearance, image: App.Images.Profile.appearance!, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.share, image: App.Images.Profile.share!, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.feedback, image: App.Images.Profile.feedback!, type: .base)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
-            .init(item: .init(title: "soon",  image: UIImage(), type: .base))
+            .init(item: .init(title: App.Strings.Profile.exit,  image: App.Images.Profile.exit!, type: .exit)),
+            .init(item: .init(title: App.Strings.Profile.aboutApp,  image: App.Images.Profile.aboutApp!, type: .base))
             
 
         ]
@@ -113,8 +114,8 @@ extension ProfileController: UICollectionViewDelegateFlowLayout, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCellView.reuseID,
-                                                            for: indexPath) as? SettingsCellView else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCellView.reuseID,
+                                                            for: indexPath) as? ProfileCellView else {
             fatalError("Wrong cell")
         }
         let item = dataSource[indexPath.row].item

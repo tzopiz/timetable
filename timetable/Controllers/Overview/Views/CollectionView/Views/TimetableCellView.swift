@@ -28,7 +28,7 @@ final class TimetableCellView: UICollectionViewCell {
 
     private let title: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 17)
+        label.font = App.Fonts.helveticaNeue(with: 17)
         label.textColor = App.Colors.titleGray
         label.numberOfLines = 2
         return label
@@ -36,7 +36,7 @@ final class TimetableCellView: UICollectionViewCell {
 
     private let subtitle: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 13)
+        label.font = App.Fonts.helveticaNeue(with: 13)
         label.textColor = App.Colors.inactive
         label.numberOfLines = 2
         return label
@@ -44,7 +44,7 @@ final class TimetableCellView: UICollectionViewCell {
     
     private let teacherNS: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 13)
+        label.font = App.Fonts.helveticaNeue(with: 13)
         label.textColor = App.Colors.inactive
         label.numberOfLines = 2
         return label
@@ -52,7 +52,7 @@ final class TimetableCellView: UICollectionViewCell {
     
     private let time: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 15)
+        label.font = App.Fonts.helveticaNeue(with: 15)
         label.textColor = App.Colors.titleGray
         label.numberOfLines = 2
         return label

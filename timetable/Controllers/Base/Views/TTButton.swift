@@ -76,14 +76,14 @@ private extension TTButton {
         switch type {
         case .primary:
             lable.textColor = App.Colors.inactive
-            lable.font = App.Fonts.menloRegular(with: 13)
+            lable.font = App.Fonts.helveticaNeue(with: 13)
             iconView.tintColor = App.Colors.inactive
 
         case .secondary:
             backgroundColor = App.Colors.secondary
             layer.cornerRadius = 7
             lable.textColor = App.Colors.active
-            lable.font = App.Fonts.menloRegular(with: 15)
+            lable.font = App.Fonts.helveticaNeue(with: 15)
             iconView.tintColor = App.Colors.active
         }
 

@@ -15,7 +15,7 @@ final class OverviewNavBar: TTBaseView {
         let lable = UILabel()
         lable.text = App.Strings.NavBar.overview
         lable.textColor = App.Colors.titleGray
-        lable.font = App.Fonts.menloRegular(with: 22)
+        lable.font = App.Fonts.helveticaNeue(with: 22)
         return lable
     }()
     

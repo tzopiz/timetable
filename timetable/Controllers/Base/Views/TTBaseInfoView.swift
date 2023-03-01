@@ -11,7 +11,7 @@ class TTBaseInfoView: TTBaseView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = App.Fonts.menloRegular(with: 13)
+        label.font = App.Fonts.helveticaNeue(with: 13)
         label.textColor = App.Colors.inactive
         return label
     }()

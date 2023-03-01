@@ -20,7 +20,7 @@ final class NavigationController: UINavigationController {
         navigationBar.isTranslucent = false
         navigationBar.standardAppearance.titleTextAttributes = [
             .foregroundColor: App.Colors.titleGray,
-            .font: App.Fonts.menloRegular(with: 17)
+            .font: App.Fonts.helveticaNeue(with: 17)
         ]
 
         navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
