@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0A1DFC2229A907F20008857E /* TimetableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DFC2129A907F20008857E /* TimetableCellView.swift */; };
+		0A57C88629AF8417003AB931 /* SettingsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88529AF8417003AB931 /* SettingsCellView.swift */; };
+		0A57C88829AF92D8003AB931 /* CustomCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88729AF92D8003AB931 /* CustomCollectionViewDelegate.swift */; };
+		0A57C88B29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88A29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
-		774B893629517830001ED31E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B893529517830001ED31E /* ChartView.swift */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
 		7766B53C28428992000FF440 /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53B28428992000FF440 /* WeekdayView.swift */; };
 		7766B53E28428BF9000FF440 /* Date + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53D28428BF9000FF440 /* Date + ext.swift */; };
-		776BE2A928F1D97E00316C05 /* TTBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776BE2A828F1D97E00316C05 /* TTBarsView.swift */; };
-		776BE2AC28F1D98B00316C05 /* TTBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776BE2AB28F1D98B00316C05 /* TTBarView.swift */; };
 		77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709144283BEDAC00AD7841 /* AppDelegate.swift */; };
 		77709147283BEDAC00AD7841 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709146283BEDAC00AD7841 /* SceneDelegate.swift */; };
 		77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709148283BEDAC00AD7841 /* OverviewController.swift */; };
@@ -30,9 +30,6 @@
 		77709174283BF83D00AD7841 /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709173283BF83D00AD7841 /* PeopleController.swift */; };
 		77709176283BF84E00AD7841 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709175283BF84E00AD7841 /* ProfileController.swift */; };
 		77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */; };
-		77A322ED2940665C00905950 /* TTChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A322EC2940665C00905950 /* TTChartsView.swift */; };
-		77A322EF294067D000905950 /* XAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A322EE294067D000905950 /* XAxisView.swift */; };
-		77A322F129406A0700905950 /* YAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A322F029406A0700905950 /* YAxisView.swift */; };
 		77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44801283D4EC100ADDB6E /* TTButton.swift */; };
 		77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44803283FE24400ADDB6E /* OverviewNavBar.swift */; };
 		77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44805283FE26E00ADDB6E /* TTBaseView.swift */; };
@@ -42,13 +39,13 @@
 
 /* Begin PBXFileReference section */
 		0A1DFC2129A907F20008857E /* TimetableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCellView.swift; sourceTree = "<group>"; };
+		0A57C88529AF8417003AB931 /* SettingsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellView.swift; sourceTree = "<group>"; };
+		0A57C88729AF92D8003AB931 /* CustomCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		0A57C88A29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		774B893529517830001ED31E /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		7766B53D28428BF9000FF440 /* Date + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
-		776BE2A828F1D97E00316C05 /* TTBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBarsView.swift; sourceTree = "<group>"; };
-		776BE2AB28F1D98B00316C05 /* TTBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBarView.swift; sourceTree = "<group>"; };
 		77709141283BEDAC00AD7841 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77709144283BEDAC00AD7841 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77709146283BEDAC00AD7841 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,9 +63,6 @@
 		77709173283BF83D00AD7841 /* PeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
 		77709175283BF84E00AD7841 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseInfoView.swift; sourceTree = "<group>"; };
-		77A322EC2940665C00905950 /* TTChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTChartsView.swift; sourceTree = "<group>"; };
-		77A322EE294067D000905950 /* XAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisView.swift; sourceTree = "<group>"; };
-		77A322F029406A0700905950 /* YAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisView.swift; sourceTree = "<group>"; };
 		77B44801283D4EC100ADDB6E /* TTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTButton.swift; sourceTree = "<group>"; };
 		77B44803283FE24400ADDB6E /* OverviewNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewNavBar.swift; sourceTree = "<group>"; };
 		77B44805283FE26E00ADDB6E /* TTBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseView.swift; sourceTree = "<group>"; };
@@ -111,6 +105,15 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		0A57C88929AFAACC003AB931 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				0A57C88729AF92D8003AB931 /* CustomCollectionViewDelegate.swift */,
+				0A57C88A29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		0A80553929A62BA100375192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +132,8 @@
 		0A80553B29A62BAF00375192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A57C88529AF8417003AB931 /* SettingsCellView.swift */,
+				0A57C88929AFAACC003AB931 /* Delegates */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -158,23 +163,6 @@
 				77709163283BF45500AD7841 /* NavigationController.swift */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		776BE2A728F1D95C00316C05 /* TTBarsView */ = {
-			isa = PBXGroup;
-			children = (
-				776BE2AA28F1D98100316C05 /* Views */,
-				776BE2A828F1D97E00316C05 /* TTBarsView.swift */,
-			);
-			path = TTBarsView;
-			sourceTree = "<group>";
-		};
-		776BE2AA28F1D98100316C05 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				776BE2AB28F1D98B00316C05 /* TTBarView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		77709138283BEDAC00AD7841 = {
@@ -305,30 +293,9 @@
 			isa = PBXGroup;
 			children = (
 				0A1DFC2329AA0A990008857E /* CollectionView */,
-				77A322EA2940663D00905950 /* TTChartsView */,
-				776BE2A728F1D95C00316C05 /* TTBarsView */,
 				77B44805283FE26E00ADDB6E /* TTBaseView.swift */,
 				77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */,
 				77B44801283D4EC100ADDB6E /* TTButton.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		77A322EA2940663D00905950 /* TTChartsView */ = {
-			isa = PBXGroup;
-			children = (
-				77A322EB2940664D00905950 /* Views */,
-				77A322EC2940665C00905950 /* TTChartsView.swift */,
-			);
-			path = TTChartsView;
-			sourceTree = "<group>";
-		};
-		77A322EB2940664D00905950 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				77A322EE294067D000905950 /* XAxisView.swift */,
-				77A322F029406A0700905950 /* YAxisView.swift */,
-				774B893529517830001ED31E /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -434,27 +401,24 @@
 				77709176283BF84E00AD7841 /* ProfileController.swift in Sources */,
 				77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */,
 				77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */,
+				0A57C88629AF8417003AB931 /* SettingsCellView.swift in Sources */,
+				0A57C88B29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift in Sources */,
 				77C41E672995F707004ABAE6 /* TasksCellView.swift in Sources */,
 				7770916A283BF70400AD7841 /* UIView + ext.swift in Sources */,
 				7770915B283BEEEF00AD7841 /* TabBarController.swift in Sources */,
 				0A1DFC2229A907F20008857E /* TimetableCellView.swift in Sources */,
-				776BE2AC28F1D98B00316C05 /* TTBarView.swift in Sources */,
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
-				77A322ED2940665C00905950 /* TTChartsView.swift in Sources */,
 				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
 				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,
 				77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */,
-				77A322F129406A0700905950 /* YAxisView.swift in Sources */,
-				77A322EF294067D000905950 /* XAxisView.swift in Sources */,
 				77709174283BF83D00AD7841 /* PeopleController.swift in Sources */,
 				77709164283BF45500AD7841 /* NavigationController.swift in Sources */,
 				7770915F283BEF8D00AD7841 /* UIColor + ext.swift in Sources */,
+				0A57C88829AF92D8003AB931 /* CustomCollectionViewDelegate.swift in Sources */,
 				77709162283BEFDE00AD7841 /* Resouces.swift in Sources */,
 				77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */,
 				77C41E652995F135004ABAE6 /* SectionHeaderView.swift in Sources */,
 				7766B53C28428992000FF440 /* WeekdayView.swift in Sources */,
-				776BE2A928F1D97E00316C05 /* TTBarsView.swift in Sources */,
-				774B893629517830001ED31E /* ChartView.swift in Sources */,
 				77709168283BF5A100AD7841 /* TTBaseController.swift in Sources */,
 				77709147283BEDAC00AD7841 /* SceneDelegate.swift in Sources */,
 			);

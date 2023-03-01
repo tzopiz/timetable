@@ -25,8 +25,8 @@ extension WeekView {
         
     }
 
-    override func constaintViews() {
-        super.constaintViews()
+    override func constraintViews() {
+        super.constraintViews()
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),

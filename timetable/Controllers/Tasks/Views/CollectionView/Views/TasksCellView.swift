@@ -80,11 +80,14 @@ final class TasksCellView: UICollectionViewCell {
 
 private extension TasksCellView {
     func setupViews() {
+        
         setupView(buttonCheckmark)
         setupView(stackView)
+        setupView(rightArrowView)
+        
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
-        setupView(rightArrowView)
+
     }
 
     func constaintViews() {

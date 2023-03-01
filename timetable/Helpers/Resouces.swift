@@ -44,18 +44,19 @@ enum App {
             static let navBarStart = "Актуальные"
             static let navBarFinish = "Выполненные"
         }
-
-        enum Progress {
-            static let navBarLeft = "..."
-            static let navBarRight = "Найти"
-
-        }
         enum Tasks {
             static let currentTasks = "Текущие задания"
             static let completedTasks = "Завершенные задания"
         }
 
-        enum Settings {}
+        enum Settings {
+            static let changeGroup = "Сменить группу"
+            static let appearance = "Оформление"
+            static let share = "Поделиться"
+            static let feedback = "Обратная связь"
+            static let aboutApp = "О приложении"
+
+        }
     }
 
     enum Images {
@@ -80,6 +81,16 @@ enum App {
             static let checkmarkNotDone = UIImage(named: "checkmark_not_done")
             static let checkmarkDone = UIImage(named: "checkmark_done")
             static let rightArrow = UIImage(named: "right_arrow")
+        }
+        enum Profile {
+            static let imageProfile = UIImage(systemName: "person.crop.circle")
+            static let changeGroup = UIImage(systemName: "person.2.gobackward")
+            static let appearance = UIImage(systemName: "gearshape")
+            static let share = UIImage(systemName: "square.and.arrow.up")
+            static let feedback = UIImage(systemName: "bubble.left")
+            static let aboutApp = UIImage(systemName: "info.circle")
+
+
         }
     }
 

@@ -60,8 +60,8 @@ extension WeekView.WeekdayView {
         stackView.addArrangedSubview(dateLabel)
     }
 
-    override func constaintViews() {
-        super.constaintViews()
+    override func constraintViews() {
+        super.constraintViews()
 
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),

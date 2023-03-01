@@ -12,7 +12,7 @@ class TTBaseView: UIView {
         super.init(frame: frame)
 
         setupViews()
-        constaintViews()
+        constraintViews()
         configureAppearance()
     }
 
@@ -20,14 +20,14 @@ class TTBaseView: UIView {
         super.init(coder: coder)
         
         setupViews()
-        constaintViews()
+        constraintViews()
         configureAppearance()
     }
 }
 
 @objc extension TTBaseView {
     func setupViews() {}
-    func constaintViews() {}
+    func constraintViews() {}
     
     func configureAppearance() {
         backgroundColor = .white

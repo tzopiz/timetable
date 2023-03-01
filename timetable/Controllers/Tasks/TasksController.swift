@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct TraningData {
+struct TaskData {
     struct Data {
         let title: String
         let subtitle: String
@@ -22,7 +22,7 @@ class TasksController: TTBaseController {
 
     private let untiBag = UIView(frame: .zero)
 
-    private var dataSource: [TraningData] = []
+    private var dataSource: [TaskData] = []
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

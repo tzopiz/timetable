@@ -39,8 +39,8 @@ extension OverviewNavBar {
         setupView(allWorkoutsButton)
     }
 
-    override func constaintViews() {
-        super.constaintViews()
+    override func constraintViews() {
+        super.constraintViews()
 
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
