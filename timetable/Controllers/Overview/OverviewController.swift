@@ -72,36 +72,36 @@ extension OverviewController {
         collectionView.dataSource = self
 
         dataSource = [
-            .init(date: Date(),
+            .init(date: Date(timeInterval: 60*60*24, since: .now),
                   items: [
                     .init(title: "Математический анализ, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "13:40–15:15"),
                     .init(title: "Теория функции коплексной переменной, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
-            .init(date: Date(),
+            .init(date: Date(timeInterval: 0, since: .now),
                   items: [
                     .init(title: "Математический анализ, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "11:15–12:50"),
                     .init(title: "Математический анализ, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Бочкарёв А. О.", time: "13:40–15:15"),
                     .init(title: "Теория функции коплексной переменной, практика", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
-            .init(date: Date(),
+            .init(date: Date(timeInterval: -60*60*24, since: .now),
                   items: [
                     .init(title: "Математический анализ, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Бочкарёв А. О.", time: "11:15–12:50"),
                     .init(title: "Теория функции коплексной переменной, лекция", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Распопова Н. В.", time: "13:40–15:15"),
                     .init(title: "Теория функции коплексной переменной, пркатика", subtitle: "Университетский проспект, д. 35, лит. Д, 212Д", teacherNS: "Распопова Н. В.", time: "15:25–17:00"),
                   ]),
-            .init(date: Date(),
+            .init(date: Date(timeInterval: -2*60*60*24, since: .now),
                   items: [
                     .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "11:15–12:50"),
                     .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "13:40–15:15"),
                     .init(title: "Траектория 3 (В1 – В2). Английский язык, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 210Д", teacherNS: "Соболев И. А.", time: "15:25–17:00"),
                   ]),
-            .init(date: Date(),
+            .init(date: Date(timeInterval: -3*60*60*24, since: .now),
                   items: [
                     .init(title: "Дифференциальные уравнения, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Ногин В. Д.", time: "11:15–12:50"),
                     .init(title: "Теория функции коплексной переменной, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Распопова Н. В.", time: "13:40–15:15"),
                     .init(title: "Теоретическая механика, практическое занятие", subtitle: "Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Пупышева Ю. Ю.", time: "15:25–17:00"),
                   ]),
-            .init(date: Date(),
+            .init(date: Date(timeInterval: -4*60*60*24, since: .now),
                   items: [
                     .init(title: "Дифференциальные уравнения, лекция", subtitle:"Университетский проспект, д. 35, лит. Д, 208Д", teacherNS: "Ногин В. Д.", time: "15:25–17:00"),
                   ])
@@ -119,6 +119,7 @@ extension OverviewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource[section].items.count
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(

@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0CA60B29B8A3DC00923A49 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0CA60A29B8A3DC00923A49 /* TaskViewController.swift */; };
+		0A16793D29B9DBFA00ADC3E6 /* TopTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16793C29B9DBFA00ADC3E6 /* TopTitleView.swift */; };
 		0A1DFC2229A907F20008857E /* TimetableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DFC2129A907F20008857E /* TimetableCellView.swift */; };
 		0A57C88629AF8417003AB931 /* ProfileCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88529AF8417003AB931 /* ProfileCellView.swift */; };
 		0A57C88829AF92D8003AB931 /* CustomCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88729AF92D8003AB931 /* CustomCollectionViewDelegate.swift */; };
 		0A57C88B29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88A29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift */; };
+		0A57C88E29AFE679003AB931 /* tasks.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C88D29AFE679003AB931 /* tasks.md */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
 		7766B53C28428992000FF440 /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53B28428992000FF440 /* WeekdayView.swift */; };
@@ -38,10 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A0CA60A29B8A3DC00923A49 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		0A16793C29B9DBFA00ADC3E6 /* TopTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTitleView.swift; sourceTree = "<group>"; };
 		0A1DFC2129A907F20008857E /* TimetableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCellView.swift; sourceTree = "<group>"; };
 		0A57C88529AF8417003AB931 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		0A57C88729AF92D8003AB931 /* CustomCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0A57C88A29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		0A57C88D29AFE679003AB931 /* tasks.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = tasks.md; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
@@ -85,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				0A1DFC2029A907D60008857E /* Views */,
+				0A0CA60A29B8A3DC00923A49 /* TaskViewController.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -93,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				77C41E662995F707004ABAE6 /* TasksCellView.swift */,
+				0A16793C29B9DBFA00ADC3E6 /* TopTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +184,7 @@
 		77709138283BEDAC00AD7841 = {
 			isa = PBXGroup;
 			children = (
+				0A57C88D29AFE679003AB931 /* tasks.md */,
 				0A80553729A5703800375192 /* README.md */,
 				77709143283BEDAC00AD7841 /* timetable */,
 				77709142283BEDAC00AD7841 /* Products */,
@@ -392,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A80553829A5703800375192 /* README.md in Resources */,
+				0A57C88E29AFE679003AB931 /* tasks.md in Resources */,
 				77709151283BEDAD00AD7841 /* LaunchScreen.storyboard in Resources */,
 				7770914E283BEDAD00AD7841 /* Assets.xcassets in Resources */,
 			);
@@ -408,6 +418,7 @@
 				7766B53E28428BF9000FF440 /* Date + ext.swift in Sources */,
 				77709176283BF84E00AD7841 /* ProfileController.swift in Sources */,
 				77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */,
+				0A16793D29B9DBFA00ADC3E6 /* TopTitleView.swift in Sources */,
 				77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */,
 				0A57C88629AF8417003AB931 /* ProfileCellView.swift in Sources */,
 				0A57C88B29AFAAE5003AB931 /* DefaultCollectionViewDelegate.swift in Sources */,
@@ -415,6 +426,7 @@
 				7770916A283BF70400AD7841 /* UIView + ext.swift in Sources */,
 				7770915B283BEEEF00AD7841 /* TabBarController.swift in Sources */,
 				0A1DFC2229A907F20008857E /* TimetableCellView.swift in Sources */,
+				0A0CA60B29B8A3DC00923A49 /* TaskViewController.swift in Sources */,
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
 				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
 				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,

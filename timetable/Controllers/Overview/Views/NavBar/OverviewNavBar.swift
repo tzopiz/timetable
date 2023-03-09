@@ -45,17 +45,17 @@ extension OverviewNavBar {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             
             allWorkoutsButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            allWorkoutsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            allWorkoutsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             allWorkoutsButton.heightAnchor.constraint(equalToConstant: 28),
             
-            weekView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            weekView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            weekView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            weekView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            weekView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            weekView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             weekView.heightAnchor.constraint(equalToConstant: 47)
         ])
     }

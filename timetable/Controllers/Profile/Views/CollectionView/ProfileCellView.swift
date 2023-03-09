@@ -51,7 +51,7 @@ final class ProfileCellView: UICollectionViewCell {
             photoProfile.tintColor = App.Colors.separator
             photoProfile.topAnchor.constraint(equalTo: topAnchor, constant: 7).isActive = true
             stackInfoView.addArrangedSubview(subtitle)
-            isUserInteractionEnabled = false
+//            isUserInteractionEnabled = false
             sizeImage = -1
         } else if type == .exit{
             photoProfile.tintColor = UIColor.red

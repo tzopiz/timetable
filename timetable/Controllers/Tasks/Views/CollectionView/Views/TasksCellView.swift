@@ -19,11 +19,6 @@ final class TasksCellView: UICollectionViewCell {
     private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
     private let rightArrowView = UIImageView(image: App.Images.Overview.rightArrow)
     
-    private let buttonCheckmark: UIButton = {
-        let button = UIButton()
-        return button
-    }()
-
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -66,7 +61,6 @@ final class TasksCellView: UICollectionViewCell {
         self.subtitle.text = subtitle
 
         checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
-        buttonCheckmark.setImage(checkmarkView.image, for: .normal)
         
         switch roundedType {
         case .all: self.roundCorners([.allCorners], radius: 5)
@@ -80,8 +74,7 @@ final class TasksCellView: UICollectionViewCell {
 
 private extension TasksCellView {
     func setupViews() {
-        
-        setupView(buttonCheckmark)
+        setupView(checkmarkView)
         setupView(stackView)
         setupView(rightArrowView)
         
@@ -92,24 +85,30 @@ private extension TasksCellView {
 
     func constaintViews() {
         NSLayoutConstraint.activate([
-            buttonCheckmark.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            buttonCheckmark.centerYAnchor.constraint(equalTo: centerYAnchor),
-            buttonCheckmark.heightAnchor.constraint(equalToConstant: 28),
-            buttonCheckmark.widthAnchor.constraint(equalTo: buttonCheckmark.heightAnchor),
-
-            stackView.leadingAnchor.constraint(equalTo: buttonCheckmark.trailingAnchor, constant: 15),
+            
+            checkmarkView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            checkmarkView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkmarkView.heightAnchor.constraint(equalToConstant: 28),
+            checkmarkView.widthAnchor.constraint(equalTo: checkmarkView.heightAnchor),
+            
+            stackView.leadingAnchor.constraint(equalTo: checkmarkView.trailingAnchor, constant: 16),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: rightArrowView.leadingAnchor, constant: -15),
+            stackView.trailingAnchor.constraint(equalTo: rightArrowView.leadingAnchor, constant: -16),
 
             rightArrowView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            rightArrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            rightArrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             rightArrowView.heightAnchor.constraint(equalToConstant: 12),
-            rightArrowView.widthAnchor.constraint(equalToConstant: 7),
+            rightArrowView.widthAnchor.constraint(equalToConstant: 7)
+            
         ])
     }
 
     func configureAppearance() {
         backgroundColor = .white
+        
+    }
+    @objc func handleTap(){
+        print(#function)
     }
 }
 
