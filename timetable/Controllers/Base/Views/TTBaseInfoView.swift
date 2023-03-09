@@ -40,7 +40,6 @@ class TTBaseInfoView: TTBaseView {
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
     }
-
     func addButtonTarget(target: Any?, action: Selector) {
         button.addTarget(action, action: action, for: .touchUpInside)
     }
