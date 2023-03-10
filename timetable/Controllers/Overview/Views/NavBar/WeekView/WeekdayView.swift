@@ -10,26 +10,10 @@ import UIKit
 extension WeekView {
     final class WeekdayView: TTBaseView {
 
-        private let nameLabel: UILabel = {
-            let lable = UILabel()
-            lable.font = App.Fonts.helveticaNeue(with: 9)
-            lable.textAlignment = .center
-            return lable
-        }()
+        private let nameLabel = UILabel()
+        private let dateLabel = UILabel()
 
-        private let dateLabel: UILabel = {
-            let lable = UILabel()
-            lable.font = App.Fonts.helveticaNeue(with: 15)
-            lable.textAlignment = .center
-            return lable
-        }()
-
-        private let stackView: UIStackView = {
-            let view = UIStackView()
-            view.spacing = 3
-            view.axis = .vertical
-            return view
-        }()
+        private let stackView = UIStackView()
 
         func configure(with index: Int, and name: String) {
             let startOfWeek = Date().startOfWeek
@@ -45,7 +29,9 @@ extension WeekView {
 
             dateLabel.text = "\(day)"
             dateLabel.textColor = isToday ? .white : App.Colors.inactive
+            
         }
+        
     }
 }
 
@@ -58,14 +44,17 @@ extension WeekView.WeekdayView {
 
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
+        
     }
 
     override func constraintViews() {
         super.constraintViews()
 
         NSLayoutConstraint.activate([
+            
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            
         ])
     }
 
@@ -74,6 +63,16 @@ extension WeekView.WeekdayView {
 
         layer.cornerRadius = 5
         layer.masksToBounds = true
+        
+        nameLabel.font = App.Fonts.helveticaNeue(with: 9)
+        nameLabel.textAlignment = .center
+        
+        dateLabel.font = App.Fonts.helveticaNeue(with: 15)
+        dateLabel.textAlignment = .center
+        
+        stackView.spacing = 3
+        stackView.axis = .vertical
+        
     }
 }
 

@@ -10,35 +10,18 @@ import UIKit
 enum CellRoundedType {
     case top, bottom, all, notRounded
 }
-
-final class TasksCellView: UICollectionViewCell {
+final class TasksCell: UICollectionViewCell {
     
-    var isDone = false
-    static let id = "TasksCellView"
+    var borderLayer = CAShapeLayer()
+    
+    static let reuseID =  String(describing: TasksCell.self)
     
     private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
-    private let rightArrowView = UIImageView(image: App.Images.Overview.rightArrow)
+    private let stackView = UIStackView()
+    private let title = UILabel()
+    private let subtitle = UILabel()
     
-    private let stackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = 3
-        return view
-    }()
-
-    private let title: UILabel = {
-        let lable = UILabel()
-        lable.font = App.Fonts.helveticaNeue(with: 17)
-        lable.textColor = App.Colors.titleGray
-        return lable
-    }()
-
-    private let subtitle: UILabel = {
-        let lable = UILabel()
-        lable.font = App.Fonts.helveticaNeue(with: 13)
-        lable.textColor = App.Colors.inactive
-        return lable
-    }()
+    private var separator = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +29,7 @@ final class TasksCellView: UICollectionViewCell {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     required init?(coder: NSCoder) {
@@ -54,29 +38,50 @@ final class TasksCellView: UICollectionViewCell {
         setupViews()
         constaintViews()
         configureAppearance()
+        
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            // TODO: open TaskViewController
+        }
     }
 
     func configure(with title: String, subtitle: String, isDone: Bool, roundedType: CellRoundedType) {
+        
         self.title.text = title
         self.subtitle.text = subtitle
-
+        
         checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
         
         switch roundedType {
-        case .all: self.roundCorners([.allCorners], radius: 5)
-        case .bottom: self.roundCorners([.bottomLeft, .bottomRight], radius: 5)
-        case .top: self.roundCorners([.topLeft, .topRight], radius: 5)
-        case .notRounded: self.roundCorners([.allCorners], radius: 0)
+        case .all:
+            roundCorners(with: &borderLayer, [.allCorners], radius: 20)
+            separator.isHidden = true
+        case .bottom:
+            roundCorners(with: &borderLayer, [.bottomLeft, .bottomRight], radius: 20)
+            separator.isHidden = true
+        case .top:
+            roundCorners(with: &borderLayer, [.topLeft, .topRight], radius: 20)
+            separator.isHidden = false
+            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
+        case .notRounded:
+            roundCorners(with: &borderLayer, [.allCorners], radius: 0)
+            separator.isHidden = false
+            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
         }
+        
     }
     
 }
 
-private extension TasksCellView {
+private extension TasksCell {
     func setupViews() {
+        
+        layer.addSublayer(borderLayer)
+        setupView(separator)
         setupView(checkmarkView)
         setupView(stackView)
-        setupView(rightArrowView)
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
@@ -93,18 +98,24 @@ private extension TasksCellView {
             
             stackView.leadingAnchor.constraint(equalTo: checkmarkView.trailingAnchor, constant: 16),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: rightArrowView.leadingAnchor, constant: -16),
-
-            rightArrowView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            rightArrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            rightArrowView.heightAnchor.constraint(equalToConstant: 12),
-            rightArrowView.widthAnchor.constraint(equalToConstant: 7)
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
         ])
     }
 
     func configureAppearance() {
-        backgroundColor = .white
+        
+        self.backgroundColor = UIColor.clear
+        borderLayer.fillColor = UIColor.white.cgColor
+        
+        stackView.axis = .vertical
+        stackView.spacing = 3
+        
+        title.font = App.Fonts.helveticaNeue(with: 17)
+        title.textColor = App.Colors.titleGray
+        
+        subtitle.font = App.Fonts.helveticaNeue(with: 13)
+        subtitle.textColor = App.Colors.inactive
         
     }
     @objc func handleTap(){

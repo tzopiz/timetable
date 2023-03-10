@@ -8,6 +8,11 @@
 import UIKit
 
 extension UIView {
+    func addBottomBorder(separator: inout UIView, with color: UIColor, height: CGFloat) {
+        separator.backgroundColor = color
+        separator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
+    }
     func addBottomBorder(with color: UIColor, height: CGFloat) {
         let separator = UIView()
         separator.backgroundColor = color
@@ -43,21 +48,18 @@ extension UIView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
     }
-
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+    func roundCorners(with borderLayer: inout CAShapeLayer,  _ corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let borderLayer = CAShapeLayer()
         borderLayer.frame = bounds
         borderLayer.path = path.cgPath
-        borderLayer.strokeColor = App.Colors.separator.cgColor
-        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.strokeColor = UIColor.clear.cgColor
         borderLayer.lineWidth = 1
-        layer.addSublayer(borderLayer)
     }
+    
     func addTapGesture(tapNumber: Int, target: Any, action: Selector) {
         let tap = UITapGestureRecognizer(target: target, action: action)
         tap.numberOfTapsRequired = tapNumber
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
-      }
+    }
 }

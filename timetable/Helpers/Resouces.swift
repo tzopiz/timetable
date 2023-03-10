@@ -78,6 +78,9 @@ enum App {
             static let isDoneTask = UIImage(systemName: "checkmark.circle")
             static let isActiveTask = UIImage(systemName: "circle")
         }
+        enum Timetable {
+            static let clock = UIImage(systemName: "clock")
+        }
         enum Overview {
             static let checkmarkNotDone = UIImage(named: "checkmark_not_done")
             static let checkmarkDone = UIImage(named: "checkmark_done")
@@ -91,7 +94,6 @@ enum App {
             static let feedback = UIImage(systemName: "bubble.left")
             static let aboutApp = UIImage(systemName: "info.circle")
             static let exit = UIImage(systemName: "rectangle.portrait.and.arrow.forward")
-
         }
     }
 
@@ -101,40 +103,3 @@ enum App {
         }
     }
 }
-/*
-class Solution {
-    func compress(_ chars: inout [Character]) -> Int {
-        var currentChar: Character = " "
-        var count = 0
-        var pos = 0
-        while pos < chars.count {
-            if currentChar == " " {
-                currentChar = chars[pos]
-                chars.remove(at: pos)
-                count += 1
-            } else {
-                if currentChar == chars[pos] {
-                    chars.remove(at: pos)
-                    count += 1
-                } else {
-                    chars.insert(currentChar, at: pos)
-                    if count != 1 {
-                        chars.insert(contentsOf: "\(count)", at: pos + 1)
-                    }
-                    currentChar = " "
-                    count = 0
-                    pos += 2
-                }
-            }
-        }
-        chars.insert(currentChar, at: pos)
-        if count != 1 {
-            chars.insert(contentsOf: "\(count)", at: pos + 1)
-        }
-        return chars.count
-    }
-}
-let s = Solution()
-var chars: [Character] = ["a", "a", "a", "a", "b", "b", "b", "b"]
-
-*/

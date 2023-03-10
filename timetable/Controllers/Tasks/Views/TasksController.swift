@@ -9,8 +9,8 @@ import UIKit
 
 struct TaskData {
     struct Data {
-        let title: String
-        let subtitle: String
+        let taskName: String
+        let textInfo: String
         let isDone: Bool
     }
 
@@ -21,7 +21,6 @@ enum TaskType {
     case active
     case all
 }
-
 class TasksController: TTBaseController {
 
     private let untiBag = UIView(frame: .zero)
@@ -89,7 +88,7 @@ extension TasksController {
         untiBag.isHidden = true
         title = App.Strings.NavBar.tasks
 
-        collectionView.register(TasksCellView.self, forCellWithReuseIdentifier: TasksCellView.id)
+        collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
@@ -103,27 +102,27 @@ extension TasksController {
         dataSource = [
             .init(date: Date(timeInterval: 1000000, since: .now),
                   items: [
-                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: true),
-                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: true)
+                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: true),
+                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: true)
                   ]),
             .init(date: Date(timeInterval: -1000000, since: .now),
                   items: [
-                    .init(title: "Матан", subtitle: "2432, 2433, 2434, 2434, 2435", isDone: false),
-                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: false),
-                    .init(title: "Англ", subtitle: "пересказ статьи на 40к символов", isDone: false)
+                    .init(taskName: "Матан", textInfo: "2432, 2433, 2434, 2434, 2435", isDone: false),
+                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Англ", textInfo: "пересказ статьи на 40к символов", isDone: false)
                   ]),
             .init(date: Date(timeInterval: -15000000, since: .now),
                   items: [
-                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: false),
-                    .init(title: "Англ", subtitle: "пересказ статьи на 30к символов", isDone: true)
+                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
+                    .init(taskName: "Англ", textInfo: "пересказ статьи на 30к символов", isDone: true)
                   ]),
             .init(date: Date(timeInterval: -500000, since: .now),
                   items: [
-                    .init(title: "Матан", subtitle: "2332, 2333, 2334, 2334, 2335", isDone: false),
-                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: false),
-                    .init(title: "Матан", subtitle: "2432, 2433, 2434, 2434, 2435", isDone: true),
-                    .init(title: "Механика", subtitle: "232, 233, 234, 234, 235", isDone: false),
-                    .init(title: "Англ", subtitle: "пересказ статьи на 40к символов", isDone: false)
+                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
+                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Матан", textInfo: "2432, 2433, 2434, 2434, 2435", isDone: true),
+                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Англ", textInfo: "пересказ статьи на 40к символов", isDone: false)
                   ]),
             
         ]
@@ -132,7 +131,7 @@ extension TasksController {
     }
     
     override func navBarRightButtonHandler() {
-        let vc = TaskViewController()
+        let vc = TaskViewController(needToCreate: true)
         vc.view.backgroundColor = App.Colors.background
         vc.view.tintColor = App.Colors.active
         present(vc, animated: true)
@@ -154,7 +153,7 @@ extension TasksController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource && UICollectionViewDelegate
 extension TasksController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         tasks.count
@@ -167,24 +166,23 @@ extension TasksController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TasksCellView.id, for: indexPath
-        ) as? TasksCellView else { return UICollectionViewCell() }
+            withReuseIdentifier: TasksCell.reuseID, for: indexPath
+        ) as? TasksCell else { return UICollectionViewCell() }
 
         let item = tasks[indexPath.section].items[indexPath.row]
 
         let roundedType: CellRoundedType
-//        if indexPath.row == 0 && indexPath.row == tasks[indexPath.section].items.count - 1 {
-//            roundedType = .all
-//        } else if indexPath.row == 0 {
-//            roundedType = .top
-//        } else if indexPath.row == tasks[indexPath.section].items.count - 1 {
-//            roundedType = .bottom
-//        } else {
-//            roundedType = .notRounded
-//        }
-        roundedType = .notRounded
+        if indexPath.row == 0 && indexPath.row == tasks[indexPath.section].items.count - 1 {
+            roundedType = .all
+        } else if indexPath.row == 0 {
+            roundedType = .top
+        } else if indexPath.row == tasks[indexPath.section].items.count - 1 {
+            roundedType = .bottom
+        } else {
+            roundedType = .notRounded
+        }
 
-        cell.configure(with: item.title, subtitle: item.subtitle, isDone: item.isDone, roundedType: roundedType)
+        cell.configure(with: item.taskName, subtitle: item.textInfo, isDone: item.isDone, roundedType: roundedType)
         return cell
     }
 
@@ -197,6 +195,26 @@ extension TasksController: UICollectionViewDataSource {
 
         view.configure(with: tasks[indexPath.section].date)
         return view
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = tasks[indexPath.section].items[indexPath.row]
+        
+        let vc = TaskViewController(taskName: item.taskName, textInfo: item.textInfo, isDone: item.isDone, needToCreate: false)
+        
+        present(vc, animated: true)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        didHighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
+        cell.borderLayer.fillColor =  UIColor.clear.cgColor
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didUnhighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
+        cell.borderLayer.fillColor = UIColor.white.cgColor
+        
     }
 }
 

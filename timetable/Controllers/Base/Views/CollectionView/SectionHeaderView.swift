@@ -8,15 +8,10 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    static let id = "SectionHeaderView"
+    
+    static let id = String(describing: SectionHeaderView.self)
 
-    private let title: UILabel = {
-        let lable = UILabel()
-        lable.font = App.Fonts.helveticaNeue(with: 13)
-        lable.textColor = App.Colors.inactive
-        lable.textAlignment = .center
-        return lable
-    }()
+    private let title =  UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +19,7 @@ final class SectionHeaderView: UICollectionReusableView {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     required init?(coder: NSCoder) {
@@ -32,6 +28,7 @@ final class SectionHeaderView: UICollectionReusableView {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     func configure(with date: Date) {
@@ -48,11 +45,21 @@ private extension SectionHeaderView {
     }
 
     func constaintViews() {
+        
         NSLayoutConstraint.activate([
+            
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             title.centerYAnchor.constraint(equalTo: centerYAnchor)
+            
         ])
+        
     }
 
-    func configureAppearance() {}
+    func configureAppearance() {
+        
+        title.font = App.Fonts.helveticaNeue(with: 13)
+        title.textColor = App.Colors.inactive
+        title.textAlignment = .center
+        
+    }
 }

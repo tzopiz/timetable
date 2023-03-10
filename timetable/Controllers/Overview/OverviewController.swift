@@ -19,10 +19,10 @@ struct TimatableData {
 }
 
 class OverviewController: TTBaseController {
-
-    private let navBar = OverviewNavBar()
+    
     private var dataSource: [TimatableData] = []
-
+    
+    private let navBar = OverviewNavBar()
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -33,20 +33,22 @@ class OverviewController: TTBaseController {
 
         return view
     }()
+    
 }
-
 extension OverviewController {
     override func setupViews() {
         super.setupViews()
 
         view.setupView(navBar)
         view.setupView(collectionView)
+        
     }
 
     override func constraintViews() {
         super.constraintViews()
 
         NSLayoutConstraint.activate([
+            
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -54,7 +56,8 @@ extension OverviewController {
             collectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
         ])
     }
 
@@ -63,13 +66,15 @@ extension OverviewController {
         
         navigationController?.navigationBar.isHidden = true
 
-        collectionView.register(TimetableCellView.self, forCellWithReuseIdentifier: TimetableCellView.id)
+        collectionView.register(TimetableCell.self,
+                                forCellWithReuseIdentifier: TimetableCell.reuseID)
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
 
         collectionView.delegate = self
         collectionView.dataSource = self
+
 
         dataSource = [
             .init(date: Date(timeInterval: 60*60*24, since: .now),
@@ -107,24 +112,29 @@ extension OverviewController {
                   ])
         ]
         collectionView.reloadData()
+        
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension OverviewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
         dataSource.count
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         dataSource[section].items.count
+        
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TimetableCellView.id, for: indexPath
-        ) as? TimetableCellView else { return UICollectionViewCell() }
+            withReuseIdentifier: TimetableCell.reuseID, for: indexPath
+        ) as? TimetableCell else { return UICollectionViewCell() }
 
         let item = dataSource[indexPath.section].items[indexPath.row]
 
@@ -143,10 +153,13 @@ extension OverviewController: UICollectionViewDataSource {
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let view = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath
-        ) as? SectionHeaderView else { return UICollectionReusableView() }
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: SectionHeaderView.id,
+                                                                         for: indexPath) as? SectionHeaderView
+        else { return UICollectionReusableView() }
 
         view.configure(with: dataSource[indexPath.section].date)
         return view
@@ -155,11 +168,19 @@ extension OverviewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension OverviewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         CGSize(width: collectionView.frame.width, height: 120)
+        
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
         CGSize(width: collectionView.frame.width, height: 32)
+        
     }
 }

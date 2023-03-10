@@ -9,12 +9,8 @@ import UIKit
 
 final class WeekView: TTBaseView {
 
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.spacing = 7
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
+    private let stackView = UIStackView()
+    
 }
 
 extension WeekView {
@@ -39,6 +35,9 @@ extension WeekView {
 
     override func configureAppearance() {
         super.configureAppearance()
+        
+        stackView.spacing = 7
+        stackView.distribution = .fillEqually
 
         var weekdays = Date.calendar.shortStandaloneWeekdaySymbols
 
@@ -52,5 +51,6 @@ extension WeekView {
             view.configure(with: index, and: name)
             stackView.addArrangedSubview(view)
         }
+        
     }
 }
