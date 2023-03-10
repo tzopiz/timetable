@@ -9,25 +9,12 @@ import UIKit
 
 class TTBaseInfoView: TTBaseView {
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.inactive
-        return label
-    }()
-
+    private let titleLabel = UILabel()
     private let button = TTButton(with: .primary)
-
-    let contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.borderColor = App.Colors.separator.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        return view
-    }()
+    private let contentView = UIView()
 
     init(with title: String? = nil, buttonTitle: String? = nil) {
+        
         titleLabel.text = title?.uppercased()
         titleLabel.textAlignment = buttonTitle == nil ? .center : .left
 
@@ -61,6 +48,7 @@ extension TTBaseInfoView {
         let contentTopOffset: CGFloat = titleLabel.text == nil ? 0 : 10
 
         NSLayoutConstraint.activate([
+            
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -73,12 +61,22 @@ extension TTBaseInfoView {
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            
         ])
     }
 
     override func configureAppearance() {
         super.configureAppearance()
-
         backgroundColor = .clear
+        
+        titleLabel.font = App.Fonts.helveticaNeue(with: 13)
+        titleLabel.textColor = App.Colors.inactive
+        
+        contentView.backgroundColor = .white
+        contentView.layer.borderColor = App.Colors.separator.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 5
+        
+       
     }
 }

@@ -20,6 +20,7 @@ class TTBaseController: UIViewController {
         setupViews()
         constraintViews()
         configureAppearance()
+        
     }
 }
 

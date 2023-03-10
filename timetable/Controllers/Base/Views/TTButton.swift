@@ -16,18 +16,8 @@ public enum TTButtonType {
 final class TTButton: UIButton {
 
     private var type: TTButtonType = .primary
-
-    private let lable: UILabel = {
-        let lable = UILabel()
-        lable.textAlignment = .center
-        return lable
-    }()
-
-    private let iconView: UIImageView = {
-        let view = UIImageView()
-        view.image = App.Images.Common.downArrow?.withRenderingMode(.alwaysTemplate)
-        return view
-    }()
+    private let label = UILabel()
+    private let iconView = UIImageView(image: App.Images.Common.downArrow?.withRenderingMode(.alwaysTemplate))
     
     init(with type: TTButtonType) {
         super.init(frame: .zero)
@@ -36,6 +26,7 @@ final class TTButton: UIButton {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     required init?(coder: NSCoder) {
@@ -44,17 +35,18 @@ final class TTButton: UIButton {
         setupViews()
         constaintViews()
         configureAppearance()
+        
     }
 
     func setTitle(_ title: String?) {
-        lable.text = title
+        label.text = title
     }
 }
 
 private extension TTButton {
 
     func setupViews() {
-        setupView(lable)
+        setupView(label)
     }
 
     func constaintViews() {
@@ -66,27 +58,32 @@ private extension TTButton {
         }
 
         NSLayoutConstraint.activate([
-            lable.centerYAnchor.constraint(equalTo: centerYAnchor),
-            lable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            lable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            
         ])
     }
 
     func configureAppearance() {
+        
+        label.textAlignment = .center
+        
         switch type {
         case .primary:
-            lable.textColor = App.Colors.inactive
-            lable.font = App.Fonts.helveticaNeue(with: 13)
+            label.textColor = App.Colors.inactive
+            label.font = App.Fonts.helveticaNeue(with: 13)
             iconView.tintColor = App.Colors.inactive
 
         case .secondary:
             backgroundColor = App.Colors.secondary
             layer.cornerRadius = 7
-            lable.textColor = App.Colors.active
-            lable.font = App.Fonts.helveticaNeue(with: 15)
+            label.textColor = App.Colors.active
+            label.font = App.Fonts.helveticaNeue(with: 15)
             iconView.tintColor = App.Colors.active
         }
-
         makeSystem(self)
+        
     }
 }
