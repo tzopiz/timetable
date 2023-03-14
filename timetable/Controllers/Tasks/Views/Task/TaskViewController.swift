@@ -81,12 +81,12 @@ extension TaskViewController {
         
         buttonSave.setTitle("Сохранить", for: .normal)
         buttonSave.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        buttonSave.backgroundColor = .white
+        buttonSave.backgroundColor = App.Colors.BlackWhite
         buttonSave.layer.cornerRadius = 10
         
         buttonDelete.setTitle("Удалить", for: .normal)
         buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        buttonDelete.backgroundColor = .white
+        buttonDelete.backgroundColor = App.Colors.BlackWhite
         buttonDelete.tintColor = .red
         buttonDelete.layer.cornerRadius = 10
         

@@ -52,14 +52,17 @@ extension OverviewNavBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        self.backgroundColor = App.Colors.BlackWhite
+        
         addBottomBorder(separator: &separator,with: App.Colors.separator, height: 1)
         
         titleLabel.text = App.Strings.NavBar.overview
-        titleLabel.textColor = App.Colors.titleGray
+        titleLabel.textColor = App.Colors.title
         titleLabel.font = App.Fonts.helveticaNeue(with: 22)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM"
+        
         allWorkoutsButton.isUserInteractionEnabled = false
         allWorkoutsButton.setTitle(dateFormatter.string(from: Date.now).uppercased())
 

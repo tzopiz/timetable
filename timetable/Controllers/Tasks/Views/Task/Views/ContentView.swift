@@ -64,22 +64,22 @@ extension ContentView {
         mainStackView.spacing = 16
         
         label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.titleGray
+        label.textColor = App.Colors.title
         label.textAlignment = .center
         
         nameTask.font = App.Fonts.helveticaNeue(with: 17)
-        nameTask.textColor = App.Colors.titleGray
+        nameTask.textColor = App.Colors.title
         nameTask.placeholder = "Новая задача"
-        nameTask.backgroundColor = .white
+        nameTask.backgroundColor = App.Colors.BlackWhite
         nameTask.translatesAutoresizingMaskIntoConstraints = false
         nameTask.layer.cornerRadius = 10
         nameTask.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTask.frame.height))
         nameTask.leftViewMode = .always
         
         textView.font = App.Fonts.helveticaNeue(with: 17)
-        textView.textColor = App.Colors.titleGray
+        textView.textColor = App.Colors.title
         textView.text = ""
-        textView.backgroundColor = .white
+        textView.backgroundColor = App.Colors.BlackWhite
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         

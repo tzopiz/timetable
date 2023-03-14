@@ -13,6 +13,7 @@
 		0A57C88629AF8417003AB931 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88529AF8417003AB931 /* ProfileCell.swift */; };
 		0A57C88E29AFE679003AB931 /* tasks.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C88D29AFE679003AB931 /* tasks.md */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
+		0A84ABA529C10E7B0084D615 /* MTUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
 		7766B53C28428992000FF440 /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53B28428992000FF440 /* WeekdayView.swift */; };
 		7766B53E28428BF9000FF440 /* Date + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B53D28428BF9000FF440 /* Date + ext.swift */; };
@@ -45,6 +46,7 @@
 		0A57C88529AF8417003AB931 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		0A57C88D29AFE679003AB931 /* tasks.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = tasks.md; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTUserDefaults.swift; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		7766B53D28428BF9000FF440 /* Date + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				77709160283BEF9500AD7841 /* Extensions */,
 				77709161283BEFDE00AD7841 /* Resouces.swift */,
+				0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				77709176283BF84E00AD7841 /* ProfileController.swift in Sources */,
 				77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */,
 				0A16793D29B9DBFA00ADC3E6 /* ContentView.swift in Sources */,
+				0A84ABA529C10E7B0084D615 /* MTUserDefaults.swift in Sources */,
 				77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */,
 				0A57C88629AF8417003AB931 /* ProfileCell.swift in Sources */,
 				77C41E672995F707004ABAE6 /* TasksCell.swift in Sources */,

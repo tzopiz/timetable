@@ -56,6 +56,7 @@ class TasksController: TTBaseController {
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
+        view.alwaysBounceVertical = true
         view.backgroundColor = .clear
 
         return view
@@ -207,13 +208,13 @@ extension TasksController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.borderLayer.fillColor =  UIColor.clear.cgColor
+        cell.borderLayer.fillColor =  App.Colors.background.cgColor
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.borderLayer.fillColor = UIColor.white.cgColor
+        cell.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
         
     }
 }
@@ -230,5 +231,14 @@ extension TasksController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 32)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == tasks.count - 1 {
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 16.0, right: 0.0)
+        } else {
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        }
     }
 }

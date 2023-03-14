@@ -106,13 +106,13 @@ private extension TasksCell {
     func configureAppearance() {
         
         self.backgroundColor = UIColor.clear
-        borderLayer.fillColor = UIColor.white.cgColor
+        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
         
         stackView.axis = .vertical
         stackView.spacing = 3
         
         title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.titleGray
+        title.textColor = App.Colors.title
         
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
         subtitle.textColor = App.Colors.inactive

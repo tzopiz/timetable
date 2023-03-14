@@ -63,7 +63,7 @@ extension OverviewController {
 
     override func configureAppearance() {
         super.configureAppearance()
-        
+                
         navigationController?.navigationBar.isHidden = true
 
         collectionView.register(TimetableCell.self,
@@ -182,5 +182,14 @@ extension OverviewController: UICollectionViewDelegateFlowLayout {
         
         CGSize(width: collectionView.frame.width, height: 32)
         
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == dataSource.count - 1 {
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 16.0, right: 0.0)
+        } else {
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        }
     }
 }

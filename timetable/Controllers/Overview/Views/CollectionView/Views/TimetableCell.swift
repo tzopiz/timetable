@@ -108,7 +108,7 @@ private extension TimetableCell {
         
         backgroundColor = App.Colors.background
         
-        borderLayer.fillColor = UIColor.white.cgColor
+        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
         
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -117,7 +117,7 @@ private extension TimetableCell {
         firstLineView.spacing = 5
         
         title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.titleGray
+        title.textColor = App.Colors.title
         title.numberOfLines = 2
   
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
@@ -129,7 +129,7 @@ private extension TimetableCell {
         teacherNS.numberOfLines = 2
       
         time.font = App.Fonts.helveticaNeue(with: 15)
-        time.textColor = App.Colors.titleGray
+        time.textColor = App.Colors.title
         time.numberOfLines = 2
         
     }

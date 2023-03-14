@@ -10,15 +10,30 @@ import UIKit
 
 
 enum App {
+    enum Theme: Int {
+        case device
+        case light
+        case dark
+        func getUserInterfaceStyle() -> UIUserInterfaceStyle {
+            switch self {
+            case .device: return .unspecified
+            case .light: return .light
+            case .dark: return .dark
+            }
+        }
+    }
     enum Colors {
-        static let active = UIColor(hexString: "#437BFE")
-        static let inactive = UIColor(hexString: "#929DA5")
+        static let active   = #colorLiteral(red: 0, green: 0.4800075889, blue: 1, alpha: 1)
+        static let inactive = #colorLiteral(red: 0.5731385946, green: 0.614621222, blue: 0.6466889977, alpha: 1)
+        
+        static let title      = UIColor.label
+        static let BlackWhite = UIColor.systemBackground
+        
+        static let background = UIColor(named: "background")!
+        static let secondary  = UIColor(named: "secondary")!
+        static let separator  = UIColor(named: "separator")!
 
-        static let background = UIColor(hexString: "#F8F9F9")
-        static let separator = UIColor(hexString: "#E8ECEF")
-        static let secondary = UIColor(hexString: "#F0F3FF")
-
-        static let titleGray = UIColor(hexString: "#545C77")
+        
     }
 
     enum Strings {
@@ -73,7 +88,7 @@ enum App {
         }
 
         enum Common {
-            static let downArrow = UIImage(named: "down_arrow")
+            static let downArrow = #imageLiteral(resourceName: "down_arrow")
             static let add = UIImage(systemName: "plus.circle.fill")
             static let isDoneTask = UIImage(systemName: "checkmark.circle")
             static let isActiveTask = UIImage(systemName: "circle")
@@ -82,9 +97,9 @@ enum App {
             static let clock = UIImage(systemName: "clock")
         }
         enum Overview {
-            static let checkmarkNotDone = UIImage(named: "checkmark_not_done")
-            static let checkmarkDone = UIImage(named: "checkmark_done")
-            static let rightArrow = UIImage(named: "right_arrow")
+            static let checkmarkNotDone = #imageLiteral(resourceName: "checkmark_not_done")
+            static let checkmarkDone = #imageLiteral(resourceName: "checkmark_done")
+            static let rightArrow = #imageLiteral(resourceName: "right_arrow")
         }
         enum Profile {
             static let imageProfile = UIImage(systemName: "person.crop.circle")

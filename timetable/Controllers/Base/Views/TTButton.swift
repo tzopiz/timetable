@@ -17,7 +17,7 @@ final class TTButton: UIButton {
 
     private var type: TTButtonType = .primary
     private let label = UILabel()
-    private let iconView = UIImageView(image: App.Images.Common.downArrow?.withRenderingMode(.alwaysTemplate))
+    private let iconView = UIImageView(image: App.Images.Common.downArrow.withRenderingMode(.alwaysTemplate))
     
     init(with type: TTButtonType) {
         super.init(frame: .zero)

@@ -113,8 +113,18 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
-        cell.borderLayer.fillColor = UIColor.white.cgColor
+        cell.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 2:
+            UserDefaults.standard.theme = App.Theme(rawValue: 2 - UserDefaults.standard.theme.getUserInterfaceStyle().rawValue ) ?? .device
+            view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+        default: break
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -133,7 +143,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
+        UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0)
     }
     
     func collectionView(_ collectionView: UICollectionView,

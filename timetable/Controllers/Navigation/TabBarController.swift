@@ -20,13 +20,15 @@ final class TabBarController: UITabBarController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
-        switchTo(tab: .tasks)
+        
+        
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
         configureAppearance()
+        
     }
 
     func switchTo(tab: Tabs) {
@@ -34,13 +36,14 @@ final class TabBarController: UITabBarController {
     }
 
     private func configureAppearance() {
+        
         tabBar.tintColor = App.Colors.active
-        tabBar.barTintColor = App.Colors.inactive
-        tabBar.backgroundColor = .white
-        tabBar.layer.borderColor = App.Colors.separator.cgColor
-        tabBar.layer.borderWidth = 1
-        tabBar.layer.masksToBounds = true
-
+        tabBar.barTintColor = App.Colors.separator
+        tabBar.backgroundColor = App.Colors.BlackWhite
+        tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
+        
+        tabBar.addTopBorder(with: App.Colors.separator, height: 2/3)
+        
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
             controller.tabBarItem = UITabBarItem(title: App.Strings.TabBar.title(for: tab),

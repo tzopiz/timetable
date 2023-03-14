@@ -97,10 +97,10 @@ private extension ProfileCell {
 
     func configureAppearance() {
         self.backgroundColor = UIColor.clear
-        self.borderLayer.fillColor = UIColor.white.cgColor
+        self.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
         
         title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.titleGray
+        title.textColor = App.Colors.title
         title.textAlignment = .left
         title.numberOfLines = 0
         
