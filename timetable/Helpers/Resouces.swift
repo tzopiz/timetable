@@ -25,10 +25,9 @@ enum App {
     enum Colors {
         static let active   = #colorLiteral(red: 0, green: 0.4800075889, blue: 1, alpha: 1)
         static let inactive = #colorLiteral(red: 0.5731385946, green: 0.614621222, blue: 0.6466889977, alpha: 1)
-        
-        static let title      = UIColor.label
         static let BlackWhite = UIColor.systemBackground
         
+        static let title      = UIColor(named: "title")!
         static let background = UIColor(named: "background")!
         static let secondary  = UIColor(named: "secondary")!
         static let separator  = UIColor(named: "separator")!

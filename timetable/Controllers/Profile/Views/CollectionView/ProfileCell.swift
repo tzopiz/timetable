@@ -11,7 +11,7 @@ final class ProfileCell: UICollectionViewCell {
     
     static let reuseID = String(describing: ProfileCell.self)
     
-    var borderLayer = CAShapeLayer()
+    private var borderLayer = CAShapeLayer()
     private var sizeImage: CGFloat = 32
     
     private let title = UILabel()
@@ -45,6 +45,12 @@ final class ProfileCell: UICollectionViewCell {
         case .top: self.roundCorners(with: &borderLayer, [.topLeft, .topRight], radius: 20)
         case .notRounded: self.roundCorners(with: &borderLayer, [.allCorners], radius: 0)
         }
+    }
+    func isHighlighted() {
+        borderLayer.fillColor = App.Colors.secondary.withAlphaComponent(0.2).cgColor
+    }
+    func isUnHighlighted() {
+        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
     }
   
     

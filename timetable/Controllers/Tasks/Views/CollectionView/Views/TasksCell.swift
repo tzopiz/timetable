@@ -72,6 +72,12 @@ final class TasksCell: UICollectionViewCell {
         }
         
     }
+    func isHighlighted() {
+        borderLayer.fillColor = App.Colors.secondary.withAlphaComponent(0.2).cgColor
+    }
+    func isUnHighlighted() {
+        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+    }
     
 }
 

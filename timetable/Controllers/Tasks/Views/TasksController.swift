@@ -208,14 +208,14 @@ extension TasksController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.borderLayer.fillColor =  App.Colors.background.cgColor
+        cell.isHighlighted()
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
-        
+        cell.isUnHighlighted()
+
     }
 }
 

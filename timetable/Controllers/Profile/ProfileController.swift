@@ -108,12 +108,12 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
-        cell.borderLayer.fillColor = App.Colors.secondary.cgColor
+        cell.isHighlighted()
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
-        cell.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        cell.isUnHighlighted()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
