@@ -127,8 +127,8 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
         cell.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UserDefaults.standard.theme = .device
-        view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+//        UserDefaults.standard.theme = .device
+//        view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
     }
     
 }

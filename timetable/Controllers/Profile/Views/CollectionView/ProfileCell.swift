@@ -39,7 +39,7 @@ final class ProfileCell: UICollectionViewCell {
         self.leftView.image = image
     }
     func isHighlighted() {
-        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.2)
+        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4)
     }
     func isUnHighlighted() {
         self.backgroundColor = App.Colors.BlackWhite
