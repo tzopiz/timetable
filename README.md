@@ -1,7 +1,11 @@
 # Notes
-<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/timetable.png" 
-     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/tasksAll.png"
-     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/tasksActive.png"
-     alt="Screenshot" width="410"/>  <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/Screenshot%203.png" 
-     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/profile.png" 
-     alt="Screenshot" width="410"/>
+<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/timetable_light.png" 
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/active_tasks_light.png"
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/all_tasks_light.png"
+     alt="Screenshot" width="410"/>  <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/profile_light.png" 
+     alt="Screenshot" width="410"/> 
+<img src= "https://github.com/tzopiz/AppInfo/blob/timetable/timetable_dark.png" 
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/active_tasks_dark.png"
+     alt="Screenshot" width="410"/> <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/all_tasks_dark.png"
+     alt="Screenshot" width="410"/>  <img src= "https://github.com/tzopiz/AppInfo/blob/timetable/profile_dark.png" 
+     alt="Screenshot" width="410"/> 
