@@ -122,7 +122,6 @@
 			children = (
 				0A1DFC1F29A907CE0008857E /* CollectionView */,
 				0AC213E429BB98E8006E1661 /* Task */,
-				77709171283BF82600AD7841 /* TasksController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				0A80553929A62BA100375192 /* Views */,
+				77709171283BF82600AD7841 /* TasksController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
