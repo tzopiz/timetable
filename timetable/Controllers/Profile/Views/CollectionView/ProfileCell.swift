@@ -15,7 +15,7 @@ final class ProfileCell: UICollectionViewCell {
     
     private let title = UILabel()
     private var subtitle = UILabel()
-    private var leftView = UIImageView(image: App.Images.Profile.imageProfile?.withRenderingMode(.alwaysTemplate))
+    private var leftView = UIImageView(image: App.Images.Profile.imageProfile.withRenderingMode(.alwaysTemplate))
     private let stackInfoView = UIStackView()
     
     func configure(title: String, type: cellType, image: UIImage) {
@@ -86,7 +86,9 @@ private extension ProfileCell {
             
             stackInfoView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 16),
             stackInfoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackInfoView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            stackInfoView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            title.heightAnchor.constraint(equalToConstant: 40)
             
         ])
     }

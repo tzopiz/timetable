@@ -79,15 +79,14 @@ extension ProfileController {
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
   
         dataSource = [
-            .init(item: .init(title: "Корчагин Дмитрий Сергеевич", image: App.Images.Profile.imageProfile!, type: .profile)),
-            .init(item: .init(title: App.Strings.Profile.changeGroup, image: App.Images.Profile.changeGroup!, type: .base)),
-            .init(item: .init(title: App.Strings.Profile.appearance, image: App.Images.Profile.appearance!, type: .base)),
-            .init(item: .init(title: App.Strings.Profile.share, image: App.Images.Profile.share!, type: .base)),
-            .init(item: .init(title: App.Strings.Profile.feedback, image: App.Images.Profile.feedback!, type: .base)),
+            .init(item: .init(title: "Фамилия Имя Отчество", image: App.Images.Profile.imageProfile, type: .profile)),
+            .init(item: .init(title: App.Strings.Profile.changeGroup, image: App.Images.Profile.changeGroup, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.share, image: App.Images.Profile.share, type: .base)),
+            .init(item: .init(title: App.Strings.Profile.feedback, image: App.Images.Profile.feedback, type: .base)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
-            .init(item: .init(title: App.Strings.Profile.exit,  image: App.Images.Profile.exit!, type: .exit)),
-            .init(item: .init(title: App.Strings.Profile.aboutApp,  image: App.Images.Profile.aboutApp!, type: .base))
+            .init(item: .init(title: App.Strings.Profile.exit,  image: App.Images.Profile.exit, type: .exit)),
+            .init(item: .init(title: App.Strings.Profile.aboutApp,  image: App.Images.Profile.aboutApp, type: .base))
 
         ]
         collectionView.reloadData()

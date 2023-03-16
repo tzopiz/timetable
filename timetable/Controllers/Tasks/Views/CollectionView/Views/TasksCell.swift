@@ -14,7 +14,7 @@ final class TasksCell: UICollectionViewCell {
     
     static let reuseID =  String(describing: TasksCell.self)
     
-    private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
+    private let checkmarkView = UIImageView(image: App.Images.Tasks.checkmarkNotDone)
     private let stackView = UIStackView()
     private let title = UILabel()
     private let subtitle = UILabel()
@@ -50,7 +50,7 @@ final class TasksCell: UICollectionViewCell {
         self.title.text = title
         self.subtitle.text = subtitle
         
-        checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
+        checkmarkView.image = isDone ? App.Images.Tasks.checkmarkDone : App.Images.Tasks.checkmarkNotDone
         
     }
     func isHighlighted() {

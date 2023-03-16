@@ -86,27 +86,23 @@ enum App {
         }
 
         enum Common {
-            static let downArrow = #imageLiteral(resourceName: "down_arrow")
-            static let add = UIImage(systemName: "plus.circle.fill")
-            static let isDoneTask = UIImage(systemName: "checkmark.circle")
-            static let isActiveTask = UIImage(systemName: "circle")
+            static let downArrow = #imageLiteral(resourceName: "chevron_down@256x")
+            static let add_button = #imageLiteral(resourceName: "plus.circle.fill@256x.png")
         }
         enum Timetable {
-            static let clock = UIImage(systemName: "clock")
+            static let clock = #imageLiteral(resourceName: "clock@256")
         }
-        enum Overview {
-            static let checkmarkNotDone = #imageLiteral(resourceName: "checkmark_not_done")
-            static let checkmarkDone = #imageLiteral(resourceName: "checkmark_done")
-            static let rightArrow = #imageLiteral(resourceName: "right_arrow")
+        enum Tasks {
+            static let checkmarkNotDone = #imageLiteral(resourceName: "circle@256x.png")
+            static let checkmarkDone = #imageLiteral(resourceName: "checkmark_circle@256x")
         }
         enum Profile {
-            static let imageProfile = UIImage(systemName: "person.crop.circle")
-            static let changeGroup = UIImage(systemName: "person.2.gobackward")
-            static let appearance = UIImage(systemName: "gearshape")
-            static let share = UIImage(systemName: "square.and.arrow.up")
-            static let feedback = UIImage(systemName: "bubble.left")
-            static let aboutApp = UIImage(systemName: "info.circle")
-            static let exit = UIImage(systemName: "rectangle.portrait.and.arrow.forward")
+            static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@256x")
+            static let changeGroup  = #imageLiteral(resourceName: "person_2_gobackward@256x")
+            static let share        = #imageLiteral(resourceName: "square_and_arrow_up@256x")
+            static let feedback     = #imageLiteral(resourceName: "bubble_left_and_bubble_right@256x")
+            static let aboutApp     = #imageLiteral(resourceName: "info_circle@256x")
+            static let exit         = #imageLiteral(resourceName: "rectangle_portrait_and_arrow_forward@256x")
         }
     }
 
