@@ -11,7 +11,6 @@ final class ProfileCell: UICollectionViewCell {
     
     static let reuseID = String(describing: ProfileCell.self)
     
-    private var borderLayer = CAShapeLayer()
     private var sizeImage: CGFloat = 32
     
     private let title = UILabel()
@@ -19,7 +18,7 @@ final class ProfileCell: UICollectionViewCell {
     private var leftView = UIImageView(image: App.Images.Profile.imageProfile?.withRenderingMode(.alwaysTemplate))
     private let stackInfoView = UIStackView()
     
-    func configure(title: String, type: cellType, image: UIImage, roundedType: CellRoundedType) {
+    func configure(title: String, type: cellType, image: UIImage) {
         
         if type == .profile {
             self.subtitle.text = "21.Б04"
@@ -35,22 +34,15 @@ final class ProfileCell: UICollectionViewCell {
         } else {
             leftView.tintColor = App.Colors.active
             leftView.heightAnchor.constraint(equalToConstant: sizeImage).isActive = true
-
         }
         self.title.text = title
         self.leftView.image = image
-        switch roundedType {
-        case .all: self.roundCorners(with: &borderLayer, [.allCorners], radius: 20)
-        case .bottom: self.roundCorners(with: &borderLayer, [.bottomLeft, .bottomRight], radius: 20)
-        case .top: self.roundCorners(with: &borderLayer, [.topLeft, .topRight], radius: 20)
-        case .notRounded: self.roundCorners(with: &borderLayer, [.allCorners], radius: 0)
-        }
     }
     func isHighlighted() {
-        borderLayer.fillColor = App.Colors.secondary.withAlphaComponent(0.2).cgColor
+        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.2)
     }
     func isUnHighlighted() {
-        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        self.backgroundColor = App.Colors.BlackWhite
     }
   
     
@@ -77,8 +69,6 @@ final class ProfileCell: UICollectionViewCell {
 private extension ProfileCell {
     func setupViews() {
         
-        layer.addSublayer(borderLayer)
-        
         setupView(stackInfoView)
         setupView(leftView)
         
@@ -102,8 +92,9 @@ private extension ProfileCell {
     }
 
     func configureAppearance() {
-        self.backgroundColor = UIColor.clear
-        self.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        
+        self.backgroundColor = App.Colors.BlackWhite
+        self.layer.cornerRadius = 20
         
         title.font = App.Fonts.helveticaNeue(with: 17)
         title.textColor = App.Colors.title

@@ -172,21 +172,9 @@ extension TasksController: UICollectionViewDataSource {
 
         let item = tasks[indexPath.section].items[indexPath.row]
 
-        let roundedType: CellRoundedType
-        if indexPath.row == 0 && indexPath.row == tasks[indexPath.section].items.count - 1 {
-            roundedType = .all
-        } else if indexPath.row == 0 {
-            roundedType = .top
-        } else if indexPath.row == tasks[indexPath.section].items.count - 1 {
-            roundedType = .bottom
-        } else {
-            roundedType = .notRounded
-        }
-
-        cell.configure(with: item.taskName, subtitle: item.textInfo, isDone: item.isDone, roundedType: roundedType)
+        cell.configure(with: item.taskName, subtitle: item.textInfo, isDone: item.isDone)
         return cell
     }
-
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
@@ -240,5 +228,10 @@ extension TasksController: UICollectionViewDelegateFlowLayout {
         } else {
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+       return 8
     }
 }

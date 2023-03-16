@@ -25,4 +25,23 @@ extension UIColor {
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
+    static func dynamic(light: UIColor, dark: UIColor) -> UIColor {
+
+            if #available(iOS 13.0, *) {
+                return UIColor(dynamicProvider: {
+                    switch $0.userInterfaceStyle {
+                    case .dark:
+                        return dark
+                    case .light, .unspecified:
+                        return light
+                    @unknown default:
+                        assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
+                        return light
+                    }
+                })
+            }
+
+            // iOS 12 and earlier
+            return light
+        }
 }

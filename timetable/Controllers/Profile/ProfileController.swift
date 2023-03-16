@@ -62,9 +62,13 @@ extension ProfileController {
         ])
     }
     
+    
 
     override func configureAppearance() {
         super.configureAppearance()
+        
+        addNavBarButton(at: .right, with: "darkMode")
+        
         title = App.Strings.NavBar.profile
         
         self.untiBag.isHidden = true
@@ -88,6 +92,13 @@ extension ProfileController {
         ]
         collectionView.reloadData()
     }
+    override func navBarRightButtonHandler() {
+        if #available(iOS 13.0, *) {
+            UserDefaults.standard.theme = App.Theme(rawValue: 2 - UserDefaults.standard.theme.getUserInterfaceStyle().rawValue ) ?? .device
+            view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+        }
+        
+    }
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
@@ -102,7 +113,7 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
             fatalError("Wrong cell")
         }
         let item = dataSource[indexPath.row].item
-        cell.configure(title: item.title, type: item.type, image: item.image, roundedType: .all)
+        cell.configure(title: item.title, type: item.type, image: item.image)
         return cell
     }
     
@@ -115,14 +126,9 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
         cell.isUnHighlighted()
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 2:
-            UserDefaults.standard.theme = App.Theme(rawValue: 2 - UserDefaults.standard.theme.getUserInterfaceStyle().rawValue ) ?? .device
-            view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-        default: break
-        }
+        UserDefaults.standard.theme = .device
+        view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
     }
     
 }
@@ -150,11 +156,5 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
        return 16
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
     }
 }

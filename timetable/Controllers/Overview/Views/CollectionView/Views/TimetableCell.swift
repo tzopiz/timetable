@@ -15,8 +15,6 @@ final class TimetableCell: UICollectionViewCell {
     private let stackView = UIStackView()
     private let firstLineView = UIStackView()
     
-    private var separator = UIView()
-    
     private let title = UILabel()
     private let subtitle = UILabel()
     private let teacherNS = UILabel()
@@ -24,7 +22,7 @@ final class TimetableCell: UICollectionViewCell {
     
     private let clock = UIImageView(image: App.Images.Timetable.clock)
     
-    private var borderLayer = CAShapeLayer()
+    var borderLayer = CAShapeLayer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,29 +42,12 @@ final class TimetableCell: UICollectionViewCell {
         
     }
 
-    func configure(with title: String, subtitle: String, teacherNS: String, time: String, roundedType: CellRoundedType) {
+    func configure(with title: String, subtitle: String, teacherNS: String, time: String) {
         
         self.title.text = title
         self.subtitle.text = subtitle
         self.teacherNS.text = teacherNS
         self.time.text = time
-        
-        switch roundedType {
-        case .all:
-            roundCorners(with: &borderLayer, [.allCorners], radius: 20)
-            separator.isHidden = true
-        case .bottom:
-            roundCorners(with: &borderLayer, [.bottomLeft, .bottomRight], radius: 20)
-            separator.isHidden = true
-        case .top:
-            roundCorners(with: &borderLayer, [.topLeft, .topRight], radius: 20)
-            separator.isHidden = false
-            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
-        case .notRounded:
-            roundCorners(with: &borderLayer, [.allCorners], radius: 0)
-            separator.isHidden = false
-            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
-        }
         
     }
 }
@@ -74,11 +55,8 @@ final class TimetableCell: UICollectionViewCell {
 private extension TimetableCell {
     func setupViews() {
         
-        layer.addSublayer(borderLayer)
-        
         setupView(stackView)
         setupView(firstLineView)
-        setupView(separator)
         
         firstLineView.addArrangedSubview(clock)
         firstLineView.addArrangedSubview(time)
@@ -106,9 +84,8 @@ private extension TimetableCell {
 
     func configureAppearance() {
         
-        backgroundColor = App.Colors.background
-        
-        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        self.backgroundColor = App.Colors.BlackWhite
+        self.layer.cornerRadius = 20
         
         stackView.axis = .vertical
         stackView.spacing = 5

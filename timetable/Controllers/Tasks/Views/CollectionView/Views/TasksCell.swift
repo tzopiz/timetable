@@ -12,8 +12,6 @@ enum CellRoundedType {
 }
 final class TasksCell: UICollectionViewCell {
     
-    var borderLayer = CAShapeLayer()
-    
     static let reuseID =  String(describing: TasksCell.self)
     
     private let checkmarkView = UIImageView(image: App.Images.Overview.checkmarkNotDone)
@@ -47,44 +45,26 @@ final class TasksCell: UICollectionViewCell {
         }
     }
 
-    func configure(with title: String, subtitle: String, isDone: Bool, roundedType: CellRoundedType) {
+    func configure(with title: String, subtitle: String, isDone: Bool) {
         
         self.title.text = title
         self.subtitle.text = subtitle
         
         checkmarkView.image = isDone ? App.Images.Overview.checkmarkDone : App.Images.Overview.checkmarkNotDone
         
-        switch roundedType {
-        case .all:
-            roundCorners(with: &borderLayer, [.allCorners], radius: 20)
-            separator.isHidden = true
-        case .bottom:
-            roundCorners(with: &borderLayer, [.bottomLeft, .bottomRight], radius: 20)
-            separator.isHidden = true
-        case .top:
-            roundCorners(with: &borderLayer, [.topLeft, .topRight], radius: 20)
-            separator.isHidden = false
-            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
-        case .notRounded:
-            roundCorners(with: &borderLayer, [.allCorners], radius: 0)
-            separator.isHidden = false
-            addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
-        }
-        
     }
     func isHighlighted() {
-        borderLayer.fillColor = App.Colors.secondary.withAlphaComponent(0.2).cgColor
+        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.2)
+
     }
     func isUnHighlighted() {
-        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        self.backgroundColor = App.Colors.BlackWhite
     }
     
 }
 
 private extension TasksCell {
     func setupViews() {
-        
-        layer.addSublayer(borderLayer)
         setupView(separator)
         setupView(checkmarkView)
         setupView(stackView)
@@ -111,9 +91,9 @@ private extension TasksCell {
 
     func configureAppearance() {
         
-        self.backgroundColor = UIColor.clear
-        borderLayer.fillColor = App.Colors.BlackWhite.cgColor
-        
+        self.backgroundColor = App.Colors.BlackWhite
+        self.layer.cornerRadius = 20
+        // TODO: ???!!!
         stackView.axis = .vertical
         stackView.spacing = 3
         

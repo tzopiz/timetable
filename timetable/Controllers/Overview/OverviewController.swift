@@ -114,6 +114,13 @@ extension OverviewController {
         collectionView.reloadData()
         
     }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        for cell in self.collectionView.visibleCells {
+            let c = (cell as? TimetableCell)!
+            c.borderLayer.fillColor = App.Colors.BlackWhite.cgColor
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -137,19 +144,7 @@ extension OverviewController: UICollectionViewDataSource {
         ) as? TimetableCell else { return UICollectionViewCell() }
 
         let item = dataSource[indexPath.section].items[indexPath.row]
-
-        let roundedType: CellRoundedType
-        if indexPath.row == 0 && indexPath.row == dataSource[indexPath.section].items.count - 1 {
-            roundedType = .all
-        } else if indexPath.row == 0 {
-            roundedType = .top
-        } else if indexPath.row == dataSource[indexPath.section].items.count - 1 {
-            roundedType = .bottom
-        } else {
-            roundedType = .notRounded
-        }
-
-        cell.configure(with: item.title, subtitle: item.subtitle,teacherNS: item.teacherNS ,time: item.time, roundedType: roundedType)
+        cell.configure(with: item.title, subtitle: item.subtitle,teacherNS: item.teacherNS ,time: item.time)
         return cell
     }
 
@@ -191,5 +186,10 @@ extension OverviewController: UICollectionViewDelegateFlowLayout {
         } else {
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+       return 8
     }
 }
