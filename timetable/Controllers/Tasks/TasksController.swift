@@ -28,20 +28,17 @@ class TasksController: TTBaseController {
     private var dataSource: [TaskData] = []
     private var tasks: [TaskData] = []
     private var currentType: TaskType = .active
-    
     private func tasks(with type: TaskType) -> [TaskData] {
         var ans: [TaskData] = []
         switch type {
         case .active:
             for task in dataSource {
-                var _items: [TaskData.Data] = []
-                for item in task.items {
-                    if item.isDone == false {
-                        _items.append(item)
-                    }
+                var items: [TaskData.Data] = []
+                for item in task.items where item.isDone == false {
+                    items.append(item)
                 }
-                if !_items.isEmpty {
-                    ans.append(.init(date: task.date, items: _items))
+                if !items.isEmpty {
+                    ans.append(.init(date: task.date, items: items))
                 }
             }
             return ans
@@ -61,8 +58,6 @@ class TasksController: TTBaseController {
 
         return view
     }()
-    
-    
 }
 
 extension TasksController {
@@ -82,12 +77,10 @@ extension TasksController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-
     override func configureAppearance() {
         super.configureAppearance()
         untiBag.isHidden = true
-        title = App.Strings.NavBar.tasks
+        title = App.Strings.tasks
 
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         collectionView.register(SectionHeaderView.self,
@@ -96,7 +89,6 @@ extension TasksController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         addNavBarButton(at: .right, with: "Добавить")
         addNavBarButton(at: .left, with: "Активные")
 
@@ -124,18 +116,14 @@ extension TasksController {
                     .init(taskName: "Матан", textInfo: "2432, 2433, 2434, 2434, 2435", isDone: true),
                     .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
                     .init(taskName: "Англ", textInfo: "пересказ статьи на 40к символов", isDone: false)
-                  ]),
-            
+                  ])
         ]
         tasks = tasks(with: .active)
         collectionView.reloadData()
     }
-    
     override func navBarRightButtonHandler() {
-        let vc = TaskViewController(needToCreate: true)
-        vc.view.backgroundColor = App.Colors.background
-        vc.view.tintColor = App.Colors.active
-        present(vc, animated: true)
+        let taskVC = TaskViewController(needToCreate: true)
+        present(taskVC, animated: true)
     }
     override func navBarLeftButtonHandler() {
         switch currentType {
@@ -185,24 +173,23 @@ extension TasksController: UICollectionViewDataSource {
         view.configure(with: tasks[indexPath.section].date)
         return view
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = tasks[indexPath.section].items[indexPath.row]
-        
-        let vc = TaskViewController(taskName: item.taskName, textInfo: item.textInfo, isDone: item.isDone, needToCreate: false)
-        
-        present(vc, animated: true)
+        let taskVC = TaskViewController(taskName: item.taskName,
+                                        textInfo: item.textInfo,
+                                        isDone: item.isDone,
+                                        needToCreate: false)
+        present(taskVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.isHighlighted()
+        let cell = collectionView.cellForItem(at: indexPath) as? TasksCell
+        cell?.isHighlighted()
     }
-    
     func collectionView(_ collectionView: UICollectionView,
                         didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! TasksCell
-        cell.isUnHighlighted()
+        let cell = collectionView.cellForItem(at: indexPath) as? TasksCell
+        cell?.isUnHighlighted()
 
     }
 }

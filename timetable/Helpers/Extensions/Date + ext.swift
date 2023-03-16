@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum time: CaseIterable {
-    case Day
-    case Minute
+enum StripTimeType: CaseIterable {
+    case toDays
+    case toMinutes
 }
 
 extension Date {
@@ -28,13 +28,12 @@ extension Date {
     func agoForward(to days: Int) -> Date {
         return Date.calendar.date(byAdding: .day, value: days, to: self) ?? self
     }
-
-    func stripTime(_ _case: time) -> Date {
-        switch _case {
-        case .Day:
+    func stripTime(_ stripTimeType: StripTimeType) -> Date {
+        switch stripTimeType {
+        case .toDays:
             let components = Date.calendar.dateComponents([.year, .month, .day], from: self)
             return Date.calendar.date(from: components) ?? self
-        case .Minute:
+        case .toMinutes:
             let components = Date.calendar.dateComponents([.year, .month, .day, .hour, .minute], from: self)
             return Date.calendar.date(from: components) ?? self
         }

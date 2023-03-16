@@ -14,13 +14,11 @@ class TTBaseInfoView: TTBaseView {
     private let contentView = UIView()
 
     init(with title: String? = nil, buttonTitle: String? = nil) {
-        
         titleLabel.text = title?.uppercased()
         titleLabel.textAlignment = buttonTitle == nil ? .center : .left
 
         button.setTitle(buttonTitle?.uppercased())
         button.isHidden = buttonTitle == nil ? true : false
-        
         super.init(frame: .zero)
     }
 
@@ -40,7 +38,6 @@ extension TTBaseInfoView {
         setupView(button)
         setupView(contentView)
     }
-
     override func constraintViews() {
         super.constraintViews()
 
@@ -48,26 +45,21 @@ extension TTBaseInfoView {
         let contentTopOffset: CGFloat = titleLabel.text == nil ? 0 : 10
 
         NSLayoutConstraint.activate([
-            
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             button.heightAnchor.constraint(equalToConstant: 28),
-
             contentView.topAnchor.constraint(equalTo: contentTopAnchor, constant: contentTopOffset),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            
         ])
     }
-
     override func configureAppearance() {
         super.configureAppearance()
-        backgroundColor = .clear
+        self.backgroundColor = .clear
         
         titleLabel.font = App.Fonts.helveticaNeue(with: 13)
         titleLabel.textColor = App.Colors.inactive
@@ -76,7 +68,5 @@ extension TTBaseInfoView {
         contentView.layer.borderColor = App.Colors.separator.cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 5
-        
-       
     }
 }

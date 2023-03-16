@@ -18,19 +18,16 @@ final class OverviewNavBar: TTBaseView {
 extension OverviewNavBar {
     override func setupViews() {
         super.setupViews()
-        
         setupView(separator)
         setupView(titleLabel)
         setupView(weekView)
         setupView(allWorkoutsButton)
-        
     }
 
     override func constraintViews() {
         super.constraintViews()
 
         NSLayoutConstraint.activate([
-            
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 7),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -45,26 +42,21 @@ extension OverviewNavBar {
             weekView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             weekView.heightAnchor.constraint(equalToConstant: 47)
-            
         ])
-        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         self.backgroundColor = App.Colors.BlackWhite
         
-        addBottomBorder(separator: &separator,with: App.Colors.separator, height: 1)
+        addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
         
-        titleLabel.text = App.Strings.NavBar.overview
+        titleLabel.text = App.Strings.overview
         titleLabel.textColor = App.Colors.title
         titleLabel.font = App.Fonts.helveticaNeue(with: 22)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM"
-        
         allWorkoutsButton.isUserInteractionEnabled = false
         allWorkoutsButton.setTitle(dateFormatter.string(from: Date.now).uppercased())
-
     }
 }

@@ -8,7 +8,6 @@
 import Foundation
 
 extension UserDefaults {
-    
     var theme: App.Theme {
         get {
             App.Theme(rawValue: UserDefaults.standard.integer(forKey: "selectedTheme")) ?? .device

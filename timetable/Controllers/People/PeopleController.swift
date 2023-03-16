@@ -23,15 +23,11 @@ extension PeopleController {
     override func constraintViews() {
         super.constraintViews()
 
-
     }
 
     override func configureAppearance() {
         super.configureAppearance()
-
-        title = App.Strings.NavBar.people
-        navigationController?.tabBarItem.title = App.Strings.TabBar.title(for: .people)
-        
+        title = App.Strings.people
+        navigationController?.tabBarItem.title = App.Strings.title(for: .people)
     }
 }
-

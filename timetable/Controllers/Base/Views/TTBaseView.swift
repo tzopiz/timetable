@@ -18,7 +18,6 @@ class TTBaseView: UIView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         setupViews()
         constraintViews()
         configureAppearance()
@@ -28,8 +27,5 @@ class TTBaseView: UIView {
 @objc extension TTBaseView {
     func setupViews() {}
     func constraintViews() {}
-    
-    func configureAppearance() {
-        backgroundColor = .white
-    }
+    func configureAppearance() { backgroundColor = .white }
 }

@@ -8,29 +8,20 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    
     static let id = String(describing: SectionHeaderView.self)
-
     private let title =  UILabel()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupViews()
         constaintViews()
         configureAppearance()
-        
     }
-
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
-
         setupViews()
         constaintViews()
         configureAppearance()
-        
     }
-
     func configure(with date: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM YYYY"
@@ -45,21 +36,14 @@ private extension SectionHeaderView {
     }
 
     func constaintViews() {
-        
         NSLayoutConstraint.activate([
-            
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             title.centerYAnchor.constraint(equalTo: centerYAnchor)
-            
         ])
-        
     }
-
     func configureAppearance() {
-        
         title.font = App.Fonts.helveticaNeue(with: 13)
         title.textColor = App.Colors.inactive
         title.textAlignment = .center
-        
     }
 }

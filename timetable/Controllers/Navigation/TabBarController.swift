@@ -14,21 +14,16 @@ enum Tabs: Int, CaseIterable {
     case profile
 }
 
-
 final class TabBarController: UITabBarController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
-        
-        
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         configureAppearance()
-        
     }
 
     func switchTo(tab: Tabs) {
@@ -36,18 +31,16 @@ final class TabBarController: UITabBarController {
     }
 
     private func configureAppearance() {
-        
         tabBar.tintColor = App.Colors.active
         tabBar.barTintColor = App.Colors.separator
         tabBar.backgroundColor = App.Colors.BlackWhite
         tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
-        
         tabBar.addTopBorder(with: App.Colors.separator, height: 2/3)
-        
+
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
-            controller.tabBarItem = UITabBarItem(title: App.Strings.TabBar.title(for: tab),
-                                                 image: App.Images.TabBar.icon(for: tab),
+            controller.tabBarItem = UITabBarItem(title: App.Strings.title(for: tab),
+                                                 image: App.Images.icon(for: tab),
                                                  tag: tab.rawValue)
             return controller
         }

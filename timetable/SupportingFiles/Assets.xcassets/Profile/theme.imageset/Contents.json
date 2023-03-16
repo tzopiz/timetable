@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x 4.png",
+      "filename" : "sun.max@256x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x 3.png",
+      "filename" : "moon.fill@96x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x.png",
+      "filename" : "sun.max@256x 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x 1.png",
+      "filename" : "moon.fill@96x 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x 5.png",
+      "filename" : "sun.max@256x 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bubble.left.and.exclamationmark.bubble.right@96x 2.png",
+      "filename" : "moon.fill@96x 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

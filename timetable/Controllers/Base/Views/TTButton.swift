@@ -5,7 +5,6 @@
 //  Created by Дмитрий Корчагин on 24.11.2022.
 //
 
-
 import UIKit
 
 public enum TTButtonType {
@@ -17,27 +16,20 @@ final class TTButton: UIButton {
 
     private var type: TTButtonType = .primary
     private let label = UILabel()
-    private let iconView = UIImageView(image: App.Images.Common.downArrow.withRenderingMode(.alwaysTemplate))
-    
+    private let iconView = UIImageView(image: App.Images.downArrow.withRenderingMode(.alwaysTemplate))
     init(with type: TTButtonType) {
         super.init(frame: .zero)
         self.type = type
-
         setupViews()
         constaintViews()
         configureAppearance()
-        
     }
-
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
-
         setupViews()
         constaintViews()
         configureAppearance()
-        
     }
-
     func setTitle(_ title: String?) {
         label.text = title
     }
@@ -58,24 +50,19 @@ private extension TTButton {
         }
 
         NSLayoutConstraint.activate([
-            
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
-            
         ])
     }
 
     func configureAppearance() {
-        
         label.textAlignment = .center
-        
         switch type {
         case .primary:
             label.textColor = App.Colors.inactive
             label.font = App.Fonts.helveticaNeue(with: 13)
             iconView.tintColor = App.Colors.inactive
-
         case .secondary:
             backgroundColor = App.Colors.secondary
             layer.cornerRadius = 7
@@ -84,6 +71,5 @@ private extension TTButton {
             iconView.tintColor = App.Colors.active
         }
         makeSystem(self)
-        
     }
 }

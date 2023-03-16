@@ -37,6 +37,7 @@
 		77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44805283FE26E00ADDB6E /* TTBaseView.swift */; };
 		77C41E652995F135004ABAE6 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C41E642995F135004ABAE6 /* SectionHeaderView.swift */; };
 		77C41E672995F707004ABAE6 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C41E662995F707004ABAE6 /* TasksCell.swift */; };
+		7BD21FCA7F12B5947867E98B /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		0A57C88D29AFE679003AB931 /* tasks.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = tasks.md; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTUserDefaults.swift; sourceTree = "<group>"; };
+		218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		7766B53D28428BF9000FF440 /* Date + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
@@ -72,6 +74,8 @@
 		77B44805283FE26E00ADDB6E /* TTBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseView.swift; sourceTree = "<group>"; };
 		77C41E642995F135004ABAE6 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		77C41E662995F707004ABAE6 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
+		BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
+		C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD21FCA7F12B5947867E98B /* Pods_timetable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,13 +127,6 @@
 			children = (
 				0A1DFC1F29A907CE0008857E /* CollectionView */,
 				0AC213E429BB98E8006E1661 /* Task */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0A80553A29A62BAA00375192 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +190,8 @@
 				0A80553729A5703800375192 /* README.md */,
 				77709143283BEDAC00AD7841 /* timetable */,
 				77709142283BEDAC00AD7841 /* Products */,
+				9E41C8CAD7015D744CB71026 /* Pods */,
+				DF3F190DB00B2519DA1130C8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -296,7 +296,6 @@
 		7770916E283BF80A00AD7841 /* People */ = {
 			isa = PBXGroup;
 			children = (
-				0A80553A29A62BAA00375192 /* Views */,
 				77709173283BF83D00AD7841 /* PeopleController.swift */,
 			);
 			path = People;
@@ -347,6 +346,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		9E41C8CAD7015D744CB71026 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */,
+				218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF3F190DB00B2519DA1130C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -354,6 +370,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77709155283BEDAD00AD7841 /* Build configuration list for PBXNativeTarget "timetable" */;
 			buildPhases = (
+				0A702D7A29C399F2000395A2 /* ShellScript */,
+				FAE2F6B8636A6F0CF8286056 /* [CP] Check Pods Manifest.lock */,
 				7770913D283BEDAC00AD7841 /* Sources */,
 				7770913E283BEDAC00AD7841 /* Frameworks */,
 				7770913F283BEDAC00AD7841 /* Resources */,
@@ -413,6 +431,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A702D7A29C399F2000395A2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		FAE2F6B8636A6F0CF8286056 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-timetable-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7770913D283BEDAC00AD7841 /* Sources */ = {
@@ -512,7 +572,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -566,7 +626,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -578,6 +638,7 @@
 		};
 		77709156283BEDAD00AD7841 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -609,6 +670,7 @@
 		};
 		77709157283BEDAD00AD7841 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

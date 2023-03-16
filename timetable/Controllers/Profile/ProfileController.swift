@@ -6,16 +6,12 @@
 //
 
 import UIKit
-enum cellType {
-    case base
-    case profile
-    case exit
-}
+
 struct SettingsData {
     struct Data {
         let title: String
         let image: UIImage
-        let type: cellType
+        let type: CellType
     }
     let item: Data
 }
@@ -23,9 +19,7 @@ struct SettingsData {
 class ProfileController: TTBaseController {
     
     private let untiBag = UIView(frame: .zero)
-    
     private var dataSource: [SettingsData] = []
-    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -36,14 +30,11 @@ class ProfileController: TTBaseController {
 
         return view
     }()
-    
 }
 
 extension ProfileController {
-    
     override func setupViews() {
         super.setupViews()
-        
         view.addSubview(untiBag)
         view.setupView(collectionView)
         collectionView.contentInset = .zero
@@ -53,88 +44,89 @@ extension ProfileController {
         super.constraintViews()
 
         NSLayoutConstraint.activate([
-            
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            
         ])
     }
-    
-    
-
     override func configureAppearance() {
         super.configureAppearance()
-        
-        addNavBarButton(at: .right, with: "darkMode")
-        
-        title = App.Strings.NavBar.profile
-        
         self.untiBag.isHidden = true
-
+        self.title = App.Strings.profile
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
-  
         dataSource = [
-            .init(item: .init(title: "Фамилия Имя Отчество", image: App.Images.Profile.imageProfile, type: .profile)),
-            .init(item: .init(title: App.Strings.Profile.changeGroup, image: App.Images.Profile.changeGroup, type: .base)),
-            .init(item: .init(title: App.Strings.Profile.share, image: App.Images.Profile.share, type: .base)),
-            .init(item: .init(title: App.Strings.Profile.feedback, image: App.Images.Profile.feedback, type: .base)),
+            .init(item: .init(title: "Фамилия Имя Отчество", image: App.Images.imageProfile, type: .profile)),
+            .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup, type: .base)),
+            .init(item: .init(title: App.Strings.share, image: App.Images.share, type: .base)),
+            .init(item: .init(title: "Оформление", image: App.Images.theme, type: .theme)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
             .init(item: .init(title: "soon", image: UIImage(), type: .base)),
-            .init(item: .init(title: App.Strings.Profile.exit,  image: App.Images.Profile.exit, type: .exit)),
-            .init(item: .init(title: App.Strings.Profile.aboutApp,  image: App.Images.Profile.aboutApp, type: .base))
-
+            .init(item: .init(title: App.Strings.exit, image: App.Images.exit, type: .exit)),
+            .init(item: .init(title: App.Strings.aboutApp, image: App.Images.aboutApp, type: .base))
         ]
-        collectionView.reloadData()
-    }
-    override func navBarRightButtonHandler() {
-        if #available(iOS 13.0, *) {
-            UserDefaults.standard.theme = App.Theme(rawValue: 2 - UserDefaults.standard.theme.getUserInterfaceStyle().rawValue ) ?? .device
-            view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-        }
-        
     }
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
-extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegate  {
+extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        dataSource.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseID,
                                                             for: indexPath) as? ProfileCell else {
             fatalError("Wrong cell")
         }
         let item = dataSource[indexPath.row].item
         cell.configure(title: item.title, type: item.type, image: item.image)
+        if item.type == .theme {
+            cell.addTargetSegmentedControl(target: self, action: #selector(choiceSegment(_:)))
+        }
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
-        cell.isHighlighted()
+        let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
+        cell?.isHighlighted()
     }
-    
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
-        cell.isUnHighlighted()
+        let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
+        cell?.isUnHighlighted()
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        UserDefaults.standard.theme = .device
 //        view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+//    }
+    @objc func choiceSegment(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            if #available(iOS 13.0, *) {
+                UserDefaults.standard.theme = .light
+                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+            }
+        case 1:
+            if #available(iOS 13.0, *) {
+                UserDefaults.standard.theme = .dark
+                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+            }
+        case 2:
+            if #available(iOS 13.0, *) {
+                UserDefaults.standard.theme =  .device
+                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+            }
+        default:
+            print("unexpected segment in " + #function)
+        }
     }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ProfileController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -144,13 +136,11 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
         itemSize = indexPath.item == 0 ? CGSize(width: itemWidth, height: 120) : CGSize(width: itemWidth, height: 65)
         return itemSize
     }
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0)
     }
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {

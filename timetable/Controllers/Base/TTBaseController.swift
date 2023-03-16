@@ -13,14 +13,11 @@ enum NavBarPosition {
 }
 
 class TTBaseController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
         constraintViews()
         configureAppearance()
-        
     }
 }
 
