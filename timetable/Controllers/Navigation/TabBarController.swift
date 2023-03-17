@@ -39,7 +39,7 @@ final class TabBarController: UITabBarController {
 
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
-            controller.tabBarItem = UITabBarItem(title: App.Strings.title(for: tab),
+            controller.tabBarItem = UITabBarItem(title: nil,
                                                  image: App.Images.icon(for: tab),
                                                  tag: tab.rawValue)
             return controller
@@ -52,7 +52,7 @@ final class TabBarController: UITabBarController {
         switch tab {
         case .overview: return OverviewController()
         case .tasks:    return TasksController()
-        case .people:   return PeopleController()
+        case .people:   return PeopleViewController()
         case .profile:  return ProfileController()
         }
     }

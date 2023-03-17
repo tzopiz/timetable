@@ -37,20 +37,24 @@ final class ProfileCell: UICollectionViewCell {
             if type == .exit {
                 leftView.tintColor = UIColor.red
             } else if type == .theme {
-                segmentedControl = UISegmentedControl(items: ["Light", "Dark", "System"])
-                setupView(segmentedControl)
-                segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-                segmentedControl.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-                segmentedControl.selectedSegmentIndex =  UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? 0 :  UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? 1 : 2
-                segmentedControl.backgroundColor = UIColor.clear
-                
+                let pickerView = UIPickerView()
+                setupView(pickerView)
+                pickerView.dataSource = self
+                pickerView.delegate = self
+                NSLayoutConstraint.activate([
+                    pickerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -7),
+                    pickerView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                    pickerView.heightAnchor.constraint(equalTo: heightAnchor),
+                    pickerView.widthAnchor.constraint(equalToConstant: 150)
+                ])
+                pickerView.selectRow( UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? 0 :  UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? 1 : 2, inComponent: 0, animated: true)
             } else {
                 leftView.tintColor = App.Colors.active
             }
         }
     }
     func addTargetSegmentedControl(target: Any?, action: Selector) {
-        segmentedControl.addTarget(action, action: action, for: .valueChanged)
+//        segmentedControl.addTarget(action, action: action, for: .valueChanged)
     }
     func isHighlighted() {
         self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4)
@@ -70,6 +74,37 @@ final class ProfileCell: UICollectionViewCell {
         setupViews()
         constaintViews()
         configureAppearance()
+    }
+}
+
+extension ProfileCell: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int { 1 }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { 3 }
+}
+
+extension ProfileCell: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch row {
+        case 0: return "light"
+        case 1: return "dark"
+        case 2: return "system"
+        default: return nil
+        }
+        
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if #available(iOS 13.0, *) {
+            switch row {
+            case 0: UserDefaults.standard.theme = .light
+            case 1: UserDefaults.standard.theme = .dark
+            case 2: UserDefaults.standard.theme =  .device
+            default: print("unexpected segment in " + #function)
+            }
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScenes = scenes.first as? UIWindowScene
+            let window = windowScenes?.windows.first
+            window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+        }
     }
 }
 

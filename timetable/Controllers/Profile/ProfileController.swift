@@ -53,21 +53,18 @@ extension ProfileController {
     override func configureAppearance() {
         super.configureAppearance()
         self.untiBag.isHidden = true
-        self.title = App.Strings.profile
-        
+        navigationItem.title = App.Strings.profile
+       
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
         dataSource = [
-            .init(item: .init(title: "Фамилия Имя Отчество", image: App.Images.imageProfile, type: .profile)),
-            .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup, type: .base)),
-            .init(item: .init(title: App.Strings.share, image: App.Images.share, type: .base)),
-            .init(item: .init(title: "Оформление", image: App.Images.theme, type: .theme)),
-            .init(item: .init(title: "soon", image: UIImage(), type: .base)),
-            .init(item: .init(title: "soon", image: UIImage(), type: .base)),
-            .init(item: .init(title: App.Strings.exit, image: App.Images.exit, type: .exit)),
-            .init(item: .init(title: App.Strings.aboutApp, image: App.Images.aboutApp, type: .base))
+            .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
+            .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
+            .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
+            .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .exit)),
+            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
         ]
     }
 }
@@ -85,9 +82,6 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
         }
         let item = dataSource[indexPath.row].item
         cell.configure(title: item.title, type: item.type, image: item.image)
-        if item.type == .theme {
-            cell.addTargetSegmentedControl(target: self, action: #selector(choiceSegment(_:)))
-        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -97,31 +91,6 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
         cell?.isUnHighlighted()
-    }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        UserDefaults.standard.theme = .device
-//        view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-//    }
-    @objc func choiceSegment(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            if #available(iOS 13.0, *) {
-                UserDefaults.standard.theme = .light
-                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-            }
-        case 1:
-            if #available(iOS 13.0, *) {
-                UserDefaults.standard.theme = .dark
-                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-            }
-        case 2:
-            if #available(iOS 13.0, *) {
-                UserDefaults.standard.theme =  .device
-                view.window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-            }
-        default:
-            print("unexpected segment in " + #function)
-        }
     }
 }
 

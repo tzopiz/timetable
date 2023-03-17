@@ -12,6 +12,9 @@
 		0A1DFC2229A907F20008857E /* TimetableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DFC2129A907F20008857E /* TimetableCell.swift */; };
 		0A57C88629AF8417003AB931 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C88529AF8417003AB931 /* ProfileCell.swift */; };
 		0A57C88E29AFE679003AB931 /* tasks.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C88D29AFE679003AB931 /* tasks.md */; };
+		0A702D7F29C4499D000395A2 /* PeopleRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D7E29C4499D000395A2 /* PeopleRawData.swift */; };
+		0A702D8229C44AE3000395A2 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D8129C44AE3000395A2 /* PeopleViewController.swift */; };
+		0A702D8429C44B5B000395A2 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D8329C44B5B000395A2 /* LabelCell.swift */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
 		0A84ABA529C10E7B0084D615 /* MTUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
@@ -46,6 +49,9 @@
 		0A1DFC2129A907F20008857E /* TimetableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCell.swift; sourceTree = "<group>"; };
 		0A57C88529AF8417003AB931 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		0A57C88D29AFE679003AB931 /* tasks.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = tasks.md; sourceTree = "<group>"; };
+		0A702D7E29C4499D000395A2 /* PeopleRawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleRawData.swift; sourceTree = "<group>"; };
+		0A702D8129C44AE3000395A2 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		0A702D8329C44B5B000395A2 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTUserDefaults.swift; sourceTree = "<group>"; };
 		218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				77C41E642995F135004ABAE6 /* SectionHeaderView.swift */,
+				0A702D8329C44B5B000395A2 /* LabelCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -120,6 +127,15 @@
 				0A57C88529AF8417003AB931 /* ProfileCell.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		0A702D8029C44AD3000395A2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				77709173283BF83D00AD7841 /* PeopleController.swift */,
+				0A702D7E29C4499D000395A2 /* PeopleRawData.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0A80553929A62BA100375192 /* Views */ = {
@@ -296,7 +312,8 @@
 		7770916E283BF80A00AD7841 /* People */ = {
 			isa = PBXGroup;
 			children = (
-				77709173283BF83D00AD7841 /* PeopleController.swift */,
+				0A702D8029C44AD3000395A2 /* Views */,
+				0A702D8129C44AE3000395A2 /* PeopleViewController.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -480,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7766B53A284288C0000FF440 /* WeekView.swift in Sources */,
+				0A702D8229C44AE3000395A2 /* PeopleViewController.swift in Sources */,
 				7766B53E28428BF9000FF440 /* Date + ext.swift in Sources */,
 				77709176283BF84E00AD7841 /* ProfileController.swift in Sources */,
 				77709149283BEDAC00AD7841 /* OverviewController.swift in Sources */,
@@ -494,11 +512,13 @@
 				0A0CA60B29B8A3DC00923A49 /* TaskViewController.swift in Sources */,
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
 				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
+				0A702D7F29C4499D000395A2 /* PeopleRawData.swift in Sources */,
 				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,
 				77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */,
 				77709174283BF83D00AD7841 /* PeopleController.swift in Sources */,
 				77709164283BF45500AD7841 /* NavigationController.swift in Sources */,
 				7770915F283BEF8D00AD7841 /* UIColor + ext.swift in Sources */,
+				0A702D8429C44B5B000395A2 /* LabelCell.swift in Sources */,
 				77709162283BEFDE00AD7841 /* Resouces.swift in Sources */,
 				77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */,
 				77C41E652995F135004ABAE6 /* SectionHeaderView.swift in Sources */,

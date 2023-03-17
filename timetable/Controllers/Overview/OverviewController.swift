@@ -70,7 +70,7 @@ extension OverviewController {
         collectionView.dataSource = self
 
         dataSource = [
-            .init(date: Date(timeInterval: 60*60*24, since: .now),
+            .init(date: Date(timeInterval: 0, since: .now),
                   items: [
                     .init(title: "Название, лекция/пркатика",
                           subtitle: "адресс, номер аудитории",

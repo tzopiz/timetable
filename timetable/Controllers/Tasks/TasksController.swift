@@ -80,7 +80,7 @@ extension TasksController {
     override func configureAppearance() {
         super.configureAppearance()
         untiBag.isHidden = true
-        title = App.Strings.tasks
+        navigationItem.title = App.Strings.tasks
 
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         collectionView.register(SectionHeaderView.self,

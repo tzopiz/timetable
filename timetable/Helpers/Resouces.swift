@@ -14,14 +14,14 @@ enum App {
         case device
         func getUserInterfaceStyle() -> UIUserInterfaceStyle {
             switch self {
-            case .light: return .light
-            case .dark: return .dark
+            case .light:  return .light
+            case .dark:   return .dark
             case .device: return .unspecified
             }
         }
     }
     enum Colors {
-        static let red = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        static let red      = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         static let active   = #colorLiteral(red: 0, green: 0.4800075889, blue: 1, alpha: 1)
         static let inactive = #colorLiteral(red: 0.5731385946, green: 0.614621222, blue: 0.6466889977, alpha: 1)
         static let title      = UIColor.dynamic(light: #colorLiteral(red: 0.2221248746, green: 0.256721139, blue: 0.3917680979, alpha: 1), dark: #colorLiteral(red: 0.9718694091, green: 0.9750172496, blue: 0.9750832915, alpha: 1))
@@ -33,39 +33,31 @@ enum App {
     }
 
     enum Strings {
-        static func title(for tab: Tabs) -> String {
-            switch tab {
-            case .overview: return "Расписание"
-            case .tasks: return "Задачи"
-            case .people: return "Люди"
-            case .profile: return "Профиль"
-            }
-        }
         static let overview = "Сегодня"
-        static let tasks  = "Мои задачи"
-        static let people = "Люди"
-        static let profile = "Профиль"
+        static let tasks    = "Мои задачи"
+        static let people   = "Люди"
+        static let profile  = "Профиль"
         
-        static let navBarStart = "Актуальные"
-        static let navBarFinish = "Выполненные"
-        static let currentTasks = "Текущие задания"
+        static let navBarStart    = "Актуальные"
+        static let navBarFinish   = "Выполненные"
+        static let currentTasks   = "Текущие задания"
         static let completedTasks = "Завершенные задания"
         
         static let changeGroup = "Сменить группу"
-        static let appearance = "Оформление"
-        static let share = "Поделиться"
-        static let feedback = "Обратная связь"
-        static let aboutApp = "О приложении"
-        static let exit = "Выйти"
+        static let appearance  = "Оформление"
+        static let share       = "Поделиться"
+        static let feedback    = "Обратная связь"
+        static let aboutApp    = "О приложении"
+        static let exit        = "Выйти"
     }
 
     enum Images {
         static func icon(for tab: Tabs) -> UIImage? {
             switch tab {
-            case .overview: return UIImage(systemName: "note.text")
-            case .tasks:    return UIImage(systemName: "list.bullet.rectangle")
-            case .people:   return UIImage(systemName: "magnifyingglass")
-            case .profile:  return UIImage(systemName: "person")
+            case .overview: return #imageLiteral(resourceName: "note_text@84x")
+            case .tasks:    return #imageLiteral(resourceName: "list_bullet_rectangle@84x")
+            case .people:   return #imageLiteral(resourceName: "person@84x")
+            case .profile:  return #imageLiteral(resourceName: "gear@84x")
             }
         }
         static let clock = #imageLiteral(resourceName: "clock@256")
@@ -73,10 +65,10 @@ enum App {
         static let downArrow = #imageLiteral(resourceName: "chevron_down@256x")
         static let addButton = #imageLiteral(resourceName: "plus.circle.fill@256x.png")
         
-        static let checkmarkDone = #imageLiteral(resourceName: "checkmark_circle@256x")
+        static let checkmarkDone    = #imageLiteral(resourceName: "checkmark_circle@256x")
         static let checkmarkNotDone = #imageLiteral(resourceName: "circle@256x.png")
         
-        static let theme = #imageLiteral(resourceName: "theme")
+        static let theme        = #imageLiteral(resourceName: "theme")
         static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@256x")
         static let changeGroup  = #imageLiteral(resourceName: "person_2_gobackward@256x")
         static let share        = #imageLiteral(resourceName: "square_and_arrow_up@256x")
