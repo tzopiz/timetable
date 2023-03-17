@@ -15,6 +15,7 @@
 		0A702D7F29C4499D000395A2 /* PeopleRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D7E29C4499D000395A2 /* PeopleRawData.swift */; };
 		0A702D8229C44AE3000395A2 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D8129C44AE3000395A2 /* PeopleViewController.swift */; };
 		0A702D8429C44B5B000395A2 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A702D8329C44B5B000395A2 /* LabelCell.swift */; };
+		0A702D8E29C4F22D000395A2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A702D8D29C4F22D000395A2 /* GoogleService-Info.plist */; };
 		0A80553829A5703800375192 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A80553729A5703800375192 /* README.md */; };
 		0A84ABA529C10E7B0084D615 /* MTUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */; };
 		7766B53A284288C0000FF440 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7766B539284288C0000FF440 /* WeekView.swift */; };
@@ -34,13 +35,12 @@
 		77709172283BF82600AD7841 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709171283BF82600AD7841 /* TasksController.swift */; };
 		77709174283BF83D00AD7841 /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709173283BF83D00AD7841 /* PeopleController.swift */; };
 		77709176283BF84E00AD7841 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77709175283BF84E00AD7841 /* ProfileController.swift */; };
-		77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */; };
 		77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44801283D4EC100ADDB6E /* TTButton.swift */; };
 		77B44804283FE24400ADDB6E /* OverviewNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44803283FE24400ADDB6E /* OverviewNavBar.swift */; };
 		77B44806283FE26E00ADDB6E /* TTBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B44805283FE26E00ADDB6E /* TTBaseView.swift */; };
 		77C41E652995F135004ABAE6 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C41E642995F135004ABAE6 /* SectionHeaderView.swift */; };
 		77C41E672995F707004ABAE6 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C41E662995F707004ABAE6 /* TasksCell.swift */; };
-		7BD21FCA7F12B5947867E98B /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */; };
+		BBD33E5CBEECC324F3E3D4C7 /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D865CAD3A96376C3A949D72 /* Pods_timetable.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,13 +52,13 @@
 		0A702D7E29C4499D000395A2 /* PeopleRawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleRawData.swift; sourceTree = "<group>"; };
 		0A702D8129C44AE3000395A2 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		0A702D8329C44B5B000395A2 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		0A702D8C29C4F17A000395A2 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A702D8D29C4F22D000395A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A80553729A5703800375192 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A84ABA429C10E7B0084D615 /* MTUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTUserDefaults.swift; sourceTree = "<group>"; };
-		218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
 		7766B539284288C0000FF440 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		7766B53B28428992000FF440 /* WeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		7766B53D28428BF9000FF440 /* Date + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
-		77709141283BEDAC00AD7841 /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77709144283BEDAC00AD7841 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77709146283BEDAC00AD7841 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		77709148283BEDAC00AD7841 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
@@ -74,14 +74,14 @@
 		77709171283BF82600AD7841 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		77709173283BF83D00AD7841 /* PeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
 		77709175283BF84E00AD7841 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseInfoView.swift; sourceTree = "<group>"; };
 		77B44801283D4EC100ADDB6E /* TTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTButton.swift; sourceTree = "<group>"; };
 		77B44803283FE24400ADDB6E /* OverviewNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewNavBar.swift; sourceTree = "<group>"; };
 		77B44805283FE26E00ADDB6E /* TTBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseView.swift; sourceTree = "<group>"; };
 		77C41E642995F135004ABAE6 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		77C41E662995F707004ABAE6 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
-		BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
-		C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D865CAD3A96376C3A949D72 /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30662FDA399BB7E83EF7729 /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
+		C902F3AE1F751F501A2A526F /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BD21FCA7F12B5947867E98B /* Pods_timetable.framework in Frameworks */,
+				BBD33E5CBEECC324F3E3D4C7 /* Pods_timetable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,18 +205,10 @@
 				0A57C88D29AFE679003AB931 /* tasks.md */,
 				0A80553729A5703800375192 /* README.md */,
 				77709143283BEDAC00AD7841 /* timetable */,
-				77709142283BEDAC00AD7841 /* Products */,
-				9E41C8CAD7015D744CB71026 /* Pods */,
-				DF3F190DB00B2519DA1130C8 /* Frameworks */,
+				F4F21F03F7F2BAE72C4EB520 /* Pods */,
+				D2F361370E867C0A7CFE68F7 /* Frameworks */,
+				0A702D8C29C4F17A000395A2 /* timetable.app */,
 			);
-			sourceTree = "<group>";
-		};
-		77709142283BEDAC00AD7841 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				77709141283BEDAC00AD7841 /* timetable.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		77709143283BEDAC00AD7841 /* timetable */ = {
@@ -242,6 +234,7 @@
 		77709159283BEE0000AD7841 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0A702D8D29C4F22D000395A2 /* GoogleService-Info.plist */,
 				7770914D283BEDAD00AD7841 /* Assets.xcassets */,
 				7770914F283BEDAD00AD7841 /* LaunchScreen.storyboard */,
 				77709152283BEDAD00AD7841 /* Info.plist */,
@@ -332,7 +325,6 @@
 			children = (
 				0A1DFC2329AA0A990008857E /* CollectionView */,
 				77B44805283FE26E00ADDB6E /* TTBaseView.swift */,
-				77854D05284BC4EE0095D8A5 /* TTBaseInfoView.swift */,
 				77B44801283D4EC100ADDB6E /* TTButton.swift */,
 			);
 			path = Views;
@@ -363,21 +355,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		9E41C8CAD7015D744CB71026 /* Pods */ = {
+		D2F361370E867C0A7CFE68F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */,
-				218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		DF3F190DB00B2519DA1130C8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C7C0A7E5211FB4712B79E8FE /* Pods_timetable.framework */,
+				7D865CAD3A96376C3A949D72 /* Pods_timetable.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4F21F03F7F2BAE72C4EB520 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C902F3AE1F751F501A2A526F /* Pods-timetable.debug.xcconfig */,
+				C30662FDA399BB7E83EF7729 /* Pods-timetable.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,11 +379,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77709155283BEDAD00AD7841 /* Build configuration list for PBXNativeTarget "timetable" */;
 			buildPhases = (
-				0A702D7A29C399F2000395A2 /* ShellScript */,
 				FAE2F6B8636A6F0CF8286056 /* [CP] Check Pods Manifest.lock */,
 				7770913D283BEDAC00AD7841 /* Sources */,
 				7770913E283BEDAC00AD7841 /* Frameworks */,
 				7770913F283BEDAC00AD7841 /* Resources */,
+				869A0262D975AAB9765B6466 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -399,7 +391,7 @@
 			);
 			name = timetable;
 			productName = WorkoutApp;
-			productReference = 77709141283BEDAC00AD7841 /* timetable.app */;
+			productReference = 0A702D8C29C4F17A000395A2 /* timetable.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -426,7 +418,7 @@
 				Base,
 			);
 			mainGroup = 77709138283BEDAC00AD7841;
-			productRefGroup = 77709142283BEDAC00AD7841 /* Products */;
+			productRefGroup = 77709138283BEDAC00AD7841;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -442,6 +434,7 @@
 			files = (
 				0A80553829A5703800375192 /* README.md in Resources */,
 				0A57C88E29AFE679003AB931 /* tasks.md in Resources */,
+				0A702D8E29C4F22D000395A2 /* GoogleService-Info.plist in Resources */,
 				77709151283BEDAD00AD7841 /* LaunchScreen.storyboard in Resources */,
 				7770914E283BEDAD00AD7841 /* Assets.xcassets in Resources */,
 			);
@@ -450,22 +443,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A702D7A29C399F2000395A2 /* ShellScript */ = {
+		869A0262D975AAB9765B6466 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-timetable/Pods-timetable-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-timetable/Pods-timetable-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-timetable/Pods-timetable-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FAE2F6B8636A6F0CF8286056 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -513,7 +506,6 @@
 				77709145283BEDAC00AD7841 /* AppDelegate.swift in Sources */,
 				77709172283BF82600AD7841 /* TasksController.swift in Sources */,
 				0A702D7F29C4499D000395A2 /* PeopleRawData.swift in Sources */,
-				77854D06284BC4EE0095D8A5 /* TTBaseInfoView.swift in Sources */,
 				77B44802283D4EC100ADDB6E /* TTButton.swift in Sources */,
 				77709174283BF83D00AD7841 /* PeopleController.swift in Sources */,
 				77709164283BF45500AD7841 /* NavigationController.swift in Sources */,
@@ -658,7 +650,7 @@
 		};
 		77709156283BEDAD00AD7841 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA788E8F3BC3749AE58995BC /* Pods-timetable.debug.xcconfig */;
+			baseConfigurationReference = C902F3AE1F751F501A2A526F /* Pods-timetable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -671,6 +663,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -680,7 +673,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = timtable;
+				PRODUCT_BUNDLE_IDENTIFIER = timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -690,7 +683,7 @@
 		};
 		77709157283BEDAD00AD7841 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 218E9E66363337DC35B776C8 /* Pods-timetable.release.xcconfig */;
+			baseConfigurationReference = C30662FDA399BB7E83EF7729 /* Pods-timetable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -703,6 +696,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -712,7 +706,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = timtable;
+				PRODUCT_BUNDLE_IDENTIFIER = timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

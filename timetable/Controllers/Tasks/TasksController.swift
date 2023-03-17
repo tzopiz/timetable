@@ -70,12 +70,10 @@ extension TasksController {
     override func constraintViews() {
         super.constraintViews()
 
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                              left: view.leadingAnchor, paddingLeft: 16,
+                              right: view.trailingAnchor, paddingRight: -16)
     }
     override func configureAppearance() {
         super.configureAppearance()

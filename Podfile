@@ -6,5 +6,8 @@ target 'timetable' do
   use_frameworks!
 
   # Pods for timetable
-	pod 'SwiftLint'
+  pod 'SwiftLint'
+  pod 'Firebase/Database'
+	
+
 end

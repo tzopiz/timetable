@@ -57,16 +57,12 @@ private extension TasksCell {
     }
 
     func constaintViews() {
-        NSLayoutConstraint.activate([
-            checkmarkView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            checkmarkView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            checkmarkView.heightAnchor.constraint(equalToConstant: 28),
-            checkmarkView.widthAnchor.constraint(equalTo: checkmarkView.heightAnchor),
-            
-            stackView.leadingAnchor.constraint(equalTo: checkmarkView.trailingAnchor, constant: 16),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        ])
+        checkmarkView.setDimensions(height: 28, width: 28)
+        checkmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
+                             centerY: centerYAnchor)
+        stackView.anchor(left: checkmarkView.trailingAnchor, paddingLeft: 16,
+                         right: trailingAnchor, paddingRight: -16,
+                         centerY: centerYAnchor)
     }
 
     func configureAppearance() {

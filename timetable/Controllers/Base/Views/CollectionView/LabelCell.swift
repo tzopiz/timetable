@@ -40,7 +40,7 @@ extension LabelCell {
         sublabel.adjustsFontForContentSizeCategory = true
         
         layer.cornerRadius = 20
-        
+        // MARK: Not touch(???)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),

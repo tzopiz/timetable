@@ -55,13 +55,10 @@ private extension TimetableCell {
     }
 
     func constaintViews() {
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            clock.widthAnchor.constraint(equalToConstant: 16),
-            clock.heightAnchor.constraint(equalToConstant: 16)
-        ])
+        stackView.anchor(left: leadingAnchor, paddingLeft: 16,
+                         right: trailingAnchor, paddingRight: -16,
+                         centerY: centerYAnchor)
+        clock.setDimensions(height: 16, width: 16)
     }
 
     func configureAppearance() {

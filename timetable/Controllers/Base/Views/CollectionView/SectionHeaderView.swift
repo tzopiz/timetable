@@ -36,10 +36,7 @@ private extension SectionHeaderView {
     }
 
     func constaintViews() {
-        NSLayoutConstraint.activate([
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            title.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        title.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
     }
     func configureAppearance() {
         title.font = App.Fonts.helveticaNeue(with: 13)

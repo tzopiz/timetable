@@ -44,16 +44,14 @@ extension OverviewController {
     override func constraintViews() {
         super.constraintViews()
 
-        NSLayoutConstraint.activate([
-            navBar.topAnchor.constraint(equalTo: view.topAnchor),
-            navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        navBar.anchor(top: view.topAnchor,
+                      left: view.leadingAnchor,
+                      right: view.trailingAnchor)
 
-            collectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        collectionView.anchor(top: navBar.bottomAnchor,
+                              bottom: view.bottomAnchor,
+                              left: view.leadingAnchor, paddingLeft: 16,
+                              right: view.trailingAnchor, paddingRight: -16)
     }
 
     override func configureAppearance() {

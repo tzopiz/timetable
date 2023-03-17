@@ -26,23 +26,20 @@ extension OverviewNavBar {
 
     override func constraintViews() {
         super.constraintViews()
+        titleLabel.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
+                          left: leadingAnchor, paddingLeft: 16,
+                          right: trailingAnchor,
+                          centerY: allWorkoutsButton.centerYAnchor)
 
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 7),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: allWorkoutsButton.centerYAnchor),
-            
-            allWorkoutsButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 7),
-            allWorkoutsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            allWorkoutsButton.heightAnchor.constraint(equalToConstant: 28),
-            
-            weekView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            weekView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            weekView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            weekView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            weekView.heightAnchor.constraint(equalToConstant: 47)
-        ])
+        allWorkoutsButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
+                                 right: trailingAnchor, paddingRight: -16)
+        allWorkoutsButton.setDimensions(height: 28, width: 200)
+
+        weekView.anchor(top: titleLabel.bottomAnchor, paddingTop: 16,
+                        bottom: bottomAnchor, paddingBottom: -16,
+                        left: leadingAnchor, paddingLeft: 16,
+                        right: trailingAnchor, paddingRight: -16)
+        weekView.setDimensions(height: 47)
     }
     override func layoutSubviews() {
         super.layoutSubviews()

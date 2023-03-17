@@ -46,12 +46,15 @@ extension ContentView {
 
     override func configureAppearance() {
         super.configureAppearance()
-        backgroundColor = App.Colors.background
+        self.backgroundColor = App.Colors.background
+        
         mainStackView.axis = .vertical
         mainStackView.spacing = 16
+        
         label.font = App.Fonts.helveticaNeue(with: 17)
         label.textColor = App.Colors.title
         label.textAlignment = .center
+        
         nameTask.font = App.Fonts.helveticaNeue(with: 17)
         nameTask.textColor = App.Colors.title
         nameTask.placeholder = "Новая задача"
@@ -60,6 +63,7 @@ extension ContentView {
         nameTask.layer.cornerRadius = 10
         nameTask.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTask.frame.height))
         nameTask.leftViewMode = .always
+        
         textView.font = App.Fonts.helveticaNeue(with: 17)
         textView.textColor = App.Colors.title
         textView.text = ""

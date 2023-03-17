@@ -21,15 +21,10 @@ class PeopleViewController: TTBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = App.Strings.people
-        configureHierarchy()
-        configureDataSource()
         performQuery(with: nil)
     }
-}
-
-extension PeopleViewController {
-    func configureDataSource() {
-        
+    override func configureAppearance() {
+        super.configureAppearance()
         let cellRegistration = UICollectionView.CellRegistration
         <LabelCell, PeopleController.People> { (cell, indexPath, people) in
             cell.label.text = people.name
@@ -43,8 +38,35 @@ extension PeopleViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
     }
-    
-    /// - Tag: PeoplePerformQuery
+    override func constraintViews() {
+        super.constraintViews()
+        view.backgroundColor = App.Colors.background
+        let layout = createLayout()
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        collectionView.backgroundColor = App.Colors.background
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let untibag = UIView()
+        untibag.isHidden = true
+        view.addSubview(untibag)
+        view.addSubview(collectionView)
+        view.addSubview(searchBar)
+        
+        searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: -1,
+                         left: view.leadingAnchor, paddingLeft: 0,
+                         right: view.trailingAnchor, paddingRight: 0)
+        collectionView.anchor(top: searchBar.bottomAnchor,
+                              bottom: view.bottomAnchor,
+                              left: view.leadingAnchor,
+                              right: view.trailingAnchor)
+        
+        peopleCollectionView = collectionView
+        
+        searchBar.delegate = self
+       
+    }
+}
+
+extension PeopleViewController {
     func performQuery(with filter: String?) {
         let mountains = peopleController.filteredMountains(with: filter).sorted { $0.name < $1.name }
 
@@ -53,9 +75,6 @@ extension PeopleViewController {
         snapshot.appendItems(mountains)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-}
-
-extension PeopleViewController {
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
@@ -78,35 +97,6 @@ extension PeopleViewController {
             return section
         }
         return layout
-    }
-
-    func configureHierarchy() {
-        view.backgroundColor = App.Colors.background
-        let layout = createLayout()
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = App.Colors.background
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let untibag = UIView()
-        untibag.isHidden = true
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(untibag)
-        view.addSubview(collectionView)
-        view.addSubview(searchBar)
-
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -1),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -1),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -1),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        peopleCollectionView = collectionView
-
-        searchBar.delegate = self
     }
 }
 

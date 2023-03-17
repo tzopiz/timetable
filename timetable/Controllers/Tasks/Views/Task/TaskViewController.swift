@@ -39,21 +39,16 @@ extension TaskViewController {
 
     }
     override func constraintViews() {
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            separator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            separator.widthAnchor.constraint(equalToConstant: 16),
-            separator.heightAnchor.constraint(equalTo: buttonStackView.heightAnchor)
-        ])
+        buttonStackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -16,
+                               left: view.leadingAnchor, paddingLeft: 16,
+                               right: view.trailingAnchor, paddingRight: -16)
+        contentView.anchor(top: view.topAnchor, paddingTop: 16,
+                           bottom: buttonStackView.topAnchor,
+                           left: view.leadingAnchor,
+                           right: view.trailingAnchor)
+        separator.anchor(centerX: view.centerXAnchor,
+                         height: buttonStackView.heightAnchor)
+        separator.setDimensions(width: 16)
     }
     override func configureAppearance() {
         super.configureAppearance()

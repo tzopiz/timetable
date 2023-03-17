@@ -46,10 +46,7 @@ extension WeekView.WeekdayView {
     override func constraintViews() {
         super.constraintViews()
 
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
     }
 
     override func configureAppearance() {

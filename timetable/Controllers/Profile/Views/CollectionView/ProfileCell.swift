@@ -29,26 +29,23 @@ final class ProfileCell: UICollectionViewCell {
             stackInfoView.axis = .vertical
             stackInfoView.spacing = 10
             stackInfoView.addArrangedSubview(subtitle)
-            leftView.heightAnchor.constraint(equalToConstant: 88).isActive = true
-            leftView.widthAnchor.constraint(equalToConstant: 88).isActive = true
+            leftView.setDimensions(height: 88, width: 88)
         } else {
-            leftView.heightAnchor.constraint(equalToConstant: 32).isActive = true
-            leftView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+            leftView.setDimensions(height: 32, width: 32)
             if type == .exit {
                 leftView.tintColor = UIColor.red
             } else if type == .theme {
                 setupView(button)
+                button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
+                button.tintColor = App.Colors.active
                 let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
                 "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
                 "Светлая" : "Системная"
                 button.setTitle(title, for: .normal)
-                button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
                 button.addTarget(self, action: #selector(showAlertController), for: .touchUpInside)
-                NSLayoutConstraint.activate([
-                    button.heightAnchor.constraint(equalToConstant: 40),
-                    button.centerYAnchor.constraint(equalTo: centerYAnchor),
-                    button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-                ])
+                button.setDimensions(height: 40)
+                button.anchor(right: trailingAnchor, paddingRight: -16,
+                              centerY: centerYAnchor)
             } else {
                 leftView.tintColor = App.Colors.active
             }
@@ -111,16 +108,11 @@ private extension ProfileCell {
     }
 
     func constaintViews() {
-        NSLayoutConstraint.activate([
-            leftView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            leftView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            stackInfoView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 16),
-            stackInfoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackInfoView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            title.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
+        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
+                             right: trailingAnchor, paddingRight: -16,
+                             centerY: centerYAnchor)
+        title.setDimensions(height: 40)
     }
 
     func configureAppearance() {

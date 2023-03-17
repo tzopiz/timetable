@@ -48,12 +48,9 @@ private extension TTButton {
             case .secondary: return 10
             }
         }
-
-        NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
-        ])
+        label.anchor(left: trailingAnchor, paddingLeft: 10,
+                     right: trailingAnchor, paddingRight: -10,
+                     centerY: centerYAnchor)
     }
 
     func configureAppearance() {
