@@ -82,7 +82,4 @@ private extension TasksCell {
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
         subtitle.textColor = App.Colors.inactive
     }
-    @objc func handleTap() {
-        print(#function)
-    }
 }

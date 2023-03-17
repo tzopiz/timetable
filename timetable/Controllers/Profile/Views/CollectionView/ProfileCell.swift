@@ -20,7 +20,7 @@ final class ProfileCell: UICollectionViewCell {
     private var subtitle = UILabel()
     private var leftView = UIImageView(image: App.Images.imageProfile.withRenderingMode(.alwaysTemplate))
     private let stackInfoView = UIStackView()
-    private var segmentedControl: UISegmentedControl!
+    let button = UIButton(type: .system)
     func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
         self.leftView.image = image
@@ -37,31 +37,58 @@ final class ProfileCell: UICollectionViewCell {
             if type == .exit {
                 leftView.tintColor = UIColor.red
             } else if type == .theme {
-                let pickerView = UIPickerView()
-                setupView(pickerView)
-                pickerView.dataSource = self
-                pickerView.delegate = self
+                setupView(button)
+                let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлая" : "Системная"
+                button.setTitle(title, for: .normal)
+                button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
+                button.addTarget(self, action: #selector(showAlertController), for: .touchUpInside)
                 NSLayoutConstraint.activate([
-                    pickerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -7),
-                    pickerView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                    pickerView.heightAnchor.constraint(equalTo: heightAnchor),
-                    pickerView.widthAnchor.constraint(equalToConstant: 150)
+                    button.heightAnchor.constraint(equalToConstant: 40),
+                    button.centerYAnchor.constraint(equalTo: centerYAnchor),
+                    button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
                 ])
-                pickerView.selectRow( UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? 0 :  UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? 1 : 2, inComponent: 0, animated: true)
+                
             } else {
                 leftView.tintColor = App.Colors.active
             }
         }
     }
-    func addTargetSegmentedControl(target: Any?, action: Selector) {
-//        segmentedControl.addTarget(action, action: action, for: .valueChanged)
+    @objc func showAlertController() {
+        showInputDialog(firstTitle: "Светлое",
+                        secondTitle: "Темное",
+                        thirdTitle: "Системное",
+                        cancelTitle: "Отмена")
     }
-    func isHighlighted() {
-        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4)
+    func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
+    func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    func showInputDialog(firstTitle:String, secondTitle:String, thirdTitle:String, cancelTitle:String)  {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        let window = windowScenes?.windows.first
+        let viewController = window?.rootViewController
+        func updateData() {
+            window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+            let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темное": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлое" : "Системное"
+            self.button.setTitle(title, for: .normal)
+        }
+        alert.addAction(UIAlertAction(title: firstTitle, style: .default,  handler: { (action:UIAlertAction) in
+            UserDefaults.standard.theme = .light
+            updateData()
+        }))
+        alert.addAction(UIAlertAction(title: secondTitle, style: .default, handler: { (action:UIAlertAction) in
+            UserDefaults.standard.theme = .dark
+            updateData()
+        }))
+        alert.addAction(UIAlertAction(title: thirdTitle, style: .default,  handler: { (action:UIAlertAction) in
+            UserDefaults.standard.theme = .device
+            updateData()
+        }))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
+        
+        viewController?.present(alert, animated: true, completion: nil)
     }
-    func isUnHighlighted() {
-        self.backgroundColor = App.Colors.BlackWhite
-    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -77,42 +104,12 @@ final class ProfileCell: UICollectionViewCell {
     }
 }
 
-extension ProfileCell: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int { 1 }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { 3 }
-}
-
-extension ProfileCell: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch row {
-        case 0: return "light"
-        case 1: return "dark"
-        case 2: return "system"
-        default: return nil
-        }
-        
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if #available(iOS 13.0, *) {
-            switch row {
-            case 0: UserDefaults.standard.theme = .light
-            case 1: UserDefaults.standard.theme = .dark
-            case 2: UserDefaults.standard.theme =  .device
-            default: print("unexpected segment in " + #function)
-            }
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScenes = scenes.first as? UIWindowScene
-            let window = windowScenes?.windows.first
-            window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-        }
-    }
-}
-
 private extension ProfileCell {
     func setupViews() {
         setupView(stackInfoView)
         setupView(leftView)
         stackInfoView.addArrangedSubview(title)
+        
     }
 
     func constaintViews() {
