@@ -44,7 +44,7 @@ extension PeopleViewController {
         }
     }
     
-    /// - Tag: MountainsPerformQuery
+    /// - Tag: PeoplePerformQuery
     func performQuery(with filter: String?) {
         let mountains = peopleController.filteredMountains(with: filter).sorted { $0.name < $1.name }
 

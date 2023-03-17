@@ -38,7 +38,9 @@ final class ProfileCell: UICollectionViewCell {
                 leftView.tintColor = UIColor.red
             } else if type == .theme {
                 setupView(button)
-                let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлая" : "Системная"
+                let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
+                "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
+                "Светлая" : "Системная"
                 button.setTitle(title, for: .normal)
                 button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
                 button.addTarget(self, action: #selector(showAlertController), for: .touchUpInside)
@@ -47,7 +49,6 @@ final class ProfileCell: UICollectionViewCell {
                     button.centerYAnchor.constraint(equalTo: centerYAnchor),
                     button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
                 ])
-                
             } else {
                 leftView.tintColor = App.Colors.active
             }
@@ -61,7 +62,7 @@ final class ProfileCell: UICollectionViewCell {
     }
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
-    func showInputDialog(firstTitle:String, secondTitle:String, thirdTitle:String, cancelTitle:String)  {
+    func showInputDialog(firstTitle: String, secondTitle: String, thirdTitle: String, cancelTitle: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let scenes = UIApplication.shared.connectedScenes
         let windowScenes = scenes.first as? UIWindowScene
@@ -72,23 +73,21 @@ final class ProfileCell: UICollectionViewCell {
             let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темное": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлое" : "Системное"
             self.button.setTitle(title, for: .normal)
         }
-        alert.addAction(UIAlertAction(title: firstTitle, style: .default,  handler: { (action:UIAlertAction) in
+        alert.addAction(UIAlertAction(title: firstTitle, style: .default,  handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .light
             updateData()
         }))
-        alert.addAction(UIAlertAction(title: secondTitle, style: .default, handler: { (action:UIAlertAction) in
+        alert.addAction(UIAlertAction(title: secondTitle, style: .default, handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .dark
             updateData()
         }))
-        alert.addAction(UIAlertAction(title: thirdTitle, style: .default,  handler: { (action:UIAlertAction) in
+        alert.addAction(UIAlertAction(title: thirdTitle, style: .default,  handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .device
             updateData()
         }))
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
-        
         viewController?.present(alert, animated: true, completion: nil)
     }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -109,7 +108,6 @@ private extension ProfileCell {
         setupView(stackInfoView)
         setupView(leftView)
         stackInfoView.addArrangedSubview(title)
-        
     }
 
     func constaintViews() {

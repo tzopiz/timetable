@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class LabelCell: UICollectionViewCell {
     static let reuseIdentifier = "label-cell-reuse-identifier"
     let label = UILabel()
@@ -47,7 +46,5 @@ extension LabelCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
-        
     }
 }
-

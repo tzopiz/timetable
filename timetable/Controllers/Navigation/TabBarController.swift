@@ -44,7 +44,6 @@ final class TabBarController: UITabBarController {
                                                  tag: tab.rawValue)
             return controller
         }
-
         setViewControllers(controllers, animated: false)
     }
 
