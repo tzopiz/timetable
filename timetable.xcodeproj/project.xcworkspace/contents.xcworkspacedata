@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/Dmitry/Documents/SwiftProjects/WorkoutApp/timetable.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
