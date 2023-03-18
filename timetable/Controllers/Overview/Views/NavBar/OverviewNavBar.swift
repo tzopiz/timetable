@@ -33,7 +33,7 @@ extension OverviewNavBar {
 
         allWorkoutsButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                  right: trailingAnchor, paddingRight: -16)
-        allWorkoutsButton.setDimensions(height: 28, width: 200)
+        allWorkoutsButton.setDimensions(height: 28)
 
         weekView.anchor(top: titleLabel.bottomAnchor, paddingTop: 16,
                         bottom: bottomAnchor, paddingBottom: -16,

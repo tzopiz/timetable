@@ -10,10 +10,9 @@ import UIKit
 struct TaskData {
     struct Data {
         let taskName: String
-        let textInfo: String
+        let taskInfo: String
         let isDone: Bool
     }
-
     let date: Date
     let items: [Data]
 }
@@ -93,27 +92,27 @@ extension TasksController {
         dataSource = [
             .init(date: Date(timeInterval: 1000000, since: .now),
                   items: [
-                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: true),
-                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: true)
+                    .init(taskName: "Матан", taskInfo: "2332, 2333, 2334, 2334, 2335", isDone: true),
+                    .init(taskName: "Механика", taskInfo: "232, 233, 234, 234, 235", isDone: true)
                   ]),
             .init(date: Date(timeInterval: -1000000, since: .now),
                   items: [
-                    .init(taskName: "Матан", textInfo: "2432, 2433, 2434, 2434, 2435", isDone: false),
-                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
-                    .init(taskName: "Англ", textInfo: "пересказ статьи на 40к символов", isDone: false)
+                    .init(taskName: "Матан", taskInfo: "2432, 2433, 2434, 2434, 2435", isDone: false),
+                    .init(taskName: "Механика", taskInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Англ", taskInfo: "пересказ статьи на 40к символов", isDone: false)
                   ]),
             .init(date: Date(timeInterval: -15000000, since: .now),
                   items: [
-                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
-                    .init(taskName: "Англ", textInfo: "пересказ статьи на 30к символов", isDone: true)
+                    .init(taskName: "Матан", taskInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
+                    .init(taskName: "Англ", taskInfo: "пересказ статьи на 30к символов", isDone: true)
                   ]),
             .init(date: Date(timeInterval: -500000, since: .now),
                   items: [
-                    .init(taskName: "Матан", textInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
-                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
-                    .init(taskName: "Матан", textInfo: "2432, 2433, 2434, 2434, 2435", isDone: true),
-                    .init(taskName: "Механика", textInfo: "232, 233, 234, 234, 235", isDone: false),
-                    .init(taskName: "Англ", textInfo: "пересказ статьи на 40к символов", isDone: false)
+                    .init(taskName: "Матан", taskInfo: "2332, 2333, 2334, 2334, 2335", isDone: false),
+                    .init(taskName: "Механика", taskInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Матан", taskInfo: "2432, 2433, 2434, 2434, 2435", isDone: true),
+                    .init(taskName: "Механика", taskInfo: "232, 233, 234, 234, 235", isDone: false),
+                    .init(taskName: "Англ", taskInfo: "пересказ статьи на 40к символов", isDone: false)
                   ])
         ]
         tasks = tasks(with: .active)
@@ -158,7 +157,7 @@ extension TasksController: UICollectionViewDataSource {
 
         let item = tasks[indexPath.section].items[indexPath.row]
 
-        cell.configure(with: item.taskName, subtitle: item.textInfo, isDone: item.isDone)
+        cell.configure(with: item.taskName, subtitle: item.taskInfo, isDone: item.isDone)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -174,7 +173,7 @@ extension TasksController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = tasks[indexPath.section].items[indexPath.row]
         let taskVC = TaskViewController(taskName: item.taskName,
-                                        textInfo: item.textInfo,
+                                        taskInfo: item.taskInfo,
                                         isDone: item.isDone,
                                         needToCreate: false)
         present(taskVC, animated: true)

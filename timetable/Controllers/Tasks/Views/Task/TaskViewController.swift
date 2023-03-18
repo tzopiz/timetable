@@ -16,13 +16,13 @@ final class TaskViewController: TTBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    init(taskName: String? = nil, textInfo: String = "", isDone: Bool = false, needToCreate: Bool) {
+    init(taskName: String? = nil, taskInfo: String = "", isDone: Bool = false, needToCreate: Bool) {
         super.init(nibName: nil, bundle: nil)
         if let title = taskName {
             contentView.configure(label: isDone ? "Выполненная задача": "Активная задача",
-                                  nameTask: title, text: textInfo)
+                                  nameTask: title, text: taskInfo)
         } else {
-            contentView.configure(label: "Новая задача", nameTask: "", text: textInfo)
+            contentView.configure(label: "Новая задача", nameTask: "", text: taskInfo)
         }
     }
     required init?(coder: NSCoder) {
@@ -33,10 +33,10 @@ extension TaskViewController {
     override func setupViews() {
         view.setupView(contentView)
         view.setupView(buttonStackView)
+        
         buttonStackView.addArrangedSubview(buttonDelete)
         buttonStackView.addArrangedSubview(separator)
         buttonStackView.addArrangedSubview(buttonSave)
-
     }
     override func constraintViews() {
         buttonStackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -16,

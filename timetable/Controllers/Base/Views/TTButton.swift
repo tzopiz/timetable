@@ -48,7 +48,7 @@ private extension TTButton {
             case .secondary: return 10
             }
         }
-        label.anchor(left: trailingAnchor, paddingLeft: 10,
+        label.anchor(left: leadingAnchor, paddingLeft: 10,
                      right: trailingAnchor, paddingRight: -10,
                      centerY: centerYAnchor)
     }

@@ -9,14 +9,14 @@ import UIKit
 
 final class ContentView: TTBaseView {
     private let label = UILabel()
-    private let nameTask = UITextField()
-    private let textView = UITextView()
+    private let nameTaskField = UITextField()
+    private let taskInfoView = UITextView()
     private let mainStackView = UIStackView()
 
     func configure(label: String, nameTask: String, text: String) {
         self.label.text = label
-        self.nameTask.text = nameTask
-        self.textView.text = text
+        self.nameTaskField.text = nameTask
+        self.taskInfoView.text = text
     }
 }
 
@@ -25,23 +25,19 @@ extension ContentView {
         super.setupViews()
         setupView(mainStackView)
         mainStackView.addArrangedSubview(label)
-        mainStackView.addArrangedSubview(nameTask)
-        mainStackView.addArrangedSubview(textView)
+        mainStackView.addArrangedSubview(nameTaskField)
+        mainStackView.addArrangedSubview(taskInfoView)
     }
 
     override func constraintViews() {
         super.constraintViews()
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        nameTask.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            mainStackView.topAnchor.constraint(equalTo: topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            nameTask.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        label.anchor(centerX: centerXAnchor)
+        nameTaskField.setDimensions(height: 50)
+        mainStackView.anchor(top: topAnchor,
+                             bottom: bottomAnchor, paddingBottom: -16,
+                             left: leadingAnchor, paddingLeft: 16,
+                             right: trailingAnchor, paddingRight: -16)
+        
     }
 
     override func configureAppearance() {
@@ -55,20 +51,19 @@ extension ContentView {
         label.textColor = App.Colors.title
         label.textAlignment = .center
         
-        nameTask.font = App.Fonts.helveticaNeue(with: 17)
-        nameTask.textColor = App.Colors.title
-        nameTask.placeholder = "Новая задача"
-        nameTask.backgroundColor = App.Colors.BlackWhite
-        nameTask.translatesAutoresizingMaskIntoConstraints = false
-        nameTask.layer.cornerRadius = 10
-        nameTask.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTask.frame.height))
-        nameTask.leftViewMode = .always
+        nameTaskField.font = App.Fonts.helveticaNeue(with: 17)
+        nameTaskField.textColor = App.Colors.title
+        nameTaskField.placeholder = "Новая задача"
+        nameTaskField.backgroundColor = App.Colors.BlackWhite
+        nameTaskField.layer.cornerRadius = 10
+        nameTaskField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTaskField.frame.height))
+        nameTaskField.leftViewMode = .always
         
-        textView.font = App.Fonts.helveticaNeue(with: 17)
-        textView.textColor = App.Colors.title
-        textView.text = ""
-        textView.backgroundColor = App.Colors.BlackWhite
-        textView.layer.cornerRadius = 10
-        textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        taskInfoView.font = App.Fonts.helveticaNeue(with: 17)
+        taskInfoView.textColor = App.Colors.title
+        taskInfoView.text = ""
+        taskInfoView.backgroundColor = App.Colors.BlackWhite
+        taskInfoView.layer.cornerRadius = 10
+        taskInfoView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
     }
 }
