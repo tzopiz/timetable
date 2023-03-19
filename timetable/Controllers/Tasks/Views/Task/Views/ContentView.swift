@@ -77,17 +77,17 @@ extension ContentView {
         taskInfoView.setDimensions(height: 200)
         
         importanceTask.setDimensions(height: 50)
-        segmentedControl.anchor(right: settingsStackView.trailingAnchor, paddingRight: -8,
+        segmentedControl.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,
                                 centerY: importanceTask.centerYAnchor)
         segmentedControl.setDimensions(width: 200)
-        importanceLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 8,
+        importanceLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 16,
                                centerY: importanceTask.centerYAnchor)
         
         deadlineTask.setDimensions(height: 50)
-        deadlineLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 8,
+        deadlineLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 16,
                                centerY: deadlineTask.centerYAnchor)
-        datePicker.anchor(left: mainStackView.leadingAnchor, paddingLeft: 8,
-                          right: settingsStackView.trailingAnchor, paddingRight: -8,
+        datePicker.anchor(left: mainStackView.leadingAnchor,
+                          right: settingsStackView.trailingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
         datePicker.setDimensions(width: 200)
         
