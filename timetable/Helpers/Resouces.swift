@@ -58,6 +58,11 @@ enum App {
         static let feedback    = "Обратная связь"
         static let aboutApp    = "О приложении"
         static let exit        = "Выйти"
+        
+        static let warning = "⚠️"
+        static let exclamation_1 = "❗️"
+        static let exclamation_2 = "‼️"
+        static let exclamation_3 = "💀"
     }
 
     enum Images {
@@ -83,6 +88,11 @@ enum App {
         static let share        = #imageLiteral(resourceName: "square_and_arrow_up@256x")
         static let aboutApp     = #imageLiteral(resourceName: "info_circle@256x")
         static let exit         = #imageLiteral(resourceName: "rectangle_portrait_and_arrow_forward@256x")
+        
+        static let warning = #imageLiteral(resourceName: "warning@128")
+        static let exclamation_1 = #imageLiteral(resourceName: "warning_1@64")
+        static let exclamation_2 = #imageLiteral(resourceName: "warning_2@64")
+        static let exclamation_3 = #imageLiteral(resourceName: "warning_3@64")
     }
 
     enum Fonts {

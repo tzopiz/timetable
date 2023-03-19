@@ -51,7 +51,52 @@ extension OverviewController {
                                 withReuseIdentifier: SectionHeaderView.id)
 
         dataSource = [
+            .init(date: Date(timeInterval: 0, since: .now - 60*60*24),
+                  items: [
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00")
+                  ]),
             .init(date: Date(timeInterval: 0, since: .now),
+                  items: [
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00")
+                  ]),
+            .init(date: Date(timeInterval: 0, since: .now + 1*60*60*24),
+                  items: [
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00"),
+                    .init(title: "Название, лекция/пркатика",
+                          subtitle: "адресс, номер аудитории",
+                          teacherNS: "Ф.И.О преподавателя",
+                          time: "00:00")
+                  ]),
+            .init(date: Date(timeInterval: 0, since: .now + 2*60*60*24),
                   items: [
                     .init(title: "Название, лекция/пркатика",
                           subtitle: "адресс, номер аудитории",

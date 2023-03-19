@@ -9,20 +9,14 @@ import UIKit
 
 final class TaskViewController: TTBaseController {
     private let contentView = ContentView()
-    private let separator = TTBaseView()
-    private let buttonDelete = UIButton(type: .system)
-    private let buttonSave = UIButton(type: .system)
-    private let buttonStackView = UIStackView()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    
     init(taskName: String? = nil, taskInfo: String = "", isDone: Bool = false, needToCreate: Bool) {
         super.init(nibName: nil, bundle: nil)
         if let title = taskName {
             contentView.configure(label: isDone ? "Выполненная задача": "Активная задача",
-                                  nameTask: title, text: taskInfo)
+                                  nameTask: title, text: taskInfo, isDone: isDone)
         } else {
-            contentView.configure(label: "Новая задача", nameTask: "", text: taskInfo)
+            contentView.configure(label: "Новая задача", nameTask: "", text: taskInfo, isDone: isDone)
         }
     }
     required init?(coder: NSCoder) {
@@ -32,45 +26,20 @@ final class TaskViewController: TTBaseController {
 extension TaskViewController {
     override func setupViews() {
         view.setupView(contentView)
-        view.setupView(buttonStackView)
-        
-        buttonStackView.addArrangedSubview(buttonDelete)
-        buttonStackView.addArrangedSubview(separator)
-        buttonStackView.addArrangedSubview(buttonSave)
     }
     override func constraintViews() {
-        buttonStackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -16,
-                               left: view.leadingAnchor, paddingLeft: 16,
-                               right: view.trailingAnchor, paddingRight: -16)
-        contentView.anchor(top: view.topAnchor, paddingTop: 16,
-                           bottom: buttonStackView.topAnchor,
+        contentView.anchor(top: view.topAnchor,
+                           bottom: view.bottomAnchor,
                            left: view.leadingAnchor,
                            right: view.trailingAnchor)
-        separator.anchor(centerX: view.centerXAnchor,
-                         height: buttonStackView.heightAnchor)
-        separator.setDimensions(width: 16)
     }
     override func configureAppearance() {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
-       
-        buttonSave.layer.cornerRadius = 10
-        buttonDelete.tintColor = App.Colors.active
-        buttonSave.setTitle("Сохранить", for: .normal)
-        buttonSave.backgroundColor = App.Colors.BlackWhite
-        buttonSave.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        buttonSave.addTarget(self, action: #selector(addButtonSave), for: .touchUpInside)
         
-        buttonDelete.layer.cornerRadius = 10
-        buttonDelete.tintColor = App.Colors.red
-        buttonDelete.setTitle("Удалить", for: .normal)
-        buttonDelete.backgroundColor = App.Colors.BlackWhite
-        buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        buttonDelete.addTarget(self, action: #selector(addButtonDelete), for: .touchUpInside)
-        
-        buttonStackView.axis = .horizontal
-        
-        separator.backgroundColor = .clear
+        contentView.addTargetButtonSave(target: self, action: #selector(addButtonSave))
+        contentView.addTargetButtonDelete(target: self, action: #selector(addButtonDelete))
+        contentView.addTargetButtonComplete(target: self, action: #selector(addButtonComplete))
     }
     @objc func addButtonSave() {
         self.dismiss(animated: true)
@@ -79,5 +48,9 @@ extension TaskViewController {
     @objc func addButtonDelete() {
         self.dismiss(animated: true)
         // TODO: delete task
+    }
+    @objc func addButtonComplete() {
+        self.dismiss(animated: true)
+        // TODO: change status task
     }
 }
