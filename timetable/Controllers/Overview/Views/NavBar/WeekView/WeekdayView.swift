@@ -12,7 +12,6 @@ extension WeekView {
 
         private let nameLabel = UILabel()
         private let dateLabel = UILabel()
-
         private let stackView = UIStackView()
 
         func configure(with index: Int, and name: String) {
@@ -38,7 +37,6 @@ extension WeekView.WeekdayView {
         super.setupViews()
 
         setupView(stackView)
-
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
     }

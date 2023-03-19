@@ -36,7 +36,6 @@ final class TTButton: UIButton {
 }
 
 private extension TTButton {
-
     func setupViews() {
         setupView(label)
     }

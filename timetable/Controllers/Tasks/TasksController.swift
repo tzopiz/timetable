@@ -16,18 +16,13 @@ struct TaskData {
     let date: Date
     let items: [Data]
 }
-enum TaskType {
-    case active
-    case all
-}
 class TasksController: TTBaseController {
 
     private let untiBag = UIView(frame: .zero)
 
     private var dataSource: [TaskData] = []
-    private var tasks: [TaskData] = []
-    private var currentType: TaskType = .active
-    private func tasks(with type: TaskType) -> [TaskData] {
+    private var currentType: App.TaskType =  UserDefaults.standard.taskType.getUserTaskType()
+    private func tasks(with type: App.TaskType) -> [TaskData] {
         var ans: [TaskData] = []
         switch type {
         case .active:
@@ -86,8 +81,9 @@ extension TasksController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         addNavBarButton(at: .right, with: "Добавить")
-        addNavBarButton(at: .left, with: "Активные")
+        navBarLeftButtonHandler()
 
         dataSource = [
             .init(date: Date(timeInterval: 1000000, since: .now),
@@ -115,7 +111,6 @@ extension TasksController {
                     .init(taskName: "Англ", taskInfo: "пересказ статьи на 40к символов", isDone: false)
                   ])
         ]
-        tasks = tasks(with: .active)
         collectionView.reloadData()
     }
     override func navBarRightButtonHandler() {
@@ -125,16 +120,15 @@ extension TasksController {
     override func navBarLeftButtonHandler() {
         switch currentType {
         case .active:
-            tasks = tasks(with: .all)
-            currentType = .all
+            UserDefaults.standard.taskType = .all
             navigationItem.leftBarButtonItems = nil
             addNavBarButton(at: .left, with: "Выполненные")
         case .all:
-            tasks = tasks(with: .active)
-            currentType = .active
+            UserDefaults.standard.taskType = .active
             navigationItem.leftBarButtonItems = nil
             addNavBarButton(at: .left, with: "Активные")
         }
+        currentType = UserDefaults.standard.taskType.getUserTaskType()
         collectionView.reloadData()
     }
 }
@@ -142,11 +136,11 @@ extension TasksController {
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
 extension TasksController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        tasks.count
+        tasks(with: currentType).count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        tasks[section].items.count
+        tasks(with: currentType)[section].items.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -155,7 +149,7 @@ extension TasksController: UICollectionViewDataSource {
             withReuseIdentifier: TasksCell.reuseID, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
 
-        let item = tasks[indexPath.section].items[indexPath.row]
+        let item = tasks(with: currentType)[indexPath.section].items[indexPath.row]
 
         cell.configure(with: item.taskName, subtitle: item.taskInfo, isDone: item.isDone)
         return cell
@@ -167,11 +161,11 @@ extension TasksController: UICollectionViewDataSource {
             ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath
         ) as? SectionHeaderView else { return UICollectionReusableView() }
 
-        view.configure(with: tasks[indexPath.section].date)
+        view.configure(with: tasks(with: currentType)[indexPath.section].date)
         return view
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = tasks[indexPath.section].items[indexPath.row]
+        let item = tasks(with: currentType)[indexPath.section].items[indexPath.row]
         let taskVC = TaskViewController(taskName: item.taskName,
                                         taskInfo: item.taskInfo,
                                         isDone: item.isDone,
@@ -207,7 +201,7 @@ extension TasksController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == tasks.count - 1 {
+        if section == tasks(with: currentType).count - 1 {
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 16.0, right: 0.0)
         } else {
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)

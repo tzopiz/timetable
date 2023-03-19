@@ -16,4 +16,12 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectedTheme")
         }
     }
+    var taskType: App.TaskType {
+        get {
+            App.TaskType(rawValue: UserDefaults.standard.integer(forKey: "selectedTaskType")) ?? .all
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedTaskType")
+        }
+    }
 }

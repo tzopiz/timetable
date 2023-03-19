@@ -28,7 +28,6 @@ extension ContentView {
         mainStackView.addArrangedSubview(nameTaskField)
         mainStackView.addArrangedSubview(taskInfoView)
     }
-
     override func constraintViews() {
         super.constraintViews()
         label.anchor(centerX: centerXAnchor)
@@ -37,9 +36,7 @@ extension ContentView {
                              bottom: bottomAnchor, paddingBottom: -16,
                              left: leadingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16)
-        
     }
-
     override func configureAppearance() {
         super.configureAppearance()
         self.backgroundColor = App.Colors.background

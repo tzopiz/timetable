@@ -22,21 +22,11 @@ class TTBaseController: UIViewController {
 }
 
 @objc extension TTBaseController {
-
     func setupViews() {}
     func constraintViews() {}
-
-    func configureAppearance() {
-        view.backgroundColor = App.Colors.background
-    }
-
-    func navBarLeftButtonHandler() {
-        print("NavBar left button tapped")
-    }
-
-    func navBarRightButtonHandler() {
-        print("NavBar right button tapped")
-    }
+    func configureAppearance() { view.backgroundColor = App.Colors.background }
+    func navBarLeftButtonHandler() { print("NavBar left button tapped") }
+    func navBarRightButtonHandler() { print("NavBar right button tapped") }
 }
 
 extension TTBaseController {

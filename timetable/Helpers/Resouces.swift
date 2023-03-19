@@ -20,6 +20,16 @@ enum App {
             }
         }
     }
+    enum TaskType: Int {
+        case active
+        case all
+        func getUserTaskType() -> TaskType {
+            switch self {
+            case .all:    return .all
+            case .active: return .active
+            }
+        }
+    }
     enum Colors {
         static let red      = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         static let active   = #colorLiteral(red: 0, green: 0.4800075889, blue: 1, alpha: 1)
@@ -53,10 +63,10 @@ enum App {
     enum Images {
         static func icon(for tab: Tabs) -> UIImage? {
             switch tab {
-            case .overview: return #imageLiteral(resourceName: "note_text@84x")
-            case .tasks:    return #imageLiteral(resourceName: "list_bullet_rectangle@84x")
-            case .people:   return #imageLiteral(resourceName: "person@84x")
-            case .profile:  return #imageLiteral(resourceName: "gear@84x")
+            case .overview: return UIImage(systemName: "note.text")
+            case .tasks:    return UIImage(systemName: "list.bullet.rectangle")
+            case .people:   return UIImage(systemName: "person")
+            case .profile:  return UIImage(systemName: "line.3.horizontal.circle")
             }
         }
         static let clock = #imageLiteral(resourceName: "clock@256")
@@ -71,7 +81,6 @@ enum App {
         static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@256x")
         static let changeGroup  = #imageLiteral(resourceName: "person_2_gobackward@256x")
         static let share        = #imageLiteral(resourceName: "square_and_arrow_up@256x")
-        static let feedback     = #imageLiteral(resourceName: "bubble_left_and_bubble_right@256x")
         static let aboutApp     = #imageLiteral(resourceName: "info_circle@256x")
         static let exit         = #imageLiteral(resourceName: "rectangle_portrait_and_arrow_forward@256x")
     }

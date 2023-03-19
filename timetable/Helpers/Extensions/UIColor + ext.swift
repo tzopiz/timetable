@@ -29,7 +29,6 @@ extension UIColor {
                   alpha: CGFloat(alpha) / 255)
     }
     static func dynamic(light: UIColor, dark: UIColor) -> UIColor {
-
             if #available(iOS 13.0, *) {
                 return UIColor(dynamicProvider: {
                     switch $0.userInterfaceStyle {

@@ -213,8 +213,8 @@
 		0ACC4E7729C6620200B3D6AC /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E7829C6620200B3D6AC /* TasksController.swift */,
 				0ACC4E7929C6620200B3D6AC /* Views */,
+				0ACC4E7829C6620200B3D6AC /* TasksController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -247,8 +247,8 @@
 		0ACC4E7D29C6620200B3D6AC /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E7E29C6620200B3D6AC /* TaskViewController.swift */,
 				0ACC4E7F29C6620200B3D6AC /* Views */,
+				0ACC4E7E29C6620200B3D6AC /* TaskViewController.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -273,8 +273,8 @@
 		0ACC4E8429C6620200B3D6AC /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E8529C6620200B3D6AC /* ProfileController.swift */,
 				0ACC4E8629C6620200B3D6AC /* Views */,
+				0ACC4E8529C6620200B3D6AC /* ProfileController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -298,8 +298,8 @@
 		0ACC4E8929C6620200B3D6AC /* People */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */,
 				0ACC4E8B29C6620200B3D6AC /* Views */,
+				0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -334,8 +334,8 @@
 		0ACC4E9029C6620200B3D6AC /* NavBar */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */,
 				0ACC4E9229C6620200B3D6AC /* WeekView */,
+				0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */,
 			);
 			path = NavBar;
 			sourceTree = "<group>";
@@ -343,8 +343,8 @@
 		0ACC4E9229C6620200B3D6AC /* WeekView */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */,
 				0ACC4E9429C6620200B3D6AC /* WeekView.swift */,
+				0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */,
 			);
 			path = WeekView;
 			sourceTree = "<group>";
@@ -368,8 +368,8 @@
 		0ACC4E9929C6620200B3D6AC /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */,
 				0ACC4E9B29C6620300B3D6AC /* Views */,
+				0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -377,8 +377,8 @@
 		0ACC4E9B29C6620300B3D6AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */,
 				0ACC4E9D29C6620300B3D6AC /* CollectionView */,
+				0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */,
 				0ACC4EA029C6620300B3D6AC /* TTButton.swift */,
 			);
 			path = Views;

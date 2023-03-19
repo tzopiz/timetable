@@ -16,13 +16,12 @@ extension WeekView {
         super.setupViews()
         setupView(stackView)
     }
-
+    
     override func constraintViews() {
         super.constraintViews()
-        
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
-
+    
     override func configureAppearance() {
         super.configureAppearance()
         self.backgroundColor = App.Colors.BlackWhite

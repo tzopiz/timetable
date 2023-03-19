@@ -26,9 +26,7 @@ final class TabBarController: UITabBarController {
         configureAppearance()
     }
 
-    func switchTo(tab: Tabs) {
-        selectedIndex = tab.rawValue
-    }
+    func switchTo(tab: Tabs) { selectedIndex = tab.rawValue }
 
     private func configureAppearance() {
         tabBar.tintColor = App.Colors.active

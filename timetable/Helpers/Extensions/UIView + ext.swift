@@ -47,15 +47,8 @@ extension UIView {
             .touchCancel
         ])
     }
-
-    @objc func handleIn() {
-        UIView.animate(withDuration: 0.15) { self.alpha = 0.55 }
-    }
-
-    @objc func handleOut() {
-        UIView.animate(withDuration: 0.15) { self.alpha = 1 }
-    }
-
+    @objc func handleIn() { UIView.animate(withDuration: 0.15) { self.alpha = 0.55 } }
+    @objc func handleOut() { UIView.animate(withDuration: 0.15) { self.alpha = 1 } }
     @objc func setupView(_ view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -86,37 +79,19 @@ extension UIView {
                 centerY: NSLayoutYAxisAnchor? = nil,
                 centerX: NSLayoutXAxisAnchor? = nil,
                 width: NSLayoutDimension? = nil,
-                height: NSLayoutDimension? = nil
-    ) {
+                height: NSLayoutDimension? = nil) {
         translatesAutoresizingMaskIntoConstraints = false
-        if let top = top {
-            topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-        }
-        if let bottom = bottom {
-            bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
-        }
-        if let left = left {
-            leadingAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
-        }
-        if let right = right {
-            trailingAnchor.constraint(equalTo: right, constant: paddingRight).isActive = true
-        }
-        if let width = width {
-            widthAnchor.constraint(equalTo: width).isActive = true
-        }
-        if let height = height {
-            heightAnchor.constraint(equalTo: height).isActive = true
-        }
-        if let centerY = centerY {
-            centerYAnchor.constraint(equalTo: centerY).isActive = true
-        }
-        if let centerX = centerX {
-            centerXAnchor.constraint(equalTo: centerX).isActive = true
-        }
+        if let top = top { topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true }
+        if let bottom = bottom { bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true }
+        if let left = left { leadingAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true }
+        if let right = right { trailingAnchor.constraint(equalTo: right, constant: paddingRight).isActive = true }
+        if let width = width { widthAnchor.constraint(equalTo: width).isActive = true }
+        if let height = height { heightAnchor.constraint(equalTo: height).isActive = true }
+        if let centerY = centerY { centerYAnchor.constraint(equalTo: centerY).isActive = true }
+        if let centerX = centerX { centerXAnchor.constraint(equalTo: centerX).isActive = true }
     }
     func centerX(inView view: UIView, topAnchor: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat? = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        
         centerXAnchor.constraint(equalTo: view.centerXAnchor) .isActive = true
         if let topAnchor = topAnchor,
            let padding = paddingTop {
@@ -133,12 +108,8 @@ extension UIView {
     }
     func setDimensions(height: CGFloat? = nil, width: CGFloat? = nil) {
         translatesAutoresizingMaskIntoConstraints = false
-        if let width = width {
-            widthAnchor.constraint(equalToConstant: width).isActive = true
-        }
-        if let height = height {
-            heightAnchor.constraint(equalToConstant: height).isActive = true
-        }
+        if let width = width { widthAnchor.constraint(equalToConstant: width).isActive = true }
+        if let height = height { heightAnchor.constraint(equalToConstant: height).isActive = true }
     }
     
 }
