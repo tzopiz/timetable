@@ -18,7 +18,7 @@ struct TimatableData {
     let items: [Data]
 }
 
-class OverviewController: TTBaseController {
+final class OverviewController: TTBaseController {
 
     private var dataSource: [TimatableData] = []
     private let navBar = OverviewNavBar()

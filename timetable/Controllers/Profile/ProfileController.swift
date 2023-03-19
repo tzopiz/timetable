@@ -16,7 +16,7 @@ struct SettingsData {
     let item: Data
 }
 
-class ProfileController: TTBaseController {
+final class ProfileController: TTBaseController {
     
     private let untiBag = UIView(frame: .zero)
     private var dataSource: [SettingsData] = []

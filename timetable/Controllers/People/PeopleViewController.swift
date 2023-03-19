@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PeopleViewController: TTBaseController {
+final class PeopleViewController: TTBaseController {
 
     enum Section: CaseIterable {
         case main

@@ -16,7 +16,7 @@ struct TaskData {
     let date: Date
     let items: [Data]
 }
-class TasksController: TTBaseController {
+final class TasksController: TTBaseController {
 
     private let untiBag = UIView(frame: .zero)
 
