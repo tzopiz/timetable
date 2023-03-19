@@ -25,7 +25,7 @@ class PeopleController {
             return name.lowercased().contains(lowercasedFilter) || info.lowercased().contains(lowercasedFilter)
         }
     }
-    func filteredMountains(with filter: String? = nil, limit: Int? = nil) -> [People] {
+    func filteredPeople(with filter: String? = nil, limit: Int? = nil) -> [People] {
         let filtered = people.filter { $0.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
@@ -34,12 +34,12 @@ class PeopleController {
         }
     }
     private lazy var people: [People] = {
-        return generateMountains()
+        return generatePeople()
     }()
 }
 
 extension PeopleController {
-    private func generateMountains() -> [People] {
+    private func generatePeople() -> [People] {
         let components = peopleRawData.components(separatedBy: CharacterSet.newlines)
         var people = [People]()
         for line in components {

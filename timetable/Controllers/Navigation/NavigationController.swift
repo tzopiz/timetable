@@ -22,7 +22,5 @@ final class NavigationController: UINavigationController {
             .foregroundColor: App.Colors.title,
             .font: App.Fonts.helveticaNeue(with: 17)
         ]
-
-        navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
     }
 }

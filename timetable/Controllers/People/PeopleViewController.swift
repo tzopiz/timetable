@@ -7,29 +7,27 @@
 
 import UIKit
 
-final class PeopleViewController: TTBaseController {
-
+class PeopleViewController: TTBaseController {
     enum Section: CaseIterable {
         case main
     }
     let peopleController = PeopleController()
-    let searchBar = UISearchBar(frame: .zero)
     var peopleCollectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, PeopleController.People>!
     var nameFilter: String?
     
     func performQuery(with filter: String?) {
-        let mountains = peopleController.filteredMountains(with: filter).sorted { $0.name < $1.name }
+        let mountains = peopleController.filteredPeople(with: filter).sorted { $0.name < $1.name }
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, PeopleController.People>()
         snapshot.appendSections([.main])
         snapshot.appendItems(mountains)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    func createLayout() -> UICollectionViewLayout {
+    func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
-            let columns = 1
+            let columns = 2
             let spacing = CGFloat(10)
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
@@ -37,8 +35,9 @@ final class PeopleViewController: TTBaseController {
                                                    heightDimension: .absolute(70))
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            // let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: columns)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                           subitem: item,
+                                                           count: columns)
             group.interItemSpacing = .fixed(spacing)
             
             let section = NSCollectionLayoutSection(group: group)
@@ -56,9 +55,29 @@ extension PeopleViewController {
         super.viewDidLoad()
         performQuery(with: nil)
     }
+    override func constraintViews() {
+        super.constraintViews()
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout())
+        collectionView.backgroundColor = App.Colors.background
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(collectionView)
+        collectionView.anchor(top: view.topAnchor,
+                              bottom: view.bottomAnchor,
+                              left: view.leadingAnchor,
+                              right: view.trailingAnchor)
+        
+        peopleCollectionView = collectionView
+    }
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
+        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1/3)
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        
         let cellRegistration = UICollectionView.CellRegistration
         <LabelCell, PeopleController.People> { (cell, indexPath, people) in
             cell.label.text = people.name
@@ -66,41 +85,17 @@ extension PeopleViewController {
             cell.backgroundColor = App.Colors.BlackWhite
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, PeopleController.People>(collectionView: peopleCollectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, PeopleController.People> (collectionView: peopleCollectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: PeopleController.People) -> UICollectionViewCell? in
             // Return the cell.
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
     }
-    override func constraintViews() {
-        super.constraintViews()
-        view.backgroundColor = App.Colors.background
-        let layout = createLayout()
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = App.Colors.background
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let untibag = UIView()
-        untibag.isHidden = true
-        view.addSubview(untibag)
-        view.addSubview(collectionView)
-        view.addSubview(searchBar)
-        
-        searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: -1,
-                         left: view.leadingAnchor, paddingLeft: 0,
-                         right: view.trailingAnchor, paddingRight: 0)
-        collectionView.anchor(top: searchBar.bottomAnchor,
-                              bottom: view.bottomAnchor,
-                              left: view.leadingAnchor,
-                              right: view.trailingAnchor)
-        
-        peopleCollectionView = collectionView
-        searchBar.delegate = self
-    }
-}
-// MARK: UISearchBarDelegate
-extension PeopleViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performQuery(with: searchText)
-    }
 }
 
+// MARK: - searchResultsUpdater
+extension PeopleViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        performQuery(with: searchController.searchBar.text)
+    }
+}

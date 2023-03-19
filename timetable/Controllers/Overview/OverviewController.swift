@@ -19,30 +19,16 @@ struct TimatableData {
 }
 
 final class OverviewController: TTBaseController {
-
     private var dataSource: [TimatableData] = []
     private let navBar = OverviewNavBar()
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
-
-        return view
-    }()
 }
 extension OverviewController {
     override func setupViews() {
         super.setupViews()
-
         view.setupView(navBar)
-        view.setupView(collectionView)
     }
 
     override func constraintViews() {
-        super.constraintViews()
 
         navBar.anchor(top: view.topAnchor,
                       left: view.leadingAnchor,
@@ -50,8 +36,8 @@ extension OverviewController {
 
         collectionView.anchor(top: navBar.bottomAnchor,
                               bottom: view.bottomAnchor,
-                              left: view.leadingAnchor, paddingLeft: 16,
-                              right: view.trailingAnchor, paddingRight: -16)
+                              left: view.leadingAnchor,
+                              right: view.trailingAnchor)
     }
 
     override func configureAppearance() {
@@ -63,9 +49,6 @@ extension OverviewController {
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
 
         dataSource = [
             .init(date: Date(timeInterval: 0, since: .now),
@@ -89,15 +72,13 @@ extension OverviewController {
 }
 
 // MARK: - UICollectionViewDataSource
-extension OverviewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        dataSource.count
-    }
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        dataSource[section].items.count
-    }
-    func collectionView(_ collectionView: UICollectionView,
+extension OverviewController {
+    func numberOfSections(in collectionView: UICollectionView)
+    -> Int { dataSource.count }
+    override func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int)
+    -> Int { dataSource[section].items.count }
+    override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TimetableCell.reuseID, for: indexPath
@@ -122,30 +103,19 @@ extension OverviewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension OverviewController: UICollectionViewDelegateFlowLayout {
+extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 120)
-    }
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 120) }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 32)
-    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == dataSource.count - 1 {
-            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 16.0, right: 0.0)
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0)
         } else {
-            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         }
-    }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-       return 8
     }
 }

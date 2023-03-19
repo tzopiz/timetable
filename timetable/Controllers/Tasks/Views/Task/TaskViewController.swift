@@ -52,7 +52,6 @@ extension TaskViewController {
     }
     override func configureAppearance() {
         super.configureAppearance()
-        self.view.backgroundColor = App.Colors.background
         self.view.tintColor = App.Colors.active
        
         buttonSave.layer.cornerRadius = 10

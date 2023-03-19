@@ -7,12 +7,11 @@
 
 import Foundation
 
-enum StripTimeType: CaseIterable {
-    case toDays
-    case toMinutes
-}
-
 extension Date {
+    enum StripTimeType: CaseIterable {
+        case toDays
+        case toMinutes
+    }
     static var calendar: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 2
@@ -28,7 +27,7 @@ extension Date {
     func agoForward(to days: Int) -> Date {
         return Date.calendar.date(byAdding: .day, value: days, to: self) ?? self
     }
-    func stripTime(_ stripTimeType: StripTimeType) -> Date {
+    func stripTime(_ stripTimeType: Date.StripTimeType) -> Date {
         switch stripTimeType {
         case .toDays:
             let components = Date.calendar.dateComponents([.year, .month, .day], from: self)

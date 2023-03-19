@@ -13,23 +13,25 @@ enum NavBarPosition {
 }
 
 class TTBaseController: UIViewController {
+    fileprivate let untiBag = UIView(frame: .zero)
+    var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.showsVerticalScrollIndicator = false
+        view.backgroundColor = .clear
+
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         setupViews()
         constraintViews()
         configureAppearance()
     }
-}
-
-@objc extension TTBaseController {
-    func setupViews() {}
-    func constraintViews() {}
-    func configureAppearance() { view.backgroundColor = App.Colors.background }
-    func navBarLeftButtonHandler() { print("NavBar left button tapped") }
-    func navBarRightButtonHandler() { print("NavBar right button tapped") }
-}
-
-extension TTBaseController {
     func addNavBarButton(at position: NavBarPosition, with title: String) {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -46,4 +48,44 @@ extension TTBaseController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
     }
+}
+
+extension TTBaseController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int)
+    -> Int { 0 }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell { UICollectionViewCell() }
+}
+extension TTBaseController: UICollectionViewDataSource {}
+extension TTBaseController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int)
+    -> CGFloat { 8 }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int)
+    -> CGSize { CGSize(width: collectionView.frame.width, height: 32) }
+}
+
+@objc extension TTBaseController {
+    func setupViews() {
+        view.setupView(untiBag)
+        view.setupView(collectionView)
+    }
+    func constraintViews() {
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                              left: view.leadingAnchor,
+                              right: view.trailingAnchor)
+    }
+    func configureAppearance() {
+        view.backgroundColor = App.Colors.background
+        untiBag.isHidden = true
+    }
+    func navBarLeftButtonHandler() { print("NavBar left button tapped") }
+    func navBarRightButtonHandler() { print("NavBar right button tapped") }
 }

@@ -17,45 +17,18 @@ struct SettingsData {
 }
 
 final class ProfileController: TTBaseController {
-    
-    private let untiBag = UIView(frame: .zero)
     private var dataSource: [SettingsData] = []
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
-
-        return view
-    }()
 }
 
 extension ProfileController {
     override func setupViews() {
         super.setupViews()
-        view.addSubview(untiBag)
-        view.setupView(collectionView)
-        collectionView.contentInset = .zero
-    }
-
-    override func constraintViews() {
-        super.constraintViews()
-        
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                              left: view.leadingAnchor, paddingLeft: 16,
-                              right: view.trailingAnchor, paddingRight: -16)
     }
     override func configureAppearance() {
         super.configureAppearance()
-        self.untiBag.isHidden = true
         navigationItem.title = App.Strings.profile
-       
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
+        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
@@ -68,16 +41,16 @@ extension ProfileController {
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
-extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ProfileController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource.count
     }
-    func collectionView(_ collectionView: UICollectionView,
+    override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseID,
-                                                            for: indexPath) as? ProfileCell else {
-            fatalError("Wrong cell")
-        }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ProfileCell.reuseID,
+            for: indexPath) as? ProfileCell
+        else { fatalError("###\(#function): Wrong cell") }
         let item = dataSource[indexPath.row].item
         cell.configure(title: item.title, type: item.type, image: item.image)
         return cell
@@ -93,24 +66,20 @@ extension ProfileController: UICollectionViewDataSource, UICollectionViewDelegat
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ProfileController: UICollectionViewDelegateFlowLayout {
+extension ProfileController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize: CGSize
-        let sectionInsets = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
-        let itemWidth = collectionView.bounds.width - (sectionInsets.left + sectionInsets.right)
-        itemSize = indexPath.item == 0 ? CGSize(width: itemWidth, height: 120) : CGSize(width: itemWidth, height: 65)
-        return itemSize
+         indexPath.item == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0)
+        UIEdgeInsets(top: 16, left: 16.0, bottom: 16.0, right: 16.0)
     }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-       return 16
-    }
+    override func collectionView(_ collectionView: UICollectionView,
+                                 layout collectionViewLayout: UICollectionViewLayout,
+                                 referenceSizeForHeaderInSection section: Int) -> CGSize {
+         CGSize(width: collectionView.frame.width, height: 0)
+     }
 }
