@@ -8,8 +8,6 @@
 import UIKit
 
 final class TasksController: TTBaseController {
-
-    private var dataSource: [Task] = CoreDataMamanager.shared.fetchTasks()
     private var currentType: App.TaskType =  UserDefaults.standard.taskType.getUserTaskType()
 }
 
@@ -26,10 +24,16 @@ extension TasksController {
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         
         addNavBarButton(at: .right, with: "Добавить")
+        // TODO: redo
+        navBarLeftButtonHandler()
         navBarLeftButtonHandler()
     }
     override func navBarRightButtonHandler() {
         let taskVC = TaskViewController()
+        taskVC.completion = { [weak self] in
+            guard let self = self else { return }
+            self.collectionView.reloadData()
+        }
         present(taskVC, animated: true)
     }
     override func navBarLeftButtonHandler() {
@@ -44,7 +48,7 @@ extension TasksController {
             addNavBarButton(at: .left, with: "Активные")
         }
         currentType = UserDefaults.standard.taskType.getUserTaskType()
-        update()
+        self.collectionView.reloadData()
     }
 }
 
@@ -69,6 +73,10 @@ extension TasksController {
         let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         let taskVC = TaskViewController()
         taskVC.taskData = task
+        taskVC.completion = { [weak self] in
+            guard let self = self else { return }
+            self.collectionView.reloadData()
+        }
         present(taskVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView,

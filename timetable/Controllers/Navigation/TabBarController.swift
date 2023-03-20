@@ -20,6 +20,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
         switchTo(tab: .tasks)
+//        CoreDataMamanager.shared.deletaAllTask()
     }
 
     required init?(coder: NSCoder) {
