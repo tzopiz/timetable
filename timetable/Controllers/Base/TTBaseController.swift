@@ -24,6 +24,9 @@ class TTBaseController: UIViewController {
 
         return view
     }()
+    public func update() {
+        collectionView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self

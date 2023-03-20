@@ -49,6 +49,11 @@ extension OverviewController {
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Refresh timetable", attributes: nil)
+        collectionView.refreshControl = refreshControl
 
         dataSource = [
             .init(date: Date(timeInterval: 0, since: .now - 60*60*24),
@@ -114,15 +119,24 @@ extension OverviewController {
         ]
         collectionView.reloadData()
     }
+    @objc func refreshData() {
+        self.collectionView.refreshControl?.beginRefreshing()
+        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+                self.collectionView.refreshControl?.endRefreshing()
+            }
+        }
+    }
 }
-
 // MARK: - UICollectionViewDataSource
 extension OverviewController {
+    
     func numberOfSections(in collectionView: UICollectionView)
     -> Int { dataSource.count }
     override func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int)
     -> Int { dataSource[section].items.count }
+    
     override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(

@@ -16,7 +16,7 @@ final class TasksCell: UICollectionViewCell {
     private let stackView = UIStackView()
     private let title = UILabel()
     private let subtitle = UILabel()
-    private var separator = UIView()
+    private let importance = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,25 +31,27 @@ final class TasksCell: UICollectionViewCell {
         constaintViews()
         configureAppearance()
     }
-    func configure(with title: String, subtitle: String, isDone: Bool) {
+    func configure(with title: String, subtitle: String, isDone: Bool, importance: Int16) {
         self.title.text = title
         self.subtitle.text = subtitle
         checkmarkView.image = isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone
-    }
-    func isHighlighted() {
-        self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4)
+        switch importance {
+        case 1: self.importance.image = App.Images.exclamation_1
+        case 2: self.importance.image = App.Images.exclamation_2
+        case 3: self.importance.image = App.Images.exclamation_3
+        default: self.importance.image = nil
 
+        }
     }
-    func isUnHighlighted() {
-        self.backgroundColor = App.Colors.BlackWhite
-    }
+    func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
+    func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
 }
 
 private extension TasksCell {
     func setupViews() {
-        setupView(separator)
         setupView(checkmarkView)
         setupView(stackView)
+        setupView(importance)
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
@@ -62,6 +64,8 @@ private extension TasksCell {
                              centerY: centerYAnchor)
         stackView.anchor(left: checkmarkView.trailingAnchor, paddingLeft: 16,
                          right: trailingAnchor, paddingRight: -16,
+                         centerY: centerYAnchor)
+        importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
 

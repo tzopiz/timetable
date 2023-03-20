@@ -9,19 +9,7 @@ import UIKit
 
 final class TaskViewController: TTBaseController {
     private let contentView = ContentView()
-    
-    init(taskName: String? = nil, taskInfo: String = "", isDone: Bool = false, needToCreate: Bool) {
-        super.init(nibName: nil, bundle: nil)
-        if let title = taskName {
-            contentView.configure(label: isDone ? "Выполненная задача": "Активная задача",
-                                  nameTask: title, text: taskInfo, isDone: isDone)
-        } else {
-            contentView.configure(label: "Новая задача", nameTask: "", text: taskInfo, isDone: isDone)
-        }
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var taskData: Task? = nil
 }
 extension TaskViewController {
     override func setupViews() {
@@ -36,21 +24,53 @@ extension TaskViewController {
     override func configureAppearance() {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
-        
+        if let task = taskData {
+            contentView.configure(label: task.isDone ? "Выполненная задача" : "Активаная задача",
+                                  taskName: task.taskName ?? "", text: task.taskInfo ?? "",
+                                  isDone: task.isDone, importance: task.importance)
+        } else {
+            contentView.configure(label: "Новая задача", isDone: false, true)
+        }
         contentView.addTargetButtonSave(target: self, action: #selector(addButtonSave))
         contentView.addTargetButtonDelete(target: self, action: #selector(addButtonDelete))
         contentView.addTargetButtonComplete(target: self, action: #selector(addButtonComplete))
     }
     @objc func addButtonSave() {
+        let task = contentView.getTask()
+        if (task["needCreate"] as? Bool ?? false) == true {
+            CoreDataMamanager.shared.createTask(taskName: task["taskName"] as? String ?? "",
+                                                taskInfo: task["taskInfo"] as? String ?? "",
+                                                isDone: task["isDone"] as? Bool ?? false,
+                                                importance: task["importance"] as? Int16 ?? 1)
+        } else {
+            CoreDataMamanager.shared.updataTask(with: taskData?.id ?? UUID(),
+                                                taskName: task["taskName"] as? String ?? "",
+                                                taskInfo: task["taskInfo"] as? String ?? "",
+                                                isDone: task["isDone"] as? Bool ?? false,
+                                                importance: task["importance"] as? Int16 ?? 1)
+        }
         self.dismiss(animated: true)
-        // TODO: save task
     }
     @objc func addButtonDelete() {
         self.dismiss(animated: true)
-        // TODO: delete task
+        CoreDataMamanager.shared.deletaTask(with: taskData?.id ?? UUID())
+
     }
     @objc func addButtonComplete() {
         self.dismiss(animated: true)
-        // TODO: change status task
+        taskData?.isDone = !(taskData?.isDone ?? false)
+        let task = contentView.getTask()
+        if (task["needCreate"] as? Bool ?? false) == true {
+            CoreDataMamanager.shared.createTask(taskName: task["taskName"] as? String ?? "",
+                                                taskInfo: task["taskInfo"] as? String ?? "",
+                                                isDone: true,
+                                                importance: task["importance"] as? Int16 ?? 1)
+        } else {
+            CoreDataMamanager.shared.updataTask(with: taskData?.id ?? UUID(),
+                                                taskName: task["taskName"] as? String ?? "",
+                                                taskInfo: task["taskInfo"] as? String ?? "",
+                                                isDone: (taskData?.isDone ?? false),
+                                                importance: task["importance"] as? Int16 ?? 1)
+        }
     }
 }

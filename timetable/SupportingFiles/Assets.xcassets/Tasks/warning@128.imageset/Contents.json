@@ -1,17 +1,50 @@
 {
   "images" : [
     {
-      "filename" : "exclamationmark.triangle.fill@128x 1.png",
+      "filename" : "minus.circle@256x 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "exclamationmark.triangle.fill@64x 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "minus.circle@256x.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "minus.circle@128x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "exclamationmark.triangle.fill@64x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "minus.circle@128x 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "minus.circle@64x 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "minus.circle@64x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

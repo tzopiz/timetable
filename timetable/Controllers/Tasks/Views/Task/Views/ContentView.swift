@@ -22,11 +22,9 @@ final class ContentView: TTBaseView {
     // importance
     private let importanceTask = UIView()
     private let importanceLabel = UILabel()
-    private let segmentedControl = UISegmentedControl(items:
-                                                        [App.Strings.warning,
-                                                         App.Strings.exclamation_1,
-                                                         App.Strings.exclamation_2,
-                                                         App.Strings.exclamation_3])
+    private let segmentedControl = UISegmentedControl(
+        items: [UIImage(), App.Images.exclamation_1,
+                App.Images.exclamation_2, App.Images.exclamation_3])
     
     // deadline
     private let deadlineTask = UIView()
@@ -34,12 +32,30 @@ final class ContentView: TTBaseView {
     private let datePicker = UIDatePicker()
     
     private let buttonComplete = UIButton(type: .system)
+    
+    private var isDone = false
+    private var importance: Int16 = 0
+    private var needCreate = true
+    var taskData: Task? = nil
 
-    func configure(label: String, nameTask: String, text: String, isDone: Bool) {
+    func configure(label: String, taskName: String = "", text: String = "", isDone: Bool, importance: Int16 = 0, _ needCreate: Bool = false) {
         self.topLabel.text = label
-        self.nameTaskField.text = nameTask
+        self.nameTaskField.text = taskName
         self.taskInfoView.text = text
+        self.isDone = isDone
+        self.importance = importance
+        self.needCreate = needCreate
         if isDone { self.buttonComplete.setTitle("Uncomplete", for: .normal) }
+        segmentedControl.selectedSegmentIndex = Int(importance)
+    }
+    func getTask() -> [String: Any] {
+        var task: [String: Any] = [:]
+        task["taskName"] = nameTaskField.text
+        task["taskInfo"] = taskInfoView.text
+        task["isDone"] = isDone
+        task["importance"] = importance
+        task["needCreate"] = needCreate
+        return task
     }
 }
 
@@ -136,7 +152,7 @@ extension ContentView {
         
         buttonComplete.layer.cornerRadius = 10
         buttonComplete.tintColor = App.Colors.active
-        buttonComplete.setTitle("Выполнить", for: .normal)
+        buttonComplete.setTitle("Complete", for: .normal)
         buttonComplete.backgroundColor = App.Colors.BlackWhite
         buttonComplete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
@@ -147,6 +163,9 @@ extension ContentView {
         importanceLabel.textColor = App.Colors.title
         importanceLabel.textAlignment = .left
         importanceLabel.text = "Важность: "
+
+        segmentedControl.setTitleTextAttributes([.foregroundColor: App.Colors.red], for: .normal)
+        segmentedControl.addTarget(self, action: #selector(segmentedControlChange), for: .valueChanged)
         
         deadlineTask.backgroundColor = App.Colors.BlackWhite
         deadlineTask.layer.cornerRadius = 10
@@ -161,6 +180,9 @@ extension ContentView {
         let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
         datePicker.minimumDate = Date.now
         datePicker.maximumDate = Date().addingTimeInterval(2 * oneYearTime)
+    }
+    @objc func segmentedControlChange(_ sender: UISegmentedControl) {
+        importance = Int16(sender.selectedSegmentIndex)
     }
     @objc func datePickerChange(parametr: UIDatePicker) {
         print(parametr.date.stripTime(.toDays))

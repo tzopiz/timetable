@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
+		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
+		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -62,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
+		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -128,6 +134,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A223B6C29C8936E00C8EDBF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */,
+				0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */,
+				0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		0ACC4E3229C660CE00B3D6AC = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +412,7 @@
 		0ACC4EA129C6620300B3D6AC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0A223B6C29C8936E00C8EDBF /* CoreData */,
 				0ACC4EA429C6620300B3D6AC /* Extensions */,
 				0ACC4EA229C6620300B3D6AC /* Resouces.swift */,
 			);
@@ -558,14 +575,17 @@
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
+				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* PeopleRawData.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
+				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
 				0ACC4EB829C6620300B3D6AC /* PeopleController.swift in Sources */,
+				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
 				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
@@ -904,6 +924,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */,
+			);
+			currentVersion = 0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */;
+			path = CoreDataTimetable.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0ACC4E3329C660CE00B3D6AC /* Project object */;
 }
