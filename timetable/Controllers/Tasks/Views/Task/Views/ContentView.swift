@@ -9,7 +9,7 @@ import UIKit
 
 final class ContentView: TTBaseView {
     private let topLabel = UILabel()
-    private let nameTaskField = UITextField()
+    private let nameTaskField = UITextView()
     private let taskInfoView = UITextView()
     private let mainStackView = UIStackView()
     
@@ -111,17 +111,19 @@ extension ContentView {
         
         nameTaskField.font = App.Fonts.helveticaNeue(with: 17)
         nameTaskField.textColor = App.Colors.title
-        nameTaskField.placeholder = "Новая задача"
-        nameTaskField.backgroundColor = App.Colors.BlackWhite
+        nameTaskField.backgroundColor = .clear
         nameTaskField.layer.cornerRadius = 10
-        nameTaskField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTaskField.frame.height))
-        nameTaskField.leftViewMode = .always
+        nameTaskField.textContainerInset = UIEdgeInsets(top: 15, left: 5, bottom: 10, right: 5)
+        nameTaskField.isScrollEnabled = false
+        nameTaskField.textContainer.maximumNumberOfLines = 1
+        nameTaskField.createCustomBackgroundView(with: 10, shadowOfSet: 0)
         
         taskInfoView.font = App.Fonts.helveticaNeue(with: 17)
+        taskInfoView.backgroundColor = .clear
+        taskInfoView.layer.cornerRadius = 10
         taskInfoView.textColor = App.Colors.title
         taskInfoView.text = ""
-        taskInfoView.backgroundColor = App.Colors.BlackWhite
-        taskInfoView.layer.cornerRadius = 10
+        taskInfoView.createCustomBackgroundView(with: 10, shadowOfSet: 0)
         taskInfoView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         
         buttonSave.tintColor = App.Colors.active
@@ -137,10 +139,12 @@ extension ContentView {
         buttonComplete.layer.cornerRadius = 10
         buttonComplete.tintColor = App.Colors.active
         buttonComplete.setTitle("Выполнить", for: .normal)
-        buttonComplete.backgroundColor = App.Colors.BlackWhite
+        buttonComplete.backgroundColor = .clear
+        buttonComplete.createCustomBackgroundView(with: 10, shadowOfSet: 0)
         buttonComplete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
-        importanceTask.backgroundColor = App.Colors.BlackWhite
+        importanceTask.backgroundColor = .clear
+        importanceTask.createCustomBackgroundView(with: 10, shadowOfSet: 0)
         importanceTask.layer.cornerRadius = 10
         
         importanceLabel.font = App.Fonts.helveticaNeue(with: 17)
@@ -148,7 +152,8 @@ extension ContentView {
         importanceLabel.textAlignment = .left
         importanceLabel.text = "Важность: "
         
-        deadlineTask.backgroundColor = App.Colors.BlackWhite
+        deadlineTask.backgroundColor = .clear
+        deadlineTask.createCustomBackgroundView(with: 10, shadowOfSet: 0)
         deadlineTask.layer.cornerRadius = 10
         
         deadlineLabel.font = App.Fonts.helveticaNeue(with: 17)

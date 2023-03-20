@@ -41,7 +41,7 @@ final class TasksCell: UICollectionViewCell {
 
     }
     func isUnHighlighted() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
     }
 }
 
@@ -66,7 +66,7 @@ private extension TasksCell {
     }
 
     func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
         self.layer.cornerRadius = 20
         
         stackView.axis = .vertical
@@ -77,5 +77,6 @@ private extension TasksCell {
         
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
         subtitle.textColor = App.Colors.inactive
+        createCustomBackgroundView(with: 20, shadowOfSet: 7)
     }
 }

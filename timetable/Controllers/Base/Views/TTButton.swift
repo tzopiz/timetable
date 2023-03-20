@@ -56,13 +56,13 @@ private extension TTButton {
         label.textAlignment = .center
         switch type {
         case .primary:
-            label.textColor = App.Colors.inactive
+            label.textColor = App.Colors.title
             label.font = App.Fonts.helveticaNeue(with: 13)
             iconView.tintColor = App.Colors.inactive
         case .secondary:
-            backgroundColor = App.Colors.secondary
+            backgroundColor = .clear
             layer.cornerRadius = 7
-            label.textColor = App.Colors.active
+            label.textColor = App.Colors.title
             label.font = App.Fonts.helveticaNeue(with: 15)
             iconView.tintColor = App.Colors.active
         }

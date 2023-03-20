@@ -34,7 +34,7 @@ extension OverviewController {
                       left: view.leadingAnchor,
                       right: view.trailingAnchor)
 
-        collectionView.anchor(top: navBar.bottomAnchor,
+        collectionView.anchor(top: view.topAnchor,
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
@@ -43,7 +43,7 @@ extension OverviewController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationController?.navigationBar.isHidden = true
-
+        
         collectionView.register(TimetableCell.self,
                                 forCellWithReuseIdentifier: TimetableCell.reuseID)
         collectionView.register(SectionHeaderView.self,
@@ -141,8 +141,12 @@ extension OverviewController {
                                                                          withReuseIdentifier: SectionHeaderView.id,
                                                                          for: indexPath) as? SectionHeaderView
         else { return UICollectionReusableView() }
-
-        view.configure(with: dataSource[indexPath.section].date)
+        
+        if indexPath.section != 0 {
+            view.configure(with: dataSource[indexPath.section].date)
+        } else {
+            view.configure()
+        }
         return view
     }
 }
@@ -157,6 +161,9 @@ extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return  UIEdgeInsets(top: 100.0, left: 16.0, bottom: 0.0, right: 16.0)
+        }
         if section == dataSource.count - 1 {
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0)
         } else {

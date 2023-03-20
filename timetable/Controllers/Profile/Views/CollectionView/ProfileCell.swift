@@ -58,7 +58,7 @@ final class ProfileCell: UICollectionViewCell {
                         cancelTitle: "Отмена")
     }
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
-    func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    func isUnHighlighted() { self.backgroundColor = .clear }
     func showInputDialog(firstTitle: String, secondTitle: String, thirdTitle: String, cancelTitle: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let scenes = UIApplication.shared.connectedScenes
@@ -116,7 +116,7 @@ private extension ProfileCell {
     }
 
     func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
         self.layer.cornerRadius = 20
         
         title.font = App.Fonts.helveticaNeue(with: 17)
@@ -132,5 +132,7 @@ private extension ProfileCell {
         stackInfoView.spacing = 2
         stackInfoView.axis = .horizontal
         stackInfoView.distribution = .fillEqually
+        
+        createCustomBackgroundView(with: 20, shadowOfSet: 7)
     }
 }

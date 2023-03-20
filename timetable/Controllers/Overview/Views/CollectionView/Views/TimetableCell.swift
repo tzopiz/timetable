@@ -8,7 +8,6 @@
 import UIKit
 
 final class TimetableCell: UICollectionViewCell {
-    
     static let reuseID =  String(describing: TimetableCell.self)
     private let stackView = UIStackView()
     private let firstLineView = UIStackView()
@@ -62,8 +61,7 @@ private extension TimetableCell {
     }
 
     func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
-        self.layer.cornerRadius = 20
+        self.backgroundColor = UIColor.clear
         
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -86,5 +84,7 @@ private extension TimetableCell {
         time.font = App.Fonts.helveticaNeue(with: 15)
         time.textColor = App.Colors.title
         time.numberOfLines = 2
+        
+        createCustomBackgroundView(with: 20, shadowOfSet: 5)
     }
 }

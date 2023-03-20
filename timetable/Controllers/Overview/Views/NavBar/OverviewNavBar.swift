@@ -43,9 +43,9 @@ extension OverviewNavBar {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
         
-        addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
+        addBottomBorder(separator: &separator, with: .black, height: 1)
         
         titleLabel.text = App.Strings.overview
         titleLabel.textColor = App.Colors.title
@@ -55,5 +55,8 @@ extension OverviewNavBar {
         dateFormatter.dateFormat = "EEEE, dd MMMM"
         allWorkoutsButton.isUserInteractionEnabled = false
         allWorkoutsButton.setTitle(dateFormatter.string(from: Date.now).uppercased())
+        allWorkoutsButton.createCustomBackgroundView(with: 7, shadowOfSet: 0)
+        allWorkoutsButton.backgroundColor = .clear
+        createCustomBackgroundView(with: 0, shadowOfSet: 0)
     }
 }

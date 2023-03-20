@@ -36,7 +36,8 @@ extension TaskViewController {
     override func configureAppearance() {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
-        
+        self.view.backgroundColor = .clear
+        contentView.backgroundColor = .clear
         contentView.addTargetButtonSave(target: self, action: #selector(addButtonSave))
         contentView.addTargetButtonDelete(target: self, action: #selector(addButtonDelete))
         contentView.addTargetButtonComplete(target: self, action: #selector(addButtonComplete))

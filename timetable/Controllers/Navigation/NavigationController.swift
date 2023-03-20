@@ -16,8 +16,10 @@ final class NavigationController: UINavigationController {
     }
 
     private func configureAppearance() {
-        view.backgroundColor = App.Colors.BlackWhite
+        view.backgroundColor = .clear
         navigationBar.isTranslucent = false
+        navigationBar.createCustomBackgroundView(with: 0, shadowOfSet: 0)
+        navigationBar.backgroundColor = .clear
         navigationBar.standardAppearance.titleTextAttributes = [
             .foregroundColor: App.Colors.title,
             .font: App.Fonts.helveticaNeue(with: 17)

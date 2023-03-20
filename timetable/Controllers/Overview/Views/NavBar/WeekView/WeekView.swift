@@ -24,7 +24,7 @@ extension WeekView {
     
     override func configureAppearance() {
         super.configureAppearance()
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
         
         stackView.spacing = 7
         stackView.distribution = .fillEqually

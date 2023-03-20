@@ -27,5 +27,5 @@ class TTBaseView: UIView {
 @objc extension TTBaseView {
     func setupViews() {}
     func constraintViews() {}
-    func configureAppearance() { backgroundColor = .white }
+    func configureAppearance() { backgroundColor = .clear }
 }

@@ -22,11 +22,15 @@ final class SectionHeaderView: UICollectionReusableView {
         constaintViews()
         configureAppearance()
     }
-    func configure(with date: Date) {
+    func configure(with date: Date? = nil) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMMM YYYY"
+        if let date = date {
+            self.title.text = dateFormatter.string(from: date).uppercased()
+        } else {
+            self.title.text = ""
 
-        self.title.text = dateFormatter.string(from: date).uppercased()
+        }
     }
 }
 

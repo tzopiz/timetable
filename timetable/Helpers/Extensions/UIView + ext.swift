@@ -111,5 +111,37 @@ extension UIView {
         if let width = width { widthAnchor.constraint(equalToConstant: width).isActive = true }
         if let height = height { heightAnchor.constraint(equalToConstant: height).isActive = true }
     }
+    func createCustomBackgroundView(with cornerRadius: CGFloat, shadowOfSet: Int) {
+        let customV = CustomUIView()
+        let blur = UIBlurEffect(style: .regular)
+        let customVEV = CustomUIVisualEffectView(effect: blur)
+        
+        customV.cornerRadius = cornerRadius
+        customV.shadowOpacity = 0.4
+        customV.shadowOffset = shadowOfSet
+        customV.borderWidth = 0.4
+        customV.borderColor = .black
+        customV.shadowColor = .black
+        customVEV.cornerRadius = cornerRadius
+        
+        customV.translatesAutoresizingMaskIntoConstraints = false
+        customVEV.translatesAutoresizingMaskIntoConstraints = false
+        customV.backgroundColor = .clear
+        customVEV.backgroundColor = .clear
+        customV.addSubview(customVEV)
+        insertSubview(customV, at: 0)
+        
+        NSLayoutConstraint.activate([
+            customV.centerYAnchor.constraint(equalTo: centerYAnchor),
+            customV.centerXAnchor.constraint(equalTo: centerXAnchor),
+            customV.heightAnchor.constraint(equalTo: heightAnchor),
+            customV.widthAnchor.constraint(equalTo: widthAnchor),
+            
+            customVEV.centerYAnchor.constraint(equalTo: centerYAnchor),
+            customVEV.centerXAnchor.constraint(equalTo: centerXAnchor),
+            customVEV.heightAnchor.constraint(equalTo: heightAnchor),
+            customVEV.widthAnchor.constraint(equalTo: widthAnchor)
+        ])
+    }
     
 }

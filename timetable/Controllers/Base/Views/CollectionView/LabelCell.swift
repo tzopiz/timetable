@@ -25,6 +25,7 @@ class LabelCell: UICollectionViewCell {
 extension LabelCell {
     func configure() {
         let inset = CGFloat(16)
+        self.backgroundColor = .clear
         
         stackView.axis = .vertical
         stackView.spacing = 7
@@ -46,5 +47,6 @@ extension LabelCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
             stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
+        createCustomBackgroundView(with: 20, shadowOfSet: 7)
     }
 }

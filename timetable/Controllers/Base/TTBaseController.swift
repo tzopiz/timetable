@@ -64,26 +64,35 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int)
-    -> CGFloat { 8 }
+    -> CGFloat { 16 }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int)
-    -> CGSize { CGSize(width: collectionView.frame.width, height: 32) }
+    -> CGSize { CGSize(width: collectionView.frame.width, height: 40) }
 }
 
 @objc extension TTBaseController {
     func setupViews() {
         view.setupView(untiBag)
         view.setupView(collectionView)
+        
     }
     func constraintViews() {
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
+       
+        collectionView.anchor(top: view.topAnchor,
+                              bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
     }
     func configureAppearance() {
-        view.backgroundColor = App.Colors.background
+        let backgroundImgaeView = UIImageView(image: #imageLiteral(resourceName: "BackPolygons"))
+        backgroundImgaeView.frame = collectionView.frame
+        view.insertSubview(backgroundImgaeView, at: 0)
+        backgroundImgaeView.anchor(top: view.topAnchor,
+                                   bottom: view.bottomAnchor,
+                                   left: view.leadingAnchor,
+                                   right: view.trailingAnchor)
+        view.backgroundColor = .clear
         untiBag.isHidden = true
     }
     func navBarLeftButtonHandler() { print("NavBar left button tapped") }

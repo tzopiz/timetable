@@ -31,15 +31,18 @@ final class TabBarController: UITabBarController {
     private func configureAppearance() {
         tabBar.tintColor = App.Colors.active
         tabBar.barTintColor = App.Colors.separator
-        tabBar.backgroundColor = App.Colors.BlackWhite
+        tabBar.backgroundColor = UIColor.clear
         tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
-        tabBar.addTopBorder(with: App.Colors.separator, height: 2/3)
+        tabBar.addTopBorder(with: .black, height: 2/3)
+        
+        tabBar.createCustomBackgroundView(with: 0, shadowOfSet: 0)
 
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
             controller.tabBarItem = UITabBarItem(title: nil,
                                                  image: App.Images.icon(for: tab),
                                                  tag: tab.rawValue)
+            controller.navigationBar.isHidden = true
             return controller
         }
         setViewControllers(controllers, animated: false)

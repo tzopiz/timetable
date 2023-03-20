@@ -57,8 +57,8 @@ extension PeopleViewController {
     }
     override func constraintViews() {
         super.constraintViews()
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout())
-        collectionView.backgroundColor = App.Colors.background
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout())
+        collectionView.backgroundColor = .clear
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor,
@@ -82,7 +82,6 @@ extension PeopleViewController {
         <LabelCell, PeopleController.People> { (cell, indexPath, people) in
             cell.label.text = people.name
             cell.sublabel.text = people.info
-            cell.backgroundColor = App.Colors.BlackWhite
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, PeopleController.People> (collectionView: peopleCollectionView) {

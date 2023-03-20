@@ -21,7 +21,7 @@ extension WeekView {
 
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
 
-            backgroundColor = isToday ? App.Colors.active : App.Colors.background
+            backgroundColor = isToday ? App.Colors.active : .clear
 
             nameLabel.text = name.uppercased()
             nameLabel.textColor = isToday ? .white : App.Colors.inactive
@@ -60,5 +60,6 @@ extension WeekView.WeekdayView {
         
         stackView.spacing = 3
         stackView.axis = .vertical
+        createCustomBackgroundView(with: 7, shadowOfSet: 0)
     }
 }
