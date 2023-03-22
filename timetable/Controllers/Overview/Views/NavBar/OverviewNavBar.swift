@@ -56,9 +56,7 @@ extension OverviewNavBar {
         let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
         leftSwipe.direction = .left
         addGestureRecognizer(leftSwipe)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(leftSwipeWeek))
-        addGestureRecognizer(tap)
+
     }
     @objc func rightSwipeWeek() {
         weekView.shift += 7
@@ -69,9 +67,13 @@ extension OverviewNavBar {
         animateRightSwipe()
     }
     @objc func toToday() {
-        weekView.shift = 0
-        if weekView.shift > 0 { animateRightSwipe() }
-        if weekView.shift < 0 { animateLeftSwipe() }
+        if weekView.shift > 0 {
+            weekView.shift = 0
+            animateRightSwipe() }
+        if weekView.shift < 0 {
+            weekView.shift = 0
+            animateLeftSwipe()
+        }
     }
     func updateButtonTitle(day: Date?) {
         let dateFormatter = DateFormatter()
