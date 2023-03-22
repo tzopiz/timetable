@@ -68,7 +68,7 @@ extension TasksController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         let taskVC = TaskViewController()
-        taskVC.taskData = task
+        taskVC.task = task
         taskVC.completion = { [weak self] in
             guard let self = self else { return }
             self.collectionView.reloadData()

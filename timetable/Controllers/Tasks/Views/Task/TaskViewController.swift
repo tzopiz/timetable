@@ -9,7 +9,7 @@ import UIKit
 
 final class TaskViewController: TTBaseController {
     private let contentView = ContentView()
-    var taskData: Task? = nil
+    var task: Task? = nil
     var completion: (() -> ())?
 }
 extension TaskViewController {
@@ -25,54 +25,41 @@ extension TaskViewController {
     override func configureAppearance() {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
-        if let task = taskData {
+        if let task = self.task {
             contentView.configure(label: task.isDone ? "Выполненная задача" : "Активаная задача",
-                                  taskName: task.taskName ?? "", text: task.taskInfo ?? "",
+                                  taskName: task.taskName, text: task.taskInfo,
                                   isDone: task.isDone, importance: task.importance)
         } else {
             contentView.configure(label: "Новая задача", isDone: false, true)
         }
         contentView.addTargetButtonSave(target: self, action: #selector(addButtonSave))
         contentView.addTargetButtonDelete(target: self, action: #selector(addButtonDelete))
-        contentView.addTargetButtonComplete(target: self, action: #selector(addButtonComplete))
     }
     @objc func addButtonSave() {
-        let task = contentView.getTask()
-        if (task["needCreate"] as? Bool ?? false) == true {
-            CoreDataMamanager.shared.createTask(taskName: task["taskName"] as? String ?? "",
-                                                taskInfo: task["taskInfo"] as? String ?? "",
-                                                isDone: task["isDone"] as? Bool ?? false,
-                                                importance: task["importance"] as? Int16 ?? 0)
+        let taskInfoDictionary = contentView.getTaskInfo()
+        let taskName: String
+        if (taskInfoDictionary["taskName"] as! String) == "" {
+            taskName = "Безымянная"
         } else {
-            CoreDataMamanager.shared.updataTask(with: taskData?.id ?? UUID(),
-                                                taskName: task["taskName"] as? String ?? "",
-                                                taskInfo: task["taskInfo"] as? String ?? "",
-                                                isDone: task["isDone"] as? Bool ?? false,
-                                                importance: task["importance"] as? Int16 ?? 0)
+            taskName = (taskInfoDictionary["taskName"] as! String)
+        }
+        if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
+            CoreDataMamanager.shared.createTask(taskName: taskName,
+                                                taskInfo: (taskInfoDictionary["taskInfo"] as! String),
+                                                isDone: (taskInfoDictionary["isDone"] as! Bool),
+                                                importance: (taskInfoDictionary["importance"] as! Int16))
+        } else {
+            CoreDataMamanager.shared.updataTask(with: self.task?.id,
+                                                taskName: taskName,
+                                                taskInfo: (taskInfoDictionary["taskInfo"] as! String),
+                                                isDone: (taskInfoDictionary["isDone"] as! Bool),
+                                                importance: (taskInfoDictionary["importance"] as! Int16))
         }
         self.dismiss(animated: true)
         completion?()
     }
     @objc func addButtonDelete() {
-        CoreDataMamanager.shared.deletaTask(with: taskData?.id ?? UUID())
-        self.dismiss(animated: true)
-        completion?()
-    }
-    @objc func addButtonComplete() {
-        taskData?.isDone = !(taskData?.isDone ?? false)
-        let task = contentView.getTask()
-        if (task["needCreate"] as? Bool ?? false) == true {
-            CoreDataMamanager.shared.createTask(taskName: task["taskName"] as? String ?? "",
-                                                taskInfo: task["taskInfo"] as? String ?? "",
-                                                isDone: true,
-                                                importance: task["importance"] as? Int16 ?? 1)
-        } else {
-            CoreDataMamanager.shared.updataTask(with: taskData?.id ?? UUID(),
-                                                taskName: task["taskName"] as? String ?? "",
-                                                taskInfo: task["taskInfo"] as? String ?? "",
-                                                isDone: (taskData?.isDone ?? false),
-                                                importance: task["importance"] as? Int16 ?? 1)
-        }
+        CoreDataMamanager.shared.deletaTask(with: self.task?.id)
         self.dismiss(animated: true)
         completion?()
     }

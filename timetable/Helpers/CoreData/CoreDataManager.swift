@@ -65,7 +65,8 @@ public final class CoreDataMamanager: NSObject {
             
         }
     }
-    public func fetchTask(with id: UUID) -> Task? {
+    public func fetchTask(with id: UUID?) -> Task? {
+        guard let id = id else { return nil }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             let Tasks = try? context.fetch(fetchRequest) as? [Task]
@@ -75,20 +76,22 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Update
     
-    public func updataTask(with id: UUID, taskName: String, taskInfo: String, isDone: Bool, importance: Int16) {
+    public func updataTask(with id: UUID?, taskName: String? = "", taskInfo: String? = "", isDone: Bool? = false, importance: Int16? = 0) {
+        guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.taskName = taskName
             task.taskInfo = taskInfo
-            task.isDone = isDone
-            task.importance = importance
+            task.isDone = isDone!
+            task.importance = importance!
         }
 
         appDelegate.saveContext()
     }
-    public func updataTypeTask(with id: UUID, isDone: Bool) {
+    public func updataTypeTask(with id: UUID?, isDone: Bool) {
+        guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
@@ -111,7 +114,8 @@ public final class CoreDataMamanager: NSObject {
         appDelegate.saveContext()
     }
 
-    public func deletaTask(with id: UUID) {
+    public func deletaTask(with id: UUID?) {
+        guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             guard let Tasks = try? context.fetch(fetchRequest) as? [Task],

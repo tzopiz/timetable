@@ -8,16 +8,17 @@
 import UIKit
 
 final class ContentView: TTBaseView {
+    
     private let topLabel = UILabel()
     private let nameTaskField = UITextField()
     private let taskInfoView = UITextView()
-    private let mainStackView = UIStackView()
-    
+   
     private let buttonSave = UIButton(type: .system)
     private let buttonDelete = UIButton(type: .system)
     private let buttonStackView = UIStackView()
     
     private let settingsStackView = UIStackView()
+    private let mainStackView = UIStackView()
     
     // importance
     private let importanceTask = UIView()
@@ -31,24 +32,20 @@ final class ContentView: TTBaseView {
     private let deadlineLabel = UILabel()
     private let datePicker = UIDatePicker()
     
-    private let buttonComplete = UIButton(type: .system)
-    
     private var isDone = false
     private var importance: Int16 = 0
     private var needCreate = true
-    var taskData: Task? = nil
 
-    func configure(label: String, taskName: String = "", text: String = "", isDone: Bool, importance: Int16 = 0, _ needCreate: Bool = false) {
+    func configure(label: String, taskName: String? = "", text: String? = "", isDone: Bool, importance: Int16 = 0, _ needCreate: Bool = false) {
         self.topLabel.text = label
         self.nameTaskField.text = taskName
         self.taskInfoView.text = text
         self.isDone = isDone
         self.importance = importance
         self.needCreate = needCreate
-        if isDone { self.buttonComplete.setTitle("Uncomplete", for: .normal) }
         segmentedControl.selectedSegmentIndex = Int(importance)
     }
-    func getTask() -> [String: Any] {
+    func getTaskInfo() -> [String: Any] {
         var task: [String: Any] = [:]
         task["taskName"] = nameTaskField.text
         task["taskInfo"] = taskInfoView.text
@@ -81,7 +78,6 @@ extension ContentView {
         mainStackView.addArrangedSubview(nameTaskField)
         mainStackView.addArrangedSubview(taskInfoView)
         mainStackView.addArrangedSubview(settingsStackView)
-        mainStackView.addArrangedSubview(buttonComplete)
     }
     override func constraintViews() {
         super.constraintViews()
@@ -150,12 +146,6 @@ extension ContentView {
         buttonDelete.backgroundColor = UIColor.clear
         buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
-        buttonComplete.layer.cornerRadius = 10
-        buttonComplete.tintColor = App.Colors.active
-        buttonComplete.setTitle("Complete", for: .normal)
-        buttonComplete.backgroundColor = App.Colors.BlackWhite
-        buttonComplete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        
         importanceTask.backgroundColor = App.Colors.BlackWhite
         importanceTask.layer.cornerRadius = 10
         
@@ -193,8 +183,5 @@ extension ContentView {
     }
     func addTargetButtonDelete(target: Any?, action: Selector) {
         buttonDelete.addTarget(action, action: action, for: .touchUpInside)
-    }
-    func addTargetButtonComplete(target: Any?, action: Selector) {
-        buttonComplete.addTarget(action, action: action, for: .touchUpInside)
     }
 }
