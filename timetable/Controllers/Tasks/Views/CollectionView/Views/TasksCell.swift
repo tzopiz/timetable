@@ -11,6 +11,7 @@ enum CellRoundedType {
     case top, bottom, all, notRounded
 }
 final class TasksCell: UICollectionViewCell {
+    
     static let reuseID =  String(describing: TasksCell.self)
     private let buttonCheckmarkView = TTButton(with: .primary)
     private let stackView = UIStackView()
@@ -43,6 +44,7 @@ final class TasksCell: UICollectionViewCell {
         case 3: self.importance.image = App.Images.exclamation_3
         default: self.importance.image = nil
         }
+        // TODO: add deadline view (mb)
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -51,7 +53,8 @@ final class TasksCell: UICollectionViewCell {
     @objc func updateCheckmarkView() {
         guard let task = self.task else { return }
         task.isDone = !task.isDone
-        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
+        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone,
+                                          for: .normal)
         CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
         self.task = task
     }

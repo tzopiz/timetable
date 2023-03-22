@@ -15,26 +15,25 @@ final class ContentView: TTBaseView {
    
     private let buttonSave = UIButton(type: .system)
     private let buttonDelete = UIButton(type: .system)
-    private let buttonStackView = UIStackView()
     
+    private let buttonStackView = UIStackView()
     private let settingsStackView = UIStackView()
     private let mainStackView = UIStackView()
     
-    // importance
     private let importanceTask = UIView()
     private let importanceLabel = UILabel()
-    private let segmentedControl = UISegmentedControl(
-        items: [UIImage(), App.Images.exclamation_1,
-                App.Images.exclamation_2, App.Images.exclamation_3])
+    private let segmentedControl = UISegmentedControl(items: [UIImage(),
+                                                              App.Images.exclamation_1,
+                                                              App.Images.exclamation_2,
+                                                              App.Images.exclamation_3])
     
-    // deadline
     private let deadlineTask = UIView()
     private let deadlineLabel = UILabel()
     private let datePicker = UIDatePicker()
     
     private var isDone = false
     private var importance: Int16 = 0
-    private var needCreate = true
+    private var needCreate: Bool?
 
     func configure(label: String, taskName: String? = "", text: String? = "", isDone: Bool, importance: Int16 = 0, _ needCreate: Bool = false) {
         self.topLabel.text = label
@@ -98,8 +97,7 @@ extension ContentView {
         deadlineTask.setDimensions(height: 50)
         deadlineLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 16,
                                centerY: deadlineTask.centerYAnchor)
-        datePicker.anchor(left: mainStackView.leadingAnchor,
-                          right: settingsStackView.trailingAnchor, paddingRight: -16,
+        datePicker.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
         datePicker.setDimensions(width: 200)
         
@@ -164,7 +162,7 @@ extension ContentView {
         deadlineLabel.text = "До: "
         
         datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
-        datePicker.datePickerMode = .dateAndTime
+        datePicker.datePickerMode = .date
         let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
         datePicker.minimumDate = Date.now
         datePicker.maximumDate = Date().addingTimeInterval(2 * oneYearTime)

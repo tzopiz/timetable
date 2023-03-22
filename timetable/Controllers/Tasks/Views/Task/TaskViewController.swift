@@ -26,16 +26,16 @@ extension TaskViewController {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
         if let task = self.task {
-            contentView.configure(label: task.isDone ? "Выполненная задача" : "Активаная задача",
+            contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
                                   taskName: task.taskName, text: task.taskInfo,
                                   isDone: task.isDone, importance: task.importance)
         } else {
-            contentView.configure(label: "Новая задача", isDone: false, true)
+            contentView.configure(label: App.Strings.newTask, isDone: false, true)
         }
-        contentView.addTargetButtonSave(target: self, action: #selector(addButtonSave))
-        contentView.addTargetButtonDelete(target: self, action: #selector(addButtonDelete))
+        contentView.addTargetButtonSave(target: self, action: #selector(saveTask))
+        contentView.addTargetButtonDelete(target: self, action: #selector(deleteTask))
     }
-    @objc func addButtonSave() {
+    @objc func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
         let taskName: String
         if (taskInfoDictionary["taskName"] as! String) == "" {
@@ -58,7 +58,7 @@ extension TaskViewController {
         self.dismiss(animated: true)
         completion?()
     }
-    @objc func addButtonDelete() {
+    @objc func deleteTask() {
         CoreDataMamanager.shared.deletaTask(with: self.task?.id)
         self.dismiss(animated: true)
         completion?()
