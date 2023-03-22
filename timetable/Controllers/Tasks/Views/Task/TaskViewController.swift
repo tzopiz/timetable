@@ -42,21 +42,21 @@ extension TaskViewController {
             CoreDataMamanager.shared.createTask(taskName: task["taskName"] as? String ?? "",
                                                 taskInfo: task["taskInfo"] as? String ?? "",
                                                 isDone: task["isDone"] as? Bool ?? false,
-                                                importance: task["importance"] as? Int16 ?? 1)
+                                                importance: task["importance"] as? Int16 ?? 0)
         } else {
             CoreDataMamanager.shared.updataTask(with: taskData?.id ?? UUID(),
                                                 taskName: task["taskName"] as? String ?? "",
                                                 taskInfo: task["taskInfo"] as? String ?? "",
                                                 isDone: task["isDone"] as? Bool ?? false,
-                                                importance: task["importance"] as? Int16 ?? 1)
+                                                importance: task["importance"] as? Int16 ?? 0)
         }
-        completion?()
         self.dismiss(animated: true)
+        completion?()
     }
     @objc func addButtonDelete() {
         CoreDataMamanager.shared.deletaTask(with: taskData?.id ?? UUID())
-        completion?()
         self.dismiss(animated: true)
+        completion?()
     }
     @objc func addButtonComplete() {
         taskData?.isDone = !(taskData?.isDone ?? false)
@@ -73,7 +73,7 @@ extension TaskViewController {
                                                 isDone: (taskData?.isDone ?? false),
                                                 importance: task["importance"] as? Int16 ?? 1)
         }
-        completion?()
         self.dismiss(animated: true)
+        completion?()
     }
 }

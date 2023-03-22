@@ -12,11 +12,13 @@ enum CellRoundedType {
 }
 final class TasksCell: UICollectionViewCell {
     static let reuseID =  String(describing: TasksCell.self)
-    private let checkmarkView = UIImageView(image: App.Images.checkmarkNotDone)
+//    private let buttonCheckmarkView = UIImageView(image: App.Images.checkmarkNotDone)
+    private let buttonCheckmarkView = TTButton(with: .primary)
     private let stackView = UIStackView()
     private let title = UILabel()
     private let subtitle = UILabel()
     private let importance = UIImageView()
+    private var task: Task? = nil
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,25 +33,35 @@ final class TasksCell: UICollectionViewCell {
         constaintViews()
         configureAppearance()
     }
-    func configure(with title: String, subtitle: String, isDone: Bool, importance: Int16) {
-        self.title.text = title
-        self.subtitle.text = subtitle
-        checkmarkView.image = isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone
-        switch importance {
+    func configure(task: Task) {
+        self.task = task
+        self.title.text = task.taskName
+        self.subtitle.text = task.taskInfo
+        buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
+        switch task.importance {
         case 1: self.importance.image = App.Images.exclamation_1
         case 2: self.importance.image = App.Images.exclamation_2
         case 3: self.importance.image = App.Images.exclamation_3
         default: self.importance.image = nil
-
         }
     }
+    
+    
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+
+    @objc func updateCheckmarkView() {
+        guard let task = self.task else { return }
+        task.isDone = !task.isDone
+        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
+        CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
+        self.task = task
+    }
 }
 
 private extension TasksCell {
     func setupViews() {
-        setupView(checkmarkView)
+        setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
         
@@ -59,10 +71,10 @@ private extension TasksCell {
     }
 
     func constaintViews() {
-        checkmarkView.setDimensions(height: 28, width: 28)
-        checkmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
+        buttonCheckmarkView.setDimensions(height: 28, width: 28)
+        buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
-        stackView.anchor(left: checkmarkView.trailingAnchor, paddingLeft: 16,
+        stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
                          right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
         importance.anchor(right: trailingAnchor, paddingRight: -16,
@@ -81,5 +93,8 @@ private extension TasksCell {
         
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
         subtitle.textColor = App.Colors.inactive
+        
+        buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
+        
     }
 }

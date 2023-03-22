@@ -33,6 +33,9 @@ final class TTButton: UIButton {
     func setTitle(_ title: String?) {
         label.text = title
     }
+    func addButtonTarget(target: Any?, action: Selector) {
+        addTarget(action, action: action, for: .touchUpInside)
+    }
 }
 
 private extension TTButton {

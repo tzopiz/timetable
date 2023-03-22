@@ -8,7 +8,7 @@
 import UIKit
 
 class LabelCell: UICollectionViewCell {
-    static let reuseIdentifier = "label-cell-reuse-identifier"
+    static let reuseID =  String(describing: LabelCell.self)
     let label = UILabel()
     let sublabel = UILabel()
     private let stackView = UIStackView()
@@ -40,11 +40,8 @@ extension LabelCell {
         sublabel.adjustsFontForContentSizeCategory = true
         
         layer.cornerRadius = 20
-        // MARK: Not touch(???)
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-            ])
+        stackView.anchor(left: contentView.leadingAnchor, paddingLeft: inset,
+                         right: contentView.trailingAnchor, paddingRight: -inset,
+                         centerY: contentView.centerYAnchor)
     }
 }

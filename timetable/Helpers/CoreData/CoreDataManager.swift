@@ -88,6 +88,16 @@ public final class CoreDataMamanager: NSObject {
 
         appDelegate.saveContext()
     }
+    public func updataTypeTask(with id: UUID, isDone: Bool) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        do {
+            guard let tasks = try? context.fetch(fetchRequest) as? [Task],
+                  let task = tasks.first(where: { $0.id == id }) else { return }
+            task.isDone = isDone
+        }
+
+        appDelegate.saveContext()
+    }
     
     // MARK: - Delete
     

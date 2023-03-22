@@ -20,7 +20,6 @@ extension TasksController {
         navigationItem.title = App.Strings.tasks
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.alwaysBounceVertical = true
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         
         addNavBarButton(at: .right, with: "Добавить")
@@ -62,11 +61,8 @@ extension TasksController {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TasksCell.reuseID, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
-
         let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
-
-        cell.configure(with: task.taskName ?? "Задача", subtitle: task.taskInfo ?? "",
-                       isDone: task.isDone, importance: task.importance)
+        cell.configure(task: task)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
