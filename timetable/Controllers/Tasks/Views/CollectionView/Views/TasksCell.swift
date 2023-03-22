@@ -12,7 +12,6 @@ enum CellRoundedType {
 }
 final class TasksCell: UICollectionViewCell {
     static let reuseID =  String(describing: TasksCell.self)
-//    private let buttonCheckmarkView = UIImageView(image: App.Images.checkmarkNotDone)
     private let buttonCheckmarkView = TTButton(with: .primary)
     private let stackView = UIStackView()
     private let title = UILabel()
@@ -26,13 +25,13 @@ final class TasksCell: UICollectionViewCell {
         constaintViews()
         configureAppearance()
     }
-
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
         setupViews()
         constaintViews()
         configureAppearance()
     }
+    
     func configure(task: Task) {
         self.task = task
         self.title.text = task.taskName
@@ -45,7 +44,6 @@ final class TasksCell: UICollectionViewCell {
         default: self.importance.image = nil
         }
     }
-    
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
@@ -67,9 +65,7 @@ private extension TasksCell {
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
-
     }
-
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
@@ -80,7 +76,6 @@ private extension TasksCell {
         importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
-
     func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 20
@@ -95,6 +90,5 @@ private extension TasksCell {
         subtitle.textColor = App.Colors.inactive
         
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
-        
     }
 }

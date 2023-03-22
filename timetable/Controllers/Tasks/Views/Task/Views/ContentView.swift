@@ -105,8 +105,6 @@ extension ContentView {
         
         buttonSave.setDimensions(width: 88)
         buttonDelete.setDimensions(width: 88)
-
-
     }
     override func configureAppearance() {
         super.configureAppearance()
