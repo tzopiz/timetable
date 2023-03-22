@@ -29,7 +29,7 @@ extension TasksController {
     }
     override func navBarRightButtonHandler() {
         let taskVC = TaskViewController()
-        taskVC.completion = { [weak self] in
+        taskVC.completion = { [weak self] _ in
             guard let self = self else { return }
             self.collectionView.reloadData()
         }
@@ -63,15 +63,28 @@ extension TasksController {
         ) as? TasksCell else { return UICollectionViewCell() }
         let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         cell.configure(task: task)
+        cell.completion = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                    self.collectionView.performBatchUpdates({
+                        self.collectionView.deleteItems(at:[indexPath])
+                    }, completion: nil)
+            }
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         let taskVC = TaskViewController()
         taskVC.task = task
-        taskVC.completion = { [weak self] in
+        taskVC.completion = { [weak self] needInsert in
             guard let self = self else { return }
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.performBatchUpdates({
+                    if needInsert { self.collectionView.insertItems(at:[indexPath]) }
+                    else { self.collectionView.deleteItems(at:[indexPath]) }
+                }, completion: nil)
+            }
         }
         present(taskVC, animated: true)
     }

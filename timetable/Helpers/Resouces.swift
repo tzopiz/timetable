@@ -59,14 +59,9 @@ enum App {
         static let aboutApp    = "О приложении"
         static let exit        = "Выйти"
         
-        static let activeTask = "Активаная задача"
+        static let activeTask   = "Активаная задача"
         static let completeTask = "Выполненная задача"
-        static let newTask = "Новая задача"
-        
-        static let warning = "⚠️"
-        static let exclamation_1 = "❗️"
-        static let exclamation_2 = "‼️"
-        static let exclamation_3 = "💀"
+        static let newTask      = "Новая задача"
     }
 
     enum Images {

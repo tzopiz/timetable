@@ -10,7 +10,7 @@ import UIKit
 final class TaskViewController: TTBaseController {
     private let contentView = ContentView()
     var task: Task? = nil
-    var completion: (() -> ())?
+    var completion: ((Bool) -> ())?
 }
 extension TaskViewController {
     override func setupViews() {
@@ -56,11 +56,11 @@ extension TaskViewController {
                                                 importance: (taskInfoDictionary["importance"] as! Int16))
         }
         self.dismiss(animated: true)
-        completion?()
+        completion?(true)
     }
     @objc func deleteTask() {
         CoreDataMamanager.shared.deletaTask(with: self.task?.id)
         self.dismiss(animated: true)
-        completion?()
+        completion?(false)
     }
 }

@@ -23,10 +23,10 @@ extension Date {
         guard let firstDay = Date.calendar.date(from: components) else { return self }
         return Date.calendar.date(byAdding: .day, value: 0, to: firstDay) ?? self
     }
-
     func agoForward(to days: Int) -> Date {
         return Date.calendar.date(byAdding: .day, value: days, to: self) ?? self
     }
+    
     func stripTime(_ stripTimeType: Date.StripTimeType) -> Date {
         switch stripTimeType {
         case .toDays:

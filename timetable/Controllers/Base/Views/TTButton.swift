@@ -56,13 +56,14 @@ private extension TTButton {
     }
 
     func configureAppearance() {
-        label.textAlignment = .center
+       
         switch type {
         case .primary:
-            label.textColor = App.Colors.inactive
-            label.font = App.Fonts.helveticaNeue(with: 13)
-            iconView.tintColor = App.Colors.inactive
+            label.textAlignment = .left
+            label.textColor = App.Colors.title
+            label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
+            label.textAlignment = .center
             backgroundColor = App.Colors.secondary
             layer.cornerRadius = 7
             label.textColor = App.Colors.active

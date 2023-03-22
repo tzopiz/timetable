@@ -19,6 +19,7 @@ final class TasksCell: UICollectionViewCell {
     private let subtitle = UILabel()
     private let importance = UIImageView()
     private var task: Task? = nil
+    var completion: (() -> ())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +58,7 @@ final class TasksCell: UICollectionViewCell {
                                           for: .normal)
         CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
         self.task = task
+        completion?()
     }
 }
 

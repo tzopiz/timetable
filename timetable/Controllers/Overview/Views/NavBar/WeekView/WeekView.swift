@@ -9,19 +9,19 @@ import UIKit
 
 final class WeekView: TTBaseView {
     private let stackView = UIStackView()
+    private var weekdayViews: [WeekdayView] = []
+    var shift = 0
+    var firstDay: Date?
 }
-
 extension WeekView {
     override func setupViews() {
         super.setupViews()
         setupView(stackView)
     }
-    
     override func constraintViews() {
         super.constraintViews()
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
-    
     override func configureAppearance() {
         super.configureAppearance()
         self.backgroundColor = App.Colors.BlackWhite
@@ -37,9 +37,22 @@ extension WeekView {
         }
 
         weekdays.enumerated().forEach { index, name in
-            let view = WeekdayView()
-            view.configure(with: index, and: name)
-            stackView.addArrangedSubview(view)
+            weekdayViews.append(WeekdayView())
+            weekdayViews[index].configure(with: index, and: name, shift: shift)
+            stackView.addArrangedSubview(weekdayViews[index])
         }
+    }
+    func updateWeekView() {
+        var weekdays = Date.calendar.shortStandaloneWeekdaySymbols
+        if Date.calendar.firstWeekday == 2 {
+            let sun = weekdays.remove(at: 0)
+            weekdays.append(sun)
+        }
+        weekdays.enumerated().forEach { index, name in
+            let view = WeekdayView()
+            weekdayViews.append(view)
+            weekdayViews[index].configure(with: index, and: name, shift: shift)
+        }
+        firstDay = WeekdayView.getFirstDay(with: shift)
     }
 }

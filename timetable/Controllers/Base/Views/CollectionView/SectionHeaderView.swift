@@ -24,7 +24,7 @@ final class SectionHeaderView: UICollectionReusableView {
     }
     func configure(with date: Date) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, dd MMMM YYYY"
+        dateFormatter.dateFormat = "EEEE, dd MMMM"
 
         self.title.text = dateFormatter.string(from: date).uppercased()
     }

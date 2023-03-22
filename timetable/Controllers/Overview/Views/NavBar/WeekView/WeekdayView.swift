@@ -14,9 +14,9 @@ extension WeekView {
         private let dateLabel = UILabel()
         private let stackView = UIStackView()
 
-        func configure(with index: Int, and name: String) {
+        func configure(with index: Int, and name: String, shift: Int) {
             let startOfWeek = Date().startOfWeek
-            let currenrDay = startOfWeek.agoForward(to: index)
+            let currenrDay = startOfWeek.agoForward(to: index - shift)
             let day = Date.calendar.component(.day, from: currenrDay)
 
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
@@ -29,7 +29,13 @@ extension WeekView {
             dateLabel.text = "\(day)"
             dateLabel.textColor = isToday ? .white : App.Colors.inactive
         }
+        static func getFirstDay(with index: Int) -> Date {
+            let startOfWeek = Date().startOfWeek
+            let currenrDay = startOfWeek.agoForward(to: 1 - index)
+            return currenrDay
+        }
     }
+    
 }
 
 extension WeekView.WeekdayView {
