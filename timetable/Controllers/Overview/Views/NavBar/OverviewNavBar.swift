@@ -78,7 +78,7 @@ extension OverviewNavBar {
     func updateButtonTitle(day: Date?) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM, YYYY"
-        allWorkoutsButton.setTitle(dateFormatter.string(from: day ?? Date.now).uppercased())
+        allWorkoutsButton.setTitle(dateFormatter.string(from: day ?? Date()).uppercased())
     }
     func animateRightSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {

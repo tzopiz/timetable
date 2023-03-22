@@ -164,7 +164,7 @@ extension ContentView {
         datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
         datePicker.datePickerMode = .date
         let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
-        datePicker.minimumDate = Date.now
+        datePicker.minimumDate = Date()
         datePicker.maximumDate = Date().addingTimeInterval(2 * oneYearTime)
     }
     @objc func segmentedControlChange(_ sender: UISegmentedControl) {
