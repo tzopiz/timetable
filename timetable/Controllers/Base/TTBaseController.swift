@@ -14,7 +14,7 @@ enum NavBarPosition {
 
 class TTBaseController: UIViewController {
     fileprivate let untiBag = UIView(frame: .zero)
-    var collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
 
@@ -53,7 +53,8 @@ class TTBaseController: UIViewController {
     }
 }
 
-extension TTBaseController: UICollectionViewDelegate {
+// MARK: - UICollectionViewDataSource
+extension TTBaseController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int)
     -> Int { 0 }
@@ -62,7 +63,13 @@ extension TTBaseController: UICollectionViewDelegate {
                         cellForItemAt indexPath: IndexPath)
     -> UICollectionViewCell { UICollectionViewCell() }
 }
-extension TTBaseController: UICollectionViewDataSource {}
+
+// MARK: - UICollectionViewDataSource
+extension TTBaseController: UICollectionViewDelegate  {
+    
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
 extension TTBaseController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -94,6 +94,7 @@ extension PeopleViewController {
 }
 
 // MARK: - searchResultsUpdater
+
 extension PeopleViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         performQuery(with: searchController.searchBar.text)

@@ -15,12 +15,14 @@ enum CellType {
 }
 
 final class ProfileCell: UICollectionViewCell {
+    
     static let reuseID = String(describing: ProfileCell.self)
     private let title = UILabel()
-    private var subtitle = UILabel()
-    private var leftView = UIImageView(image: App.Images.imageProfile.withRenderingMode(.alwaysTemplate))
+    private let subtitle = UILabel()
+    private let leftView = UIImageView()
     private let stackInfoView = UIStackView()
-    let button = UIButton(type: .system)
+    private let button = UIButton(type: .system)
+    
     func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
         self.leftView.image = image
@@ -32,9 +34,7 @@ final class ProfileCell: UICollectionViewCell {
             leftView.setDimensions(height: 88, width: 88)
         } else {
             leftView.setDimensions(height: 32, width: 32)
-            if type == .exit {
-                leftView.tintColor = UIColor.red
-            } else if type == .theme {
+            if type == .theme {
                 setupView(button)
                 button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
                 button.tintColor = App.Colors.active
@@ -46,8 +46,6 @@ final class ProfileCell: UICollectionViewCell {
                 button.setDimensions(height: 40)
                 button.anchor(right: trailingAnchor, paddingRight: -16,
                               centerY: centerYAnchor)
-            } else {
-                leftView.tintColor = App.Colors.active
             }
         }
     }
@@ -57,12 +55,13 @@ final class ProfileCell: UICollectionViewCell {
                         thirdTitle: "Системное",
                         cancelTitle: "Отмена")
     }
+    
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    
     func showInputDialog(firstTitle: String, secondTitle: String, thirdTitle: String, cancelTitle: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScenes = scenes.first as? UIWindowScene
+        let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let window = windowScenes?.windows.first
         let viewController = window?.rootViewController
         func updateData() {
@@ -85,13 +84,13 @@ final class ProfileCell: UICollectionViewCell {
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
         viewController?.present(alert, animated: true, completion: nil)
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         constaintViews()
         configureAppearance()
     }
-
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
         setupViews()

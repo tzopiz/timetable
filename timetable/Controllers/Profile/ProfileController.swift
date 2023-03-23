@@ -50,7 +50,7 @@ extension ProfileController {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProfileCell.reuseID,
             for: indexPath) as? ProfileCell
-        else { fatalError("###\(#function): Wrong cell") }
+        else { return UICollectionViewCell() }
         let item = dataSource[indexPath.row].item
         cell.configure(title: item.title, type: item.type, image: item.image)
         return cell

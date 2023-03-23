@@ -82,7 +82,7 @@ enum App {
         static let checkmarkNotDone = #imageLiteral(resourceName: "circle@256x.png")
         
         static let theme        = #imageLiteral(resourceName: "theme")
-        static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@256x")
+        static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@128x")
         static let changeGroup  = #imageLiteral(resourceName: "person_2_gobackward@256x")
         static let share        = #imageLiteral(resourceName: "square_and_arrow_up@256x")
         static let aboutApp     = #imageLiteral(resourceName: "info_circle@256x")
