@@ -16,7 +16,6 @@ final class TTButton: UIButton {
 
     private var type: TTButtonType = .primary
     private let label = UILabel()
-    private let iconView = UIImageView(image: App.Images.downArrow.withRenderingMode(.alwaysTemplate))
     init(with type: TTButtonType) {
         super.init(frame: .zero)
         self.type = type
@@ -35,6 +34,14 @@ final class TTButton: UIButton {
     }
     func addButtonTarget(target: Any?, action: Selector) {
         addTarget(action, action: action, for: .touchUpInside)
+    }
+    func setFontSize(_ size: CGFloat) {
+        label.font = App.Fonts.helveticaNeue(with: size)
+    }
+    func setTintColor(_ color: UIColor) {
+        tintColor = color
+        label.tintColor = color
+        label.textColor = color
     }
 }
 
@@ -56,7 +63,6 @@ private extension TTButton {
     }
 
     func configureAppearance() {
-       
         switch type {
         case .primary:
             label.textAlignment = .left
@@ -64,11 +70,9 @@ private extension TTButton {
             label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
             label.textAlignment = .center
-            backgroundColor = App.Colors.secondary
             layer.cornerRadius = 7
             label.textColor = App.Colors.active
             label.font = App.Fonts.helveticaNeue(with: 15)
-            iconView.tintColor = App.Colors.active
         }
         makeSystem(self)
     }

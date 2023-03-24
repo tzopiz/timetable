@@ -17,11 +17,11 @@ class TTBaseController: UIViewController {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
-
+        
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = .clear
-
+        
         return view
     }()
     public func update() {
@@ -41,7 +41,7 @@ class TTBaseController: UIViewController {
         button.setTitleColor(App.Colors.active, for: .normal)
         button.setTitleColor(App.Colors.inactive, for: .disabled)
         button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-
+        
         switch position {
         case .left:
             button.addTarget(self, action: #selector(navBarLeftButtonHandler), for: .touchUpInside)

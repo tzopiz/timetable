@@ -40,7 +40,7 @@ enum App {
         static let BlackWhite = UIColor.dynamic(light: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), dark: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
         static let background = UIColor.dynamic(light: #colorLiteral(red: 0.9718694091, green: 0.9750172496, blue: 0.9750832915, alpha: 1), dark: #colorLiteral(red: 0.1409981251, green: 0.1364274919, blue: 0.1622747779, alpha: 1))
     }
-
+    
     enum Strings {
         static let overview = "Сегодня"
         static let tasks    = "Мои задачи"
@@ -63,7 +63,7 @@ enum App {
         static let completeTask = "Выполненная задача"
         static let newTask      = "Новая задача"
     }
-
+    
     enum Images {
         static func icon(for tab: Tabs) -> UIImage? {
             switch tab {
@@ -93,7 +93,7 @@ enum App {
         static let exclamation_2 = #imageLiteral(resourceName: "warning_2@64")
         static let exclamation_3 = #imageLiteral(resourceName: "warning_3@64")
     }
-
+    
     enum Fonts {
         static func helveticaNeue(with size: CGFloat) -> UIFont {
             UIFont(name: "HelveticaNeue", size: size) ?? UIFont()

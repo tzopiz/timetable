@@ -19,30 +19,31 @@ final class ProfileCell: UICollectionViewCell {
     static let reuseID = String(describing: ProfileCell.self)
     private let title = UILabel()
     private let subtitle = UILabel()
-    private let leftView = UIImageView()
     private let stackInfoView = UIStackView()
-    private let button = UIButton(type: .system)
+    private let leftViewButton = TTButton(with: .primary)
+    private let button = TTButton(with: .secondary)
     
     func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
-        self.leftView.image = image
+        leftViewButton.setImage(image, for: .normal)
         if type == .profile {
             self.subtitle.text = "21.Б04"
             stackInfoView.axis = .vertical
             stackInfoView.spacing = 10
             stackInfoView.addArrangedSubview(subtitle)
-            leftView.setDimensions(height: 88, width: 88)
+            leftViewButton.setDimensions(height: 88, width: 88)
+            leftViewButton.addButtonTarget(target: self, action: #selector(changePhotoProfile))
         } else {
-            leftView.setDimensions(height: 32, width: 32)
+            leftViewButton.setDimensions(height: 32, width: 32)
+            leftViewButton.isUserInteractionEnabled = false
             if type == .theme {
                 setupView(button)
-                button.titleLabel?.font = App.Fonts.helveticaNeue(with: 18)
-                button.tintColor = App.Colors.active
                 let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
                 "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
                 "Светлая" : "Системная"
-                button.setTitle(title, for: .normal)
-                button.addTarget(self, action: #selector(showAlertController), for: .touchUpInside)
+                button.setTitle(title)
+                button.setFontSize(18)
+                button.addButtonTarget(target: self, action: #selector(showAlertController))
                 button.setDimensions(height: 40)
                 button.anchor(right: trailingAnchor, paddingRight: -16,
                               centerY: centerYAnchor)
@@ -54,6 +55,9 @@ final class ProfileCell: UICollectionViewCell {
                         secondTitle: "Темное",
                         thirdTitle: "Системное",
                         cancelTitle: "Отмена")
+    }
+    @objc func changePhotoProfile() {
+        
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -67,7 +71,7 @@ final class ProfileCell: UICollectionViewCell {
         func updateData() {
             window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
             let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темное": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлое" : "Системное"
-            self.button.setTitle(title, for: .normal)
+            self.button.setTitle(title)
         }
         alert.addAction(UIAlertAction(title: firstTitle, style: .default,  handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .light
@@ -102,18 +106,18 @@ final class ProfileCell: UICollectionViewCell {
 private extension ProfileCell {
     func setupViews() {
         setupView(stackInfoView)
-        setupView(leftView)
+        setupView(leftViewButton)
         stackInfoView.addArrangedSubview(title)
     }
-
+    
     func constaintViews() {
-        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
-        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
+        leftViewButton.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
+        stackInfoView.anchor(left: leftViewButton.trailingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16,
                              centerY: centerYAnchor)
         title.setDimensions(height: 40)
     }
-
+    
     func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 20

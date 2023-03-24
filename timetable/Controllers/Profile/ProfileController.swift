@@ -28,7 +28,7 @@ extension ProfileController {
         super.configureAppearance()
         navigationItem.title = App.Strings.profile
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
-
+        
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
@@ -46,7 +46,7 @@ extension ProfileController {
         dataSource.count
     }
     override func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProfileCell.reuseID,
             for: indexPath) as? ProfileCell
@@ -63,6 +63,9 @@ extension ProfileController {
         let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
         cell?.isUnHighlighted()
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: show photos
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -70,7 +73,7 @@ extension ProfileController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-         indexPath.item == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
+        indexPath.item == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -80,6 +83,6 @@ extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
-         CGSize(width: collectionView.frame.width, height: 0)
-     }
+        CGSize(width: collectionView.frame.width, height: 0)
+    }
 }
