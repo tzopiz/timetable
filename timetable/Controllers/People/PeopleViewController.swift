@@ -8,90 +8,95 @@
 import UIKit
 
 class PeopleViewController: TTBaseController {
-    enum Section: CaseIterable {
-        case main
-    }
     let peopleController = PeopleController()
-    var peopleCollectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, PeopleController.People>!
+    var dataSource: [Teacher] = []
     var nameFilter: String?
     
     func performQuery(with filter: String?) {
-        let mountains = peopleController.filteredPeople(with: filter).sorted { $0.name < $1.name }
-
-        var snapshot = NSDiffableDataSourceSnapshot<Section, PeopleController.People>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(mountains)
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    func layout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
-            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
-            let columns = 1
-            let spacing = CGFloat(10)
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1.0))
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .absolute(70))
-            
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                           subitem: item,
-                                                           count: columns)
-            group.interItemSpacing = .fixed(spacing)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = spacing
-            section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
-
-            return section
+        let peoples = peopleController.filteredPeople(with: filter).sorted { $0.name < $1.name }
+        dataSource = peoples
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
-        return layout
     }
 }
 
 extension PeopleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshData()
         performQuery(with: nil)
-    }
-    override func constraintViews() {
-        super.constraintViews()
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout())
-        collectionView.backgroundColor = App.Colors.background
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(collectionView)
-        collectionView.anchor(top: view.topAnchor,
-                              bottom: view.bottomAnchor,
-                              left: view.leadingAnchor,
-                              right: view.trailingAnchor)
-        
-        peopleCollectionView = collectionView
     }
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1/3)
-        
+
+        self.collectionView.register(LabelCell.self,
+                                forCellWithReuseIdentifier: LabelCell.reuseID)
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-        let cellRegistration = UICollectionView.CellRegistration
-        <LabelCell, PeopleController.People> { (cell, indexPath, people) in
-            cell.label.text = people.name
-            cell.sublabel.text = people.info
-            cell.backgroundColor = App.Colors.BlackWhite
-        }
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
         
-        dataSource = UICollectionViewDiffableDataSource<Section, PeopleController.People> (collectionView: peopleCollectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: PeopleController.People) -> UICollectionViewCell? in
-            // Return the cell.
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
+    }
+    @objc func refreshData() {
+        self.collectionView.refreshControl?.beginRefreshing()
+        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
+            APIManager.shared.getTeachres { [weak self] teachers in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    guard let self = self else { return }
+                    self.dataSource = teachers
+                    self.collectionView.reloadData()
+                }
+            }
         }
+        self.collectionView.refreshControl?.endRefreshing()
+    }
+
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension PeopleViewController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: LabelCell.reuseID, for: indexPath
+        ) as? LabelCell else { return UICollectionViewCell() }
+        cell.label.text = dataSource[indexPath.row].name
+        cell.sublabel.text =  dataSource[indexPath.row].info
+        return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PeopleViewController {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.width - 32, height: 65)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 16, left: 16.0, bottom: 16.0, right: 16.0)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                                 layout collectionViewLayout: UICollectionViewLayout,
+                                 referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 0)
+    }
+}
+
 
 // MARK: - searchResultsUpdater
 

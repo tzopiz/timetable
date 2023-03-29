@@ -13,8 +13,9 @@ enum NavBarPosition {
 }
 
 class TTBaseController: UIViewController {
+    
     fileprivate let untiBag = UIView(frame: .zero)
-    let collectionView: UICollectionView = {
+    var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         
@@ -55,19 +56,17 @@ class TTBaseController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 extension TTBaseController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int)
-    -> Int { 0 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath)
-    -> UICollectionViewCell { UICollectionViewCell() }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
-extension TTBaseController: UICollectionViewDelegate  {
-    
-}
+extension TTBaseController: UICollectionViewDelegate {}
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension TTBaseController: UICollectionViewDelegateFlowLayout {
@@ -75,10 +74,6 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int)
     -> CGFloat { 8 }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int)
-    -> CGSize { CGSize(width: collectionView.frame.width, height: 32) }
 }
 
 @objc extension TTBaseController {

@@ -22,6 +22,7 @@ class APIManager {
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/2023-04-03"
     ]
+    static let teachersUrl = URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
     func getTimetable(with firstDay: String, completion: @escaping ([StudyDay], String) -> Void) {
         let timeInterval: String!
         if firstDay == "\(Date())".components(separatedBy: " ")[0] {
@@ -96,5 +97,32 @@ class APIManager {
             } catch { print(error.localizedDescription) }
         }
         task.resume()
+    }
+    func getTeachres(completion: @escaping ([Teacher]) -> Void) {
+        guard let url = APIManager.teachersUrl else { return }
+        var dataSource: [Teacher] = []
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            guard let html = String(data: data, encoding: .utf8) else { return }
+            do {
+                let doc: Document = try SwiftSoup.parse(html)
+                let teachers = try doc.select("td")
+                var i = 4
+                while i < teachers.count {
+                    let name = try teachers[i - 4].text()
+                    var info = try teachers[i - 3].text() + ", "
+                    info += try teachers[i - 2].text() + ", "
+                    info += try teachers[i - 1].text()
+                    let teacher = Teacher(name: name, info: info)
+                    dataSource.append(teacher)
+                    i += 4
+                }
+                completion(dataSource)
+            } catch { print(error.localizedDescription) }
+        }
+        task.resume()
+        
     }
 }

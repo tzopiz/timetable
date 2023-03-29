@@ -10,7 +10,6 @@ import UIKit
 final class OverviewController: TTBaseController {
     private let navBar = OverviewNavBar()
     private var dataSource: [StudyDay] = []
-   
 }
 extension OverviewController {
     override func viewDidLoad() {
@@ -64,7 +63,7 @@ extension OverviewController {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTimetable(with: "\(Date())".components(separatedBy: " ")[0]) { [weak self] dates, title in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     guard let self = self else { return }
                     self.navBar.toToday()
                     self.dataSource = dates

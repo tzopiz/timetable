@@ -112,7 +112,7 @@ extension TasksController {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 16, left: 0.0, bottom: 16.0, right: 0.0)
     }
-    override func collectionView(_ collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)
      -> CGSize { CGSize(width: 0, height: 0) }

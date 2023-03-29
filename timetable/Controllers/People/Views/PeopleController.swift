@@ -8,47 +8,28 @@
 import UIKit
 
 class PeopleController {
-    struct People: Hashable {
-        let name: String
-        let info: String
-        let identifier = UUID()
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(identifier)
-        }
-        static func == (lhs: People, rhs: People) -> Bool {
-            return lhs.identifier == rhs.identifier
-        }
-        func contains(_ filter: String?) -> Bool {
-            guard let filterText = filter else { return true }
-            if filterText.isEmpty { return true }
-            let lowercasedFilter = filterText.lowercased()
-            return name.lowercased().contains(lowercasedFilter) || info.lowercased().contains(lowercasedFilter)
-        }
-    }
-    func filteredPeople(with filter: String? = nil, limit: Int? = nil) -> [People] {
-        let filtered = people.filter { $0.contains(filter) }
+    func filteredPeople(with filter: String? = nil, limit: Int? = nil) -> [Teacher] {
+        generatePeople()
+        guard let filter = filter else { return people }
+        if filter == "" { return people }
+        let filtered = people.filter { $0.name.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
         } else {
             return filtered
         }
     }
-    private lazy var people: [People] = {
-        return generatePeople()
-    }()
+    private lazy var people: [Teacher] = []
 }
 
 extension PeopleController {
-    private func generatePeople() -> [People] {
-        let components = peopleRawData.components(separatedBy: CharacterSet.newlines)
-        var people = [People]()
-        for line in components {
-            let peopleComponents = line.components(separatedBy: ",")
-            let name = peopleComponents[0]
-            let info = peopleComponents[1]
-            people.append(People(name: name, info: info))
+    private func generatePeople() {
+        APIManager.shared.getTeachres { [weak self] teashers in
+            DispatchQueue.global().async {
+                guard let self = self else { return }
+                self.people = teashers
+            }
         }
-        return people
     }
 
 }

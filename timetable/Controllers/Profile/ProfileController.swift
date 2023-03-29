@@ -113,7 +113,7 @@ extension ProfileController {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 16, left: 16.0, bottom: 16.0, right: 16.0)
     }
-    override func collectionView(_ collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 0)

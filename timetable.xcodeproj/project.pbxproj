@@ -35,7 +35,7 @@
 		0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */; };
 		0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */; };
 		0ACC4EB829C6620300B3D6AC /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */; };
-		0ACC4EB929C6620300B3D6AC /* PeopleRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8D29C6620200B3D6AC /* PeopleRawData.swift */; };
+		0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */; };
 		0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */; };
 		0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */; };
 		0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9429C6620200B3D6AC /* WeekView.swift */; };
@@ -104,7 +104,7 @@
 		0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
-		0ACC4E8D29C6620200B3D6AC /* PeopleRawData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleRawData.swift; sourceTree = "<group>"; };
+		0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 		0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewNavBar.swift; sourceTree = "<group>"; };
 		0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
 		0ACC4E9429C6620200B3D6AC /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
@@ -174,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				0A58D5D929D4960200EE17EA /* TimeTableModel.swift */,
-				0A58D5DB29D49B2300EE17EA /* APIManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +185,15 @@
 				0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */,
 			);
 			path = Groups;
+			sourceTree = "<group>";
+		};
+		0A58D5E829D4DD4800EE17EA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0A58D5DB29D49B2300EE17EA /* APIManager.swift */,
+				0A223B6C29C8936E00C8EDBF /* CoreData */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		0ACC4E3229C660CE00B3D6AC = {
@@ -373,7 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */,
-				0ACC4E8D29C6620200B3D6AC /* PeopleRawData.swift */,
+				0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -462,7 +470,7 @@
 		0ACC4EA129C6620300B3D6AC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0A223B6C29C8936E00C8EDBF /* CoreData */,
+				0A58D5E829D4DD4800EE17EA /* Networking */,
 				0ACC4EA429C6620300B3D6AC /* Extensions */,
 				0ACC4EA229C6620300B3D6AC /* Resouces.swift */,
 			);
@@ -699,7 +707,7 @@
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
-				0ACC4EB929C6620300B3D6AC /* PeopleRawData.swift in Sources */,
+				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0A58D5E329D4C4F100EE17EA /* GroupRawData.swift in Sources */,

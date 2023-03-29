@@ -25,7 +25,7 @@ class LabelCell: UICollectionViewCell {
 extension LabelCell {
     func configure() {
         let inset = CGFloat(16)
-        
+        backgroundColor = App.Colors.BlackWhite
         stackView.axis = .vertical
         stackView.spacing = 7
         stackView.translatesAutoresizingMaskIntoConstraints = false
