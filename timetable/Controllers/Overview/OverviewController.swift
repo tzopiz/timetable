@@ -7,22 +7,15 @@
 
 import UIKit
 
-struct TimatableData {
-    struct Data {
-        let time: String
-        let nameSubject: String
-        let address: String
-        let teacherName: String
-    }
-    let date: Date
-    let items: [Data]
-}
-
 final class OverviewController: TTBaseController {
-    private var dataSource: [TimatableData] = []
     private let navBar = OverviewNavBar()
+    private var dataSource: [StudyDay] = []
 }
 extension OverviewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refreshData()
+    }
     override func setupViews() {
         super.setupViews()
         view.setupView(navBar)
@@ -52,14 +45,20 @@ extension OverviewController {
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "Refresh timetable", attributes: nil)
         collectionView.refreshControl = refreshControl
     }
+    
     @objc func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
-                self.collectionView.refreshControl?.endRefreshing()
+            APIManager.shared.getTimetable {[weak self] dates in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    self.dataSource = dates
+                    self.collectionView.refreshControl?.endRefreshing()
+                    self.collectionView.reloadData()
+                    print(self.dataSource)
+                }
             }
         }
     }
@@ -70,20 +69,20 @@ extension OverviewController {
     func numberOfSections(in collectionView: UICollectionView)
     -> Int { dataSource.count }
     override func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int)
-    -> Int { dataSource[section].items.count }
+                                 numberOfItemsInSection section: Int)
+    -> Int { dataSource[section].lessons.count }
     
     override func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TimetableCell.reuseID, for: indexPath
         ) as? TimetableCell else { return UICollectionViewCell() }
-
-        let item = dataSource[indexPath.section].items[indexPath.row]
+        
+        let item = dataSource[indexPath.section].lessons[indexPath.row]
         cell.configure(time: item.time, nameSubject: item.nameSubject, address: item.address, teacherName: item.teacherName)
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
