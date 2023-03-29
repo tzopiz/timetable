@@ -12,10 +12,10 @@ final class TimetableCell: UICollectionViewCell {
     static let reuseID =  String(describing: TimetableCell.self)
     private let stackView = UIStackView()
     private let firstLineView = UIStackView()
-    private let title = UILabel()
-    private let subtitle = UILabel()
-    private let teacherNS = UILabel()
     private let time = UILabel()
+    private let nameSubject = UILabel()
+    private let address = UILabel()
+    private let teacherName = UILabel()
     private let clock = UIImageView(image: App.Images.clock)
     var borderLayer = CAShapeLayer()
 
@@ -33,11 +33,11 @@ final class TimetableCell: UICollectionViewCell {
         configureAppearance()
     }
 
-    func configure(with title: String, subtitle: String, teacherNS: String, time: String) {
-        self.title.text = title
-        self.subtitle.text = subtitle
-        self.teacherNS.text = teacherNS
+    func configure(time: String, nameSubject: String, address: String, teacherName: String) {
         self.time.text = time
+        self.nameSubject.text = nameSubject
+        self.address.text = address
+        self.teacherName.text = teacherName
     }
 }
 
@@ -49,9 +49,9 @@ private extension TimetableCell {
         firstLineView.addArrangedSubview(time)
         
         stackView.addArrangedSubview(firstLineView)
-        stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(subtitle)
-        stackView.addArrangedSubview(teacherNS)
+        stackView.addArrangedSubview(nameSubject)
+        stackView.addArrangedSubview(address)
+        stackView.addArrangedSubview(teacherName)
     }
 
     func constaintViews() {
@@ -71,17 +71,17 @@ private extension TimetableCell {
         firstLineView.axis = .horizontal
         firstLineView.spacing = 5
         
-        title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.title
-        title.numberOfLines = 2
+        nameSubject.font = App.Fonts.helveticaNeue(with: 17)
+        nameSubject.textColor = App.Colors.title
+        nameSubject.numberOfLines = 2
         
-        subtitle.font = App.Fonts.helveticaNeue(with: 13)
-        subtitle.textColor = App.Colors.inactive
-        subtitle.numberOfLines = 2
+        address.font = App.Fonts.helveticaNeue(with: 13)
+        address.textColor = App.Colors.inactive
+        address.numberOfLines = 2
         
-        teacherNS.font = App.Fonts.helveticaNeue(with: 13)
-        teacherNS.textColor = App.Colors.inactive
-        teacherNS.numberOfLines = 2
+        teacherName.font = App.Fonts.helveticaNeue(with: 13)
+        teacherName.textColor = App.Colors.inactive
+        teacherName.numberOfLines = 2
         
         time.font = App.Fonts.helveticaNeue(with: 15)
         time.textColor = App.Colors.title

@@ -48,6 +48,8 @@ extension OverviewNavBar {
         
         titleLabel.setTitle(App.Strings.overview)
         titleLabel.addButtonTarget(target: self, action: #selector(toToday))
+        
+        allWorkoutsButton.backgroundColor = App.Colors.secondary
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
         rightSwipe.direction = .right

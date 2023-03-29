@@ -9,10 +9,10 @@ import UIKit
 
 struct TimatableData {
     struct Data {
-        let title: String
-        let subtitle: String
-        let teacherNS: String
         let time: String
+        let nameSubject: String
+        let address: String
+        let teacherName: String
     }
     let date: Date
     let items: [Data]
@@ -54,70 +54,6 @@ extension OverviewController {
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Refresh timetable", attributes: nil)
         collectionView.refreshControl = refreshControl
-
-        dataSource = [
-            .init(date: Date(timeInterval: 0, since: Date() - 60*60*24),
-                  items: [
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00")
-                  ]),
-            .init(date: Date(timeInterval: 0, since:  Date()),
-                  items: [
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00")
-                  ]),
-            .init(date: Date(timeInterval: 0, since:  Date() + 1*60*60*24),
-                  items: [
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00")
-                  ]),
-            .init(date: Date(timeInterval: 0, since: Date() + 2*60*60*24),
-                  items: [
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00"),
-                    .init(title: "Название, лекция/пркатика",
-                          subtitle: "адресс, номер аудитории",
-                          teacherNS: "Ф.И.О преподавателя",
-                          time: "00:00")
-                  ])
-        ]
-        collectionView.reloadData()
     }
     @objc func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
@@ -144,7 +80,7 @@ extension OverviewController {
         ) as? TimetableCell else { return UICollectionViewCell() }
 
         let item = dataSource[indexPath.section].items[indexPath.row]
-        cell.configure(with: item.title, subtitle: item.subtitle, teacherNS: item.teacherNS, time: item.time)
+        cell.configure(time: item.time, nameSubject: item.nameSubject, address: item.address, teacherName: item.teacherName)
         return cell
     }
 
