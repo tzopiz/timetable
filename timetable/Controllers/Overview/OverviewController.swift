@@ -10,6 +10,7 @@ import UIKit
 final class OverviewController: TTBaseController {
     private let navBar = OverviewNavBar()
     private var dataSource: [StudyDay] = []
+   
 }
 extension OverviewController {
     override func viewDidLoad() {
@@ -46,18 +47,31 @@ extension OverviewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
-    }
-    
-    @objc func refreshData() {
-        self.collectionView.refreshControl?.beginRefreshing()
-        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            APIManager.shared.getTimetable {[weak self] dates in
+        navBar.completion = { [weak self] dateStr in
+            guard let self = self else { return }
+            APIManager.shared.getTimetable(with: dateStr) { [weak self] dates, title in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.dataSource = dates
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
-                    print(self.dataSource)
+                    self.navBar.updateButtonTitle(with: title)
+                }
+            }
+        }
+    }
+    
+    @objc func refreshData() {
+        self.collectionView.refreshControl?.beginRefreshing()
+        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
+            APIManager.shared.getTimetable(with: "\(Date())".components(separatedBy: " ")[0]) { [weak self] dates, title in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    self.navBar.toToday()
+                    self.dataSource = dates
+                    self.collectionView.refreshControl?.endRefreshing()
+                    self.collectionView.reloadData()
+                    self.navBar.updateButtonTitle(with: title)
                 }
             }
         }
@@ -101,7 +115,7 @@ extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath)
-    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 120) }
+    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 130) }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

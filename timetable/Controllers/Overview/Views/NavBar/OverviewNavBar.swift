@@ -12,6 +12,7 @@ final class OverviewNavBar: TTBaseView {
     private let titleLabel = TTButton(with: .primary)
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
+    var completion: ((String) -> ())?
 }
 
 extension OverviewNavBar {
@@ -44,7 +45,6 @@ extension OverviewNavBar {
         self.backgroundColor = App.Colors.BlackWhite
         weekView.updateWeekView()
         addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
-        updateButtonTitle(day: weekView.firstDay)
         
         titleLabel.setTitle(App.Strings.overview)
         titleLabel.addButtonTarget(target: self, action: #selector(toToday))
@@ -77,37 +77,38 @@ extension OverviewNavBar {
             animateLeftSwipe()
         }
     }
-    func updateButtonTitle(day: Date?) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM, YYYY"
-        allWorkoutsButton.setTitle(dateFormatter.string(from: day ?? Date()).uppercased())
+    func updateButtonTitle(with title: String) {
+        allWorkoutsButton.setTitle(title)
     }
-    func animateRightSwipe() {
+    private func animateRightSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
             var weekViewFrame = self.weekView.frame
             weekViewFrame.origin.x -= weekViewFrame.size.width
             self.weekView.frame = weekViewFrame
             
             self.weekView.updateWeekView()
-            self.updateButtonTitle(day: self.weekView.firstDay)
             
         }, completion:  {_ in })
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x += weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
+        completion?(getFirstDay())
     }
-    func animateLeftSwipe() {
+    private func animateLeftSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
             var weekViewFrame = self.weekView.frame
             weekViewFrame.origin.x += weekViewFrame.size.width
             self.weekView.frame = weekViewFrame
             
             self.weekView.updateWeekView()
-            self.updateButtonTitle(day: self.weekView.firstDay)
             
         }, completion:  {_ in })
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x -= weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
+        completion?(getFirstDay())
+    }
+    func getFirstDay() -> String {
+        "\(self.weekView.firstDay!)".components(separatedBy: " ").first ?? "\(Date())"
     }
 }
