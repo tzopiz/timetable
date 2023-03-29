@@ -29,7 +29,9 @@ extension ProfileController {
         navigationItem.title = App.Strings.profile
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseID)
+        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.ProfileCellId)
+        collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.AppearenceCellId)
+        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: SettingsCell.SettingsCellId)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
@@ -47,13 +49,30 @@ extension ProfileController {
     }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ProfileCell.reuseID,
-            for: indexPath) as? ProfileCell
-        else { return UICollectionViewCell() }
         let item = dataSource[indexPath.row].item
-        cell.configure(title: item.title, type: item.type, image: item.image)
-        return cell
+        switch item.type {
+        case .profile:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProfileCell.ProfileCellId,
+                for: indexPath) as? ProfileCell
+            else { return UICollectionViewCell() }
+            cell.configure(title: item.title, type: item.type, image: item.image)
+            return cell
+        case .theme:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: AppearenceCell.AppearenceCellId,
+                for: indexPath) as? AppearenceCell
+            else { return UICollectionViewCell() }
+            cell.configure(title: item.title, type: item.type, image: item.image)
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: SettingsCell.SettingsCellId,
+                for: indexPath) as? SettingsCell
+            else { return UICollectionViewCell() }
+            cell.configure(title: item.title, type: item.type, image: item.image)
+            return cell
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
@@ -64,7 +83,21 @@ extension ProfileController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: show photos
+        switch indexPath.row {
+        case 0:
+            // TODO: show photos
+            print("changePhoto")
+        case 1:
+            let gVC = GroupsViewController()
+            gVC.completion = { [weak self] in
+                guard let self = self else { return }
+                self.collectionView.reloadData()
+            }
+            navigationController?.pushViewController(gVC, animated: true)
+            break
+        default:
+            print(#function)
+        }
     }
 }
 
@@ -73,7 +106,7 @@ extension ProfileController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        indexPath.item == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
+        indexPath.row == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "sun.max@256x.png",
+      "filename" : "sun.max@82x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,7 +17,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "sun.max@256x 1.png",
+      "filename" : "sun.max@82x 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -33,7 +33,7 @@
       "scale" : "2x"
     },
     {
-      "filename" : "sun.max@256x 2.png",
+      "filename" : "sun.max@82x 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     },

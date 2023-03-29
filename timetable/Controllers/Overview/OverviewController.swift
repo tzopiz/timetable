@@ -21,7 +21,6 @@ extension OverviewController {
         super.setupViews()
         view.setupView(navBar)
     }
-
     override func constraintViews() {
 
         navBar.anchor(top: view.topAnchor,
@@ -65,7 +64,7 @@ extension OverviewController {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTimetable(with: "\(Date())".components(separatedBy: " ")[0]) { [weak self] dates, title in
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     guard let self = self else { return }
                     self.navBar.toToday()
                     self.dataSource = dates

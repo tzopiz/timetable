@@ -12,6 +12,10 @@
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
 		0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5D929D4960200EE17EA /* TimeTableModel.swift */; };
 		0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5DB29D49B2300EE17EA /* APIManager.swift */; };
+		0A58D5E029D4C39E00EE17EA /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */; };
+		0A58D5E329D4C4F100EE17EA /* GroupRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */; };
+		0A58D5E529D4CCB900EE17EA /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */; };
+		0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -73,6 +77,10 @@
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0A58D5D929D4960200EE17EA /* TimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
 		0A58D5DB29D49B2300EE17EA /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRawData.swift; sourceTree = "<group>"; };
+		0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearenceCell.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -169,6 +177,15 @@
 				0A58D5DB29D49B2300EE17EA /* APIManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0A58D5E129D4C4C100EE17EA /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */,
+				0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		0ACC4E3229C660CE00B3D6AC = {
@@ -328,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E8729C6620200B3D6AC /* CollectionView */,
+				0A58D5E129D4C4C100EE17EA /* Groups */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */,
+				0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */,
+				0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -664,7 +684,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
+				0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */,
 				0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */,
+				0A58D5E529D4CCB900EE17EA /* SettingsCell.swift in Sources */,
 				0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */,
 				0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */,
 				0ACC4EC229C6620300B3D6AC /* LabelCell.swift in Sources */,
@@ -680,6 +702,7 @@
 				0ACC4EB929C6620300B3D6AC /* PeopleRawData.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
+				0A58D5E329D4C4F100EE17EA /* GroupRawData.swift in Sources */,
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
@@ -693,6 +716,7 @@
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,
+				0A58D5E029D4C39E00EE17EA /* GroupsViewController.swift in Sources */,
 				0ACC4EBE29C6620300B3D6AC /* OverviewController.swift in Sources */,
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
 				0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */,

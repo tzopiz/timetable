@@ -29,7 +29,8 @@ class APIManager {
         } else {
             timeInterval = "/" + firstDay
         }
-        let url = URL(string: APIManager.urlsStrings[3] + timeInterval)
+        let numberOfGroup = Int(UserDefaults.standard.group.components(separatedBy: ",").last ?? "-1") ?? 0
+        let url = URL(string: APIManager.urlsStrings[numberOfGroup] + timeInterval)
         guard let url = url else { return }
         var dataSource: [StudyDay] = []
         var request = URLRequest(url: url)

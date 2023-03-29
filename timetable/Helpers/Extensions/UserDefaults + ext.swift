@@ -24,4 +24,12 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectedTaskType")
         }
     }
+    var group: String {
+        get {
+            UserDefaults.standard.string(forKey: "currentGorp") ?? "choose group"
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "currentGorp")
+        }
+    }
 }
