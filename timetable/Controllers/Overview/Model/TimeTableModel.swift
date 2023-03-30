@@ -12,7 +12,6 @@ struct StudyDay: Codable {
         let nameSubject: String
         let address: String
         let teacherName: String
-        
     }
     let date: String
     var lessons: [Lesson]

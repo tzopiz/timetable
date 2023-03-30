@@ -74,6 +74,10 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int)
     -> CGFloat { 8 }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int)
+    -> CGSize { CGSize(width: collectionView.frame.width, height: 32) }
 }
 
 @objc extension TTBaseController {

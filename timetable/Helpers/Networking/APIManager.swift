@@ -22,8 +22,10 @@ class APIManager {
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/2023-04-03"
     ]
-    static let teachersUrl = URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
-    func getTimetable(with firstDay: String, completion: @escaping ([StudyDay], String) -> Void) {
+    static let teachersUrl =
+    URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
+    func getTimetable(with firstDay: String,
+                      completion: @escaping ([StudyDay], String) -> Void) {
         let timeInterval: String!
         if firstDay == "\(Date())".components(separatedBy: " ")[0] {
             timeInterval = ""
@@ -36,7 +38,7 @@ class APIManager {
         var dataSource: [StudyDay] = []
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data else { return }
             guard let html = String(data: data, encoding: .utf8) else { return }
             do {
@@ -103,7 +105,7 @@ class APIManager {
         var dataSource: [Teacher] = []
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data else { return }
             guard let html = String(data: data, encoding: .utf8) else { return }
             do {
@@ -123,6 +125,5 @@ class APIManager {
             } catch { print(error.localizedDescription) }
         }
         task.resume()
-        
     }
 }
