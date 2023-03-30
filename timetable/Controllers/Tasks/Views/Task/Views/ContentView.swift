@@ -30,19 +30,34 @@ final class ContentView: TTBaseView {
     private let deadlineTask = UIView()
     private let deadlineLabel = UILabel()
     private let datePicker = UIDatePicker()
+    private let switcher = UISwitch()
     
     private var isDone = false
     private var importance: Int16 = 0
     private var needCreate: Bool?
+    private var deadline: Date?
 
-    func configure(label: String, taskName: String? = "", text: String? = "", isDone: Bool, importance: Int16 = 0, _ needCreate: Bool = false) {
+    func configure(label: String,
+                   taskName: String? = "",
+                   text: String? = "",
+                   isDone: Bool,
+                   importance: Int16 = 0,
+                   deadline: Date? = nil,
+                   _ needCreate: Bool = false) {
         self.topLabel.text = label
         self.nameTaskField.text = taskName
         self.taskInfoView.text = text
         self.isDone = isDone
         self.importance = importance
         self.needCreate = needCreate
-        segmentedControl.selectedSegmentIndex = Int(importance)
+        self.segmentedControl.selectedSegmentIndex = Int(importance)
+        self.datePicker.isEnabled = false
+        if let deadline = deadline {
+            self.datePicker.date = deadline
+            self.deadline = deadline
+            self.datePicker.isEnabled = true
+            self.switcher.isOn = true
+        }
     }
     func getTaskInfo() -> [String: Any] {
         var task: [String: Any] = [:]
@@ -51,6 +66,7 @@ final class ContentView: TTBaseView {
         task["isDone"] = isDone
         task["importance"] = importance
         task["needCreate"] = needCreate
+        task["deadline"] = deadline
         return task
     }
 }
@@ -72,6 +88,8 @@ extension ContentView {
         
         deadlineTask.addSubview(deadlineLabel)
         deadlineTask.addSubview(datePicker)
+        deadlineTask.addSubview(switcher)
+       
         
         mainStackView.addArrangedSubview(buttonStackView)
         mainStackView.addArrangedSubview(nameTaskField)
@@ -101,6 +119,8 @@ extension ContentView {
                           centerY: deadlineTask.centerYAnchor)
         datePicker.setDimensions(width: 200)
         
+        switcher.anchor(left: deadlineLabel.trailingAnchor, paddingRight: 16,
+                          centerY: deadlineTask.centerYAnchor)
         buttonSave.setDimensions(width: 88)
         buttonDelete.setDimensions(width: 88)
     }
@@ -142,6 +162,9 @@ extension ContentView {
         buttonDelete.backgroundColor = UIColor.clear
         buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
+        switcher.tintColor = App.Colors.active
+        switcher.addTarget(self, action: #selector(deadlineHandler), for: .valueChanged)
+        
         importanceTask.backgroundColor = App.Colors.BlackWhite
         importanceTask.layer.cornerRadius = 10
         
@@ -171,8 +194,16 @@ extension ContentView {
         importance = Int16(sender.selectedSegmentIndex)
     }
     @objc func datePickerChange(parametr: UIDatePicker) {
-        print(parametr.date.stripTime(.toDays))
-        // TODO: get info
+        deadline = parametr.date
+    }
+    @objc func deadlineHandler(_ sender: UISwitch) {
+        if sender.isOn {
+            self.datePicker.isEnabled = true
+            self.deadline = Date()
+        } else {
+            self.datePicker.isEnabled = false
+            self.deadline = nil
+        }
     }
     func addTargetButtonSave(target: Any?, action: Selector) {
         buttonSave.addTarget(action, action: action, for: .touchUpInside)

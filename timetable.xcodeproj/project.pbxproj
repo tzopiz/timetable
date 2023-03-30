@@ -362,7 +362,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */,
-				0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */,
 				0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */,
 			);
 			path = CollectionView;
@@ -461,6 +460,7 @@
 		0ACC4E9D29C6620300B3D6AC /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */,
 				0ACC4E9E29C6620300B3D6AC /* SectionHeaderView.swift */,
 				0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */,
 			);

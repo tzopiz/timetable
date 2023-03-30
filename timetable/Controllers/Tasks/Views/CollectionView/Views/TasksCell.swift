@@ -19,6 +19,7 @@ final class TasksCell: UICollectionViewCell {
     private let subtitle = UILabel()
     private let importance = UIImageView()
     private var task: Task? = nil
+    private let alarmyButton = TTButton(with: .primary)
     var completion: (() -> ())?
 
     override init(frame: CGRect) {
@@ -45,7 +46,11 @@ final class TasksCell: UICollectionViewCell {
         case 3: self.importance.image = App.Images.exclamation_3
         default: self.importance.image = nil
         }
-        // TODO: add deadline view (mb)
+        if task.deadline != nil {
+            alarmyButton.setImage(App.Images.alarmy, for: .normal)
+        } else {
+            alarmyButton.setImage(nil, for: .normal)
+        }
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -67,18 +72,22 @@ private extension TasksCell {
         setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
+        setupView(alarmyButton)
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
     }
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
+        alarmyButton.setDimensions(height: 28)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
                          right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
         importance.anchor(right: trailingAnchor, paddingRight: -16,
+                         centerY: centerYAnchor)
+        alarmyButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
     func configureAppearance() {

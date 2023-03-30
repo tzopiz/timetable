@@ -28,7 +28,7 @@ extension TaskViewController {
         if let task = self.task {
             contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
                                   taskName: task.taskName, text: task.taskInfo,
-                                  isDone: task.isDone, importance: task.importance)
+                                  isDone: task.isDone, importance: task.importance, deadline: task.deadline)
         } else {
             contentView.configure(label: App.Strings.newTask, isDone: false, true)
         }
@@ -43,17 +43,20 @@ extension TaskViewController {
         } else {
             taskName = (taskInfoDictionary["taskName"] as! String)
         }
+        print((taskInfoDictionary["deadline"] as? Date))
         if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
             CoreDataMamanager.shared.createTask(taskName: taskName,
                                                 taskInfo: (taskInfoDictionary["taskInfo"] as! String),
                                                 isDone: (taskInfoDictionary["isDone"] as! Bool),
-                                                importance: (taskInfoDictionary["importance"] as! Int16))
+                                                importance: (taskInfoDictionary["importance"] as! Int16),
+                                                deadline: (taskInfoDictionary["deadline"] as? Date))
         } else {
             CoreDataMamanager.shared.updataTask(with: self.task?.id,
                                                 taskName: taskName,
                                                 taskInfo: (taskInfoDictionary["taskInfo"] as! String),
                                                 isDone: (taskInfoDictionary["isDone"] as! Bool),
-                                                importance: (taskInfoDictionary["importance"] as! Int16))
+                                                importance: (taskInfoDictionary["importance"] as! Int16),
+                                                deadline: (taskInfoDictionary["deadline"] as? Date))
         }
         self.dismiss(animated: true)
         completion?(true)

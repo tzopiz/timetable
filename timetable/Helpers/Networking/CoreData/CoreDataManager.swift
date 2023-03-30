@@ -24,7 +24,7 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String, taskInfo: String, isDone: Bool, importance: Int16) {
+    public func createTask(taskName: String, taskInfo: String, isDone: Bool, importance: Int16, deadline: Date? = nil) {
         guard let TaskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
@@ -34,7 +34,7 @@ public final class CoreDataMamanager: NSObject {
         task.taskInfo = taskInfo
         task.isDone = isDone
         task.importance = importance
-
+        task.deadline = deadline
         appDelegate.saveContext()
     }
     
@@ -76,7 +76,12 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Update
     
-    public func updataTask(with id: UUID?, taskName: String? = "", taskInfo: String? = "", isDone: Bool? = false, importance: Int16? = 0) {
+    public func updataTask(with id: UUID?, taskName: String? = "",
+                           taskInfo: String? = "",
+                           isDone: Bool? = false,
+                           importance: Int16? = 0,
+                           deadline: Date? = nil
+    ) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
@@ -86,6 +91,7 @@ public final class CoreDataMamanager: NSObject {
             task.taskInfo = taskInfo
             task.isDone = isDone!
             task.importance = importance!
+            task.deadline = deadline
         }
 
         appDelegate.saveContext()
@@ -97,6 +103,17 @@ public final class CoreDataMamanager: NSObject {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.isDone = isDone
+        }
+
+        appDelegate.saveContext()
+    }
+    public func updataDeadlineTask(with id: UUID?, deadline: Date) {
+        guard let id = id else { return }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        do {
+            guard let tasks = try? context.fetch(fetchRequest) as? [Task],
+                  let task = tasks.first(where: { $0.id == id }) else { return }
+            task.deadline = deadline
         }
 
         appDelegate.saveContext()
