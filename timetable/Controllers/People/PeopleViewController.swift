@@ -48,14 +48,15 @@ extension PeopleViewController {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTeachres { [weak self] teachers in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.dataSource = teachers
                     self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             }
         }
-        self.collectionView.refreshControl?.endRefreshing()
+       
     }
 }
 
