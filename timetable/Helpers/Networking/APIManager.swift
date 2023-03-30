@@ -10,6 +10,7 @@ import SwiftSoup
 
 class APIManager {
     static let shared = APIManager()
+    static let emptyUrlStr = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/2022-07-03"
     static let urlsStrings = [
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334102",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334471",
@@ -20,7 +21,6 @@ class APIManager {
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/333990",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334477",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/2023-04-03"
     ]
     static let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
@@ -32,8 +32,13 @@ class APIManager {
         } else {
             timeInterval = "/" + firstDay
         }
-        let numberOfGroup = Int(UserDefaults.standard.group.components(separatedBy: ",").last ?? "-1") ?? 0
-        let url = URL(string: APIManager.urlsStrings[numberOfGroup] + timeInterval)
+        let numberOfGroup = Int(UserDefaults.standard.group.components(separatedBy: ",").last ?? "-1") ?? -1
+        let url: URL!
+        if numberOfGroup != -1 {
+            url = URL(string: APIManager.urlsStrings[numberOfGroup] + timeInterval)
+        } else {
+            url = URL(string: APIManager.emptyUrlStr)
+        }
         guard let url = url else { return }
         var dataSource: [StudyDay] = []
         var request = URLRequest(url: url)
