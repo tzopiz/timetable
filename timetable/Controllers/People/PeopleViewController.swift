@@ -8,9 +8,9 @@
 import UIKit
 
 class PeopleViewController: TTBaseController {
-    let peopleController = PeopleController()
-    var dataSource: [Teacher] = []
-    var nameFilter: String?
+    private let peopleController = PeopleController()
+    private var dataSource: [Teacher] = []
+    private var nameFilter: String?
     
     func performQuery(with filter: String?) {
         let peoples = peopleController.filteredPeople(with: filter).sorted { $0.name < $1.name }

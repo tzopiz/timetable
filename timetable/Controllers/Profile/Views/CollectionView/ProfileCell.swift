@@ -7,13 +7,6 @@
 
 import UIKit
 
-enum CellType {
-    case base
-    case profile
-    case exit
-    case theme
-}
-
 final class ProfileCell: SettingsCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)

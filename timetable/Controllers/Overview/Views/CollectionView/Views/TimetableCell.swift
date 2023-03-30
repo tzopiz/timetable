@@ -17,7 +17,7 @@ final class TimetableCell: UICollectionViewCell {
     private let address = UILabel()
     private let teacherName = UILabel()
     private let clock = UIImageView(image: App.Images.clock)
-    var borderLayer = CAShapeLayer()
+    private var borderLayer = CAShapeLayer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -7,6 +7,13 @@
 
 import UIKit
 
+enum CellType {
+    case base
+    case profile
+    case exit
+    case theme
+}
+
 class SettingsCell: UICollectionViewCell {
     static let SettingsCellId = String(describing: SettingsCell.self)
     public let title = UILabel()

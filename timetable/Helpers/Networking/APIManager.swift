@@ -24,6 +24,7 @@ class APIManager {
     ]
     static let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
+    
     func getTimetable(with firstDay: String,
                       completion: @escaping ([StudyDay], String) -> Void) {
         let timeInterval: String!
@@ -105,6 +106,7 @@ class APIManager {
         }
         task.resume()
     }
+    
     func getTeachres(completion: @escaping ([Teacher]) -> Void) {
         guard let url = APIManager.teachersUrl else { return }
         var dataSource: [Teacher] = []

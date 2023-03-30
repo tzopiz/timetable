@@ -8,6 +8,7 @@
 import UIKit
 
 final class GroupsViewController: UITableViewController {
+    var completion: (() -> ())?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +18,6 @@ final class GroupsViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "GroupCell")
         tableView.backgroundColor = App.Colors.background
     }
-    var completion: (() -> ())?
 }
 extension GroupsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
