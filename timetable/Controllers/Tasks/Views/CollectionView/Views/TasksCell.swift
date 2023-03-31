@@ -47,7 +47,7 @@ final class TasksCell: UICollectionViewCell {
         default: self.importance.image = nil
         }
         if task.deadline != nil {
-            alarmyButton.setImage(App.Images.alarmy, for: .normal)
+            alarmyButton.setImage(App.Images.notification, for: .normal)
         } else {
             alarmyButton.setImage(nil, for: .normal)
         }
@@ -79,7 +79,7 @@ private extension TasksCell {
     }
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
-        alarmyButton.setDimensions(height: 28)
+        alarmyButton.setDimensions(height: 8, width: 8)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,

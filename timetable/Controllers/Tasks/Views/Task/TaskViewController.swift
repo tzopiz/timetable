@@ -43,7 +43,6 @@ extension TaskViewController {
         } else {
             taskName = (taskInfoDictionary["taskName"] as! String)
         }
-        print((taskInfoDictionary["deadline"] as? Date))
         if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
             CoreDataMamanager.shared.createTask(taskName: taskName,
                                                 taskInfo: (taskInfoDictionary["taskInfo"] as! String),

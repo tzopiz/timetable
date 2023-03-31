@@ -109,6 +109,7 @@ extension OverviewNavBar {
         completion?(getFirstDay())
     }
     func getFirstDay() -> String {
-        "\(self.weekView.firstDay!)".components(separatedBy: " ").first ?? "\(Date())"
+        guard let firstDay = self.weekView.firstDay else { return "" }
+        return "\(firstDay)".components(separatedBy: " ").first ?? "\(Date())"
     }
 }

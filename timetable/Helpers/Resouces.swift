@@ -80,7 +80,7 @@ enum App {
         
         static let checkmarkDone    = #imageLiteral(resourceName: "checkmark_circle@256x")
         static let checkmarkNotDone = #imageLiteral(resourceName: "circle@256x.png")
-        static let alarmy = #imageLiteral(resourceName: "alarm_waves_left_and_right")
+        static let notification = #imageLiteral(resourceName: "notification_point")
         
         static let theme        = #imageLiteral(resourceName: "theme")
         static let imageProfile = #imageLiteral(resourceName: "person_crop_circle_fill@128x")

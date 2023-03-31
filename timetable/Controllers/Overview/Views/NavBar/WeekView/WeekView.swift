@@ -41,6 +41,7 @@ extension WeekView {
             weekdayViews[index].configure(with: index, and: name, shift: shift)
             stackView.addArrangedSubview(weekdayViews[index])
         }
+        firstDay = WeekdayView.getFirstDay(with: shift)
     }
     func updateWeekView() {
         var weekdays = Date.calendar.shortStandaloneWeekdaySymbols

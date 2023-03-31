@@ -45,6 +45,7 @@ extension OverviewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
+        
         navBar.completion = { [weak self] dateStr in
             guard let self = self else { return }
             APIManager.shared.getTimetable(with: dateStr) { [weak self] dates, title in
@@ -63,10 +64,9 @@ extension OverviewController {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTimetable(
-                with: "\(Date())".components(separatedBy: " ")[0]) { [weak self] dates, title in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                with: navBar.getFirstDay()) { [weak self] dates, title in
+                    DispatchQueue.main.async {
                     guard let self = self else { return }
-                    self.navBar.toToday()
                     self.dataSource = dates
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
