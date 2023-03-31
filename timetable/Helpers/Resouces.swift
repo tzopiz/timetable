@@ -73,6 +73,9 @@ enum App {
             case .profile:  return UIImage(systemName: "line.3.horizontal.circle")
             }
         }
+        
+        static let icon = #imageLiteral(resourceName: "icon")
+        
         static let clock = #imageLiteral(resourceName: "clock@256")
         
         static let downArrow = #imageLiteral(resourceName: "chevron_down@256x")
