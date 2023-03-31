@@ -52,6 +52,7 @@ extension TasksController {
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
+
 extension TasksController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
     -> Int { CoreDataMamanager.shared.fetchTasksDefined(with: currentType).count }
@@ -101,6 +102,7 @@ extension TasksController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension TasksController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

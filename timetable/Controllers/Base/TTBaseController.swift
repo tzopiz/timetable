@@ -55,6 +55,7 @@ class TTBaseController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension TTBaseController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
@@ -66,9 +67,11 @@ extension TTBaseController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension TTBaseController: UICollectionViewDelegate {}
 
 //MARK: - UICollectionViewDelegateFlowLayout
+
 extension TTBaseController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

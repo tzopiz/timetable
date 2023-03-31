@@ -16,6 +16,7 @@ final class ProfileCell: SettingsCell {
     override func configure(title: String, type: CellType, image: UIImage) {
         super.configure(title: title, type: type, image: image)
         self.subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
+        self.leftView.image = image
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
         stackInfoView.addArrangedSubview(subtitle)
@@ -33,5 +34,12 @@ final class ProfileCell: SettingsCell {
         subtitle.textColor = App.Colors.inactive
         subtitle.textAlignment = .left
         subtitle.numberOfLines = 0
+    }
+    override func constaintViews() {
+        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
+        title.setDimensions(height: 40)
+        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
+                             right: trailingAnchor, paddingRight: -16,
+                             centerY: centerYAnchor)
     }
 }

@@ -76,7 +76,9 @@ extension OverviewController {
         }
     }
 }
+
 // MARK: - UICollectionViewDataSource
+
 extension OverviewController {
     
     func numberOfSections(in collectionView: UICollectionView)
@@ -110,6 +112,7 @@ extension OverviewController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

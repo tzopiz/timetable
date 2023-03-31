@@ -34,6 +34,7 @@ extension PeopleViewController {
 
         self.collectionView.register(LabelCell.self,
                                 forCellWithReuseIdentifier: LabelCell.reuseID)
+        self.collectionView.showsVerticalScrollIndicator = true
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -96,7 +97,6 @@ extension PeopleViewController {
         CGSize(width: collectionView.frame.width, height: 0)
     }
 }
-
 
 // MARK: - searchResultsUpdater
 

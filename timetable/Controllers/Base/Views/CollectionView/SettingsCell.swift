@@ -22,7 +22,7 @@ class SettingsCell: UICollectionViewCell {
     
     func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
-        leftView.image = image
+        leftView.image = nil
         leftView.isUserInteractionEnabled = false
     }
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -47,8 +47,7 @@ class SettingsCell: UICollectionViewCell {
     }
     
     func constaintViews() {
-        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
-        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
+        stackInfoView.anchor(left: leadingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16,
                              centerY: centerYAnchor)
         title.setDimensions(height: 40)

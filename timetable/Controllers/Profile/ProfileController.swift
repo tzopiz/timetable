@@ -43,6 +43,7 @@ extension ProfileController {
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
+
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource.count
@@ -102,6 +103,7 @@ extension ProfileController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension ProfileController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

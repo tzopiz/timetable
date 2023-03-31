@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 // MARK: - CRUD
+
 public final class CoreDataMamanager: NSObject {
     public static let shared = CoreDataMamanager()
     private override init() {}
