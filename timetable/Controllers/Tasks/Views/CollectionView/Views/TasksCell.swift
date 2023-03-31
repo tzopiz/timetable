@@ -19,7 +19,8 @@ final class TasksCell: UICollectionViewCell {
     private let subtitle = UILabel()
     private let importance = UIImageView()
     private var task: Task? = nil
-    private let alarmyButton = TTButton(with: .primary)
+    private var deadline: String = ""
+    private let notificationButton = TTButton(with: .primary)
     var completion: (() -> ())?
 
     override init(frame: CGRect) {
@@ -47,10 +48,20 @@ final class TasksCell: UICollectionViewCell {
         default: self.importance.image = nil
         }
         if task.deadline != nil {
-            alarmyButton.setImage(App.Images.notification, for: .normal)
+            var imageNotification: UIImage = App.Images.notification
+            UIImage.resizeImage(image: &imageNotification, targetSize: CGSizeMake(8, 8))
+            notificationButton.setImage(imageNotification, for: .normal)
+            self.deadline = "\(task.deadline!)".components(separatedBy: " ").first ?? "\(Date())"
         } else {
-            alarmyButton.setImage(nil, for: .normal)
+            notificationButton.setImage(nil, for: .normal)
         }
+        let buttonMenu = UIMenu(
+            title: "", children:[
+                UIAction(title: NSLocalizedString(self.deadline, comment: ""),
+                         image: nil,
+                         handler: handler)
+        ])
+        notificationButton.menu = buttonMenu
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -65,6 +76,7 @@ final class TasksCell: UICollectionViewCell {
         self.task = task
         completion?()
     }
+    private func handler(action: UIAction) {}
 }
 
 private extension TasksCell {
@@ -72,14 +84,14 @@ private extension TasksCell {
         setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
-        setupView(alarmyButton)
+        setupView(notificationButton)
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(subtitle)
     }
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
-        alarmyButton.setDimensions(height: 8, width: 8)
+        notificationButton.setDimensions(height: 16, width: 16)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
@@ -87,7 +99,7 @@ private extension TasksCell {
                          centerY: centerYAnchor)
         importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
-        alarmyButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
+        notificationButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
     func configureAppearance() {

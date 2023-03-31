@@ -190,8 +190,8 @@
 		0A58D5E829D4DD4800EE17EA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				0A58D5DB29D49B2300EE17EA /* APIManager.swift */,
 				0A223B6C29C8936E00C8EDBF /* CoreData */,
+				0A58D5DB29D49B2300EE17EA /* APIManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
