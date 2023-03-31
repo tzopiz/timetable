@@ -18,11 +18,20 @@ struct SettingsData {
 
 final class ProfileController: TTBaseController {
     private var dataSource: [SettingsData] = []
+    private let versionLabel = UILabel()
 }
 
 extension ProfileController {
     override func setupViews() {
         super.setupViews()
+        collectionView.addSubview(versionLabel)
+    }
+    override func constraintViews() {
+        super.constraintViews()
+        versionLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -8,
+                            left: view.leadingAnchor, paddingLeft: 16,
+                            right: view.trailingAnchor, paddingRight: -16)
+        versionLabel.setDimensions(height: 20)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -39,6 +48,10 @@ extension ProfileController {
             .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .exit)),
             .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
         ]
+        versionLabel.text = Bundle.main.releaseVersionNumber
+        versionLabel.font = App.Fonts.helveticaNeue(with: 10)
+        versionLabel.textColor = App.Colors.title
+        versionLabel.textAlignment = .center
     }
 }
 
