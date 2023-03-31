@@ -50,14 +50,13 @@ final class ContentView: TTBaseView {
         self.isDone = isDone
         self.importance = importance
         self.needCreate = needCreate
-        self.datePicker.isHidden = true
+        self.datePicker.alpha = 0
         self.switcher.isOn = false
         if let deadline = deadline {
             self.switcher.isOn = true
             self.datePicker.date = deadline
             self.deadline = deadline
-            self.datePicker.isHidden = false
-            self.switcher.isOn = true
+            self.datePicker.alpha = 1
         }
         self.segmentedControl.selectedSegmentIndex = Int(importance)
         if switcher.isOn {
@@ -206,19 +205,29 @@ extension ContentView {
     }
     @objc func deadlineHandler(_ sender: UISwitch) {
         if sender.isOn {
-            TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            TTBaseView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                 var switcherFrame = self.switcher.frame
-                switcherFrame.origin.x = self.deadlineLabel.frame.origin.x + self.deadlineLabel.frame.width
+                switcherFrame.origin.x = self.deadlineLabel.frame.origin.x + self.deadlineLabel.frame.width + 8
                 self.switcher.frame = switcherFrame
-                self.datePicker.isHidden = false
                 self.deadline = Date()
             }, completion:  {_ in })
+            TTBaseView.animate(
+                withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                options: .curveEaseOut, animations: {
+                    self.datePicker.transform = .identity
+                    self.datePicker.alpha = 1
+            }, completion: nil)
         } else {
-            TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            TTBaseView.animate(
+                withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                options: .curveEaseOut, animations: {
+                    self.datePicker.alpha = 0
+                    self.datePicker.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }, completion: nil)
+            TTBaseView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                 var switcherFrame = self.switcher.frame
-                switcherFrame.origin.x += self.frame.width - 64 - self.deadlineLabel.frame.width - self.switcher.frame.width
+                switcherFrame.origin.x += self.frame.width - 72 - self.deadlineLabel.frame.width - self.switcher.frame.width
                 self.switcher.frame = switcherFrame
-                self.datePicker.isHidden = true
                 self.deadline = nil
             }, completion:  {_ in })
         }

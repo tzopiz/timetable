@@ -79,7 +79,7 @@ extension OverviewNavBar {
         allWorkoutsButton.setTitle(title)
     }
     private func animateRightSwipe() {
-        TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+        TTBaseView.animate(withDuration: 2, delay: 0, options: .autoreverse, animations: {
             var weekViewFrame = self.weekView.frame
             weekViewFrame.origin.x -= weekViewFrame.size.width
             self.weekView.frame = weekViewFrame
@@ -92,7 +92,7 @@ extension OverviewNavBar {
         self.weekView.frame = weekViewFrame
     }
     private func animateLeftSwipe() {
-        TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+        TTBaseView.animate(withDuration: 2, delay: 0, options: [.repeat, .autoreverse], animations: {
             var weekViewFrame = self.weekView.frame
             weekViewFrame.origin.x += weekViewFrame.size.width
             self.weekView.frame = weekViewFrame
