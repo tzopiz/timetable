@@ -12,7 +12,7 @@ final class OverviewNavBar: TTBaseView {
     private let titleLabel = TTButton(with: .primary)
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
-    var completionUpdate: ((String) -> ())?
+    var completionUpdate: ((String?, Int?) -> ())?
     var completionScroll: ((Int) -> ())?
 }
 
@@ -57,12 +57,12 @@ extension OverviewNavBar {
     @objc func rightSwipeWeek() {
         weekView.shift += 7
         animateLeftSwipe()
-        completionScroll?(0)
+        completionUpdate?(getFirstDay(), nil)
     }
     @objc func leftSwipeWeek() {
         weekView.shift -= 7
         animateRightSwipe()
-        completionScroll?(0)
+        completionUpdate?(getFirstDay(), nil)
     }
     @objc func toToday() {
         if weekView.shift > 0 {
@@ -73,7 +73,7 @@ extension OverviewNavBar {
             weekView.shift = 0
             animateLeftSwipe()
         }
-        completionScroll?(weekView.todayIndex)
+        completionUpdate?(getFirstDay(), weekView.todayIndex)
     }
     func updateButtonTitle(with title: String) {
         allWorkoutsButton.setTitle(title)
@@ -90,7 +90,6 @@ extension OverviewNavBar {
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x += weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
-        completionUpdate?(getFirstDay())
     }
     private func animateLeftSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
@@ -104,7 +103,6 @@ extension OverviewNavBar {
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x -= weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
-        completionUpdate?(getFirstDay())
     }
     func getFirstDay() -> String {
         guard let firstDay = self.weekView.firstDay else { return "" }

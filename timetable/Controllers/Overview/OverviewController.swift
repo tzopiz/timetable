@@ -46,7 +46,7 @@ extension OverviewController {
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
         
-        navBar.completionUpdate = { [weak self] dateStr in
+        navBar.completionUpdate = { [weak self] dateStr, index in
             guard let self = self else { return }
             APIManager.shared.getTimetable(with: dateStr) { [weak self] dates, title in
                 DispatchQueue.main.async {
@@ -64,13 +64,28 @@ extension OverviewController {
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
                     self.navBar.updateButtonTitle(with: title)
+                    if let index = index {
+                        if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
+                            var calculatedOffset: CGFloat = 0
+                            if index < self.dataSource.count {
+                                for i in 0..<index {
+                                    calculatedOffset += 32
+                                    calculatedOffset += CGFloat(135 * (self.dataSource[i].lessons.count))
+                                    calculatedOffset += CGFloat(8 * (self.dataSource[i].lessons.count - 1))
+                                }
+                                self.collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
+                            } else {
+                                self.scrollCollectionViewToTop()
+                            }
+                        }
+                    }
                 }
             }
         }
         navBar.completionScroll = { [weak self] index in
-            guard let self = self else { return }
-            if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-                if index != 0 {
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
                     var calculatedOffset: CGFloat = 0
                     if index < self.dataSource.count {
                         for i in 0..<index {
@@ -85,6 +100,7 @@ extension OverviewController {
                 }
             }
         }
+        
         let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
         rightSwipe.direction = .right
         collectionView.addGestureRecognizer(rightSwipe)

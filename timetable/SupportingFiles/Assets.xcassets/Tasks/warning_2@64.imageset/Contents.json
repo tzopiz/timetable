@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "exclamationmark.2@64x 2.png",
+      "filename" : "exclamationmark.2@32x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "exclamationmark.2@64x 3.png",
+      "filename" : "exclamationmark.2@48x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

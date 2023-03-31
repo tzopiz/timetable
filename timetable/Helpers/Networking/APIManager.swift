@@ -25,9 +25,10 @@ class APIManager {
     static let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
     
-    func getTimetable(with firstDay: String,
+    func getTimetable(with firstDay: String?,
                       completion: @escaping ([StudyDay], String) -> Void) {
         let timeInterval: String!
+        guard let firstDay = firstDay else { return }
         if firstDay == "\(Date())".components(separatedBy: " ")[0] {
             timeInterval = ""
         } else {

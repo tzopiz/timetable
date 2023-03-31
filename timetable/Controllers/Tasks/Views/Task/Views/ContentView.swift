@@ -50,14 +50,24 @@ final class ContentView: TTBaseView {
         self.isDone = isDone
         self.importance = importance
         self.needCreate = needCreate
-        self.segmentedControl.selectedSegmentIndex = Int(importance)
-        self.datePicker.isEnabled = false
+        self.datePicker.isHidden = true
+        self.switcher.isOn = false
         if let deadline = deadline {
+            self.switcher.isOn = true
             self.datePicker.date = deadline
             self.deadline = deadline
-            self.datePicker.isEnabled = true
+            self.datePicker.isHidden = false
             self.switcher.isOn = true
         }
+        self.segmentedControl.selectedSegmentIndex = Int(importance)
+        if switcher.isOn {
+            switcher.anchor(left: deadlineLabel.trailingAnchor, paddingRight: 16,
+                            centerY: deadlineTask.centerYAnchor)
+        } else {
+            switcher.anchor(right: mainStackView.trailingAnchor, paddingRight: -16,
+                              centerY: deadlineTask.centerYAnchor)
+        }
+       
     }
     func getTaskInfo() -> [String: Any] {
         var task: [String: Any] = [:]
@@ -69,6 +79,7 @@ final class ContentView: TTBaseView {
         task["deadline"] = deadline
         return task
     }
+
 }
 
 extension ContentView {
@@ -89,7 +100,6 @@ extension ContentView {
         deadlineTask.addSubview(deadlineLabel)
         deadlineTask.addSubview(datePicker)
         deadlineTask.addSubview(switcher)
-       
         
         mainStackView.addArrangedSubview(buttonStackView)
         mainStackView.addArrangedSubview(nameTaskField)
@@ -114,13 +124,11 @@ extension ContentView {
         
         deadlineTask.setDimensions(height: 50)
         deadlineLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 16,
-                               centerY: deadlineTask.centerYAnchor)
+                             centerY: deadlineTask.centerYAnchor)
         datePicker.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
         datePicker.setDimensions(width: 200)
         
-        switcher.anchor(left: deadlineLabel.trailingAnchor, paddingRight: 16,
-                          centerY: deadlineTask.centerYAnchor)
         buttonSave.setDimensions(width: 88)
         buttonDelete.setDimensions(width: 88)
     }
@@ -182,13 +190,13 @@ extension ContentView {
         deadlineLabel.font = App.Fonts.helveticaNeue(with: 17)
         deadlineLabel.textColor = App.Colors.title
         deadlineLabel.textAlignment = .left
-        deadlineLabel.text = "До: "
+        deadlineLabel.text = "Deadline: "
         
-        datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
-        datePicker.datePickerMode = .date
         let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
+        datePicker.datePickerMode = .date
         datePicker.minimumDate = Date()
         datePicker.maximumDate = Date().addingTimeInterval(2 * oneYearTime)
+        datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
     }
     @objc func segmentedControlChange(_ sender: UISegmentedControl) {
         importance = Int16(sender.selectedSegmentIndex)
@@ -198,11 +206,21 @@ extension ContentView {
     }
     @objc func deadlineHandler(_ sender: UISwitch) {
         if sender.isOn {
-            self.datePicker.isEnabled = true
-            self.deadline = Date()
+            TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+                var switcherFrame = self.switcher.frame
+                switcherFrame.origin.x = self.deadlineLabel.frame.origin.x + self.deadlineLabel.frame.width
+                self.switcher.frame = switcherFrame
+                self.datePicker.isHidden = false
+                self.deadline = Date()
+            }, completion:  {_ in })
         } else {
-            self.datePicker.isEnabled = false
-            self.deadline = nil
+            TTBaseView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+                var switcherFrame = self.switcher.frame
+                switcherFrame.origin.x += self.frame.width - 64 - self.deadlineLabel.frame.width - self.switcher.frame.width
+                self.switcher.frame = switcherFrame
+                self.datePicker.isHidden = true
+                self.deadline = nil
+            }, completion:  {_ in })
         }
     }
     func addTargetButtonSave(target: Any?, action: Selector) {
