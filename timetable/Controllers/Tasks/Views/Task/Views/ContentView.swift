@@ -162,7 +162,7 @@ extension ContentView {
         buttonDelete.backgroundColor = UIColor.clear
         buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
-        switcher.tintColor = App.Colors.active
+        switcher.onTintColor = App.Colors.active
         switcher.addTarget(self, action: #selector(deadlineHandler), for: .valueChanged)
         
         importanceTask.backgroundColor = App.Colors.BlackWhite

@@ -66,7 +66,7 @@ private extension TimetableCell {
         self.layer.cornerRadius = 20
         
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = 8
         
         firstLineView.axis = .horizontal
         firstLineView.spacing = 5

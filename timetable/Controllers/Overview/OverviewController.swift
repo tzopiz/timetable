@@ -117,7 +117,7 @@ extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath)
-    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 130) }
+    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 135) }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -52,6 +52,9 @@ class TTBaseController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
     }
+    func scrollCollectionViewToTop() {
+        self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

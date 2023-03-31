@@ -15,6 +15,8 @@ enum Tabs: Int, CaseIterable {
 }
 
 final class TabBarController: UITabBarController {
+    
+    var lastSelectedIndex: Int = 0
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -34,6 +36,7 @@ final class TabBarController: UITabBarController {
         tabBar.backgroundColor = App.Colors.BlackWhite
         tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
         tabBar.addTopBorder(with: App.Colors.separator, height: 2/3)
+        self.delegate = self
 
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
@@ -52,5 +55,16 @@ final class TabBarController: UITabBarController {
         case .people:   return PeopleViewController()
         case .profile:  return ProfileController()
         }
+    }
+}
+extension TabBarController: UITabBarControllerDelegate {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if lastSelectedIndex == 0 && lastSelectedIndex == item.tag {
+            let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let window = windowScenes?.windows.first
+            let TTvc = window?.topViewController() as? TTBaseController
+            TTvc?.scrollCollectionViewToTop()
+        }
+        lastSelectedIndex = item.tag
     }
 }

@@ -18,6 +18,7 @@
 		0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */; };
 		0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB229D6E19600C13723 /* Bundle + ext.swift */; };
 		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
+		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -85,6 +86,7 @@
 		0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearenceCell.swift; sourceTree = "<group>"; };
 		0A71EAB229D6E19600C13723 /* Bundle + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
+		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */,
 				0A71EAB229D6E19600C13723 /* Bundle + ext.swift */,
 				0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */,
+				0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
+				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,
 				0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
@@ -919,7 +923,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -950,7 +954,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
