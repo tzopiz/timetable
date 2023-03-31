@@ -66,5 +66,8 @@ extension WeekView.WeekdayView {
         
         stackView.spacing = 3
         stackView.axis = .vertical
+        stackView.isUserInteractionEnabled = false
+        
     }
+
 }

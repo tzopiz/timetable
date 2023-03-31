@@ -12,7 +12,8 @@ final class OverviewNavBar: TTBaseView {
     private let titleLabel = TTButton(with: .primary)
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
-    var completion: ((String) -> ())?
+    var completionUpdate: ((String) -> ())?
+    var completionScroll: ((Int) -> ())?
 }
 
 extension OverviewNavBar {
@@ -23,17 +24,17 @@ extension OverviewNavBar {
         setupView(separator)
         setupView(allWorkoutsButton)
     }
-
+    
     override func constraintViews() {
         super.constraintViews()
         titleLabel.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                           left: leadingAnchor, paddingLeft: 16,
                           centerY: allWorkoutsButton.centerYAnchor)
-
+        
         allWorkoutsButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                  right: trailingAnchor, paddingRight: -16)
         allWorkoutsButton.setDimensions(height: 28)
-
+        
         weekView.anchor(top: titleLabel.bottomAnchor, paddingTop: 16,
                         bottom: bottomAnchor, paddingBottom: -16,
                         left: leadingAnchor, paddingLeft: 16,
@@ -50,32 +51,29 @@ extension OverviewNavBar {
         titleLabel.addButtonTarget(target: self, action: #selector(toToday))
         
         allWorkoutsButton.backgroundColor = App.Colors.secondary
-
-        let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
-        rightSwipe.direction = .right
-        addGestureRecognizer(rightSwipe)
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
-        leftSwipe.direction = .left
-        addGestureRecognizer(leftSwipe)
-
+        weekView.completion = self.completionScroll
     }
     @objc func rightSwipeWeek() {
         weekView.shift += 7
         animateLeftSwipe()
+        completionScroll?(0)
     }
     @objc func leftSwipeWeek() {
         weekView.shift -= 7
         animateRightSwipe()
+        completionScroll?(0)
     }
     @objc func toToday() {
         if weekView.shift > 0 {
             weekView.shift = 0
-            animateRightSwipe() }
+            animateRightSwipe()
+        }
         if weekView.shift < 0 {
             weekView.shift = 0
             animateLeftSwipe()
         }
+        completionScroll?(weekView.todayIndex)
     }
     func updateButtonTitle(with title: String) {
         allWorkoutsButton.setTitle(title)
@@ -87,12 +85,12 @@ extension OverviewNavBar {
             self.weekView.frame = weekViewFrame
             
             self.weekView.updateWeekView()
-            
         }, completion:  {_ in })
+        
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x += weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
-        completion?(getFirstDay())
+        completionUpdate?(getFirstDay())
     }
     private func animateLeftSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
@@ -106,7 +104,7 @@ extension OverviewNavBar {
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x -= weekViewFrame.size.width
         self.weekView.frame = weekViewFrame
-        completion?(getFirstDay())
+        completionUpdate?(getFirstDay())
     }
     func getFirstDay() -> String {
         guard let firstDay = self.weekView.firstDay else { return "" }

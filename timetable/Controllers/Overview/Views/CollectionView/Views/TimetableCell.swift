@@ -16,7 +16,7 @@ final class TimetableCell: UICollectionViewCell {
     private let nameSubject = UILabel()
     private let address = UILabel()
     private let teacherName = UILabel()
-    private let clock = UIImageView(image: App.Images.clock)
+    private let clock = UIImageView()
     private var borderLayer = CAShapeLayer()
 
     override init(frame: CGRect) {
@@ -35,6 +35,14 @@ final class TimetableCell: UICollectionViewCell {
 
     func configure(time: String, nameSubject: String, address: String, teacherName: String) {
         self.time.text = time
+        if self.time.text == "" {
+            clock.image = nil
+            self.nameSubject.textAlignment = .center
+        } else {
+            clock.image = App.Images.clock
+            self.nameSubject.textAlignment = .left
+
+        }
         self.nameSubject.text = nameSubject
         self.address.text = address
         self.teacherName.text = teacherName

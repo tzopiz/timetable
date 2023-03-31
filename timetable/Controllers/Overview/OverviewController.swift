@@ -46,18 +46,59 @@ extension OverviewController {
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
         
-        navBar.completion = { [weak self] dateStr in
+        navBar.completionUpdate = { [weak self] dateStr in
             guard let self = self else { return }
             APIManager.shared.getTimetable(with: dateStr) { [weak self] dates, title in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.dataSource = dates
+                    if self.dataSource.count == 0 {
+                        self.dataSource.append(StudyDay(date: self.navBar.getFirstDay(),
+                                                        lessons:
+                                [StudyDay.Lesson(time: "",
+                                                 nameSubject: "Занятий нет",
+                                                 address: "",
+                                                 teacherName: "")
+                                ]))
+                    }
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
                     self.navBar.updateButtonTitle(with: title)
                 }
             }
         }
+        navBar.completionScroll = { [weak self] index in
+            guard let self = self else { return }
+            if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
+                if index != 0 {
+                    var calculatedOffset: CGFloat = 0
+                    if index < self.dataSource.count {
+                        for i in 0..<index {
+                            calculatedOffset += 32
+                            calculatedOffset += CGFloat(135 * (self.dataSource[i].lessons.count))
+                            calculatedOffset += CGFloat(8 * (self.dataSource[i].lessons.count - 1))
+                        }
+                        self.collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
+                    } else {
+                        self.scrollCollectionViewToTop()
+                    }
+                }
+            }
+        }
+        let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
+        rightSwipe.direction = .right
+        collectionView.addGestureRecognizer(rightSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
+        leftSwipe.direction = .left
+        collectionView.addGestureRecognizer(leftSwipe)
+    }
+    // TODO: normal animate swipe collection view and navbar
+    @objc func rightSwipeWeek() {
+        navBar.rightSwipeWeek()
+    }
+    @objc func leftSwipeWeek() {
+        navBar.leftSwipeWeek()
     }
     
     @objc func refreshData() {
@@ -66,14 +107,15 @@ extension OverviewController {
             APIManager.shared.getTimetable(
                 with: navBar.getFirstDay()) { [weak self] dates, title in
                     DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    self.dataSource = dates
-                    self.collectionView.refreshControl?.endRefreshing()
-                    self.collectionView.reloadData()
-                    self.navBar.updateButtonTitle(with: title)
-                }
+                        guard let self = self else { return }
+                        self.dataSource = dates
+                        self.collectionView.refreshControl?.endRefreshing()
+                        self.collectionView.reloadData()
+                        self.navBar.updateButtonTitle(with: title)
+                    }
             }
         }
+        
     }
 }
 
