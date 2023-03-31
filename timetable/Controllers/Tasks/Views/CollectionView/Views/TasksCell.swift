@@ -91,7 +91,7 @@ private extension TasksCell {
     }
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
-        notificationButton.setDimensions(height: 16, width: 16)
+        notificationButton.setDimensions(height: 32, width: 32)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
