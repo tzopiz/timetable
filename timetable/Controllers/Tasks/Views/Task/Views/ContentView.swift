@@ -126,7 +126,6 @@ extension ContentView {
                              centerY: deadlineTask.centerYAnchor)
         datePicker.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
-        datePicker.setDimensions(width: 200)
         
         buttonSave.setDimensions(width: 88)
         buttonDelete.setDimensions(width: 88)
