@@ -68,7 +68,7 @@ extension TasksController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                     self.collectionView.performBatchUpdates({
-                        self.collectionView.deleteItems(at:[indexPath])
+                        self.collectionView.reloadItems(at: [indexPath])
                     }, completion: nil)
             }
         }
@@ -81,10 +81,7 @@ extension TasksController {
         taskVC.completion = { [weak self] needInsert in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.collectionView.performBatchUpdates({
-                    if needInsert { self.collectionView.insertItems(at:[indexPath]) }
-                    else { self.collectionView.deleteItems(at:[indexPath]) }
-                }, completion: nil)
+                self.collectionView.reloadData()
             }
         }
         present(taskVC, animated: true)

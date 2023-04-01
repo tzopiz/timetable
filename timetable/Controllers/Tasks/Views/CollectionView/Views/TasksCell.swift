@@ -52,17 +52,18 @@ final class TasksCell: UICollectionViewCell {
             UIImage.resizeImage(image: &imageNotification, targetSize: CGSizeMake(8, 8))
             notificationButton.setImage(imageNotification, for: .normal)
             self.deadline = "\(task.deadline!)".components(separatedBy: " ").first ?? "\(Date())"
+            let buttonMenu = UIMenu(
+                title: "", children:[
+                    UIAction(title: NSLocalizedString(self.deadline, comment: ""),
+                             image: nil,
+                             handler: handler)
+            ])
+            notificationButton.menu = buttonMenu
         } else {
             notificationButton.setImage(nil, for: .normal)
+            notificationButton.menu = nil
         }
-        let buttonMenu = UIMenu(
-            title: "", children:[
-                UIAction(title: NSLocalizedString(self.deadline, comment: ""),
-                         image: nil,
-                         handler: handler)
-        ])
-        notificationButton.menu = buttonMenu
-        notificationButton.showsMenuAsPrimaryAction = true
+        
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -92,7 +93,6 @@ private extension TasksCell {
     }
     func constaintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
-        notificationButton.setDimensions(height: 32, width: 32)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
@@ -100,6 +100,7 @@ private extension TasksCell {
                          centerY: centerYAnchor)
         importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
+        notificationButton.setDimensions(height: 32, width: 32)
         notificationButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
@@ -117,5 +118,6 @@ private extension TasksCell {
         subtitle.textColor = App.Colors.inactive
         
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
+        notificationButton.showsMenuAsPrimaryAction = true
     }
 }
