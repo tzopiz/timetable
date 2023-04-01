@@ -98,8 +98,8 @@ extension OverviewNavBar {
             self.weekView.frame = weekViewFrame
             
             self.weekView.updateWeekView()
-            
         }, completion:  {_ in })
+        
         var weekViewFrame = self.weekView.frame
         weekViewFrame.origin.x -= weekViewFrame.size.width
         self.weekView.frame = weekViewFrame

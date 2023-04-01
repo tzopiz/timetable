@@ -62,31 +62,13 @@ extension WeekView {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            switch touch.view {
-            case self.weekdayViews[0]:
-                animateTouch(0)
-                completion?(0)
-            case self.weekdayViews[1]:
-                animateTouch(1)
-                completion?(1)
-            case self.weekdayViews[2]:
-                animateTouch(2)
-                completion?(2)
-            case self.weekdayViews[3]:
-                animateTouch(3)
-                completion?(3)
-            case self.weekdayViews[4]:
-                animateTouch(4)
-                completion?(4)
-            case self.weekdayViews[5]:
-                animateTouch(5)
-                completion?(5)
-            case self.weekdayViews[6]:
-                animateTouch(6)
-            default: break
+            for i in 0..<weekdayViews.count where touch.view == weekdayViews[i] {
+                animateTouch(i)
+                completion?(i)
             }
         }
     }
+    
     func updateTodayIndex() {
         for i in 0..<weekdayViews.count {
             let startOfWeek = Date().startOfWeek
@@ -102,6 +84,7 @@ extension WeekView {
         let startOfWeek = Date().startOfWeek
         let currenrDay = startOfWeek.agoForward(to: i - shift)
         let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
+        
         let backgroundColor = isToday ? App.Colors.active : App.Colors.background
         let animateColor = isToday ? App.Colors.active.withAlphaComponent(0.4) : App.Colors.secondary
         

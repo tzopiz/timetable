@@ -12,9 +12,6 @@ final class TasksController: TTBaseController {
 }
 
 extension TasksController {
-    override func setupViews() {
-        super.setupViews()
-    }
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.tasks
@@ -23,9 +20,12 @@ extension TasksController {
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
         
         addNavBarButton(at: .right, with: "Добавить")
-        // TODO: redo
-        navBarLeftButtonHandler()
-        navBarLeftButtonHandler()
+        switch currentType {
+        case .active:
+            addNavBarButton(at: .left, with: "Активные")
+        case .all:
+            addNavBarButton(at: .left, with: "Все")
+        }
     }
     override func navBarRightButtonHandler() {
         let taskVC = TaskViewController()
