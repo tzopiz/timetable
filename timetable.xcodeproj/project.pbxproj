@@ -202,6 +202,22 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		0AB258F429D8544900215890 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		0AB258F529D8546700215890 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0ACC4E3229C660CE00B3D6AC = {
 			isa = PBXGroup;
 			children = (
@@ -385,8 +401,9 @@
 		0ACC4E8B29C6620200B3D6AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0AB258F429D8544900215890 /* CollectionView */,
+				0AB258F529D8546700215890 /* Model */,
 				0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */,
-				0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -468,7 +485,6 @@
 			children = (
 				0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */,
 				0ACC4E9E29C6620300B3D6AC /* SectionHeaderView.swift */,
-				0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
