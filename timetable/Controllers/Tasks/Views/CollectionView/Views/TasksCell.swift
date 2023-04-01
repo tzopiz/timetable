@@ -62,6 +62,7 @@ final class TasksCell: UICollectionViewCell {
                          handler: handler)
         ])
         notificationButton.menu = buttonMenu
+        notificationButton.showsMenuAsPrimaryAction = true
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }

@@ -122,9 +122,16 @@ class APIManager {
                 var i = 4
                 while i < teachers.count {
                     let name = try teachers[i - 4].text()
-                    var info = try teachers[i - 3].text() + ", "
-                    info += try teachers[i - 2].text() + ", "
-                    info += try teachers[i - 1].text()
+                    var info: String = ""
+                    if try teachers[i - 3].text().count > 2 {
+                        info += try teachers[i - 3].text() + ", "
+                    }
+                    if try teachers[i - 2].text().count > 2 {
+                        info += try teachers[i - 2].text() + ", "
+                    }
+                    if try teachers[i - 1].text().count > 2 {
+                        info += try teachers[i - 1].text()
+                    }
                     let teacher = Teacher(name: name, info: info)
                     dataSource.append(teacher)
                     i += 4

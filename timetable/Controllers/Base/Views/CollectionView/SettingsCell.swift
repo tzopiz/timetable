@@ -18,12 +18,9 @@ class SettingsCell: UICollectionViewCell {
     static let SettingsCellId = String(describing: SettingsCell.self)
     public let title = UILabel()
     public let stackInfoView = UIStackView()
-    public let leftView = UIImageView()
     
     func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
-        leftView.image = nil
-        leftView.isUserInteractionEnabled = false
     }
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
@@ -42,7 +39,6 @@ class SettingsCell: UICollectionViewCell {
     }
     func setupViews() {
         setupView(stackInfoView)
-        setupView(leftView)
         stackInfoView.addArrangedSubview(title)
     }
     

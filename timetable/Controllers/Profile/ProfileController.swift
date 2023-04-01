@@ -89,18 +89,15 @@ extension ProfileController {
         }
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
+        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
         cell?.isHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? ProfileCell
+        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            // TODO: show photos
-            print("changePhoto")
         case 1:
             let gVC = GroupsViewController()
             gVC.completion = { [weak self] in
@@ -108,7 +105,6 @@ extension ProfileController {
                 self.collectionView.reloadData()
             }
             navigationController?.pushViewController(gVC, animated: true)
-            break
         default:
             print(#function)
         }
