@@ -25,7 +25,11 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String?, taskInfo: String?, isDone: Bool?, importance: Int16?, deadline: Date? = nil) {
+    public func createTask(taskName: String?,
+                           taskInfo: String?,
+                           isDone: Bool?,
+                           importance: Int16?,
+                           deadline: Date? = nil) {
         guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
@@ -37,6 +41,26 @@ public final class CoreDataMamanager: NSObject {
         if let importance = importance { task.importance = importance }
         task.deadline = deadline
         appDelegate.saveContext()
+    }
+    
+    public func saveProfileImage(_ image: UIImage? = nil) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
+        do {
+            let profiles = try? context.fetch(fetchRequest) as? [Profile]
+            var profile: Profile?
+            if profiles?.count == 0 {
+                profile = NSEntityDescription.insertNewObject(forEntityName: "Profile",
+                                                              into: context) as? Profile
+            } else {
+                profile = profiles?.first
+            }
+            if image == nil &&  profile?.photo == nil{
+                profile?.photo = App.Images.imageProfile.pngData()
+            } else if image != nil {
+                profile?.photo = image?.pngData()
+            }
+            appDelegate.saveContext()
+        }
     }
     
     // MARK: - Read
@@ -75,14 +99,23 @@ public final class CoreDataMamanager: NSObject {
         }
     }
     
+    public func fetchImageProfile() -> UIImage? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
+        do {
+            let profiles = try context.fetch(fetchRequest) as! [Profile]
+            let profile = profiles.first
+            return UIImage(data: profile?.photo ?? Data())
+        } catch { print(error.localizedDescription) }
+        return nil
+    }
+    
     // MARK: - Update
     
     public func updataTask(with id: UUID?, taskName: String? = "",
                            taskInfo: String? = "",
                            isDone: Bool? = false,
                            importance: Int16? = 0,
-                           deadline: Date? = nil
-    ) {
+                           deadline: Date? = nil) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
@@ -131,7 +164,6 @@ public final class CoreDataMamanager: NSObject {
         
         appDelegate.saveContext()
     }
-    
     public func deletaTask(with id: UUID?) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
@@ -139,6 +171,18 @@ public final class CoreDataMamanager: NSObject {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id}) else { return }
             context.delete(task)
+        }
+        
+        appDelegate.saveContext()
+    }
+    
+    public func deleteProfilePhoto() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
+        do {
+            guard let profiles = try? context.fetch(fetchRequest) as? [Profile],
+                  let profile = profiles.first else { return }
+            let pngImage = App.Images.imageProfile.pngData()
+            profile.photo = pngImage
         }
         
         appDelegate.saveContext()

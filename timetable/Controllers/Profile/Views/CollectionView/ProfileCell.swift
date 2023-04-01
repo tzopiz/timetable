@@ -16,12 +16,16 @@ final class ProfileCell: SettingsCell {
     override func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
         subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
-        leftViewButton.setImage(image, for: .normal)
+        let profileImage = CoreDataMamanager.shared.fetchImageProfile()
+        leftViewButton.setImage(profileImage, for: .normal)
         leftViewButton.setDimensions(height: 88, width: 88)
         leftViewButton.addButtonTarget(target: self, action: #selector(changePhotoProfile))
     }
-    // TODO: chabge photo profile
     @objc func changePhotoProfile() {
+        // TODO: load photo from iphone
+        
+        let newImage = CoreDataMamanager.shared.fetchImageProfile()
+        leftViewButton.setImage(newImage, for: .normal)
         
     }
     override func setupViews() {
