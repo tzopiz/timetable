@@ -20,7 +20,7 @@ class APIManager {
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334488",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/333990",
     "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334477",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029",
+    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029"
     ]
     static let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")

@@ -37,25 +37,25 @@ extension TaskViewController {
     }
     @objc func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
-        let taskName: String
-        if (taskInfoDictionary["taskName"] as! String) == "" {
+        let taskName: String?
+        if (taskInfoDictionary["taskName"] as? String) == "" {
             taskName = "Безымянная"
         } else {
-            taskName = (taskInfoDictionary["taskName"] as! String)
+            taskName = (taskInfoDictionary["taskName"] as? String)
         }
         if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
             CoreDataMamanager.shared.createTask(taskName: taskName,
-                                                taskInfo: (taskInfoDictionary["taskInfo"] as! String),
-                                                isDone: (taskInfoDictionary["isDone"] as! Bool),
-                                                importance: (taskInfoDictionary["importance"] as! Int16),
-                                                deadline: (taskInfoDictionary["deadline"] as? Date))
+                                                taskInfo: taskInfoDictionary["taskInfo"] as? String,
+                                                isDone: taskInfoDictionary["isDone"] as? Bool,
+                                                importance: taskInfoDictionary["importance"] as? Int16,
+                                                deadline: taskInfoDictionary["deadline"] as? Date)
         } else {
             CoreDataMamanager.shared.updataTask(with: self.task?.id,
                                                 taskName: taskName,
-                                                taskInfo: (taskInfoDictionary["taskInfo"] as! String),
-                                                isDone: (taskInfoDictionary["isDone"] as! Bool),
-                                                importance: (taskInfoDictionary["importance"] as! Int16),
-                                                deadline: (taskInfoDictionary["deadline"] as? Date))
+                                                taskInfo: taskInfoDictionary["taskInfo"] as? String,
+                                                isDone: taskInfoDictionary["isDone"] as? Bool,
+                                                importance: taskInfoDictionary["importance"] as? Int16,
+                                                deadline: taskInfoDictionary["deadline"] as? Date)
         }
         self.dismiss(animated: true)
         completion?(true)

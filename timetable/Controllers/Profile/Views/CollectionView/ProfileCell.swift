@@ -22,7 +22,7 @@ final class ProfileCell: SettingsCell {
     }
     // TODO: chabge photo profile
     @objc func changePhotoProfile() {
-        print(#function)
+        
     }
     override func setupViews() {
         super.setupViews()

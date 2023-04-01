@@ -14,27 +14,27 @@ import CoreData
 public final class CoreDataMamanager: NSObject {
     public static let shared = CoreDataMamanager()
     private override init() {}
-
+    
     private var appDelegate: AppDelegate {
         UIApplication.shared.delegate as! AppDelegate
     }
-
+    
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
     }
     
     // MARK: - Create
     
-    public func createTask(taskName: String, taskInfo: String, isDone: Bool, importance: Int16, deadline: Date? = nil) {
-        guard let TaskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
+    public func createTask(taskName: String?, taskInfo: String?, isDone: Bool?, importance: Int16?, deadline: Date? = nil) {
+        guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
-        let task = Task(entity: TaskEntityDescription, insertInto: context)
+        let task = Task(entity: taskEntityDescription, insertInto: context)
         task.id = UUID()
         task.taskName = taskName
         task.taskInfo = taskInfo
-        task.isDone = isDone
-        task.importance = importance
+        if let isDone = isDone { task.isDone = isDone }
+        if let importance = importance { task.importance = importance }
         task.deadline = deadline
         appDelegate.saveContext()
     }
@@ -70,8 +70,8 @@ public final class CoreDataMamanager: NSObject {
         guard let id = id else { return nil }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
-            let Tasks = try? context.fetch(fetchRequest) as? [Task]
-            return Tasks?.first(where: { $0.id == id })
+            let tasks = try? context.fetch(fetchRequest) as? [Task]
+            return tasks?.first(where: { $0.id == id })
         }
     }
     
@@ -94,7 +94,7 @@ public final class CoreDataMamanager: NSObject {
             task.importance = importance!
             task.deadline = deadline
         }
-
+        
         appDelegate.saveContext()
     }
     public func updataTypeTask(with id: UUID?, isDone: Bool) {
@@ -105,7 +105,7 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.isDone = isDone
         }
-
+        
         appDelegate.saveContext()
     }
     public func updataDeadlineTask(with id: UUID?, deadline: Date) {
@@ -116,7 +116,7 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.deadline = deadline
         }
-
+        
         appDelegate.saveContext()
     }
     
@@ -125,23 +125,22 @@ public final class CoreDataMamanager: NSObject {
     public func deletaAllTask() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
-            let Tasks = try? context.fetch(fetchRequest) as? [Task]
-            Tasks?.forEach { context.delete($0) }
+            let tasks = try? context.fetch(fetchRequest) as? [Task]
+            tasks?.forEach { context.delete($0) }
         }
-
+        
         appDelegate.saveContext()
     }
-
+    
     public func deletaTask(with id: UUID?) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
-            guard let Tasks = try? context.fetch(fetchRequest) as? [Task],
-                  let Task = Tasks.first(where: { $0.id == id}) else { return }
-            context.delete(Task)
+            guard let tasks = try? context.fetch(fetchRequest) as? [Task],
+                  let task = tasks.first(where: { $0.id == id}) else { return }
+            context.delete(task)
         }
-
+        
         appDelegate.saveContext()
     }
 }
-
