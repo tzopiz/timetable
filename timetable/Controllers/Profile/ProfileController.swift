@@ -98,6 +98,8 @@ extension ProfileController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
+        case 0:
+            openImagePickerVC()
         case 1:
             let gVC = GroupsViewController()
             gVC.completion = { [weak self] in
@@ -130,3 +132,25 @@ extension ProfileController {
         CGSize(width: collectionView.frame.width, height: 0)
     }
 }
+
+extension ProfileController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func openImagePickerVC() {
+        let imagePicker = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true)
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true)
+        if let image = info[.originalImage] as? UIImage {
+            CoreDataMamanager.shared.saveProfileImage(image)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+}
+

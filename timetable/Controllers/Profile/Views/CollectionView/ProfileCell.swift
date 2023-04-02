@@ -11,35 +11,31 @@ final class ProfileCell: SettingsCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)
     private let subtitle = UILabel()
-    private let leftViewButton = TTButton(with: .primary)
-    
+    private let leftView = UIImageView()
+    var completion: (() -> (UIImage))?
     override func configure(title: String, type: CellType, image: UIImage) {
         self.title.text = title
         subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
         let profileImage = CoreDataMamanager.shared.fetchImageProfile()
-        leftViewButton.setImage(profileImage, for: .normal)
-        leftViewButton.setDimensions(height: 88, width: 88)
-        leftViewButton.addButtonTarget(target: self, action: #selector(changePhotoProfile))
+        leftView.image = profileImage
+        leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }
     @objc func changePhotoProfile() {
-        // TODO: load photo from iphone
-        
         let newImage = CoreDataMamanager.shared.fetchImageProfile()
-        leftViewButton.setImage(newImage, for: .normal)
-        
+        self.leftView.image = newImage
     }
     override func setupViews() {
         super.setupViews()
         stackInfoView.addArrangedSubview(subtitle)
-        setupView(leftViewButton)
+        setupView(leftView)
     }
     override func constaintViews() {
-        leftViewButton.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
+        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
         title.setDimensions(height: 40)
-        stackInfoView.anchor(left: leftViewButton.trailingAnchor, paddingLeft: 16,
+        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16,
                              centerY: centerYAnchor)
-        leftViewButton.setDimensions(height: 88, width: 88)
+        leftView.setDimensions(height: 88, width: 88)
     }
 
     override func configureAppearance() {
@@ -51,5 +47,9 @@ final class ProfileCell: SettingsCell {
         subtitle.numberOfLines = 0
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
+        
+        leftView.layer.cornerRadius = leftView.bounds.height / 2
+        leftView.layer.borderWidth = 1
+        leftView.layer.borderColor = App.Colors.BlackWhite.cgColor
     }
 }
