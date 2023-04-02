@@ -20,14 +20,14 @@ final class ContentView: TTBaseView {
     private let settingsStackView = UIStackView()
     private let mainStackView = UIStackView()
     
-    private let importanceTask = UIView()
+    private let importanceTask = TTBaseView()
     private let importanceLabel = UILabel()
     private let segmentedControl = UISegmentedControl(items: [UIImage(),
                                                               App.Images.exclamation_1,
                                                               App.Images.exclamation_2,
                                                               App.Images.exclamation_3])
     
-    private let deadlineTask = UIView()
+    private let deadlineTask = TTBaseView()
     private let deadlineLabel = UILabel()
     private let datePicker = UIDatePicker()
     private let switcher = UISwitch()
@@ -48,23 +48,17 @@ final class ContentView: TTBaseView {
         self.nameTaskField.text = taskName
         self.taskInfoView.text = text
         self.isDone = isDone
-        self.importance = importance
         self.needCreate = needCreate
+        self.importance = importance
+        self.segmentedControl.selectedSegmentIndex = Int(importance)
+        
         self.datePicker.alpha = 0
         self.switcher.isOn = false
         if let deadline = deadline {
-            self.switcher.isOn = true
-            self.datePicker.date = deadline
             self.deadline = deadline
+            self.switcher.isOn = true
             self.datePicker.alpha = 1
-        }
-        self.segmentedControl.selectedSegmentIndex = Int(importance)
-        if switcher.isOn {
-            switcher.anchor(left: deadlineLabel.trailingAnchor, paddingRight: 16,
-                            centerY: deadlineTask.centerYAnchor)
-        } else {
-            switcher.anchor(right: mainStackView.trailingAnchor, paddingRight: -16,
-                              centerY: deadlineTask.centerYAnchor)
+            self.datePicker.date = deadline
         }
        
     }
@@ -124,7 +118,9 @@ extension ContentView {
         deadlineTask.setDimensions(height: 50)
         deadlineLabel.anchor(left: settingsStackView.leadingAnchor, paddingLeft: 16,
                              centerY: deadlineTask.centerYAnchor)
-        datePicker.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,
+        switcher.anchor(right: deadlineTask.trailingAnchor, paddingRight: -16,
+                        centerY: deadlineTask.centerYAnchor)
+        datePicker.anchor(right: switcher.leadingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
         
         buttonSave.setDimensions(width: 88)
@@ -168,9 +164,6 @@ extension ContentView {
         buttonDelete.backgroundColor = UIColor.clear
         buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         
-        switcher.onTintColor = App.Colors.active
-        switcher.addTarget(self, action: #selector(deadlineHandler), for: .valueChanged)
-        
         importanceTask.backgroundColor = App.Colors.BlackWhite
         importanceTask.layer.cornerRadius = 10
         
@@ -190,11 +183,17 @@ extension ContentView {
         deadlineLabel.textAlignment = .left
         deadlineLabel.text = "Deadline: "
         
+        switcher.onTintColor = App.Colors.active
+        switcher.addTarget(self, action: #selector(deadlineHandler), for: .valueChanged)
+        
         let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
         datePicker.datePickerMode = .date
         datePicker.minimumDate = Date()
-        datePicker.maximumDate = Date().addingTimeInterval(2 * oneYearTime)
+        datePicker.maximumDate = Date().addingTimeInterval(4 * oneYearTime)
         datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        addGestureRecognizer(tap)
     }
     @objc func segmentedControlChange(_ sender: UISegmentedControl) {
         importance = Int16(sender.selectedSegmentIndex)
@@ -204,31 +203,25 @@ extension ContentView {
     }
     @objc func deadlineHandler(_ sender: UISwitch) {
         if sender.isOn {
-            TTBaseView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-                var switcherFrame = self.switcher.frame
-                switcherFrame.origin.x = self.deadlineLabel.frame.origin.x + self.deadlineLabel.frame.width + 8
-                self.switcher.frame = switcherFrame
-                self.deadline = Date()
-            }, completion:  {_ in })
             TTBaseView.animate(
                 withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                 options: .curveEaseOut, animations: {
                     self.datePicker.transform = .identity
                     self.datePicker.alpha = 1
-            }, completion: nil)
+            }, completion: { _ in
+                self.deadline = Date()
+                self.datePicker.date = self.deadline!
+            })
         } else {
             TTBaseView.animate(
                 withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
                 options: .curveEaseOut, animations: {
                     self.datePicker.alpha = 0
                     self.datePicker.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }, completion: nil)
-            TTBaseView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-                var switcherFrame = self.switcher.frame
-                switcherFrame.origin.x += self.frame.width - 72 - self.deadlineLabel.frame.width - self.switcher.frame.width
-                self.switcher.frame = switcherFrame
-                self.deadline = nil
-            }, completion:  {_ in })
+                }, completion: { _ in
+                    self.deadline = nil
+                    self.datePicker.date = Date()
+                })
         }
     }
     func addTargetButtonSave(target: Any?, action: Selector) {
