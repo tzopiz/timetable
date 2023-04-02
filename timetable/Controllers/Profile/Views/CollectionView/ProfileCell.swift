@@ -48,8 +48,9 @@ final class ProfileCell: SettingsCell {
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
         
-        leftView.layer.cornerRadius = leftView.bounds.height / 2
+        leftView.layer.cornerRadius = 44
         leftView.layer.borderWidth = 1
-        leftView.layer.borderColor = App.Colors.BlackWhite.cgColor
+        leftView.layer.borderColor = App.Colors.separator.cgColor
+        leftView.clipsToBounds = true
     }
 }
