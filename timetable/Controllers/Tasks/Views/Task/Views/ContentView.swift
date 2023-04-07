@@ -195,13 +195,13 @@ extension ContentView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         addGestureRecognizer(tap)
     }
-    @objc func segmentedControlChange(_ sender: UISegmentedControl) {
+    @IBAction func segmentedControlChange(_ sender: UISegmentedControl) {
         importance = Int16(sender.selectedSegmentIndex)
     }
-    @objc func datePickerChange(parametr: UIDatePicker) {
+    @IBAction func datePickerChange(parametr: UIDatePicker) {
         deadline = parametr.date
     }
-    @objc func deadlineHandler(_ sender: UISwitch) {
+    @IBAction func deadlineHandler(_ sender: UISwitch) {
         if sender.isOn {
             TTBaseView.animate(
                 withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,

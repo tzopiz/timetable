@@ -30,8 +30,6 @@ class TTBaseController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
         setupViews()
         constraintViews()
         configureAppearance()
@@ -71,7 +69,7 @@ extension TTBaseController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDataSource
 
-extension TTBaseController: UICollectionViewDelegate {}
+extension TTBaseController: UICollectionViewDelegate { }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 
@@ -86,7 +84,8 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
     -> CGSize { CGSize(width: collectionView.frame.width, height: 32) }
 }
 
-@objc extension TTBaseController {
+@objc
+extension TTBaseController {
     func setupViews() {
         view.setupView(untiBag)
         view.setupView(collectionView)
@@ -98,6 +97,8 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
                               right: view.trailingAnchor)
     }
     func configureAppearance() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
         view.backgroundColor = App.Colors.background
         untiBag.isHidden = true
     }

@@ -11,6 +11,8 @@ final class TasksController: TTBaseController {
     private var currentType: App.TaskType =  UserDefaults.standard.taskType.getUserTaskType()
 }
 
+// MARK: - Configure
+
 extension TasksController {
     override func configureAppearance() {
         super.configureAppearance()
@@ -62,20 +64,18 @@ extension TasksController {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TasksCell.reuseID, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
-        let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         cell.configure(task: task)
         cell.completion = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                    self.collectionView.performBatchUpdates({
-                        self.collectionView.reloadItems(at: [indexPath])
-                    }, completion: nil)
+                self.collectionView.reloadData()
             }
         }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let task =  CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         let taskVC = TaskViewController()
         taskVC.task = task
         taskVC.completion = { [weak self] needInsert in

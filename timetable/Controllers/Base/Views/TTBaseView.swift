@@ -24,8 +24,12 @@ class TTBaseView: UIView {
     }
 }
 
-@objc extension TTBaseView {
+@objc
+extension TTBaseView {
+    /// set up subview on view
     func setupViews() {}
+    /// add constaraints to subviews
     func constraintViews() {}
+    /// configre appearence subviews
     func configureAppearance() { backgroundColor = .white }
 }

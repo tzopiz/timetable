@@ -10,19 +10,8 @@ import SwiftSoup
 
 class APIManager {
     static let shared = APIManager()
-    static let emptyUrlStr = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/2022-07-03"
-    static let urlsStrings = [
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334102",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334471",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334404",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334111",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334488",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/333990",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334477",
-    "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029"
-    ]
-    static let teachersUrl =
+    
+    let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
     
     func getTimetable(with firstDay: String?,
@@ -34,19 +23,18 @@ class APIManager {
         } else {
             timeInterval = "/" + firstDay
         }
-        let numberOfGroup = Int(UserDefaults.standard.group.components(separatedBy: ",").last ?? "-1") ?? -1
-        let url: URL!
-        if numberOfGroup != -1 {
-            url = URL(string: APIManager.urlsStrings[numberOfGroup] + timeInterval)
-        } else {
-            url = URL(string: APIManager.emptyUrlStr)
-        }
-        guard let url = url else { return }
         var dataSource: [StudyDay] = []
+        let url = URL(string: UserDefaults.standard.link + timeInterval)
+        guard let url = url else { return }
+       
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data else { return }
+            guard let data = data else {
+                let lesson = StudyDay.Lesson(time: "", nameSubject: "Нет занятий", address: "", teacherName: "")
+                completion([StudyDay(date: "", lessons: [lesson])], "error link")
+                return
+            }
             guard let html = String(data: data, encoding: .utf8) else { return }
             do {
                 let doc: Document = try SwiftSoup.parse(html)
@@ -59,13 +47,13 @@ class APIManager {
                 let weekId = try doc.getElementById("week")
                 guard let weekId = weekId else { return }
                 let weekText = try weekId.text()
-
+                
                 // define number of lessons
                 if days.isEmpty() {
                     completion([], "")
                     return
                 }
-                for j  in 0..<divSelect.count {
+                for j in 0..<divSelect.count {
                     if j == divSelect.count - 1 {
                         counter += 2
                         numberOfLesson.append((counter - 1) / 12)
@@ -103,13 +91,15 @@ class APIManager {
                     }
                 }
                 completion(dataSource, weekText)
-            } catch { print(error.localizedDescription) }
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         task.resume()
     }
     
     func getTeachres(completion: @escaping ([Teacher]) -> Void) {
-        guard let url = APIManager.teachersUrl else { return }
+        guard let url = APIManager.shared.teachersUrl else { return }
         var dataSource: [Teacher] = []
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

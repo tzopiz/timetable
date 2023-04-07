@@ -22,6 +22,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
         CoreDataMamanager.shared.saveProfileImage()
+        switchTo(tab: .profile)
     }
 
     required init?(coder: NSCoder) {

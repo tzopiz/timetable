@@ -53,30 +53,19 @@ extension OverviewController {
                     guard let self = self else { return }
                     self.dataSource = dates
                     if self.dataSource.count == 0 {
-                        self.dataSource.append(StudyDay(date: self.navBar.getFirstDay(),
-                                                        lessons:
-                                [StudyDay.Lesson(time: "",
-                                                 nameSubject: "Занятий нет",
-                                                 address: "",
-                                                 teacherName: "")
-                                ]))
+                        self.dataSource.append(StudyDay(
+                            date: self.navBar.getFirstDay(),
+                            lessons: [StudyDay.Lesson(time: "",
+                                                      nameSubject: "Занятий нет",
+                                                      address: "",
+                                                      teacherName: "")]))
                     }
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
                     self.navBar.updateButtonTitle(with: title)
                     if let index = index {
-                        if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-                            var calculatedOffset: CGFloat = 0
-                            if index < self.dataSource.count {
-                                for i in 0..<index {
-                                    calculatedOffset += 32
-                                    calculatedOffset += CGFloat(135 * (self.dataSource[i].lessons.count))
-                                    calculatedOffset += CGFloat(8 * (self.dataSource[i].lessons.count - 1))
-                                }
-                                self.collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
-                            } else {
-                                self.scrollCollectionViewToTop()
-                            }
+                        if !self.dataSource.isEmpty {
+                            self.goToDay(with: index)
                         }
                     }
                 }
@@ -85,18 +74,8 @@ extension OverviewController {
         navBar.completionScroll = { [weak self] index in
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                if self.collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-                    var calculatedOffset: CGFloat = 0
-                    if index < self.dataSource.count {
-                        for i in 0..<index {
-                            calculatedOffset += 32
-                            calculatedOffset += CGFloat(135 * (self.dataSource[i].lessons.count))
-                            calculatedOffset += CGFloat(8 * (self.dataSource[i].lessons.count - 1))
-                        }
-                        self.collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
-                    } else {
-                        self.scrollCollectionViewToTop()
-                    }
+                if !self.dataSource.isEmpty {
+                    self.goToDay(with: index)
                 }
             }
         }
@@ -116,6 +95,19 @@ extension OverviewController {
     @objc func leftSwipeWeek() {
         navBar.leftSwipeWeek()
     }
+    func goToDay(with index: Int) {
+        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
+            var calculatedOffset: CGFloat = 0
+            if index < self.dataSource.count {
+                for i in 0..<index {
+                    calculatedOffset += 32
+                    calculatedOffset += CGFloat(135 * (dataSource[i].lessons.count))
+                    calculatedOffset += CGFloat(8 * (dataSource[i].lessons.count - 1))
+                }
+                collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
+            } else { scrollCollectionViewToTop() }
+        }
+    }
     
     @objc func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
@@ -125,13 +117,12 @@ extension OverviewController {
                     DispatchQueue.main.async {
                         guard let self = self else { return }
                         self.dataSource = dates
-                        self.collectionView.refreshControl?.endRefreshing()
-                        self.collectionView.reloadData()
                         self.navBar.updateButtonTitle(with: title)
+                        self.collectionView.reloadData()
                     }
             }
         }
-        
+        self.collectionView.refreshControl?.endRefreshing()
     }
 }
 

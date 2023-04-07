@@ -7,9 +7,6 @@
 
 import UIKit
 
-enum CellRoundedType {
-    case top, bottom, all, notRounded
-}
 final class TasksCell: UICollectionViewCell {
     
     static let reuseID =  String(describing: TasksCell.self)

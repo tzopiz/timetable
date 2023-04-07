@@ -47,6 +47,28 @@ extension GroupsViewController {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = App.Colors.BlackWhite
         tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 0:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334102"
+        case 1:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334471"
+        case 2:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334404"
+        case 3:
+            UserDefaults.standard.link =  "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120"
+        case 4:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334111"
+        case 5:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334488"
+        case 6:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/333990"
+        case 7:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334477"
+        case 8:
+            UserDefaults.standard.link = "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334029"
+        default:
+            UserDefaults.standard.link = ""
+        }
         UserDefaults.standard.group = groupRawData.components(separatedBy: CharacterSet.newlines)[indexPath.row]
         self.navigationController?.popViewController(animated: true)
         completion?()

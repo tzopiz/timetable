@@ -101,12 +101,10 @@ extension ProfileController {
         case 0:
             openImagePickerVC()
         case 1:
-            let gVC = GroupsViewController()
-            gVC.completion = { [weak self] in
-                guard let self = self else { return }
-                self.collectionView.reloadData()
-            }
-            navigationController?.pushViewController(gVC, animated: true)
+            let vc = AuthorizationViewController()
+            // switchRootViewController
+            let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            windowScenes?.windows.first?.switchRootViewController(vc)
         default:
             print(#function)
         }
@@ -138,8 +136,8 @@ extension ProfileController: UINavigationControllerDelegate, UIImagePickerContro
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum
             imagePicker.allowsEditing = true
+            imagePicker.sourceType = .savedPhotosAlbum
             present(imagePicker, animated: true)
         }
     }
