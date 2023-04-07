@@ -91,12 +91,13 @@ extension TTBaseController {
         view.setupView(collectionView)
     }
     func constraintViews() {
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
+        collectionView.anchor(top: view.topAnchor,
+                              bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
     }
     func configureAppearance() {
+        navigationItem.title = "navigation title"
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = App.Colors.background

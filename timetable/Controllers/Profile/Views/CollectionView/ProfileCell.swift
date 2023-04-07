@@ -7,20 +7,20 @@
 
 import UIKit
 
-final class ProfileCell: SettingsCell {
+final class ProfileCell: BaseCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)
     private let subtitle = UILabel()
     private let leftView = UIImageView()
     var completion: (() -> (UIImage))?
-    override func configure(title: String, type: CellType, image: UIImage) {
+    func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         self.title.text = title
         subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
         let profileImage = CoreDataMamanager.shared.fetchImageProfile()
         leftView.image = profileImage
         leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }
-    @objc func changePhotoProfile() {
+    @IBAction func changePhotoProfile() {
         let newImage = CoreDataMamanager.shared.fetchImageProfile()
         self.leftView.image = newImage
     }

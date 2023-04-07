@@ -54,17 +54,17 @@ extension OverviewNavBar {
         
         weekView.completion = self.completionScroll
     }
-    @objc func rightSwipeWeek() {
+    @IBAction func rightSwipeWeek() {
         weekView.shift += 7
         animateLeftSwipe()
         completionUpdate?(getFirstDay(), nil)
     }
-    @objc func leftSwipeWeek() {
+    @IBAction func leftSwipeWeek() {
         weekView.shift -= 7
         animateRightSwipe()
         completionUpdate?(getFirstDay(), nil)
     }
-    @objc func toToday() {
+    @IBAction func toToday() {
         if weekView.shift > 0 {
             weekView.shift = 0
             animateRightSwipe()

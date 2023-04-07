@@ -89,10 +89,10 @@ extension OverviewController {
         collectionView.addGestureRecognizer(leftSwipe)
     }
     // TODO: normal animate swipe collection view and navbar
-    @objc func rightSwipeWeek() {
+    @IBAction func rightSwipeWeek() {
         navBar.rightSwipeWeek()
     }
-    @objc func leftSwipeWeek() {
+    @IBAction func leftSwipeWeek() {
         navBar.leftSwipeWeek()
     }
     func goToDay(with index: Int) {
@@ -109,7 +109,7 @@ extension OverviewController {
         }
     }
     
-    @objc func refreshData() {
+    @IBAction func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTimetable(

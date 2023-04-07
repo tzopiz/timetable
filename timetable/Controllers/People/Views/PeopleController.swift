@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PeopleController {
+final class PeopleController {
     func filteredPeople(with filter: String? = nil, limit: Int? = nil) -> [Teacher] {
         generatePeople()
         guard let filter = filter else { return people }

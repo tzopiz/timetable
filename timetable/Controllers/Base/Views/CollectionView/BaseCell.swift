@@ -14,16 +14,21 @@ enum CellType {
     case theme
 }
 
-class SettingsCell: UICollectionViewCell {
-    static let SettingsCellId = String(describing: SettingsCell.self)
+class BaseCell: UICollectionViewCell {
+    static let SettingsCellId = String(describing: BaseCell.self)
     public let title = UILabel()
     public let stackInfoView = UIStackView()
     
-    func configure(title: String, type: CellType, image: UIImage) {
+    func configure(title: String, type: CellType = .base, image: UIImage? = nil,
+                    backgroundColor color: UIColor? = nil, textAlignment alignment: NSTextAlignment? = nil,
+                   textSize size: CGFloat? = nil) {
         self.title.text = title
+        if let color = color { self.backgroundColor = color }
+        if let alignment = alignment { self.title.textAlignment = alignment }
+        if let size = size { self.title.font = App.Fonts.helveticaNeue(with: size) }
     }
-    func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
-    func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    func isHighlighted() { self.alpha = 0.4 }
+    func isUnHighlighted() { self.alpha = 1 }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

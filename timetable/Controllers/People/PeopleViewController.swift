@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PeopleViewController: TTBaseController {
+final class PeopleViewController: TTBaseController {
     private let peopleController = PeopleController()
     private var dataSource: [Teacher] = []
     private var nameFilter: String?
@@ -45,7 +45,7 @@ extension PeopleViewController {
         self.collectionView.refreshControl = refreshControl
         
     }
-    @objc func refreshData() {
+    @IBAction func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTeachres { [weak self] teachers in

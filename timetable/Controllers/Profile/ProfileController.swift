@@ -40,7 +40,7 @@ extension ProfileController {
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.ProfileCellId)
         collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.AppearenceCellId)
-        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: SettingsCell.SettingsCellId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.SettingsCellId)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
@@ -81,30 +81,30 @@ extension ProfileController {
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SettingsCell.SettingsCellId,
-                for: indexPath) as? SettingsCell
+                withReuseIdentifier: BaseCell.SettingsCellId,
+                for: indexPath) as? BaseCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
+        let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
+        let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            openImagePickerVC()
+//        case 0:
+//            openImagePickerVC()
         case 1:
-            let vc = AuthorizationViewController()
-            // switchRootViewController
+            let vc = AuthorizationController()
+            let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            windowScenes?.windows.first?.switchRootViewController(vc)
+            windowScenes?.windows.first?.switchRootViewController(navVc)
         default:
             print(#function)
         }

@@ -66,7 +66,7 @@ final class TasksCell: UICollectionViewCell {
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
 
-    @objc func updateCheckmarkView() {
+    @IBAction func updateCheckmarkView() {
         guard let task = self.task else { return }
         task.isDone = !task.isDone
         self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone,

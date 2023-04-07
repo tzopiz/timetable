@@ -35,7 +35,7 @@ extension TaskViewController {
         contentView.addTargetButtonSave(target: self, action: #selector(saveTask))
         contentView.addTargetButtonDelete(target: self, action: #selector(deleteTask))
     }
-    @objc func saveTask() {
+    @IBAction func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
         let taskName: String?
         if (taskInfoDictionary["taskName"] as? String) == "" {
@@ -60,7 +60,7 @@ extension TaskViewController {
         self.dismiss(animated: true)
         completion?(true)
     }
-    @objc func deleteTask() {
+    @IBAction func deleteTask() {
         CoreDataMamanager.shared.deletaTask(with: self.task?.id)
         self.dismiss(animated: true)
         completion?(false)

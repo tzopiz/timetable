@@ -10,18 +10,17 @@
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
-		0A26495429DF0510003D080A /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26495329DF0510003D080A /* AuthorizationViewController.swift */; };
-		0A26495629DF09A8003D080A /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26495529DF09A8003D080A /* SelectCategoryView.swift */; };
+		0A26495429DF0510003D080A /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26495329DF0510003D080A /* AuthorizationController.swift */; };
 		0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5D929D4960200EE17EA /* TimeTableModel.swift */; };
 		0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5DB29D49B2300EE17EA /* APIManager.swift */; };
-		0A58D5E029D4C39E00EE17EA /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */; };
-		0A58D5E329D4C4F100EE17EA /* GroupRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */; };
-		0A58D5E529D4CCB900EE17EA /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */; };
+		0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E429D4CCB900EE17EA /* BaseCell.swift */; };
 		0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */; };
 		0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B8A6229D8DCBC00966EAC /* Profile+CoreDataProperties.swift */; };
 		0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB229D6E19600C13723 /* Bundle + ext.swift */; };
 		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
+		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
+		0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -81,18 +80,17 @@
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		0A26495329DF0510003D080A /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		0A26495529DF09A8003D080A /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
+		0A26495329DF0510003D080A /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		0A58D5D929D4960200EE17EA /* TimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
 		0A58D5DB29D49B2300EE17EA /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
-		0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRawData.swift; sourceTree = "<group>"; };
-		0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		0A58D5E429D4CCB900EE17EA /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearenceCell.swift; sourceTree = "<group>"; };
 		0A5B8A6229D8DCBC00966EAC /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A71EAB229D6E19600C13723 /* Bundle + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
+		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
+		0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionFacultyController.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -207,10 +205,9 @@
 		0A26495229DF044D003D080A /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				0A58D5DF29D4C39E00EE17EA /* GroupsViewController.swift */,
-				0A58D5E229D4C4F100EE17EA /* GroupRawData.swift */,
-				0A26495529DF09A8003D080A /* SelectCategoryView.swift */,
-				0A26495329DF0510003D080A /* AuthorizationViewController.swift */,
+				0A26495329DF0510003D080A /* AuthorizationController.swift */,
+				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
+				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -422,7 +419,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */,
-				0A58D5E429D4CCB900EE17EA /* SettingsCell.swift */,
 				0A58D5E629D4CF2D00EE17EA /* AppearenceCell.swift */,
 			);
 			path = CollectionView;
@@ -515,6 +511,7 @@
 		0ACC4E9D29C6620300B3D6AC /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				0A58D5E429D4CCB900EE17EA /* BaseCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -741,13 +738,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A26495429DF0510003D080A /* AuthorizationViewController.swift in Sources */,
+				0A26495429DF0510003D080A /* AuthorizationController.swift in Sources */,
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
 				0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */,
 				0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */,
-				0A58D5E529D4CCB900EE17EA /* SettingsCell.swift in Sources */,
+				0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */,
+				0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */,
 				0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */,
 				0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */,
+				0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */,
 				0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */,
 				0ACC4EC229C6620300B3D6AC /* LabelCell.swift in Sources */,
 				0ACC4EC429C6620300B3D6AC /* Resouces.swift in Sources */,
@@ -763,7 +762,6 @@
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
-				0A58D5E329D4C4F100EE17EA /* GroupRawData.swift in Sources */,
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
@@ -775,12 +773,10 @@
 				0ACC4EB829C6620300B3D6AC /* PeopleController.swift in Sources */,
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
-				0A26495629DF09A8003D080A /* SelectCategoryView.swift in Sources */,
 				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,
-				0A58D5E029D4C39E00EE17EA /* GroupsViewController.swift in Sources */,
 				0ACC4EBE29C6620300B3D6AC /* OverviewController.swift in Sources */,
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
 				0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */,

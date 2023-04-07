@@ -74,6 +74,8 @@ enum App {
             }
         }
         
+        static let backgroundSPBU = #imageLiteral(resourceName: "spbu")
+        
         static let icon = #imageLiteral(resourceName: "icon")
         
         static let clock = #imageLiteral(resourceName: "clock@256")

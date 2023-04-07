@@ -8,7 +8,7 @@
 import UIKit
 import SwiftSoup
 
-class APIManager {
+final class APIManager {
     static let shared = APIManager()
     
     let teachersUrl =

@@ -7,7 +7,8 @@
 
 import UIKit
 
-class LabelCell: UICollectionViewCell {
+// TODO: change to baseCell
+final class LabelCell: UICollectionViewCell {
     static let reuseID =  String(describing: LabelCell.self)
     let label = UILabel()
     let sublabel = UILabel()

@@ -47,9 +47,9 @@ extension UIView {
             .touchCancel
         ])
     }
-    @objc func handleIn() { UIView.animate(withDuration: 0.15) { self.alpha = 0.55 } }
-    @objc func handleOut() { UIView.animate(withDuration: 0.15) { self.alpha = 1 } }
-    @objc func setupView(_ view: UIView) {
+    @IBAction func handleIn() { UIView.animate(withDuration: 0.15) { self.alpha = 0.55 } }
+    @IBAction func handleOut() { UIView.animate(withDuration: 0.15) { self.alpha = 1 } }
+    func setupView(_ view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
     }
