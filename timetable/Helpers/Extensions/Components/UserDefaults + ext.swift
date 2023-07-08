@@ -21,7 +21,11 @@ extension UserDefaults {
         set { UserDefaults.standard.set(newValue, forKey: "currentGorp") }
     }
     var link: String {
-        get { UserDefaults.standard.string(forKey: "link") ?? "" }
+        get { UserDefaults.standard.string(forKey: "link") ?? "" } // https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/
         set { UserDefaults.standard.set(newValue, forKey: "link") }
+    }
+    var registered: Bool {
+        get { UserDefaults.standard.bool(forKey: "registered") }
+        set { UserDefaults.standard.set(newValue, forKey: "registered") }
     }
 }

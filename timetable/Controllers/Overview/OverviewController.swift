@@ -14,7 +14,6 @@ final class OverviewController: TTBaseController {
 extension OverviewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshData()
     }
     override func setupViews() {
         super.setupViews()
@@ -87,6 +86,7 @@ extension OverviewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
         leftSwipe.direction = .left
         collectionView.addGestureRecognizer(leftSwipe)
+        refreshData()
     }
     // TODO: normal animate swipe collection view and navbar
     @IBAction func rightSwipeWeek() {

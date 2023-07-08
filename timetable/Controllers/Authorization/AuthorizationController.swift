@@ -34,7 +34,7 @@ extension AuthorizationController {
             withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
         let data = kindTimetable[indexPath.row]
-        cell.configure(title: data, backgroundColor: App.Colors.secondary, textAlignment: .center, textSize: 32)
+        cell.configure(title: data, textAlignment: .center, textSize: 32)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

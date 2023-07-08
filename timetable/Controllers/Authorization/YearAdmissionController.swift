@@ -1,5 +1,5 @@
 //
-//  DirectionFacultyController.swift
+//  YearAdmissionController.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 07.04.2023.
@@ -7,19 +7,24 @@
 
 import UIKit
 
-final class DirectionFacultyController: TTBaseController {
-    let diresctions = Faculty(directions: directions)
+struct YearAdmission {
+    let year: String
+    let groups: [String]
 }
 
-// MARK: -Configure
+final class YearAdmissionController: TTBaseController {
+    private let yearAdmission: [YearAdmission] = [
+        YearAdmission(year: "2022", groups:  ["22.Б01", "22.Б02", "22.Б03", "22.Б04", "22.Б05"]),
+        YearAdmission(year: "2021", groups:  ["21.Б01", "21.Б02"]),
+        YearAdmission(year: "2020", groups:  ["20.Б01", "20.Б02", "20.Б03"]),
+        YearAdmission(year: "2019", groups:  ["19.Б01"]),
+        YearAdmission(year: "2018", groups:  ["18.Б01", "18.Б02", "18.Б30", "18.Б04"])
+    ]
+}
 
-extension DirectionFacultyController {
-    override func setupViews() {
-        super.setupViews()
-    }
-    override func constraintViews() {
-        super.constraintViews()
-    }
+// MARK: - Configure
+
+extension YearAdmissionController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = "TimetableSPBU"
@@ -29,25 +34,24 @@ extension DirectionFacultyController {
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
-        
     }
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
 
-extension DirectionFacultyController {
+extension YearAdmissionController {
     func numberOfSections(in collectionView: UICollectionView)
-    -> Int { directions.count }
+    -> Int { yearAdmission.count }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
-    -> Int { directions[section].items.count }
+    -> Int { yearAdmission[section].groups.count }
 
     override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
-        let faculty = directions[indexPath.section].items[indexPath.row]
+        let faculty = yearAdmission[indexPath.section].groups[indexPath.row]
         cell.configure(title: faculty, textAlignment: .left, textSize: 15)
         return cell
     }
@@ -59,7 +63,7 @@ extension DirectionFacultyController {
                                                                          for: indexPath) as? SectionHeaderView
         else { return UICollectionReusableView() }
 
-        view.configure(with: directions[indexPath.section].name, textSize: 17)
+        view.configure(with: yearAdmission[indexPath.section].year, textSize: 17)
         return view
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -73,14 +77,13 @@ extension DirectionFacultyController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let yVC = YearAdmissionController()
-        navigationController?.pushViewController(yVC, animated: true)
+        
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension DirectionFacultyController {
+extension YearAdmissionController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -89,7 +92,7 @@ extension DirectionFacultyController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == directions.count - 1 {
+        if section == yearAdmission.count - 1 {
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0)
         } else {
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)

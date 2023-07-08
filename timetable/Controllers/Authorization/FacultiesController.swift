@@ -56,7 +56,6 @@ extension FacultiesController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let faculty = Faculties[indexPath.row]
         let vc = DirectionFacultyController()
         navigationController?.pushViewController(vc, animated: true)
     }

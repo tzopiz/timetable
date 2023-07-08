@@ -22,12 +22,9 @@ final class SectionHeaderView: UICollectionReusableView {
         constaintViews()
         configureAppearance()
     }
-    func configure(with date: String) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "EEEE, dd MMMM"
-//
-//        self.title.text = dateFormatter.string(from: date).uppercased()
-        self.title.text = date
+    func configure(with str: String, textSize size: CGFloat? = nil) {
+        self.title.text = str
+        if let size = size { title.font = App.Fonts.helveticaNeue(with: size) }
     }
 }
 
@@ -35,13 +32,16 @@ private extension SectionHeaderView {
     func setupViews() {
         setupView(title)
     }
-
+    
     func constaintViews() {
-        title.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
+        title.anchor(left: leadingAnchor, paddingLeft: 32,
+                     right: trailingAnchor, paddingRight: -32,
+                     centerY: centerYAnchor, centerX: centerXAnchor)
     }
     func configureAppearance() {
         title.font = App.Fonts.helveticaNeue(with: 13)
         title.textColor = App.Colors.inactive
         title.textAlignment = .center
+        title.numberOfLines = 2
     }
 }

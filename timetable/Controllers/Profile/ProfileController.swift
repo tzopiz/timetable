@@ -101,6 +101,7 @@ extension ProfileController {
 //        case 0:
 //            openImagePickerVC()
         case 1:
+            UserDefaults.standard.registered = false
             let vc = AuthorizationController()
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
