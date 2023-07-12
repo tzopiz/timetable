@@ -59,7 +59,7 @@ class BaseCell: UICollectionViewCell {
         self.layer.cornerRadius = 20
         
         title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.title
+        title.textColor = App.Colors.text
         title.textAlignment = .left
         title.numberOfLines = 0
         

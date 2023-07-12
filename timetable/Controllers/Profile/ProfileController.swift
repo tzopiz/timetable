@@ -50,7 +50,7 @@ extension ProfileController {
         ]
         versionLabel.text = Bundle.main.releaseVersionNumber
         versionLabel.font = App.Fonts.helveticaNeue(with: 10)
-        versionLabel.textColor = App.Colors.title
+        versionLabel.textColor = App.Colors.text
         versionLabel.textAlignment = .center
     }
 }
@@ -102,6 +102,8 @@ extension ProfileController {
 //            openImagePickerVC()
         case 1:
             UserDefaults.standard.registered = false
+            UserDefaults.standard.link = "https://timetable.spbu.ru"
+            
             let vc = AuthorizationController()
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene

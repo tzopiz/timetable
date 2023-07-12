@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0ECBF62A5F0C15004BDB61 /* CurrentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */; };
+		0A0ECBF82A5F1E55004BDB61 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */; };
+		0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */; };
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
@@ -79,6 +82,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLink.swift; sourceTree = "<group>"; };
+		0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -174,6 +180,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		0A0ECBFB2A5F1E80004BDB61 /* Directions */ = {
+			isa = PBXGroup;
+			children = (
+				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
+				0A0ECBFC2A5F1E94004BDB61 /* CollectionView */,
+			);
+			path = Directions;
+			sourceTree = "<group>";
+		};
+		0A0ECBFC2A5F1E94004BDB61 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */,
+				0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		0A223B6C29C8936E00C8EDBF /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,9 +235,10 @@
 			children = (
 				0A26495329DF0510003D080A /* AuthorizationController.swift */,
 				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
-				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
+				0A0ECBFB2A5F1E80004BDB61 /* Directions */,
 				0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */,
 				0AC485CC29E07B70009B9EE5 /* Data.swift */,
+				0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -764,12 +789,14 @@
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
+				0A0ECBF62A5F0C15004BDB61 /* CurrentLink.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,
+				0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0AC485CD29E07B70009B9EE5 /* Data.swift in Sources */,
@@ -781,6 +808,7 @@
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
 				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
+				0A0ECBF82A5F1E55004BDB61 /* ItemCell.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,

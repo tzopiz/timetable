@@ -120,12 +120,12 @@ private extension TimetableCell {
         firstLineView.spacing = 5
         
         time.font = App.Fonts.helveticaNeue(with: 15)
-        time.textColor = App.Colors.title
+        time.textColor = App.Colors.text
         time.numberOfLines = 0
         time.lineBreakMode = .byWordWrapping
         
         nameSubject.font = App.Fonts.helveticaNeue(with: 17)
-        nameSubject.textColor = App.Colors.title
+        nameSubject.textColor = App.Colors.text
         nameSubject.numberOfLines = 0
         nameSubject.lineBreakMode = .byWordWrapping
         

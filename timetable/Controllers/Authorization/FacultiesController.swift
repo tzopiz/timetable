@@ -8,15 +8,7 @@
 import UIKit
 
 final class FacultiesController: TTBaseController {
-    private let Faculties =
-    ["Академическая гимназия", "Биология", "Востоковедение", "Журналистика, Прикладные коммуникации", "Иностранные языки",
-     "Институт развития конкуренции и антимонопольного регулирования СПбГУ", "Искусства", "История", "Когнитивные исследования",
-     "Колледж физической культуры и спорта, экономики и технологии", "Математика и компьютерные науки",
-     "Математика, Механика", "Медицина", "Междисциплинарные программы", "Международные отношения", "Менеджмент",
-     "Науки о Земле", "Педагогика", "Политология", "Процессы управления", "Психология", "Свободные искусства и науки",
-     "Социология", "Стоматология и медицинские технологии", "Управление научных исследований", "Физика", "Филология",
-     "Философия", "Химия", "Экономика", "Юриспруденция"]
-
+    private let Faculties = APIManager.shared.getFaculties()
 }
 
 // MARK: - Configure
@@ -42,7 +34,7 @@ extension FacultiesController {
             withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
         let faculty = Faculties[indexPath.row]
-        cell.configure(title: faculty, textAlignment: .center)
+        cell.configure(title: faculty.text, textAlignment: .center)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -56,6 +48,8 @@ extension FacultiesController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UserDefaults.standard.link += Faculties[indexPath.row].href
+        
         let vc = DirectionFacultyController()
         navigationController?.pushViewController(vc, animated: true)
     }

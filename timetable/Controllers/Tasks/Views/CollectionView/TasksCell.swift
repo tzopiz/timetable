@@ -109,7 +109,7 @@ private extension TasksCell {
         stackView.spacing = 3
         
         title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.title
+        title.textColor = App.Colors.text
         
         subtitle.font = App.Fonts.helveticaNeue(with: 13)
         subtitle.textColor = App.Colors.inactive

@@ -136,11 +136,11 @@ extension ContentView {
         settingsStackView.spacing = 16
         
         topLabel.font = App.Fonts.helveticaNeue(with: 17)
-        topLabel.textColor = App.Colors.title
+        topLabel.textColor = App.Colors.text
         topLabel.textAlignment = .center
         
         nameTaskField.font = App.Fonts.helveticaNeue(with: 17)
-        nameTaskField.textColor = App.Colors.title
+        nameTaskField.textColor = App.Colors.text
         nameTaskField.placeholder = "Новая задача"
         nameTaskField.backgroundColor = App.Colors.BlackWhite
         nameTaskField.layer.cornerRadius = 10
@@ -148,7 +148,7 @@ extension ContentView {
         nameTaskField.leftViewMode = .always
         
         taskInfoView.font = App.Fonts.helveticaNeue(with: 17)
-        taskInfoView.textColor = App.Colors.title
+        taskInfoView.textColor = App.Colors.text
         taskInfoView.text = ""
         taskInfoView.backgroundColor = App.Colors.BlackWhite
         taskInfoView.layer.cornerRadius = 10
@@ -168,7 +168,7 @@ extension ContentView {
         importanceTask.layer.cornerRadius = 10
         
         importanceLabel.font = App.Fonts.helveticaNeue(with: 17)
-        importanceLabel.textColor = App.Colors.title
+        importanceLabel.textColor = App.Colors.text
         importanceLabel.textAlignment = .left
         importanceLabel.text = "Важность: "
 
@@ -179,7 +179,7 @@ extension ContentView {
         deadlineTask.layer.cornerRadius = 10
         
         deadlineLabel.font = App.Fonts.helveticaNeue(with: 17)
-        deadlineLabel.textColor = App.Colors.title
+        deadlineLabel.textColor = App.Colors.text
         deadlineLabel.textAlignment = .left
         deadlineLabel.text = "Deadline: "
         
