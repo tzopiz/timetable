@@ -7,6 +7,13 @@
 
 import UIKit
 
+class CustomCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    override func prepare() {
+        super.prepare()
+        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+    }
+}
+
 final class OverviewController: TTBaseController {
     private let navBar = OverviewNavBar()
     private var dataSource: [StudyDay] = []
@@ -41,30 +48,33 @@ extension OverviewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.id)
         
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
         
         navBar.completionUpdate = { [weak self] dateStr, index in
             guard let self = self else { return }
-            APIManager.shared.getTimetable(with: dateStr) { [weak self] dates, title in
+            APIManager.shared.loadData(with: dateStr) { [weak self] data in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
-                    self.dataSource = dates
+                    self.dataSource = data.days
                     if self.dataSource.count == 0 {
                         self.dataSource.append(StudyDay(
                             date: self.navBar.getFirstDay(),
-                            lessons: [StudyDay.Lesson(time: "",
-                                                      nameSubject: "Занятий нет",
-                                                      address: "",
-                                                      teacherName: "")]))
+                            lessons: [Lesson(time: "", name: "Пары отсутствуют", location: " ", teacher: "")]))
+                        
                     }
                     self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
-                    self.navBar.updateButtonTitle(with: title)
+                    self.navBar.updateButtonTitle(with: data.startDate)
                     if let index = index {
                         if !self.dataSource.isEmpty {
-                            self.goToDay(with: index)
+                            self.scrollToDay(with: index)
                         }
                     }
                 }
@@ -74,7 +84,7 @@ extension OverviewController {
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 if !self.dataSource.isEmpty {
-                    self.goToDay(with: index)
+                    self.scrollToDay(with: index)
                 }
             }
         }
@@ -95,35 +105,49 @@ extension OverviewController {
     @IBAction func leftSwipeWeek() {
         navBar.leftSwipeWeek()
     }
-    func goToDay(with index: Int) {
-        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-            var calculatedOffset: CGFloat = 0
-            if index < self.dataSource.count {
-                for i in 0..<index {
-                    calculatedOffset += 32
-                    calculatedOffset += CGFloat(135 * (dataSource[i].lessons.count))
-                    calculatedOffset += CGFloat(8 * (dataSource[i].lessons.count - 1))
-                }
-                collectionView.setContentOffset(CGPoint(x: 0, y: calculatedOffset), animated: true)
-            } else { scrollCollectionViewToTop() }
-        }
-    }
-    
     @IBAction func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            APIManager.shared.getTimetable(
-                with: navBar.getFirstDay()) { [weak self] dates, title in
+            APIManager.shared.loadData(
+                with: navBar.getFirstDay()) { [weak self] data in
                     DispatchQueue.main.async {
                         guard let self = self else { return }
-                        self.dataSource = dates
-                        self.navBar.updateButtonTitle(with: title)
+                        self.dataSource = data.days
+                        self.navBar.updateButtonTitle(with: data.startDate)
                         self.collectionView.reloadData()
                     }
             }
         }
         self.collectionView.refreshControl?.endRefreshing()
     }
+    
+    func scrollToDay(with index: Int) {
+        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
+            if index < self.dataSource.count {
+
+                // Получаем высоту UICollectionReusableView
+                let headerHeight = collectionView.collectionViewLayout
+                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: index))?.frame.height ?? 0
+                let yOffset = collectionView.layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
+                
+                collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+                
+            } else { scrollCollectionViewToTop() }
+        }
+    }
+    func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        if text.isEmpty {
+            return 0 // Возвращаем 0, если текст пустой
+        }
+        
+        let label = UILabel()
+        label.text = text
+        label.font = font
+        label.numberOfLines = 0
+        let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        return size.height
+    }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -143,7 +167,7 @@ extension OverviewController {
         ) as? TimetableCell else { return UICollectionViewCell() }
         
         let item = dataSource[indexPath.section].lessons[indexPath.row]
-        cell.configure(time: item.time, nameSubject: item.nameSubject, address: item.address, teacherName: item.teacherName)
+        cell.configure(time: item.time, nameSubject: item.name, location: item.location, teacherName: item.teacher, isCancelled: item.isCancelled)
         return cell
     }
     
@@ -165,9 +189,20 @@ extension OverviewController {
 extension OverviewController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath)
-    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 135) }
-
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let item = dataSource[indexPath.section].lessons[indexPath.row]
+        
+        let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width)
+        let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width)
+        let teacherLabelHeight = heightForLabel(text: item.teacher, font: App.Fonts.helveticaNeue(with: 13), width: width)
+        
+        let totalHeight = timeLabelHeight + nameLabelHeight + locationLabelHeight + teacherLabelHeight + 40 // Сумма высот всех компонентов в ячейке
+        
+        return CGSize(width: width, height: totalHeight)
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -10,92 +10,72 @@ import SwiftSoup
 
 final class APIManager {
     static let shared = APIManager()
-    
-    let teachersUrl =
+    private let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
     
-    func getTimetable(with firstDay: String?,
-                      completion: @escaping ([StudyDay], String) -> Void) {
+    func loadData(with firstDay: String?,
+                  completion: @escaping (StudyWeek) -> Void) {
+        
         let timeInterval: String!
         guard let firstDay = firstDay else { return }
-        if firstDay == "\(Date())".components(separatedBy: " ")[0] {
-            timeInterval = ""
-        } else {
-            timeInterval = "/" + firstDay
-        }
-        var dataSource: [StudyDay] = []
+        if firstDay == "\(Date())".components(separatedBy: " ")[0] { timeInterval = "" }
+        else { timeInterval = "/" + firstDay }
+        
         let url = URL(string: UserDefaults.standard.link + timeInterval)
         guard let url = url else { return }
-       
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data else {
-                let lesson = StudyDay.Lesson(time: "", nameSubject: "Нет занятий", address: "", teacherName: "")
-                completion([StudyDay(date: "", lessons: [lesson])], "error link")
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Ошибка при чтении данных: \(error)")
                 return
             }
-            guard let html = String(data: data, encoding: .utf8) else { return }
-            do {
-                let doc: Document = try SwiftSoup.parse(html)
-                let timeAndName = try doc.getElementsByClass("moreinfo")
-                let teachersAndAdress = try doc.getElementsByClass("hoverable")
-                let days = try doc.getElementsByClass("panel-title")
-                let divSelect = try doc.select("div")
-                var numberOfLesson: [Int] = []
-                var counter = 0
-                let weekId = try doc.getElementById("week")
-                guard let weekId = weekId else { return }
-                let weekText = try weekId.text()
-                
-                // define number of lessons
-                if days.isEmpty() {
-                    completion([], "")
-                    return
-                }
-                for j in 0..<divSelect.count {
-                    if j == divSelect.count - 1 {
-                        counter += 2
-                        numberOfLesson.append((counter - 1) / 12)
-                        numberOfLesson.removeFirst()
-                        break
-                    }
-                    if numberOfLesson.count < days.count {
-                        if (try divSelect[j].text()) == (try days[numberOfLesson.count].text()) {
-                            numberOfLesson.append((counter - 1) / 12)
-                            counter = -1
+
+            if let data = data, let html = String(data: data, encoding: .utf8) {
+                do {
+                    let doc = try SwiftSoup.parse(html)
+
+                    let startDateElement = try doc.select("#timetable-week-navigator-chosen-week a")
+                    let startDate = try? startDateElement.attr("data-weekmonday") // TODO: что то тут хранить
+
+                    var dayDataArray: [StudyDay] = []
+
+                    for element in try doc.select("div.panel.panel-default") {
+                        guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first() else {
+                            continue
                         }
+
+                        let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
+                        var lessons: [Lesson] = []
+
+                        for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
+                            let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
+                            let name = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
+                            let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link").first()?.text() ?? ""
+
+                            var teacher = ""
+                            if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a").first() {
+                                teacher = try educatorElement.text()
+                            } else if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
+                                teacher = try educatorElement.text()
+                            }
+                            let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
+
+                            let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
+                            lessons.append(lesson)
+                        }
+
+                        let schoolDay = StudyDay(date: date, lessons: lessons)
+                        dayDataArray.append(schoolDay)
                     }
-                    counter += 1
+
+                    let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate), days: dayDataArray)
+                    completion(schoolWeek)
+                } catch {
+                    print("Ошибка при разборе HTML: \(error)")
                 }
-                var i = 1
-                var currentDay = 0
-                var needNumberOfLessonToday = numberOfLesson.first
-                var lessonsToday: [StudyDay.Lesson] = []
-                while i < teachersAndAdress.count && i < timeAndName.count && currentDay < numberOfLesson.count {
-                    if lessonsToday.count == needNumberOfLessonToday {
-                        dataSource.append(StudyDay(date: try days[currentDay].text(), lessons: lessonsToday))
-                        currentDay += 1
-                        needNumberOfLessonToday = numberOfLesson[currentDay]
-                        lessonsToday.removeAll()
-                    }
-                    let lesson: StudyDay.Lesson
-                    = StudyDay.Lesson(time: try timeAndName[i - 1].text(),
-                                      nameSubject: try timeAndName[i].text(),
-                                      address: try teachersAndAdress[i - 1].text(),
-                                      teacherName: try teachersAndAdress[i].text())
-                    lessonsToday.append(lesson)
-                    i += 2 // 2 var read 2 line every time
-                    if i >= teachersAndAdress.count || i >= timeAndName.count {
-                        dataSource.append(StudyDay(date: try days[currentDay].text(), lessons: lessonsToday))
-                    }
-                }
-                completion(dataSource, weekText)
-            } catch {
-                print(error.localizedDescription)
             }
-        }
-        task.resume()
+        }.resume()
+        
     }
     
     func getTeachres(completion: @escaping ([Teacher]) -> Void) {

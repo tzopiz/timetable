@@ -37,4 +37,35 @@ extension Date {
             return Date.calendar.date(from: components) ?? self
         }
     }
+    
+    func getMonthChanges(for startDateString: String?) -> String {
+        guard let startDateString = startDateString else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let startDate = dateFormatter.date(from: startDateString) else {
+            return "Неверный формат начальной даты"
+        }
+        
+        let calendar = Calendar.current
+        
+        let endDate = calendar.date(byAdding: .day, value: 7, to: startDate) ?? startDate
+        
+        let startMonth = calendar.component(.month, from: startDate)
+        let endMonth = calendar.component(.month, from: endDate)
+        
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "LLLL"
+        monthFormatter.locale = Locale(identifier: "ru_RU")
+        
+        let startMonthString = monthFormatter.string(from: startDate).capitalized
+        let endMonthString = monthFormatter.string(from: endDate).capitalized
+        
+        if startMonth == endMonth {
+            return startMonthString
+        } else {
+            return "\(startMonthString)-\(endMonthString)"
+        }
+    }
+    
 }

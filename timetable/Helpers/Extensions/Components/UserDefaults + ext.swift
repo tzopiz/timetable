@@ -20,8 +20,8 @@ extension UserDefaults {
         get { UserDefaults.standard.string(forKey: "currentGorp") ?? "select a group" }
         set { UserDefaults.standard.set(newValue, forKey: "currentGorp") }
     }
-    var link: String {
-        get { UserDefaults.standard.string(forKey: "link") ?? "" } // https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/
+    var link: String { // https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/
+        get { UserDefaults.standard.string(forKey: "link") ?? "https://timetable.spbu.ru/AMCP/StudentGroupEvents/Primary/334120/" }
         set { UserDefaults.standard.set(newValue, forKey: "link") }
     }
     var registered: Bool {
