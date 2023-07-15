@@ -15,9 +15,24 @@ enum CellType {
 }
 
 class BaseCell: UICollectionViewCell {
+    
     static let SettingsCellId = String(describing: BaseCell.self)
-    public let title = UILabel()
-    public let stackInfoView = UIStackView()
+    
+    public let title: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    public let stackInfoView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 2
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
     
     func configure(title: String, type: CellType = .base, image: UIImage? = nil,
                     backgroundColor color: UIColor? = nil, textAlignment alignment: NSTextAlignment? = nil,
@@ -42,29 +57,25 @@ class BaseCell: UICollectionViewCell {
         constaintViews()
         configureAppearance()
     }
+}
+
+@objc
+extension BaseCell {
+    /// set up subview on cell
     func setupViews() {
         setupView(stackInfoView)
         stackInfoView.addArrangedSubview(title)
     }
-    
+    /// add constaraints to subviews
     func constaintViews() {
         stackInfoView.anchor(left: leadingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16,
                              centerY: centerYAnchor)
         title.setDimensions(height: 40)
     }
-    
+    /// configre appearence subviews
     func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
-        self.layer.cornerRadius = 20
-        
-        title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.text
-        title.textAlignment = .left
-        title.numberOfLines = 0
-        
-        stackInfoView.spacing = 2
-        stackInfoView.axis = .horizontal
-        stackInfoView.distribution = .fillEqually
+        self.layer.cornerRadius = 16
     }
 }

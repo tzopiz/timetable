@@ -12,6 +12,7 @@ final class TaskViewController: TTBaseController {
     var task: Task? = nil
     var completion: ((Bool) -> ())?
 }
+
 extension TaskViewController {
     override func setupViews() {
         view.setupView(contentView)
@@ -29,20 +30,18 @@ extension TaskViewController {
             contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
                                   taskName: task.taskName, text: task.taskInfo,
                                   isDone: task.isDone, importance: task.importance, deadline: task.deadline)
-        } else {
-            contentView.configure(label: App.Strings.newTask, isDone: false, true)
-        }
+        } else { contentView.configure(label: App.Strings.newTask, isDone: false, true) }
         contentView.addTargetButtonSave(target: self, action: #selector(saveTask))
         contentView.addTargetButtonDelete(target: self, action: #selector(deleteTask))
     }
+}
+
+extension TaskViewController {
     @IBAction func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
         let taskName: String?
-        if (taskInfoDictionary["taskName"] as? String) == "" {
-            taskName = "Безымянная"
-        } else {
-            taskName = (taskInfoDictionary["taskName"] as? String)
-        }
+        if (taskInfoDictionary["taskName"] as? String) == "" { taskName = "Безымянная" }
+        else { taskName = (taskInfoDictionary["taskName"] as? String) }
         if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
             CoreDataMamanager.shared.createTask(taskName: taskName,
                                                 taskInfo: taskInfoDictionary["taskInfo"] as? String,

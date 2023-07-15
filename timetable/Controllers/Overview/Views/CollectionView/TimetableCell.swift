@@ -9,13 +9,52 @@ import UIKit
 
 final class TimetableCell: UICollectionViewCell {
     
-    static let reuseID =  String(describing: TimetableCell.self)
-    private let stackView = UIStackView()
-    private let firstLineView = UIStackView()
-    private let time = UILabel()
-    private let nameSubject = UILabel()
-    private let address = UILabel()
-    private let teacherName = UILabel()
+    static let reuseIdentifier = String(describing: TimetableCell.self)
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    private let firstLineView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        return stackView
+    }()
+    private let time: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 15)
+        label.textColor = App.Colors.text
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    private let nameSubject: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    private let address: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 13)
+        label.textColor = App.Colors.inactive
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    private let teacherName: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 13)
+        label.textColor = App.Colors.inactive
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
     private let clock = UIImageView()
     private var borderLayer = CAShapeLayer()
 
@@ -41,27 +80,24 @@ final class TimetableCell: UICollectionViewCell {
             clock.image = App.Images.clock
             self.nameSubject.textAlignment = .left
         }
-        if isCancelled {
-            let attributedTimeString = NSAttributedString(string: time,
-                                                      attributes: [
-                                                        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                        NSAttributedString.Key.strikethroughColor: App.Colors.red // Замените на желаемый цвет
-                                                      ])
-            let attributedNameString = NSAttributedString(string: nameSubject,
-                                                      attributes: [
-                                                        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                        NSAttributedString.Key.strikethroughColor: App.Colors.red // Замените на желаемый цвет
-                                                      ])
-            let attributedLocationString = NSAttributedString(string: location,
-                                                      attributes: [
-                                                        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                        NSAttributedString.Key.strikethroughColor: App.Colors.red // Замените на желаемый цвет
-                                                      ])
-            let attributedTeacherString = NSAttributedString(string: teacherName,
-                                                      attributes: [
-                                                        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                        NSAttributedString.Key.strikethroughColor: App.Colors.red // Замените на желаемый цвет
-                                                      ])
+        if isCancelled { // bolt
+            let attributedTimeString = NSAttributedString(string: time, attributes: [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
+                NSAttributedString.Key.strikethroughColor: App.Colors.red
+            ])
+
+            let attributedNameString = NSAttributedString(string: nameSubject, attributes: [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
+                NSAttributedString.Key.strikethroughColor: App.Colors.red
+            ])
+            let attributedLocationString = NSAttributedString(string: location, attributes: [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
+                NSAttributedString.Key.strikethroughColor: App.Colors.red
+            ])
+            let attributedTeacherString = NSAttributedString(string: teacherName, attributes: [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
+                NSAttributedString.Key.strikethroughColor: App.Colors.red
+            ])
             
             self.time.attributedText = attributedTimeString
             self.nameSubject.attributedText = attributedNameString
@@ -94,7 +130,6 @@ private extension TimetableCell {
         stackView.addArrangedSubview(address)
         stackView.addArrangedSubview(teacherName)
     }
-
     func constaintViews() {
         stackView.anchor(top: contentView.topAnchor, paddingTop: 8,
                              bottom: contentView.bottomAnchor, paddingBottom: -8,
@@ -105,38 +140,8 @@ private extension TimetableCell {
         self.contentView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
         clock.setDimensions(height: 16, width: 16)
     }
-
     func configureAppearance() {
-        
-        nameSubject.preferredMaxLayoutWidth = contentView.bounds.width - 32
-        
         self.backgroundColor = App.Colors.BlackWhite
-        self.layer.cornerRadius = 20
-        
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        
-        firstLineView.axis = .horizontal
-        firstLineView.spacing = 5
-        
-        time.font = App.Fonts.helveticaNeue(with: 15)
-        time.textColor = App.Colors.text
-        time.numberOfLines = 0
-        time.lineBreakMode = .byWordWrapping
-        
-        nameSubject.font = App.Fonts.helveticaNeue(with: 17)
-        nameSubject.textColor = App.Colors.text
-        nameSubject.numberOfLines = 0
-        nameSubject.lineBreakMode = .byWordWrapping
-        
-        address.font = App.Fonts.helveticaNeue(with: 13)
-        address.textColor = App.Colors.inactive
-        address.numberOfLines = 0
-        address.lineBreakMode = .byWordWrapping
-        
-        teacherName.font = App.Fonts.helveticaNeue(with: 13)
-        teacherName.textColor = App.Colors.inactive
-        teacherName.numberOfLines = 0
-        teacherName.lineBreakMode = .byWordWrapping
+        self.layer.cornerRadius = 16
     }
 }

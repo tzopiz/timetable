@@ -29,7 +29,6 @@ final class TabBarController: UITabBarController {
         super.init(coder: coder)
         configureAppearance()
         CoreDataMamanager.shared.saveProfileImage()
-
     }
 
     func switchTo(tab: Tabs) { selectedIndex = tab.rawValue }
@@ -61,6 +60,7 @@ final class TabBarController: UITabBarController {
         }
     }
 }
+
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if lastSelectedIndex == 0 && lastSelectedIndex == item.tag {

@@ -33,7 +33,7 @@ final class TTButton: UIButton {
         label.text = title
     }
     func addButtonTarget(target: Any?, action: Selector) {
-        addTarget(action, action: action, for: .touchUpInside)
+        addTarget(target, action: action, for: .touchUpInside)
     }
     /// set helveticaNeue font with size
     func setFontSize(_ size: CGFloat) {
@@ -48,10 +48,9 @@ final class TTButton: UIButton {
 }
 
 private extension TTButton {
-    func setupViews() {
-        setupView(label)
-    }
-
+    /// set up subview on button
+    func setupViews() { setupView(label) }
+    /// add constaraints to subviews
     func constaintViews() {
         var horisontalOffset: CGFloat {
             switch type {
@@ -63,7 +62,7 @@ private extension TTButton {
                      right: trailingAnchor, paddingRight: -10,
                      centerY: centerYAnchor)
     }
-
+    /// configre appearence subviews
     func configureAppearance() {
         switch type {
         case .primary:

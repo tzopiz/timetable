@@ -8,8 +8,17 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    static let id = String(describing: SectionHeaderView.self)
-    private let title =  UILabel()
+    
+    static let reuseIdentifier = String(describing: SectionHeaderView.self)
+    
+    private let title: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 13)
+        label.textColor = App.Colors.inactive
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -29,19 +38,14 @@ final class SectionHeaderView: UICollectionReusableView {
 }
 
 private extension SectionHeaderView {
-    func setupViews() {
-        setupView(title)
-    }
-    
+    /// set up subview on view
+    func setupViews() { setupView(title) }
+    /// add constaraints to subviews
     func constaintViews() {
         title.anchor(left: leadingAnchor, paddingLeft: 32,
                      right: trailingAnchor, paddingRight: -32,
                      centerY: centerYAnchor, centerX: centerXAnchor)
     }
-    func configureAppearance() {
-        title.font = App.Fonts.helveticaNeue(with: 13)
-        title.textColor = App.Colors.inactive
-        title.textAlignment = .center
-        title.numberOfLines = 2
-    }
+    /// configre appearence subviews
+    func configureAppearance() {}
 }

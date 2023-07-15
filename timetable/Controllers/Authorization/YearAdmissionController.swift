@@ -33,7 +33,7 @@ extension YearAdmissionController {
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.SettingsCellId)
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SectionHeaderView.id)
+                                withReuseIdentifier: SectionHeaderView.reuseIdentifier)
     }
 }
 
@@ -59,7 +59,7 @@ extension YearAdmissionController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: SectionHeaderView.id,
+                                                                         withReuseIdentifier: SectionHeaderView.reuseIdentifier,
                                                                          for: indexPath) as? SectionHeaderView
         else { return UICollectionReusableView() }
 
@@ -76,9 +76,7 @@ extension YearAdmissionController {
         let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isUnHighlighted()
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -86,17 +84,13 @@ extension YearAdmissionController {
 extension YearAdmissionController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width - 32, height: 55)
-    }
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 55) }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == yearAdmission.count - 1 {
-            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0)
-        } else {
-            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-        }
+        if section == yearAdmission.count - 1 { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0) }
+        else { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0) }
     }
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,

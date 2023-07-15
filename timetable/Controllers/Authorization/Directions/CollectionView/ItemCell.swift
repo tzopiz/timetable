@@ -8,11 +8,11 @@
 import UIKit
 
 class ItemCell: UICollectionViewCell {
-    static let reuseIdentifier = "ItemCell"
     
-    let textLabel: UILabel = {
+    static let reuseIdentifier = String(describing: ItemCell.self)
+    
+    private let textLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = App.Colors.text
         label.numberOfLines = 0
@@ -28,18 +28,13 @@ class ItemCell: UICollectionViewCell {
         
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        
-        NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-        
         contentView.backgroundColor = App.Colors.BlackWhite
+        
+        textLabel.anchor(top: contentView.topAnchor, bottom: contentView.bottomAnchor,
+                         left: contentView.leadingAnchor, paddingLeft: 16,
+                         right: contentView.trailingAnchor, paddingRight: -16)
     }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    func configure(_ text: String) { textLabel.text = text }
 }

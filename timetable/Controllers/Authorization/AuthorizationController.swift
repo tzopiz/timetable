@@ -7,6 +7,15 @@
 
 import UIKit
 
+struct Direction {
+    let name: String
+    let items: [String]
+}
+struct Faculty {
+    let header: String
+    let directions: [Direction]
+}
+
 final class AuthorizationController: TTBaseController {
     private let kindTimetable = ["Student", "Teacher"]
 }
@@ -27,9 +36,9 @@ extension AuthorizationController {
 extension AuthorizationController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
     -> Int { kindTimetable.count }
-
+    
     override func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
@@ -39,12 +48,9 @@ extension AuthorizationController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            let vc = FacultiesController()
-            navigationController?.pushViewController(vc, animated: true)
+        case 0: navigationController?.pushViewController(FacultiesController(), animated: true)
         default: break
         }
-       
     }
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
@@ -67,14 +73,12 @@ extension AuthorizationController {
     -> CGFloat { 32 }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width - 64, height: 100)
-    }
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize { CGSize(width: collectionView.frame.width - 64, height: 100) }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16, left: 0.0, bottom: 16.0, right: 0.0)
-    }
+                        insetForSectionAt section: Int)
+    -> UIEdgeInsets { UIEdgeInsets(top: 16, left: 0.0, bottom: 16.0, right: 0.0) }
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)

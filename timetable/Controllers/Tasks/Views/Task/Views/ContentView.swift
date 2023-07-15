@@ -9,34 +9,122 @@ import UIKit
 
 final class ContentView: TTBaseView {
     
-    private let topLabel = UILabel()
-    private let nameTaskField = UITextField()
-    private let taskInfoView = UITextView()
-   
-    private let buttonSave = UIButton(type: .system)
-    private let buttonDelete = UIButton(type: .system)
-    
-    private let buttonStackView = UIStackView()
-    private let settingsStackView = UIStackView()
-    private let mainStackView = UIStackView()
-    
-    private let importanceTask = TTBaseView()
-    private let importanceLabel = UILabel()
-    private let segmentedControl = UISegmentedControl(items: [UIImage(),
-                                                              App.Images.exclamation_1,
-                                                              App.Images.exclamation_2,
-                                                              App.Images.exclamation_3])
-    
-    private let deadlineTask = TTBaseView()
-    private let deadlineLabel = UILabel()
-    private let datePicker = UIDatePicker()
-    private let switcher = UISwitch()
-    
+    private let topLabel: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        label.textAlignment = .center
+        return label
+    }()
+    private let nameTaskField: UITextField = {
+        let textField = UITextField()
+        textField.font = App.Fonts.helveticaNeue(with: 17)
+        textField.textColor = App.Colors.text
+        textField.placeholder = "Новая задача"
+        textField.backgroundColor = App.Colors.BlackWhite
+        textField.layer.cornerRadius = 10
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftViewMode = .always
+        return textField
+    }()
+    private let taskInfoView: UITextView = {
+        let textView = UITextView()
+        textView.font = App.Fonts.helveticaNeue(with: 17)
+        textView.textColor = App.Colors.text
+        textView.text = ""
+        textView.backgroundColor = App.Colors.BlackWhite
+        textView.layer.cornerRadius = 10
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        return textView
+    }()
+    private let buttonSave: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = App.Colors.active
+        button.setTitle("Сохранить", for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
+        return button
+    }()
+    private let buttonDelete: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = App.Colors.red
+        button.setTitle("Удалить", for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
+        return button
+    }()
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
+    }()
+    private let settingsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    private let importanceTask: TTBaseView = {
+        let view = TTBaseView()
+        view.backgroundColor = App.Colors.BlackWhite
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    private let importanceLabel: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        label.textAlignment = .left
+        label.text = "Важность: "
+        return label
+    }()
+    private let segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: [UIImage(),
+                                                 App.Images.exclamation_1,
+                                                 App.Images.exclamation_2,
+                                                 App.Images.exclamation_3])
+        control.setTitleTextAttributes([.foregroundColor: App.Colors.red], for: .normal)
+        return control
+    }()
+    private let deadlineTask: TTBaseView = {
+        let view = TTBaseView()
+        view.backgroundColor = App.Colors.BlackWhite
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    private let deadlineLabel: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        label.textAlignment = .left
+        label.text = "Deadline: "
+        return label
+    }()
+    private let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
+        picker.datePickerMode = .date
+        picker.minimumDate = Date()
+        picker.maximumDate = Date().addingTimeInterval(4 * oneYearTime)
+        return picker
+    }()
+    private let switcher: UISwitch = {
+        let switcher = UISwitch()
+        switcher.onTintColor = App.Colors.active
+        return switcher
+    }()
     private var isDone = false
     private var importance: Int16 = 0
     private var needCreate: Bool?
     private var deadline: Date?
-
+    
     func configure(label: String,
                    taskName: String? = "",
                    text: String? = "",
@@ -60,7 +148,6 @@ final class ContentView: TTBaseView {
             self.datePicker.alpha = 1
             self.datePicker.date = deadline
         }
-       
     }
     func getTaskInfo() -> [String: Any] {
         var task: [String: Any] = [:]
@@ -72,7 +159,34 @@ final class ContentView: TTBaseView {
         task["deadline"] = deadline
         return task
     }
-
+    func addTargetButtonSave(target: Any?, action: Selector) { buttonSave.addTarget(action, action: action, for: .touchUpInside) }
+    func addTargetButtonDelete(target: Any?, action: Selector) { buttonDelete.addTarget(action, action: action, for: .touchUpInside) }
+    
+    @IBAction func segmentedControlChange(_ sender: UISegmentedControl) { importance = Int16(sender.selectedSegmentIndex)}
+    @IBAction func datePickerChange(parametr: UIDatePicker) { deadline = parametr.date }
+    @IBAction func deadlineHandler(_ sender: UISwitch) {
+        if sender.isOn {
+            TTBaseView.animate(
+                withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                options: .curveEaseOut, animations: {
+                    self.datePicker.transform = .identity
+                    self.datePicker.alpha = 1
+                }, completion: { _ in
+                    self.deadline = Date()
+                    self.datePicker.date = self.deadline!
+                })
+        } else {
+            TTBaseView.animate(
+                withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
+                options: .curveEaseOut, animations: {
+                    self.datePicker.alpha = 0
+                    self.datePicker.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }, completion: { _ in
+                    self.deadline = nil
+                    self.datePicker.date = Date()
+                })
+        }
+    }
 }
 
 extension ContentView {
@@ -130,104 +244,11 @@ extension ContentView {
         super.configureAppearance()
         self.backgroundColor = App.Colors.background
         
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 16
-        settingsStackView.axis = .vertical
-        settingsStackView.spacing = 16
-        
-        topLabel.font = App.Fonts.helveticaNeue(with: 17)
-        topLabel.textColor = App.Colors.text
-        topLabel.textAlignment = .center
-        
-        nameTaskField.font = App.Fonts.helveticaNeue(with: 17)
-        nameTaskField.textColor = App.Colors.text
-        nameTaskField.placeholder = "Новая задача"
-        nameTaskField.backgroundColor = App.Colors.BlackWhite
-        nameTaskField.layer.cornerRadius = 10
-        nameTaskField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTaskField.frame.height))
-        nameTaskField.leftViewMode = .always
-        
-        taskInfoView.font = App.Fonts.helveticaNeue(with: 17)
-        taskInfoView.textColor = App.Colors.text
-        taskInfoView.text = ""
-        taskInfoView.backgroundColor = App.Colors.BlackWhite
-        taskInfoView.layer.cornerRadius = 10
-        taskInfoView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        
-        buttonSave.tintColor = App.Colors.active
-        buttonSave.setTitle("Сохранить", for: .normal)
-        buttonSave.backgroundColor = UIColor.clear
-        buttonSave.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        
-        buttonDelete.tintColor = App.Colors.red
-        buttonDelete.setTitle("Удалить", for: .normal)
-        buttonDelete.backgroundColor = UIColor.clear
-        buttonDelete.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        
-        importanceTask.backgroundColor = App.Colors.BlackWhite
-        importanceTask.layer.cornerRadius = 10
-        
-        importanceLabel.font = App.Fonts.helveticaNeue(with: 17)
-        importanceLabel.textColor = App.Colors.text
-        importanceLabel.textAlignment = .left
-        importanceLabel.text = "Важность: "
-
-        segmentedControl.setTitleTextAttributes([.foregroundColor: App.Colors.red], for: .normal)
         segmentedControl.addTarget(self, action: #selector(segmentedControlChange), for: .valueChanged)
-        
-        deadlineTask.backgroundColor = App.Colors.BlackWhite
-        deadlineTask.layer.cornerRadius = 10
-        
-        deadlineLabel.font = App.Fonts.helveticaNeue(with: 17)
-        deadlineLabel.textColor = App.Colors.text
-        deadlineLabel.textAlignment = .left
-        deadlineLabel.text = "Deadline: "
-        
-        switcher.onTintColor = App.Colors.active
         switcher.addTarget(self, action: #selector(deadlineHandler), for: .valueChanged)
-        
-        let oneYearTime: TimeInterval = 365 * 24 * 60 * 60
-        datePicker.datePickerMode = .date
-        datePicker.minimumDate = Date()
-        datePicker.maximumDate = Date().addingTimeInterval(4 * oneYearTime)
         datePicker.addTarget(self, action: #selector(datePickerChange(parametr:)), for: .valueChanged)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         addGestureRecognizer(tap)
-    }
-    @IBAction func segmentedControlChange(_ sender: UISegmentedControl) {
-        importance = Int16(sender.selectedSegmentIndex)
-    }
-    @IBAction func datePickerChange(parametr: UIDatePicker) {
-        deadline = parametr.date
-    }
-    @IBAction func deadlineHandler(_ sender: UISwitch) {
-        if sender.isOn {
-            TTBaseView.animate(
-                withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-                options: .curveEaseOut, animations: {
-                    self.datePicker.transform = .identity
-                    self.datePicker.alpha = 1
-            }, completion: { _ in
-                self.deadline = Date()
-                self.datePicker.date = self.deadline!
-            })
-        } else {
-            TTBaseView.animate(
-                withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-                options: .curveEaseOut, animations: {
-                    self.datePicker.alpha = 0
-                    self.datePicker.transform = CGAffineTransform(scaleX: 1, y: 1)
-                }, completion: { _ in
-                    self.deadline = nil
-                    self.datePicker.date = Date()
-                })
-        }
-    }
-    func addTargetButtonSave(target: Any?, action: Selector) {
-        buttonSave.addTarget(action, action: action, for: .touchUpInside)
-    }
-    func addTargetButtonDelete(target: Any?, action: Selector) {
-        buttonDelete.addTarget(action, action: action, for: .touchUpInside)
     }
 }

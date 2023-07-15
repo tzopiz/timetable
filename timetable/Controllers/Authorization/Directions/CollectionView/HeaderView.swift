@@ -9,9 +9,9 @@ import UIKit
 
 class HeaderView: UICollectionReusableView {
     
-    static let reuseIdentifier = "HeaderView"
+    static let reuseIdentifier = String(describing: HeaderView.self)
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = App.Colors.text
@@ -20,8 +20,8 @@ class HeaderView: UICollectionReusableView {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    let expandButton: UIButton = {
-        let button = UIButton(type: .system)
+    private let expandButton: TTButton = {
+        let button = TTButton(with: .secondary)
         return button
     }()
     private let stackView: UIStackView = {
@@ -43,9 +43,12 @@ class HeaderView: UICollectionReusableView {
         
         expandButton.setDimensions(width: 32)
     }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func configure(with text: String, status isOpen: Bool, tag: Int, target: Any?, action: Selector) {
+        titleLabel.text = text
+        expandButton.tag = tag
+        expandButton.setImage(isOpen ? UIImage(systemName: "chevron.down") : UIImage(systemName: "minus"), for: .normal)
+        expandButton.addButtonTarget(target: target, action: action)
     }
 }
-

@@ -8,6 +8,7 @@
 import UIKit
 
 final class AppearenceCell: BaseCell {
+    
     static let AppearenceCellId = String(describing: AppearenceCell.self)
     private let button = TTButton(with: .secondary)
     
@@ -57,6 +58,5 @@ final class AppearenceCell: BaseCell {
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
         viewController?.present(alert, animated: true, completion: nil)
     }
-    
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 
 final class TasksController: TTBaseController {
-    private var currentType: App.TaskType =  UserDefaults.standard.taskType.getUserTaskType()
+    private var currentType: App.TaskType = UserDefaults.standard.taskType.getUserTaskType()
 }
 
 // MARK: - Configure
@@ -19,14 +19,12 @@ extension TasksController {
         navigationItem.title = App.Strings.tasks
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseID)
+        collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseIdentifier)
         
         addNavBarButton(at: .right, with: "Добавить")
         switch currentType {
-        case .active:
-            addNavBarButton(at: .left, with: "Активные")
-        case .all:
-            addNavBarButton(at: .left, with: "Все")
+        case .active: addNavBarButton(at: .left, with: "Активные")
+        case .all: addNavBarButton(at: .left, with: "Все")
         }
     }
     override func navBarRightButtonHandler() {
@@ -62,7 +60,7 @@ extension TasksController {
     override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TasksCell.reuseID, for: indexPath
+            withReuseIdentifier: TasksCell.reuseIdentifier, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
         let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
         cell.configure(task: task)
@@ -103,14 +101,12 @@ extension TasksController {
 extension TasksController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width - 32, height: 70)
-    }
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 70) }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16, left: 0.0, bottom: 16.0, right: 0.0)
-    }
+                        insetForSectionAt section: Int)
+    -> UIEdgeInsets { UIEdgeInsets(top: 16, left: 0.0, bottom: 16.0, right: 0.0) }
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)

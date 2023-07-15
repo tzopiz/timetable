@@ -9,15 +9,31 @@ import UIKit
 
 final class TasksCell: UICollectionViewCell {
     
-    static let reuseID =  String(describing: TasksCell.self)
-    private let buttonCheckmarkView = TTButton(with: .primary)
-    private let stackView = UIStackView()
-    private let title = UILabel()
-    private let subtitle = UILabel()
+    static let reuseIdentifier =  String(describing: TasksCell.self)
+    
+    private let title: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 17)
+        label.textColor = App.Colors.text
+        return label
+    }()
+    private let subtitle: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 13)
+        label.textColor = App.Colors.inactive
+        return label
+    }()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 3
+        return stackView
+    }()
     private let importance = UIImageView()
-    private var task: Task? = nil
-    private var deadline: String = ""
     private let notificationButton = TTButton(with: .primary)
+    private let buttonCheckmarkView = TTButton(with: .primary)
+    private var task: Task?
+    private var deadline: String = ""
     var completion: (() -> ())?
 
     override init(frame: CGRect) {
@@ -60,7 +76,6 @@ final class TasksCell: UICollectionViewCell {
             notificationButton.setImage(nil, for: .normal)
             notificationButton.menu = nil
         }
-        
     }
     
     func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -103,16 +118,7 @@ private extension TasksCell {
     }
     func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
-        self.layer.cornerRadius = 20
-        
-        stackView.axis = .vertical
-        stackView.spacing = 3
-        
-        title.font = App.Fonts.helveticaNeue(with: 17)
-        title.textColor = App.Colors.text
-        
-        subtitle.font = App.Fonts.helveticaNeue(with: 13)
-        subtitle.textColor = App.Colors.inactive
+        self.layer.cornerRadius = 16
         
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
         notificationButton.showsMenuAsPrimaryAction = true

@@ -15,9 +15,7 @@ final class PeopleController {
         let filtered = people.filter { $0.name.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
-        } else {
-            return filtered
-        }
+        } else { return filtered }
     }
     private lazy var people: [Teacher] = []
 }

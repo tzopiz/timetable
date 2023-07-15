@@ -23,7 +23,6 @@
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */; };
-		0AC485CD29E07B70009B9EE5 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485CC29E07B70009B9EE5 /* Data.swift */; };
 		0AC485CF29E0855C009B9EE5 /* YearAdmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
@@ -97,7 +96,6 @@
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionFacultyController.swift; sourceTree = "<group>"; };
-		0AC485CC29E07B70009B9EE5 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearAdmissionController.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,8 +179,8 @@
 		0A0ECBFB2A5F1E80004BDB61 /* Directions */ = {
 			isa = PBXGroup;
 			children = (
-				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
 				0A0ECBFC2A5F1E94004BDB61 /* CollectionView */,
+				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
 			);
 			path = Directions;
 			sourceTree = "<group>";
@@ -235,7 +233,6 @@
 				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
 				0A0ECBFB2A5F1E80004BDB61 /* Directions */,
 				0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */,
-				0AC485CC29E07B70009B9EE5 /* Data.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -795,7 +792,6 @@
 				0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
-				0AC485CD29E07B70009B9EE5 /* Data.swift in Sources */,
 				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,
 				0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,

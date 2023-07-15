@@ -10,9 +10,25 @@ import UIKit
 final class ProfileCell: BaseCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)
-    private let subtitle = UILabel()
-    private let leftView = UIImageView()
+    
+    private let subtitle: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 15)
+        label.textColor = App.Colors.inactive
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    private let leftView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 44
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = App.Colors.separator.cgColor
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     var completion: (() -> (UIImage))?
+    
     func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         self.title.text = title
         subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
@@ -24,6 +40,9 @@ final class ProfileCell: BaseCell {
         let newImage = CoreDataMamanager.shared.fetchImageProfile()
         self.leftView.image = newImage
     }
+}
+
+extension ProfileCell {
     override func setupViews() {
         super.setupViews()
         stackInfoView.addArrangedSubview(subtitle)
@@ -37,20 +56,9 @@ final class ProfileCell: BaseCell {
                              centerY: centerYAnchor)
         leftView.setDimensions(height: 88, width: 88)
     }
-
     override func configureAppearance() {
         super.configureAppearance()
-       
-        subtitle.font = App.Fonts.helveticaNeue(with: 15)
-        subtitle.textColor = App.Colors.inactive
-        subtitle.textAlignment = .left
-        subtitle.numberOfLines = 0
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
-        
-        leftView.layer.cornerRadius = 44
-        leftView.layer.borderWidth = 1
-        leftView.layer.borderColor = App.Colors.separator.cgColor
-        leftView.clipsToBounds = true
     }
 }
