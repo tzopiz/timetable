@@ -15,6 +15,8 @@ class ItemCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = App.Colors.text
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.font = App.Fonts.helveticaNeue(with: 17)
         return label
     }()

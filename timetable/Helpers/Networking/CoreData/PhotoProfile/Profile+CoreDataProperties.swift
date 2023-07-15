@@ -13,11 +13,10 @@ import CoreData
 public class Profile: NSManagedObject { }
 
 extension Profile {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Profile> {
         return NSFetchRequest<Profile>(entityName: "Profile")
     }
-
+    
     @NSManaged public var photo: Data?
-
 }

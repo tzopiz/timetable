@@ -99,12 +99,8 @@ extension OverviewController {
         refreshData()
     }
     // TODO: normal animate swipe collection view and navbar
-    @IBAction func rightSwipeWeek() {
-        navBar.rightSwipeWeek()
-    }
-    @IBAction func leftSwipeWeek() {
-        navBar.leftSwipeWeek()
-    }
+    @IBAction func rightSwipeWeek() { navBar.rightSwipeWeek() }
+    @IBAction func leftSwipeWeek() { navBar.leftSwipeWeek() }
     @IBAction func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
@@ -124,30 +120,17 @@ extension OverviewController {
     func scrollToDay(with index: Int) {
         if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
             if index < self.dataSource.count {
-
                 // Получаем высоту UICollectionReusableView
                 let headerHeight = collectionView.collectionViewLayout
-                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: index))?.frame.height ?? 0
-                let yOffset = collectionView.layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
-                
+                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                          at: IndexPath(item: 0, section: index))?.frame.height ?? 0
+                let yOffset = collectionView
+                    .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
+                                                             at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
                 collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
-                
             } else { scrollCollectionViewToTop() }
         }
     }
-    func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-        if text.isEmpty {
-            return 0 // Возвращаем 0, если текст пустой
-        }
-        
-        let label = UILabel()
-        label.text = text
-        label.font = font
-        label.numberOfLines = 0
-        let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
-        return size.height
-    }
-
 }
 
 // MARK: - UICollectionViewDataSource

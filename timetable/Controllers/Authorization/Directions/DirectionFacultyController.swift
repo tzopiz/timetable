@@ -7,14 +7,12 @@
 
 import UIKit
 
-
 final class DirectionFacultyController: TTBaseController {
     private var directions: [Section] = APIManager.shared.getSections()
 
     @objc func toggleSection(_ sender: UIButton) {
         let section = sender.tag
         directions[section].isExpanded.toggle()
-        
         collectionView.reloadSections(IndexSet(integer: section))
     }
 }
@@ -22,12 +20,6 @@ final class DirectionFacultyController: TTBaseController {
 // MARK: -Configure
 
 extension DirectionFacultyController {
-    override func setupViews() {
-        super.setupViews()
-    }
-    override func constraintViews() {
-        super.constraintViews()
-    }
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = APIManager.shared.getTitle()
@@ -38,22 +30,16 @@ extension DirectionFacultyController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.link = "https://timetable.spbu.ru"
         super.viewWillDisappear(animated)
-        let url = URL(string: UserDefaults.standard.link)!
-        let newLink = url.deletingLastPathComponent().absoluteString
-        UserDefaults.standard.link = String(newLink.dropLast())
     }
-
+    
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
 
 extension DirectionFacultyController {
-    // MARK: - UICollectionViewDataSource
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return directions.count
-    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int { return directions.count }
     
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
@@ -62,9 +48,10 @@ extension DirectionFacultyController {
     
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as! ItemCell
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as! ItemCell
         let item = directions[indexPath.section].items[indexPath.item]
+        
         cell.textLabel.text = item
         
         return cell
@@ -111,23 +98,25 @@ extension DirectionFacultyController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        let height: CGFloat = 44
-        return CGSize(width: width - 32, height: height)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView,
-                                 layout collectionViewLayout: UICollectionViewLayout,
-                                 referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let width = collectionView.frame.width
-        let height: CGFloat = 44
-        return CGSize(width: width - 32, height: height)
+        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let item = directions[indexPath.section].items[indexPath.row]
+        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        
+        return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16) // Отступы секций
     }
-
+    override func collectionView(_ collectionView: UICollectionView,
+                                 layout collectionViewLayout: UICollectionViewLayout,
+                                 referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let section = directions[section]
+        let height = heightForLabel(text: section.title, font: App.Fonts.helveticaNeue(with: 19), width: width) + 16
+        
+        return CGSize(width: width - 32, height: height)
+    }
 }
 

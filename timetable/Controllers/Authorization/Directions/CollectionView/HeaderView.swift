@@ -8,21 +8,20 @@
 import UIKit
 
 class HeaderView: UICollectionReusableView {
+    
     static let reuseIdentifier = "HeaderView"
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = App.Colors.text
         label.font = App.Fonts.helveticaNeue(with: 19)
-
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
     let expandButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     private let stackView: UIStackView = {
@@ -31,7 +30,6 @@ class HeaderView: UICollectionReusableView {
         stackView.spacing = 16
         return stackView
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

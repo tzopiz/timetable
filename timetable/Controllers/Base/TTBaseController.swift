@@ -53,6 +53,18 @@ class TTBaseController: UIViewController {
     func scrollCollectionViewToTop() {
         self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
+    func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        if text.isEmpty {
+            return 0 // Возвращаем 0, если текст пустой
+        }
+        
+        let label = UILabel()
+        label.text = text
+        label.font = font
+        label.numberOfLines = 0
+        let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        return size.height
+    }
 }
 
 // MARK: - UICollectionViewDataSource

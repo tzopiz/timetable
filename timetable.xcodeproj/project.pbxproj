@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A0ECBF62A5F0C15004BDB61 /* CurrentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */; };
 		0A0ECBF82A5F1E55004BDB61 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */; };
 		0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */; };
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
@@ -82,7 +81,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLink.swift; sourceTree = "<group>"; };
 		0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				0A0ECBFB2A5F1E80004BDB61 /* Directions */,
 				0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */,
 				0AC485CC29E07B70009B9EE5 /* Data.swift */,
-				0A0ECBF52A5F0C15004BDB61 /* CurrentLink.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -789,7 +786,6 @@
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
-				0A0ECBF62A5F0C15004BDB61 /* CurrentLink.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,

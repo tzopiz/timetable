@@ -12,13 +12,13 @@ import CoreData
 // MARK: - CRUD
 
 public final class CoreDataMamanager: NSObject {
+    
     public static let shared = CoreDataMamanager()
     private override init() {}
     
     private var appDelegate: AppDelegate {
         UIApplication.shared.delegate as! AppDelegate
     }
-    
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
     }
@@ -42,7 +42,6 @@ public final class CoreDataMamanager: NSObject {
         task.deadline = deadline
         appDelegate.saveContext()
     }
-    
     public func saveProfileImage(_ image: UIImage? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
         do {
@@ -67,9 +66,7 @@ public final class CoreDataMamanager: NSObject {
     
     public func fetchTasks() -> [Task] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        do {
-            return (try? context.fetch(fetchRequest) as? [Task]) ?? []
-        }
+        do { return (try? context.fetch(fetchRequest) as? [Task]) ?? [] }
     }
     func fetchTasksDefined(with type: App.TaskType) -> [Task] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
@@ -84,10 +81,8 @@ public final class CoreDataMamanager: NSObject {
                     }
                 }
                 return ans
-            case .all:
-                return (try? context.fetch(fetchRequest) as? [Task]) ?? []
+            case .all: return (try? context.fetch(fetchRequest) as? [Task]) ?? []
             }
-            
         }
     }
     public func fetchTask(with id: UUID?) -> Task? {
@@ -98,7 +93,6 @@ public final class CoreDataMamanager: NSObject {
             return tasks?.first(where: { $0.id == id })
         }
     }
-    
     public func fetchImageProfile() -> UIImage? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
         do {
@@ -127,7 +121,6 @@ public final class CoreDataMamanager: NSObject {
             task.importance = importance!
             task.deadline = deadline
         }
-        
         appDelegate.saveContext()
     }
     public func updataTypeTask(with id: UUID?, isDone: Bool) {
@@ -138,7 +131,6 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.isDone = isDone
         }
-        
         appDelegate.saveContext()
     }
     public func updataDeadlineTask(with id: UUID?, deadline: Date) {
@@ -149,7 +141,6 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.deadline = deadline
         }
-        
         appDelegate.saveContext()
     }
     
@@ -161,7 +152,6 @@ public final class CoreDataMamanager: NSObject {
             let tasks = try? context.fetch(fetchRequest) as? [Task]
             tasks?.forEach { context.delete($0) }
         }
-        
         appDelegate.saveContext()
     }
     public func deletaTask(with id: UUID?) {
@@ -172,10 +162,8 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id}) else { return }
             context.delete(task)
         }
-        
         appDelegate.saveContext()
     }
-    
     public func deleteProfilePhoto() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
         do {
@@ -184,7 +172,6 @@ public final class CoreDataMamanager: NSObject {
             let pngImage = App.Images.imageProfile.pngData()
             profile.photo = pngImage
         }
-        
         appDelegate.saveContext()
     }
 }

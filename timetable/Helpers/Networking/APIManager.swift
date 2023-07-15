@@ -11,15 +11,11 @@ import SwiftSoup
 struct Section {
     let title: String
     var items: [String]
-    var isExpanded: Bool
-    init(title: String, items: [String], isExpanded: Bool = false) {
-        self.title = title
-        self.items = items
-        self.isExpanded = isExpanded
-    }
+    var isExpanded: Bool = false
 }
 
 final class APIManager {
+    
     static let shared = APIManager()
     private let teachersUrl =
     URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
@@ -27,7 +23,7 @@ final class APIManager {
     func loadData(with firstDay: String?,
                   completion: @escaping (StudyWeek) -> Void) {
         
-        let timeInterval: String!
+        let timeInterval: String
         guard let firstDay = firstDay else { return }
         if firstDay == "\(Date())".components(separatedBy: " ")[0] { timeInterval = "" }
         else { timeInterval = "/" + firstDay }
@@ -36,18 +32,17 @@ final class APIManager {
         guard let url = url else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
             if let error = error {
                 print("Ошибка при чтении данных: \(error)")
                 return
             }
-            
+
             if let data = data, let html = String(data: data, encoding: .utf8) {
                 do {
                     let doc = try SwiftSoup.parse(html)
-                    
                     let startDateElement = try doc.select("#timetable-week-navigator-chosen-week a")
-                    let startDate = try? startDateElement.attr("data-weekmonday") // TODO: что то тут хранить
-                    
+                    let startDate = try? startDateElement.attr("data-weekmonday")
                     var dayDataArray: [StudyDay] = []
                     
                     for element in try doc.select("div.panel.panel-default") {
@@ -70,25 +65,19 @@ final class APIManager {
                                 teacher = try educatorElement.text()
                             }
                             let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
-                            
                             let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
                             lessons.append(lesson)
                         }
-                        
                         let schoolDay = StudyDay(date: date, lessons: lessons)
                         dayDataArray.append(schoolDay)
                     }
-                    
                     let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate), days: dayDataArray)
                     completion(schoolWeek)
-                } catch {
-                    print("Ошибка при разборе HTML: \(error)")
-                }
+                } catch { print("Ошибка при разборе HTML: \(error)") }
             }
         }.resume()
-        
     }
-    
+    // TODO: -
     func getTeachres(completion: @escaping ([Teacher]) -> Void) {
         guard let url = APIManager.shared.teachersUrl else { return }
         var dataSource: [Teacher] = []
@@ -101,6 +90,7 @@ final class APIManager {
                 let doc: Document = try SwiftSoup.parse(html)
                 let teachers = try doc.select("td")
                 var i = 4
+                
                 while i < teachers.count {
                     let name = try teachers[i - 4].text()
                     var info: String = ""
@@ -124,15 +114,13 @@ final class APIManager {
     }
     
     private func loadFaculties(completion: @escaping ([(text: String, href: String)]) -> Void) {
-        // URL-адрес страницы для парсинга
         guard let url = URL(string: UserDefaults.standard.link) else { return }
-        
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 completion([])
                 return
-            }
+            } // TODO: there no only faculties at the end
             
             if let data = data, let html = String(data: data, encoding: .utf8) {
                 do {
@@ -144,6 +132,7 @@ final class APIManager {
                     
                     // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
                     var elementArray: [(text: String, href: String)] = []
+                    
                     for liElement in liElements {
                         if let aElement = try liElement.select("a").first(),
                            let href = try? aElement.attr("href"), !href.isEmpty,
@@ -151,7 +140,6 @@ final class APIManager {
                             elementArray.append((text: text, href: href))
                         }
                     }
-                    
                     completion(elementArray)
                 } catch {
                     print("Ошибка: \(error)")
@@ -164,12 +152,10 @@ final class APIManager {
     func getFaculties() -> [(text: String, href: String)] {
         let semaphore = DispatchSemaphore(value: 0)
         var elements: [(text: String, href: String)] = []
-        
         loadFaculties { result in
             elements = result
             semaphore.signal()
         }
-        
         semaphore.wait()
         return elements
     }
@@ -182,14 +168,12 @@ final class APIManager {
                 print("Error: \(error)")
                 return
             }
-            
             if let data = data, let html = String(data: data, encoding: .utf8) {
                 do {
                     let doc = try SwiftSoup.parse(html)
                     let panelElements = try doc.select(".panel-group .panel")
-                    
                     var sections: [Section] = []
-                    
+
                     for panelElement in panelElements {
                         let titleElement = try panelElement.select(".panel-heading .panel-title a")
                         let itemsElement = try panelElement.select(".panel-collapse .common-list-item")
@@ -216,12 +200,10 @@ final class APIManager {
     func getSections() -> [Section] {
         let semaphore = DispatchSemaphore(value: 0)
         var section: [Section] = []
-        
         loadAndPrintSections { result in
             section = result
             semaphore.signal()
         }
-        
         semaphore.wait()
         return section
     }
@@ -250,28 +232,18 @@ final class APIManager {
                     print("Ошибка при парсинге HTML: \(error)")
                     completion(nil)
                 }
-            } else {
-                completion(nil)
-            }
+            } else { completion(nil) }
         }
         task.resume()
     }
     func getTitle() -> String {
         var result: String = ""
-        
         let semaphore = DispatchSemaphore(value: 0)
-        
         loadTitle { title in
-            if title != nil {
-                result = title ?? ""
-            }
+            if let title = title { result = title }
             semaphore.signal()
         }
-        
         semaphore.wait()
-        
         return result
     }
-
-
 }
