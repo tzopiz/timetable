@@ -32,10 +32,8 @@ extension UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor(dynamicProvider: {
                     switch $0.userInterfaceStyle {
-                    case .dark:
-                        return dark
-                    case .light, .unspecified:
-                        return light
+                    case .dark: return dark
+                    case .light, .unspecified: return light
                     @unknown default:
                         assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
                         return light

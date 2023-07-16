@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 struct SettingsData {
     struct Data {
@@ -40,7 +41,7 @@ extension ProfileController {
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.ProfileCellId)
         collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.AppearenceCellId)
-        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: SettingsCell.SettingsCellId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
@@ -50,7 +51,7 @@ extension ProfileController {
         ]
         versionLabel.text = Bundle.main.releaseVersionNumber
         versionLabel.font = App.Fonts.helveticaNeue(with: 10)
-        versionLabel.textColor = App.Colors.title
+        versionLabel.textColor = App.Colors.text
         versionLabel.textAlignment = .center
     }
 }
@@ -58,9 +59,7 @@ extension ProfileController {
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 
 extension ProfileController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataSource.count
-    }
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { dataSource.count }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = dataSource[indexPath.row].item
@@ -81,30 +80,43 @@ extension ProfileController {
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SettingsCell.SettingsCellId,
-                for: indexPath) as? SettingsCell
+                withReuseIdentifier: BaseCell.baseId,
+                for: indexPath) as? BaseCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
+        let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? SettingsCell
+        let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isUnHighlighted()
+    }
+    func openImagePickerVC() {  // TODO: read about this
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        
+        present(picker, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1:
-            let gVC = GroupsViewController()
-            gVC.completion = { [weak self] in
-                guard let self = self else { return }
-                self.collectionView.reloadData()
-            }
-            navigationController?.pushViewController(gVC, animated: true)
+        case 0:
+            openImagePickerVC()
+        case 3:
+            UserDefaults.standard.registered = false
+            UserDefaults.standard.link = "https://timetable.spbu.ru"
+            
+            let vc = AuthorizationController()
+            let navVc = NavigationController(rootViewController: vc)
+            let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            windowScenes?.windows.first?.switchRootViewController(navVc)
         default:
             print(#function)
         }
@@ -116,17 +128,33 @@ extension ProfileController {
 extension ProfileController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        indexPath.row == 0 ? CGSize(width: collectionView.frame.width - 32, height: 120) : CGSize(width: collectionView.frame.width - 32, height: 65)
-    }
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize { indexPath.row == 0 ?
+        CGSize(width: collectionView.frame.width - 32, height: 120) :
+        CGSize(width: collectionView.frame.width - 32, height: 65) }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16, left: 16.0, bottom: 16.0, right: 16.0)
-    }
+                        insetForSectionAt section: Int)
+    -> UIEdgeInsets { UIEdgeInsets(top: 16, left: 16.0, bottom: 16.0, right: 16.0) }
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
-                                 referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 0)
+                                 referenceSizeForHeaderInSection section: Int)
+    -> CGSize { CGSize(width: collectionView.frame.width, height: 0) }
+}
+
+extension ProfileController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        guard let result = results.first else { return }
+        
+        result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
+            if let image = object as? UIImage {
+                DispatchQueue.main.async {
+                    CoreDataMamanager.shared.saveProfileImage(image)
+                    self?.collectionView.reloadData()
+                }
+            }
+        }
     }
 }

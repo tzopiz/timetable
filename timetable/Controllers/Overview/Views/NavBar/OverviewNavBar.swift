@@ -24,7 +24,6 @@ extension OverviewNavBar {
         setupView(separator)
         setupView(allWorkoutsButton)
     }
-    
     override func constraintViews() {
         super.constraintViews()
         titleLabel.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
@@ -49,22 +48,21 @@ extension OverviewNavBar {
         
         titleLabel.setTitle(App.Strings.overview)
         titleLabel.addButtonTarget(target: self, action: #selector(toToday))
-        
         allWorkoutsButton.backgroundColor = App.Colors.secondary
         
         weekView.completion = self.completionScroll
     }
-    @objc func rightSwipeWeek() {
+    @IBAction func rightSwipeWeek() {
         weekView.shift += 7
         animateLeftSwipe()
         completionUpdate?(getFirstDay(), nil)
     }
-    @objc func leftSwipeWeek() {
+    @IBAction func leftSwipeWeek() {
         weekView.shift -= 7
         animateRightSwipe()
         completionUpdate?(getFirstDay(), nil)
     }
-    @objc func toToday() {
+    @IBAction func toToday() {
         if weekView.shift > 0 {
             weekView.shift = 0
             animateRightSwipe()
@@ -74,9 +72,6 @@ extension OverviewNavBar {
             animateLeftSwipe()
         }
         completionUpdate?(getFirstDay(), weekView.todayIndex)
-    }
-    func updateButtonTitle(with title: String) {
-        allWorkoutsButton.setTitle(title)
     }
     private func animateRightSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
@@ -108,4 +103,5 @@ extension OverviewNavBar {
         guard let firstDay = self.weekView.firstDay else { return "" }
         return "\(firstDay)".components(separatedBy: " ").first ?? "\(Date())"
     }
+    func updateButtonTitle(with title: String) { allWorkoutsButton.setTitle(title) }
 }

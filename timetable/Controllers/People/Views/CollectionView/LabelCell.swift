@@ -7,8 +7,11 @@
 
 import UIKit
 
-class LabelCell: UICollectionViewCell {
-    static let reuseID =  String(describing: LabelCell.self)
+// TODO: change to baseCell
+final class LabelCell: UICollectionViewCell {
+    
+    static let reuseIdentifier =  String(describing: LabelCell.self)
+    
     let label = UILabel()
     let sublabel = UILabel()
     private let stackView = UIStackView()
@@ -17,13 +20,11 @@ class LabelCell: UICollectionViewCell {
         super.init(frame: frame)
         configure()
     }
-    required init?(coder: NSCoder) {
-        fatalError("not implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("not implemented") }
 }
 
 extension LabelCell {
-    func configure() {
+    private func configure() {
         let inset = CGFloat(16)
         backgroundColor = App.Colors.BlackWhite
         stackView.axis = .vertical
@@ -39,7 +40,7 @@ extension LabelCell {
         sublabel.font = App.Fonts.helveticaNeue(with: 15)
         sublabel.adjustsFontForContentSizeCategory = true
         
-        layer.cornerRadius = 20
+        layer.cornerRadius = 16
         stackView.anchor(left: contentView.leadingAnchor, paddingLeft: inset,
                          right: contentView.trailingAnchor, paddingRight: -inset,
                          centerY: contentView.centerYAnchor)

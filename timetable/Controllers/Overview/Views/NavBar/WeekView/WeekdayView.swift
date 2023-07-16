@@ -10,15 +10,30 @@ import UIKit
 extension WeekView {
     final class WeekdayView: TTBaseView {
 
-        private let nameLabel = UILabel()
-        private let dateLabel = UILabel()
-        private let stackView = UIStackView()
+        private let nameLabel: UILabel = {
+            let label = UILabel()
+            label.font = App.Fonts.helveticaNeue(with: 9)
+            label.textAlignment = .center
+            return label
+        }()
+        private let dateLabel: UILabel = {
+            let label = UILabel()
+            label.font = App.Fonts.helveticaNeue(with: 15)
+            label.textAlignment = .center
+            return label
+        }()
+        private let stackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.spacing = 3
+            stackView.axis = .vertical
+            stackView.isUserInteractionEnabled = false
+            return stackView
+        }()
 
         func configure(with index: Int, and name: String, shift: Int) {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: index - shift)
             let day = Date.calendar.component(.day, from: currenrDay)
-
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
 
             backgroundColor = isToday ? App.Colors.active : App.Colors.background
@@ -35,39 +50,22 @@ extension WeekView {
             return currenrDay
         }
     }
-    
 }
 
 extension WeekView.WeekdayView {
     override func setupViews() {
         super.setupViews()
-
         setupView(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
     }
-
     override func constraintViews() {
         super.constraintViews()
-
         stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
     }
-
     override func configureAppearance() {
         super.configureAppearance()
-
         layer.cornerRadius = 5
         layer.masksToBounds = true
-        nameLabel.font = App.Fonts.helveticaNeue(with: 9)
-        nameLabel.textAlignment = .center
-        
-        dateLabel.font = App.Fonts.helveticaNeue(with: 15)
-        dateLabel.textAlignment = .center
-        
-        stackView.spacing = 3
-        stackView.axis = .vertical
-        stackView.isUserInteractionEnabled = false
-        
     }
-
 }

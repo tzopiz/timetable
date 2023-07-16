@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class AppearenceCell: SettingsCell {
+final class AppearenceCell: BaseCell {
+    
     static let AppearenceCellId = String(describing: AppearenceCell.self)
     private let button = TTButton(with: .secondary)
     
-    override func configure(title: String, type: CellType, image: UIImage) {
+    func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         super.configure(title: title, type: type, image: image)
         if type == .theme {
             setupView(button)
@@ -26,7 +27,7 @@ final class AppearenceCell: SettingsCell {
                           centerY: centerYAnchor)
         }
     }
-    @objc func showAlertController() {
+    @IBAction func showAlertController() {
         showInputDialog(firstTitle: "Светлое",
                         secondTitle: "Темное",
                         thirdTitle: "Системное",
@@ -57,6 +58,5 @@ final class AppearenceCell: SettingsCell {
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
         viewController?.present(alert, animated: true, completion: nil)
     }
-    
 }
 

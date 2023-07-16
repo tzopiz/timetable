@@ -21,11 +21,11 @@ final class TabBarController: UITabBarController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
+        CoreDataMamanager.shared.saveProfileImage()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureAppearance()
     }
 
     func switchTo(tab: Tabs) { selectedIndex = tab.rawValue }
@@ -57,6 +57,7 @@ final class TabBarController: UITabBarController {
         }
     }
 }
+
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if lastSelectedIndex == 0 && lastSelectedIndex == item.tag {

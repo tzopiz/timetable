@@ -24,4 +24,4 @@
     - виджет
     - сортировка заданий на завтра
     - добавлять задачи из timetableVC
-    
+    - dark theme launchScreen

@@ -7,44 +7,57 @@
 
 import UIKit
 
-final class ProfileCell: SettingsCell {
+final class ProfileCell: BaseCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)
-    private let subtitle = UILabel()
-    private let leftViewButton = TTButton(with: .primary)
     
-    override func configure(title: String, type: CellType, image: UIImage) {
+    private let subtitle: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 15)
+        label.textColor = App.Colors.inactive
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    private let leftView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 44
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = App.Colors.separator.cgColor
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    var completion: (() -> (UIImage))?
+    
+    func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         self.title.text = title
         subtitle.text = UserDefaults.standard.group.components(separatedBy: ",").first
-        leftViewButton.setImage(image, for: .normal)
-        leftViewButton.setDimensions(height: 88, width: 88)
-        leftViewButton.addButtonTarget(target: self, action: #selector(changePhotoProfile))
+        let profileImage = CoreDataMamanager.shared.fetchImageProfile()
+        leftView.image = profileImage
+        leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }
-    // TODO: chabge photo profile
-    @objc func changePhotoProfile() {
-        
+    @IBAction func changePhotoProfile() {
+        let newImage = CoreDataMamanager.shared.fetchImageProfile()
+        self.leftView.image = newImage
     }
+}
+
+extension ProfileCell {
     override func setupViews() {
         super.setupViews()
         stackInfoView.addArrangedSubview(subtitle)
-        setupView(leftViewButton)
+        setupView(leftView)
     }
     override func constaintViews() {
-        leftViewButton.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
+        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
         title.setDimensions(height: 40)
-        stackInfoView.anchor(left: leftViewButton.trailingAnchor, paddingLeft: 16,
+        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16,
                              centerY: centerYAnchor)
-        leftViewButton.setDimensions(height: 88, width: 88)
+        leftView.setDimensions(height: 88, width: 88)
     }
-
     override func configureAppearance() {
         super.configureAppearance()
-       
-        subtitle.font = App.Fonts.helveticaNeue(with: 15)
-        subtitle.textColor = App.Colors.inactive
-        subtitle.textAlignment = .left
-        subtitle.numberOfLines = 0
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
     }

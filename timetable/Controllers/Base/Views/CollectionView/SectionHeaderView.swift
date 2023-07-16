@@ -8,8 +8,18 @@
 import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
-    static let id = String(describing: SectionHeaderView.self)
-    private let title =  UILabel()
+    
+    static let reuseIdentifier = String(describing: SectionHeaderView.self)
+    
+    private let title: UILabel = {
+        let label = UILabel()
+        label.font = App.Fonts.helveticaNeue(with: 13)
+        label.textColor = App.Colors.inactive
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -22,26 +32,21 @@ final class SectionHeaderView: UICollectionReusableView {
         constaintViews()
         configureAppearance()
     }
-    func configure(with date: String) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "EEEE, dd MMMM"
-//
-//        self.title.text = dateFormatter.string(from: date).uppercased()
-        self.title.text = date
+    func configure(with str: String, textSize size: CGFloat = 13) {
+        self.title.text = str
+        title.font = App.Fonts.helveticaNeue(with: size)
     }
 }
 
 private extension SectionHeaderView {
-    func setupViews() {
-        setupView(title)
-    }
-
+    /// set up subview on view
+    func setupViews() { setupView(title) }
+    /// add constaraints to subviews
     func constaintViews() {
-        title.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
+        title.anchor(left: leadingAnchor, paddingLeft: 32,
+                     right: trailingAnchor, paddingRight: -32,
+                     centerY: centerYAnchor, centerX: centerXAnchor)
     }
-    func configureAppearance() {
-        title.font = App.Fonts.helveticaNeue(with: 13)
-        title.textColor = App.Colors.inactive
-        title.textAlignment = .center
-    }
+    /// configre appearence subviews
+    func configureAppearance() {}
 }

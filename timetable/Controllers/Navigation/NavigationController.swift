@@ -11,15 +11,13 @@ final class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureAppearance()
     }
-
     private func configureAppearance() {
         view.backgroundColor = App.Colors.BlackWhite
         navigationBar.isTranslucent = false
         navigationBar.standardAppearance.titleTextAttributes = [
-            .foregroundColor: App.Colors.title,
+            .foregroundColor: App.Colors.text,
             .font: App.Fonts.helveticaNeue(with: 17)
         ]
     }

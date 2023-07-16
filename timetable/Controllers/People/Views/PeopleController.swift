@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PeopleController {
+final class PeopleController {
     func filteredPeople(with filter: String? = nil, limit: Int? = nil) -> [Teacher] {
         generatePeople()
         guard let filter = filter else { return people }
@@ -15,9 +15,7 @@ class PeopleController {
         let filtered = people.filter { $0.name.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
-        } else {
-            return filtered
-        }
+        } else { return filtered }
     }
     private lazy var people: [Teacher] = []
 }

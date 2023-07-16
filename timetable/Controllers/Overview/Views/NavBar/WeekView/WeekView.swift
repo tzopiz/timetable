@@ -8,7 +8,12 @@
 import UIKit
 
 final class WeekView: TTBaseView {
-    private let stackView = UIStackView()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 7
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
     private var weekdayViews: [WeekdayView] = []
     var shift = 0
     var firstDay: Date?
@@ -28,11 +33,7 @@ extension WeekView {
         super.configureAppearance()
         self.backgroundColor = App.Colors.BlackWhite
         
-        stackView.spacing = 7
-        stackView.distribution = .fillEqually
-        
         var weekdays = Date.calendar.shortStandaloneWeekdaySymbols
-        
         if Date.calendar.firstWeekday == 2 {
             let sun = weekdays.remove(at: 0)
             weekdays.append(sun)
@@ -68,8 +69,7 @@ extension WeekView {
             }
         }
     }
-    
-    func updateTodayIndex() {
+    private func updateTodayIndex() {
         for i in 0..<weekdayViews.count {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: i - shift)

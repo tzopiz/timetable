@@ -11,21 +11,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let tabBarController = TabBarController()
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = tabBarController
         window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
+        if UserDefaults.standard.registered {
+            let tabBarController = TabBarController()
+            window?.rootViewController = tabBarController
+        } else {
+            let authVC = AuthorizationController()
+            UserDefaults.standard.link = "https://timetable.spbu.ru"
+            let navVc = NavigationController(rootViewController: authVC)
+            window?.rootViewController = navVc
+        }
         window?.makeKeyAndVisible()
     }
-
     func sceneDidEnterBackground(_ scene: UIScene) {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
 }
 

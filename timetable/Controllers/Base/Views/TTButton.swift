@@ -33,11 +33,13 @@ final class TTButton: UIButton {
         label.text = title
     }
     func addButtonTarget(target: Any?, action: Selector) {
-        addTarget(action, action: action, for: .touchUpInside)
+        addTarget(target, action: action, for: .touchUpInside)
     }
+    /// set helveticaNeue font with size
     func setFontSize(_ size: CGFloat) {
         label.font = App.Fonts.helveticaNeue(with: size)
     }
+    /// set tintcolor, label.tintColor and label.textColor
     func setTintColor(_ color: UIColor) {
         tintColor = color
         label.tintColor = color
@@ -46,10 +48,9 @@ final class TTButton: UIButton {
 }
 
 private extension TTButton {
-    func setupViews() {
-        setupView(label)
-    }
-
+    /// set up subview on button
+    func setupViews() { setupView(label) }
+    /// add constaraints to subviews
     func constaintViews() {
         var horisontalOffset: CGFloat {
             switch type {
@@ -61,17 +62,17 @@ private extension TTButton {
                      right: trailingAnchor, paddingRight: -10,
                      centerY: centerYAnchor)
     }
-
+    /// configre appearence subviews
     func configureAppearance() {
         switch type {
         case .primary:
             label.textAlignment = .left
-            label.textColor = App.Colors.title
+            setTintColor(App.Colors.text)
             label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
             label.textAlignment = .center
             layer.cornerRadius = 7
-            label.textColor = App.Colors.active
+            setTintColor(App.Colors.active)
             label.font = App.Fonts.helveticaNeue(with: 15)
         }
         makeSystem(self)
