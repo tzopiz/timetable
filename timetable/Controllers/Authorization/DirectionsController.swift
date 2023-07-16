@@ -1,5 +1,5 @@
 //
-//  DirectionsViewController.swift
+//  DirectionsController.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 16.07.2023.
@@ -7,34 +7,28 @@
 
 import UIKit
 
-final class DirectionsViewController: TTBaseController {
-    
+final class DirectionsController: TTBaseController {
     private var directions: [String] = APIManager.shared.getDirections()
     private let headerTitle = APIManager.shared.getTitle()
 }
 
 // MARK: -Configure
 
-extension DirectionsViewController {
+extension DirectionsController {
     override func configureAppearance() {
         super.configureAppearance()
-        navigationItem.title = "TimetableSPBU"
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.reuseIdentifier)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.reuseIdentifier)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        UserDefaults.standard.link = "https://timetable.spbu.ru"
-        super.viewWillDisappear(animated)
     }
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
 
-extension DirectionsViewController {
+extension DirectionsController {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int)
@@ -42,10 +36,11 @@ extension DirectionsViewController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as! ItemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.baseId, for: indexPath) as! BaseCell
         let item = directions[indexPath.item]
-        
-        cell.configure(item)
+        let width = collectionView.bounds.width - 32
+        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        cell.configure(title: item, cornerRadius: height / 4)
         
         return cell
     }
@@ -69,14 +64,13 @@ extension DirectionsViewController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let yVC = YearAdmissionController()
-        navigationController?.pushViewController(yVC, animated: true)
+        navigationController?.pushViewController(GroupsTitlesController(), animated: true)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension DirectionsViewController {
+extension DirectionsController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -94,9 +88,8 @@ extension DirectionsViewController {
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let height = heightForLabel(text: headerTitle, font: App.Fonts.helveticaNeue(with: 19), width: width) + 16
-        
-        return CGSize(width: width - 32, height: height)
+        let height = heightForLabel(text: headerTitle, font: App.Fonts.helveticaNeue(with: 19), width: width - 32) + 16
+        return CGSize(width: width, height: height)
     }
 }
 

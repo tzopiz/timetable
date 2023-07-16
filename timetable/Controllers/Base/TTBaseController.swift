@@ -13,8 +13,6 @@ enum NavBarPosition {
 }
 
 class TTBaseController: UIViewController {
-    
-    fileprivate let untiBag = UIView(frame: .zero)
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -50,18 +48,13 @@ class TTBaseController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
     }
-    func scrollCollectionViewToTop() {
-        self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-    }
+    func scrollCollectionViewToTop() { self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true) }
     func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-        if text.isEmpty {
-            return 0 // Возвращаем 0, если текст пустой
-        }
-        
         let label = UILabel()
         label.text = text
         label.font = font
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return size.height
     }
@@ -99,7 +92,6 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
 @objc
 extension TTBaseController {
     func setupViews() {
-        view.setupView(untiBag)
         view.setupView(collectionView)
     }
     func constraintViews() {
@@ -109,11 +101,9 @@ extension TTBaseController {
                               right: view.trailingAnchor)
     }
     func configureAppearance() {
-        navigationItem.title = "navigation title"
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = App.Colors.background
-        untiBag.isHidden = true
     }
     func navBarLeftButtonHandler() { print("NavBar left button tapped") }
     func navBarRightButtonHandler() { print("NavBar right button tapped") }

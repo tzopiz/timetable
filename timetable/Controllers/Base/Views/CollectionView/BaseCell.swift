@@ -16,7 +16,7 @@ enum CellType {
 
 class BaseCell: UICollectionViewCell {
     
-    static let SettingsCellId = String(describing: BaseCell.self)
+    static let baseId = String(describing: BaseCell.self)
     
     public let title: UILabel = {
         let label = UILabel()
@@ -36,12 +36,13 @@ class BaseCell: UICollectionViewCell {
     }()
     
     func configure(title: String, type: CellType = .base, image: UIImage? = nil,
-                    backgroundColor color: UIColor? = nil, textAlignment alignment: NSTextAlignment? = nil,
-                   textSize size: CGFloat? = nil) {
+                   backgroundColor color: UIColor? = nil, textAlignment alignment: NSTextAlignment? = nil,
+                   textSize size: CGFloat? = nil, cornerRadius: CGFloat = 16) {
         self.title.text = title
         if let color = color { self.backgroundColor = color }
         if let alignment = alignment { self.title.textAlignment = alignment }
         if let size = size { self.title.font = App.Fonts.helveticaNeue(with: size) }
+        self.layer.cornerRadius = cornerRadius
     }
     func isHighlighted() { self.alpha = 0.4 }
     func isUnHighlighted() { self.alpha = 1 }
@@ -64,19 +65,17 @@ class BaseCell: UICollectionViewCell {
 extension BaseCell {
     /// set up subview on cell
     func setupViews() {
-        setupView(stackInfoView)
+        contentView.setupView(stackInfoView)
         stackInfoView.addArrangedSubview(title)
     }
     /// add constaraints to subviews
     func constaintViews() {
-        stackInfoView.anchor(left: leadingAnchor, paddingLeft: 16,
-                             right: trailingAnchor, paddingRight: -16,
-                             centerY: centerYAnchor)
-        title.setDimensions(height: 40)
+        stackInfoView.anchor(top: contentView.topAnchor, bottom: contentView.bottomAnchor,
+                             left: contentView.leadingAnchor, paddingLeft: 16,
+                             right: contentView.trailingAnchor, paddingRight: -16)
     }
     /// configre appearence subviews
     func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
-        self.layer.cornerRadius = 16
     }
 }

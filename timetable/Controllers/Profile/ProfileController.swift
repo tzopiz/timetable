@@ -41,7 +41,7 @@ extension ProfileController {
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.ProfileCellId)
         collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.AppearenceCellId)
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.SettingsCellId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
@@ -80,7 +80,7 @@ extension ProfileController {
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BaseCell.SettingsCellId,
+                withReuseIdentifier: BaseCell.baseId,
                 for: indexPath) as? BaseCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)
@@ -109,7 +109,7 @@ extension ProfileController {
         switch indexPath.row {
         case 0:
             openImagePickerVC()
-        case 1:
+        case 3:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
             

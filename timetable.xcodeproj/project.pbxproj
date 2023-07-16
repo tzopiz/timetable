@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A0ECBF82A5F1E55004BDB61 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */; };
 		0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */; };
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
@@ -21,10 +20,11 @@
 		0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB229D6E19600C13723 /* Bundle + ext.swift */; };
 		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
-		0A98A27E2A63C6A800F4947D /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */; };
+		0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27D2A63C6A800F4947D /* DirectionsController.swift */; };
+		0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27F2A63F12600F4947D /* GroupsController.swift */; };
+		0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2812A64172E00F4947D /* ModelAuth.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
-		0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */; };
-		0AC485CF29E0855C009B9EE5 /* YearAdmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */; };
+		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -81,7 +81,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -95,10 +94,11 @@
 		0A71EAB229D6E19600C13723 /* Bundle + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
-		0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
+		0A98A27D2A63C6A800F4947D /* DirectionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsController.swift; sourceTree = "<group>"; };
+		0A98A27F2A63F12600F4947D /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
+		0A98A2812A64172E00F4947D /* ModelAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAuth.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
-		0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionFacultyController.swift; sourceTree = "<group>"; };
-		0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearAdmissionController.swift; sourceTree = "<group>"; };
+		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -178,23 +178,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		0A0ECBFB2A5F1E80004BDB61 /* Directions */ = {
-			isa = PBXGroup;
-			children = (
-				0A0ECBFC2A5F1E94004BDB61 /* CollectionView */,
-			);
-			path = Directions;
-			sourceTree = "<group>";
-		};
-		0A0ECBFC2A5F1E94004BDB61 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				0A0ECBF72A5F1E55004BDB61 /* ItemCell.swift */,
-				0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
 		0A223B6C29C8936E00C8EDBF /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,10 +215,11 @@
 			children = (
 				0A26495329DF0510003D080A /* AuthorizationController.swift */,
 				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
-				0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */,
-				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
-				0A0ECBFB2A5F1E80004BDB61 /* Directions */,
-				0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */,
+				0A98A27D2A63C6A800F4947D /* DirectionsController.swift */,
+				0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */,
+				0A98A27F2A63F12600F4947D /* GroupsController.swift */,
+				0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */,
+				0A98A2812A64172E00F4947D /* ModelAuth.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -770,7 +754,7 @@
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
 				0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */,
 				0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */,
-				0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */,
+				0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */,
 				0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */,
 				0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */,
 				0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */,
@@ -779,8 +763,9 @@
 				0ACC4EC229C6620300B3D6AC /* LabelCell.swift in Sources */,
 				0ACC4EC429C6620300B3D6AC /* Resouces.swift in Sources */,
 				0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */,
+				0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */,
 				0ACC4EB029C6620300B3D6AC /* TasksCell.swift in Sources */,
-				0A98A27E2A63C6A800F4947D /* DirectionsViewController.swift in Sources */,
+				0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */,
 				0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */,
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
@@ -790,6 +775,7 @@
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
+				0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,
@@ -804,11 +790,9 @@
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
 				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
-				0A0ECBF82A5F1E55004BDB61 /* ItemCell.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,
-				0AC485CF29E0855C009B9EE5 /* YearAdmissionController.swift in Sources */,
 				0ACC4EBE29C6620300B3D6AC /* OverviewController.swift in Sources */,
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
 				0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */,

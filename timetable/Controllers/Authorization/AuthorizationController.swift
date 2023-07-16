@@ -7,15 +7,6 @@
 
 import UIKit
 
-struct Direction {
-    let name: String
-    let items: [String]
-}
-struct Faculty {
-    let header: String
-    let directions: [Direction]
-}
-
 final class AuthorizationController: TTBaseController {
     private let kindTimetable = ["Студент", "Преподаватель"]
 }
@@ -25,9 +16,10 @@ final class AuthorizationController: TTBaseController {
 extension AuthorizationController {
     override func configureAppearance() {
         super.configureAppearance()
-        navigationItem.title = "TimetableSPBU"
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.SettingsCellId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+
+        
     }
 }
 
@@ -40,7 +32,7 @@ extension AuthorizationController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
+            withReuseIdentifier: BaseCell.baseId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
         let data = kindTimetable[indexPath.row]
         cell.configure(title: data, textAlignment: .center, textSize: 32)

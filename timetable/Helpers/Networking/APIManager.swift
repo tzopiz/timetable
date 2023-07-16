@@ -8,17 +8,6 @@
 import UIKit
 import SwiftSoup
 
-struct Section {
-    let title: String
-    var items: [String]
-    var isExpanded: Bool = false
-}
-struct SectionWithLinks {
-    let title: String
-    let items: [(String, String)]
-    var isExpanded: Bool = false
-}
-
 final class APIManager {
     
     static let shared = APIManager()
@@ -66,7 +55,7 @@ final class APIManager {
 // MARK: - list of faculties
 
 extension APIManager {
-    private func loadFaculties(completion: @escaping ([(text: String, href: String)]) -> Void) {
+    private func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
@@ -84,13 +73,13 @@ extension APIManager {
                     let liElements = try doc.select("li.list-group-item")
                     
                     // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
-                    var elementArray: [(text: String, href: String)] = []
+                    var elementArray: [(text: String, link: String)] = []
                     
                     for liElement in liElements {
                         if let aElement = try liElement.select("a").first(),
                            let href = try? aElement.attr("href"), !href.isEmpty,
                            let text = try? aElement.text(), !text.isEmpty {
-                            elementArray.append((text: text, href: href))
+                            elementArray.append((text: text, link: href))
                         }
                     }
                     completion(elementArray)
@@ -103,9 +92,9 @@ extension APIManager {
         task.resume()
     }
     /// name of Faculties
-    func getFaculties() -> [(text: String, href: String)] {
+    func getFaculties() -> [(text: String, link: String)] {
         let semaphore = DispatchSemaphore(value: 0)
-        var elements: [(text: String, href: String)] = []
+        var elements: [(text: String, link: String)] = []
         loadFaculties { result in
             elements = result
             semaphore.signal()
@@ -260,8 +249,8 @@ extension APIManager {
 // MARK: - only years of groups
 
 extension APIManager {
-    private func loadGroupsTitles(completion: @escaping ([Section]) -> Void) {
-        guard let url = URL(string:  UserDefaults.standard.link) else {
+    private func loadGroupsTitles(completion: @escaping ([SectionWithLinks]) -> Void) {
+        guard let url = URL(string: UserDefaults.standard.link) else {
             completion([])
             return
         }
@@ -277,22 +266,22 @@ extension APIManager {
                 let html = String(data: data, encoding: .utf8)
                 let doc: Document = try SwiftSoup.parse(html ?? "")
                 let listItems = try doc.select("li.common-list-item.row")
-                var sections: [Section] = []
+                var sections: [SectionWithLinks] = []
                 
                 for listItem in listItems {
-                    var sectionItems: [String] = []
-                    
                     // Извлечение значения заголовка
                     if let titleElement = try listItem.select("div.col-sm-5").first() {
                         let title = try titleElement.text()
                         if title == "Образовательная программа" { continue }
                         // Извлечение значений элементов списка
                         let listElements = try listItem.select("a")
+                        var sectionItems: [(text: String, link: String)] = []
                         for listElement in listElements {
-                            let item = try listElement.text()
-                            sectionItems.append(item)
+                            let text = try listElement.text() // Значение текста элемента
+                            let link = try listElement.attr("href") // Значение ссылки элемента
+                            sectionItems.append((text: text, link: link)) // Добавление пары (текст, ссылка) в sectionItems
                         }
-                        sections.append(Section(title: title, items: sectionItems))
+                        sections.append(SectionWithLinks(title: title, items: sectionItems))
                     }
                 }
                 completion(sections)
@@ -304,9 +293,9 @@ extension APIManager {
         task.resume()
     }
     /// list of group recruitment year only
-    func getGroupsTitles() -> [Section] {
+    func getGroupsTitles() -> [SectionWithLinks] {
         let semaphore = DispatchSemaphore(value: 0)
-        var section: [Section] = []
+        var section: [SectionWithLinks] = []
         loadGroupsTitles { result in
             section = result
             semaphore.signal()

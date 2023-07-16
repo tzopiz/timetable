@@ -14,6 +14,7 @@ final class OverviewController: TTBaseController {
 extension OverviewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshData()
     }
     override func setupViews() {
         super.setupViews()
@@ -49,8 +50,8 @@ extension OverviewController {
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.dataSource = data.days
-                    self.collectionView.refreshControl?.endRefreshing()
                     self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
                     self.navBar.updateButtonTitle(with: data.startDate)
                     if let index = index { self.navBar.completionScroll?(index) }
                 }

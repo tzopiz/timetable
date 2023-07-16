@@ -16,9 +16,12 @@ final class FacultiesController: TTBaseController {
 extension FacultiesController {
     override func configureAppearance() {
         super.configureAppearance()
-        navigationItem.title = "TimetableSPBU"
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.SettingsCellId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UserDefaults.standard.link = "https://timetable.spbu.ru"
     }
 }
 
@@ -30,10 +33,12 @@ extension FacultiesController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: BaseCell.SettingsCellId, for: indexPath
+            withReuseIdentifier: BaseCell.baseId, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
         let faculty = Faculties[indexPath.row]
-        cell.configure(title: faculty.text, textAlignment: .center)
+        let width = collectionView.bounds.width - 32
+        let height = heightForLabel(text: faculty.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        cell.configure(title: faculty.text, textAlignment: .center, cornerRadius: height / 4)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -47,8 +52,8 @@ extension FacultiesController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UserDefaults.standard.link += Faculties[indexPath.row].href
-        navigationController?.pushViewController(DirectionsViewController(), animated: true)
+        UserDefaults.standard.link += Faculties[indexPath.row].link
+        navigationController?.pushViewController(DirectionsController(), animated: true)
     }
 }
 
