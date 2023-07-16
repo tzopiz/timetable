@@ -13,6 +13,9 @@ struct Section {
     var items: [String]
     var isExpanded: Bool = false
 }
+struct Group {
+    
+}
 
 final class APIManager {
     
@@ -160,7 +163,7 @@ final class APIManager {
         return elements
     }
     
-    private func loadAndPrintSections(completion: @escaping ([Section]) -> Void) {
+    private func loadDirections(completion: @escaping ([Section]) -> Void) {
         let urlStr = UserDefaults.standard.link
         guard let url = URL(string: urlStr) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -200,7 +203,7 @@ final class APIManager {
     func getSections() -> [Section] {
         let semaphore = DispatchSemaphore(value: 0)
         var section: [Section] = []
-        loadAndPrintSections { result in
+        loadDirections { result in
             section = result
             semaphore.signal()
         }
@@ -245,5 +248,13 @@ final class APIManager {
         }
         semaphore.wait()
         return result
+    }
+    
+    private func loadGroups() {
+        
+    }
+    func getGroups() -> [Section] {
+        
+        return []
     }
 }

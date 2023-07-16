@@ -17,7 +17,7 @@ struct Faculty {
 }
 
 final class AuthorizationController: TTBaseController {
-    private let kindTimetable = ["Student", "Teacher"]
+    private let kindTimetable = ["Студент", "Преподаватель"]
 }
 
 // MARK: - Configure

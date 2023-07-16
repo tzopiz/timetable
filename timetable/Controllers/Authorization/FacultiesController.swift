@@ -57,8 +57,13 @@ extension FacultiesController {
 extension FacultiesController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath)
-    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 70) }
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let item = Faculties[indexPath.item].text
+        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 32
+        
+        return CGSize(width: width, height: height)
+    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int)

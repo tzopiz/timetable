@@ -24,6 +24,7 @@ class BaseCell: UICollectionViewCell {
         label.textColor = App.Colors.text
         label.textAlignment = .left
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     public let stackInfoView: UIStackView = {

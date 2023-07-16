@@ -21,6 +21,7 @@
 		0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB229D6E19600C13723 /* Bundle + ext.swift */; };
 		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
+		0A98A27E2A63C6A800F4947D /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* DirectionFacultyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */; };
 		0AC485CF29E0855C009B9EE5 /* YearAdmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */; };
@@ -94,6 +95,7 @@
 		0A71EAB229D6E19600C13723 /* Bundle + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
+		0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionFacultyController.swift; sourceTree = "<group>"; };
 		0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearAdmissionController.swift; sourceTree = "<group>"; };
@@ -180,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				0A0ECBFC2A5F1E94004BDB61 /* CollectionView */,
-				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
 			);
 			path = Directions;
 			sourceTree = "<group>";
@@ -231,6 +232,8 @@
 			children = (
 				0A26495329DF0510003D080A /* AuthorizationController.swift */,
 				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
+				0A98A27D2A63C6A800F4947D /* DirectionsViewController.swift */,
+				0AC485C829E06884009B9EE5 /* DirectionFacultyController.swift */,
 				0A0ECBFB2A5F1E80004BDB61 /* Directions */,
 				0AC485CE29E0855C009B9EE5 /* YearAdmissionController.swift */,
 			);
@@ -777,6 +780,7 @@
 				0ACC4EC429C6620300B3D6AC /* Resouces.swift in Sources */,
 				0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */,
 				0ACC4EB029C6620300B3D6AC /* TasksCell.swift in Sources */,
+				0A98A27E2A63C6A800F4947D /* DirectionsViewController.swift in Sources */,
 				0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */,
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
