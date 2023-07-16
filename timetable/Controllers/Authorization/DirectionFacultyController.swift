@@ -9,7 +9,7 @@ import UIKit
 
 final class DirectionFacultyController: TTBaseController {
     
-    private var directions: [Section] = APIManager.shared.getSections()
+    private var directions: [Section] = APIManager.shared.getGroupsTitles()
 
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag

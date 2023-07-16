@@ -17,11 +17,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.overrideUserInterfaceStyle = UserDefaults.standard.theme.getUserInterfaceStyle()
-        if !UserDefaults.standard.registered {
+        if UserDefaults.standard.registered {
             let tabBarController = TabBarController()
             window?.rootViewController = tabBarController
         } else {
             let authVC = AuthorizationController()
+            UserDefaults.standard.link = "https://timetable.spbu.ru"
             let navVc = NavigationController(rootViewController: authVC)
             window?.rootViewController = navVc
         }

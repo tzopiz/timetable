@@ -9,13 +9,8 @@ import UIKit
 
 final class DirectionsViewController: TTBaseController {
     
-    private var directions: [Section] = APIManager.shared.getSections()
+    private var directions: [String] = APIManager.shared.getDirections()
     private let headerTitle = APIManager.shared.getTitle()
-    @IBAction func toggleSection(_ sender: TTButton) {
-        let section = sender.tag
-        directions[section].isExpanded.toggle()
-        collectionView.reloadSections(IndexSet(integer: section))
-    }
 }
 
 // MARK: -Configure
@@ -48,7 +43,7 @@ extension DirectionsViewController {
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as! ItemCell
-        let item = directions[indexPath.item].title
+        let item = directions[indexPath.item]
         
         cell.configure(item)
         
@@ -86,7 +81,7 @@ extension DirectionsViewController {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let item = directions[indexPath.item].title
+        let item = directions[indexPath.item]
         let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
         
         return CGSize(width: width, height: height)

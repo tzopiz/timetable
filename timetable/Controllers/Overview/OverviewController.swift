@@ -45,7 +45,7 @@ extension OverviewController {
         
         navBar.completionUpdate = { [weak self] dateStr, index in
             guard let self = self else { return }
-            APIManager.shared.loadData(with: dateStr) { [weak self] data in
+            APIManager.shared.loadTimetableData(with: dateStr) { [weak self] data in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.dataSource = data.days
@@ -79,7 +79,7 @@ extension OverviewController {
     @IBAction func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            APIManager.shared.loadData(
+            APIManager.shared.loadTimetableData(
                 with: navBar.getFirstDay()) { [weak self] data in
                     DispatchQueue.main.async {
                         guard let self = self else { return }
