@@ -97,7 +97,7 @@ extension GroupsController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int)
-    -> UIEdgeInsets { UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16) } // Отступы секций
+    -> UIEdgeInsets { UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16) } // Отступы секций
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {

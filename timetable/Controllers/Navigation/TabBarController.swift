@@ -31,8 +31,11 @@ final class TabBarController: UITabBarController {
     func switchTo(tab: Tabs) { selectedIndex = tab.rawValue }
 
     private func configureAppearance() {
+        tabBar.isTranslucent = false
+        tabBar.backgroundColor = .white
         tabBar.tintColor = App.Colors.active
-        tabBar.barTintColor = App.Colors.separator
+        tabBar.backgroundImage = UIImage()
+        tabBar.shadowImage = UIImage()
         tabBar.backgroundColor = App.Colors.BlackWhite
         tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
         tabBar.addTopBorder(with: App.Colors.separator, height: 2/3)

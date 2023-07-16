@@ -9,71 +9,35 @@ import UIKit
 
 final class PeopleViewController: TTBaseController {
     
-    private let peopleController = PeopleController()
-    private var dataSource: [Teacher] = []
-    private var nameFilter: String?
-    
-    func performQuery(with filter: String?) {
-        let peoples = peopleController.filteredPeople(with: filter).sorted { $0.name < $1.name }
-        dataSource = peoples
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
+    private var searchController: UISearchController!
+    private var data: [Teacher] = APIManager.shared.getTeachers()
+    private var filteredData: [Teacher] = []
 }
-
 extension PeopleViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        refreshData()
-        performQuery(with: nil)
-    }
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
-        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1/3)
-
-        self.collectionView.register(LabelCell.self,
-                                forCellWithReuseIdentifier: LabelCell.reuseIdentifier)
-        self.collectionView.showsVerticalScrollIndicator = true
-        let searchController = UISearchController(searchResultsController: nil)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
+        searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        self.collectionView.refreshControl = refreshControl
-        
-    }
-    @IBAction func refreshData() {
-        self.collectionView.refreshControl?.beginRefreshing()
-        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            APIManager.shared.getTeachres { [weak self] teachers in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    self.dataSource = teachers
-                    self.collectionView.reloadData()
-                    self.collectionView.refreshControl?.endRefreshing()
-                }
-            }
-        }
-       
+        definesPresentationContext = true
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: -  UICollectionViewDataSource
 
 extension PeopleViewController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
-    }
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
+    -> Int { isFiltering() ? filteredData.count : data.count }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: LabelCell.reuseIdentifier, for: indexPath
-        ) as? LabelCell else { return UICollectionViewCell() }
-        cell.label.text = dataSource[indexPath.row].name
-        cell.sublabel.text =  dataSource[indexPath.row].info
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.baseId, for: indexPath) as? BaseCell
+        else { fatalError("Unable to dequeue LabelCell") }
+        let text: String
+        if isFiltering() { text = filteredData[indexPath.item].name + "\n" + filteredData[indexPath.item].info }
+        else { text = data[indexPath.item].name + "\n" + data[indexPath.item].info }
+        cell.configure(title: text)
         return cell
     }
 }
@@ -95,10 +59,21 @@ extension PeopleViewController {
     -> CGSize { CGSize(width: collectionView.frame.width, height: 0) }
 }
 
-// MARK: - searchResultsUpdater
+// MARK: - UISearchResultsUpdating
 
 extension PeopleViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        performQuery(with: searchController.searchBar.text)
+        filterContentForSearchText(searchController.searchBar.text)
+    }
+    private func filterContentForSearchText(_ searchText: String?) {
+        if let searchText = searchText, !searchText.isEmpty {
+            filteredData = data.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        } else {
+            filteredData = data
+        }
+        collectionView.reloadData()
+    }
+    private func isFiltering() -> Bool {
+        return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
     }
 }

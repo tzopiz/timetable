@@ -16,7 +16,7 @@ final class APIManager {
     
     // TODO: --
     
-    func getTeachres(completion: @escaping ([Teacher]) -> Void) {
+    private func getTeachres(completion: @escaping ([Teacher]) -> Void) {
         guard let url = APIManager.shared.teachersUrl else { return }
         var dataSource: [Teacher] = []
         var request = URLRequest(url: url)
@@ -49,6 +49,16 @@ final class APIManager {
             } catch { print(error.localizedDescription) }
         }
         task.resume()
+    }
+    func getTeachers() -> [Teacher] {
+        let semaphore = DispatchSemaphore(value: 0)
+        var elements: [Teacher] = []
+        getTeachres { result in
+            elements = result
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return elements
     }
 }
 

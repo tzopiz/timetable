@@ -43,7 +43,6 @@
 		0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8529C6620200B3D6AC /* ProfileController.swift */; };
 		0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */; };
 		0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */; };
-		0ACC4EB829C6620300B3D6AC /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */; };
 		0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */; };
 		0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */; };
 		0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */; };
@@ -53,7 +52,6 @@
 		0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */; };
 		0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */; };
 		0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9E29C6620300B3D6AC /* SectionHeaderView.swift */; };
-		0ACC4EC229C6620300B3D6AC /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */; };
 		0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA029C6620300B3D6AC /* TTButton.swift */; };
 		0ACC4EC429C6620300B3D6AC /* Resouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA229C6620300B3D6AC /* Resouces.swift */; };
 		0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA329C6620300B3D6AC /* UserDefaults + ext.swift */; };
@@ -121,7 +119,6 @@
 		0ACC4E8529C6620200B3D6AC /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
-		0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
 		0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 		0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewNavBar.swift; sourceTree = "<group>"; };
 		0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
@@ -131,7 +128,6 @@
 		0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTBaseController.swift; sourceTree = "<group>"; };
 		0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTBaseView.swift; sourceTree = "<group>"; };
 		0ACC4E9E29C6620300B3D6AC /* SectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
-		0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		0ACC4EA029C6620300B3D6AC /* TTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTButton.swift; sourceTree = "<group>"; };
 		0ACC4EA229C6620300B3D6AC /* Resouces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resouces.swift; sourceTree = "<group>"; };
 		0ACC4EA329C6620300B3D6AC /* UserDefaults + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults + ext.swift"; sourceTree = "<group>"; };
@@ -255,14 +251,6 @@
 				0A5B8A6229D8DCBC00966EAC /* Profile+CoreDataProperties.swift */,
 			);
 			path = PhotoProfile;
-			sourceTree = "<group>";
-		};
-		0AB258F429D8544900215890 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E9F29C6620300B3D6AC /* LabelCell.swift */,
-			);
-			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		0AB258F529D8546700215890 /* Model */ = {
@@ -448,9 +436,7 @@
 		0ACC4E8B29C6620200B3D6AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0AB258F429D8544900215890 /* CollectionView */,
 				0AB258F529D8546700215890 /* Model */,
-				0ACC4E8C29C6620200B3D6AC /* PeopleController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -760,7 +746,6 @@
 				0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */,
 				0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */,
 				0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */,
-				0ACC4EC229C6620300B3D6AC /* LabelCell.swift in Sources */,
 				0ACC4EC429C6620300B3D6AC /* Resouces.swift in Sources */,
 				0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */,
 				0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */,
@@ -786,7 +771,6 @@
 				0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
-				0ACC4EB829C6620300B3D6AC /* PeopleController.swift in Sources */,
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
 				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
@@ -983,7 +967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1016,7 +1000,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
