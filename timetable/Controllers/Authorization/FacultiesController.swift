@@ -48,7 +48,7 @@ extension FacultiesController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UserDefaults.standard.link += Faculties[indexPath.row].href
-        navigationController?.pushViewController(DirectionFacultyController(), animated: true)
+        navigationController?.pushViewController(DirectionsViewController(), animated: true)
     }
 }
 

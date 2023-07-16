@@ -16,7 +16,8 @@ final class SectionHeaderView: UICollectionReusableView {
         label.font = App.Fonts.helveticaNeue(with: 13)
         label.textColor = App.Colors.inactive
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     override init(frame: CGRect) {
@@ -31,9 +32,9 @@ final class SectionHeaderView: UICollectionReusableView {
         constaintViews()
         configureAppearance()
     }
-    func configure(with str: String, textSize size: CGFloat? = nil) {
+    func configure(with str: String, textSize size: CGFloat = 13) {
         self.title.text = str
-        if let size = size { title.font = App.Fonts.helveticaNeue(with: size) }
+        title.font = App.Fonts.helveticaNeue(with: size)
     }
 }
 
