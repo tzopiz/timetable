@@ -14,7 +14,7 @@ final class SectionHeaderView: UICollectionReusableView {
     private let title: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.inactive
+        label.textColor = App.Colors.text_2
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

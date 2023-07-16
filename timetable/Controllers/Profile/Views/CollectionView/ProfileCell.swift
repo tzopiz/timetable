@@ -14,7 +14,7 @@ final class ProfileCell: BaseCell {
     private let subtitle: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 15)
-        label.textColor = App.Colors.inactive
+        label.textColor = App.Colors.text_2
         label.textAlignment = .left
         label.numberOfLines = 0
         return label

@@ -35,6 +35,7 @@ final class TimetableCell: UICollectionViewCell {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 17)
         label.textColor = App.Colors.text
+        label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
@@ -42,7 +43,7 @@ final class TimetableCell: UICollectionViewCell {
     private let address: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.inactive
+        label.textColor = App.Colors.text_2
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
@@ -50,12 +51,12 @@ final class TimetableCell: UICollectionViewCell {
     private let teacherName: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.inactive
+        label.textColor = App.Colors.text_2
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    private let clock = UIImageView()
+    private let clock = UIImageView(image: App.Images.clock)
     private var borderLayer = CAShapeLayer()
 
     override init(frame: CGRect) {
@@ -73,13 +74,6 @@ final class TimetableCell: UICollectionViewCell {
     }
 
     func configure(time: String, nameSubject: String, location: String, teacherName: String, isCancelled: Bool) {
-        if time == "" { // TODO: нормально показывать, что пар нет
-            clock.image = nil
-            self.nameSubject.textAlignment = .center
-        } else {
-            clock.image = App.Images.clock
-            self.nameSubject.textAlignment = .left
-        }
         if isCancelled { // bolt
             let attributedTimeString = NSAttributedString(string: time, attributes: [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,

@@ -20,7 +20,7 @@ final class TasksCell: UICollectionViewCell {
     private let subtitle: UILabel = {
         let label = UILabel()
         label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.inactive
+        label.textColor = App.Colors.text_2
         return label
     }()
     private let stackView: UIStackView = {

@@ -10,15 +10,54 @@ import UIKit
 final class OverviewController: TTBaseController {
     private let navBar = OverviewNavBar()
     private var dataSource: [StudyDay] = []
+    private let backgroundView = BackgroundTimetableOverview()
+    
+    private func scrollToDay(with index: Int) {
+        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
+            if index < self.dataSource.count {
+                // Получаем высоту UICollectionReusableView
+                let headerHeight = collectionView.collectionViewLayout
+                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                          at: IndexPath(item: 0, section: index))?.frame.height ?? 0
+                let yOffset = collectionView
+                    .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
+                                                             at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
+                collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+            } else { scrollCollectionViewToTop() }
+        }
+    }
+    private func updateBackgroundView(value: Int) {
+        backgroundView.updateImage()
+        backgroundView.isHidden = value == 0 ? false : true
+    }
+    // TODO: normal animate swipe collection view and navbar
+    @IBAction func rightSwipeWeek() { navBar.rightSwipeWeek() }
+    @IBAction func leftSwipeWeek() { navBar.leftSwipeWeek() }
+    @IBAction func refreshData() {
+        self.collectionView.refreshControl?.beginRefreshing()
+        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
+            APIManager.shared.loadTimetableData(
+                with: navBar.getFirstDay()) { [weak self] data in
+                    DispatchQueue.main.async {
+                        guard let self = self else { return }
+                        self.dataSource = data.days
+                        self.navBar.updateButtonTitle(with: data.startDate)
+                        self.collectionView.reloadData()
+                    }
+            }
+        }
+        self.collectionView.refreshControl?.endRefreshing()
+    }
 }
 extension OverviewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         refreshData()
     }
     override func setupViews() {
         super.setupViews()
         view.setupView(navBar)
+        view.setupView(backgroundView)
     }
     override func constraintViews() {
         navBar.anchor(top: view.topAnchor,
@@ -29,6 +68,9 @@ extension OverviewController {
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
+        backgroundView.anchor(left: view.leadingAnchor, paddingLeft: 16,
+                              right: view.trailingAnchor, paddingRight: -16,
+                              centerY: view.centerYAnchor, centerX: view.centerXAnchor)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -44,6 +86,8 @@ extension OverviewController {
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         collectionView.refreshControl = refreshControl
         
+        backgroundView.isHidden = true
+        
         navBar.completionUpdate = { [weak self] dateStr, index in
             guard let self = self else { return }
             APIManager.shared.loadTimetableData(with: dateStr) { [weak self] data in
@@ -51,6 +95,7 @@ extension OverviewController {
                     guard let self = self else { return }
                     self.dataSource = data.days
                     self.collectionView.reloadData()
+                    self.updateBackgroundView(value: self.dataSource.count)
                     self.collectionView.refreshControl?.endRefreshing()
                     self.navBar.updateButtonTitle(with: data.startDate)
                     if let index = index { self.navBar.completionScroll?(index) }
@@ -73,39 +118,6 @@ extension OverviewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
         leftSwipe.direction = .left
         collectionView.addGestureRecognizer(leftSwipe)
-    }
-    // TODO: normal animate swipe collection view and navbar
-    @IBAction func rightSwipeWeek() { navBar.rightSwipeWeek() }
-    @IBAction func leftSwipeWeek() { navBar.leftSwipeWeek() }
-    @IBAction func refreshData() {
-        self.collectionView.refreshControl?.beginRefreshing()
-        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            APIManager.shared.loadTimetableData(
-                with: navBar.getFirstDay()) { [weak self] data in
-                    DispatchQueue.main.async {
-                        guard let self = self else { return }
-                        self.dataSource = data.days
-                        self.navBar.updateButtonTitle(with: data.startDate)
-                        self.collectionView.reloadData()
-                    }
-            }
-        }
-        self.collectionView.refreshControl?.endRefreshing()
-    }
-    
-    func scrollToDay(with index: Int) {
-        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-            if index < self.dataSource.count {
-                // Получаем высоту UICollectionReusableView
-                let headerHeight = collectionView.collectionViewLayout
-                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                          at: IndexPath(item: 0, section: index))?.frame.height ?? 0
-                let yOffset = collectionView
-                    .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
-                                                             at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
-                collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
-            } else { scrollCollectionViewToTop() }
-        }
     }
 }
 

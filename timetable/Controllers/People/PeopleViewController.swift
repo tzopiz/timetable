@@ -33,7 +33,7 @@ extension PeopleViewController {
     -> Int { isFiltering() ? filteredData.count : data.count }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.baseId, for: indexPath) as? BaseCell
-        else { fatalError("Unable to dequeue LabelCell") }
+        else { return UICollectionViewCell() }
         let text: String
         if isFiltering() { text = filteredData[indexPath.item].name + "\n" + filteredData[indexPath.item].info }
         else { text = data[indexPath.item].name + "\n" + data[indexPath.item].info }
