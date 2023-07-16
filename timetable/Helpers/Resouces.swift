@@ -69,10 +69,10 @@ enum App {
     enum Images {
         static func icon(for tab: Tabs) -> UIImage? {
             switch tab {
-            case .overview: return UIImage(systemName: "note.text")
+            case .overview: return UIImage(systemName: "house")
             case .tasks:    return UIImage(systemName: "list.bullet.rectangle")
             case .people:   return UIImage(systemName: "person")
-            case .profile:  return UIImage(systemName: "line.3.horizontal.circle")
+            case .profile:  return UIImage(systemName: "gear")
             }
         }
         
