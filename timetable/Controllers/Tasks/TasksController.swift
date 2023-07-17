@@ -28,7 +28,7 @@ extension TasksController {
         }
     }
     override func navBarRightButtonHandler() {
-        let taskVC = TaskViewController()
+        let taskVC = TaskController()
         taskVC.completion = { [weak self] _ in
             guard let self = self else { return }
             self.collectionView.reloadData()
@@ -74,7 +74,7 @@ extension TasksController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
-        let taskVC = TaskViewController()
+        let taskVC = TaskController()
         taskVC.task = task
         taskVC.completion = { [weak self] needInsert in
             guard let self = self else { return }

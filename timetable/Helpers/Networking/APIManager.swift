@@ -9,104 +9,68 @@ import UIKit
 import SwiftSoup
 
 final class APIManager {
-    
     static let shared = APIManager()
-    private let teachersUrl =
-    URL(string: "https://apmath.spbu.ru/studentam/perevody-i-vostanovleniya/13-punkty-menyu/35-prepodavateli.html")
+    private init() { }
     
     // TODO: --
     
-    private func getTeachres(completion: @escaping ([Teacher]) -> Void) {
-        guard let url = APIManager.shared.teachersUrl else { return }
-        var dataSource: [Teacher] = []
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data else { return }
-            guard let html = String(data: data, encoding: .utf8) else { return }
-            do {
-                let doc: Document = try SwiftSoup.parse(html)
-                let teachers = try doc.select("td")
-                var i = 4
-                
-                while i < teachers.count {
-                    let name = try teachers[i - 4].text()
-                    var info: String = ""
-                    if try teachers[i - 3].text().count > 2 {
-                        info += try teachers[i - 3].text() + ", "
-                    }
-                    if try teachers[i - 2].text().count > 2 {
-                        info += try teachers[i - 2].text() + ", "
-                    }
-                    if try teachers[i - 1].text().count > 2 {
-                        info += try teachers[i - 1].text()
-                    }
-                    let teacher = Teacher(name: name, info: info)
-                    dataSource.append(teacher)
-                    i += 4
-                }
-                completion(dataSource)
-            } catch { print(error.localizedDescription) }
+    func getTeachers(completion: @escaping ([Teacher]?, Error?) -> Void) {
+        let urlString = "https://apmath.spbu.ru/studentam/spisok-i-rejting-prepodavatelej.html"
+        guard let url = URL(string: urlString) else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+            return
         }
-        task.resume()
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid HTML data"]))
+                return
+            }
+            
+            do {
+                let doc = try SwiftSoup.parse(html)
+                
+                var teachers: [Teacher] = []
+                
+                let rows = try doc.select("tr")
+                for row in rows {
+                    let columns = try row.select("td")
+                    
+                    if columns.count == 7 {
+                        let name = try columns[0].text()
+                        let position = try columns[1].text()
+                        let department = try columns[2].text()
+                        let publications = try Int(columns[3].text()) ?? 0
+                        let applications = try Int(columns[4].text()) ?? 0
+                        let grants = try Int(columns[5].text()) ?? 0
+                        let projects = try Int(columns[6].text()) ?? 0
+                        let personalLink = try columns[0].select("a").attr("href")
+                        let link = "https://apmath.spbu.ru" + personalLink
+                        let teacher = Teacher(name: name, position: position, department: department, publications: publications, applications: applications, grants: grants, projects: projects, personalLink: link)
+                        teachers.append(teacher)
+                    }
+                }
+                teachers.removeFirst()
+                completion(teachers, nil)
+            } catch {
+                completion(nil, error)
+            }
+        }.resume()
     }
-    func getTeachers() -> [Teacher] {
+    func getListOfTeachers() -> [Teacher] {
         let semaphore = DispatchSemaphore(value: 0)
         var elements: [Teacher] = []
-        getTeachres { result in
-            elements = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return elements
-    }
-}
-
-// MARK: - list of faculties
-
-extension APIManager {
-    private func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
-        guard let url = URL(string: UserDefaults.standard.link) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                completion([])
-                return
-            } // TODO: there no only faculties at the end
-            
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                do {
-                    // Создаем экземпляр SwiftSoup и загружаем HTML-контент
-                    let doc = try SwiftSoup.parse(html)
-                    
-                    // Выбираем все элементы <li> с классом "list-group-item"
-                    let liElements = try doc.select("li.list-group-item")
-                    
-                    // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
-                    var elementArray: [(text: String, link: String)] = []
-                    
-                    for liElement in liElements {
-                        if let aElement = try liElement.select("a").first(),
-                           let href = try? aElement.attr("href"), !href.isEmpty,
-                           let text = try? aElement.text(), !text.isEmpty {
-                            elementArray.append((text: text, link: href))
-                        }
-                    }
-                    completion(elementArray)
-                } catch {
-                    print("Ошибка: \(error)")
-                    completion([])
-                }
+        getTeachers { (result, error) in
+            if let result = result {
+                elements = result
+            } else {
+                print("getListOfTeachers error: \(String(describing: error))")
             }
-        }
-        task.resume()
-    }
-    /// name of Faculties
-    func getFaculties() -> [(text: String, link: String)] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var elements: [(text: String, link: String)] = []
-        loadFaculties { result in
-            elements = result
             semaphore.signal()
         }
         semaphore.wait()
@@ -115,6 +79,7 @@ extension APIManager {
 }
 
 // MARK: - Timetable
+
 extension APIManager {
     /// timetable
     func loadTimetableData(with firstDay: String?, completion: @escaping (StudyWeek) -> Void) {
@@ -131,6 +96,7 @@ extension APIManager {
             // Создаем задачу для загрузки данных с указанным URL и обрабатываем результаты
 
             if let error = error {
+                completion(StudyWeek(startDate: "", days: []))
                 print("Ошибка при чтении данных: \(error)")
                 return
             }
@@ -197,6 +163,59 @@ extension APIManager {
                 // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
             }
         }.resume()
+    }
+}
+
+
+// MARK: - list of faculties
+
+extension APIManager {
+    private func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
+        guard let url = URL(string: UserDefaults.standard.link) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                completion([])
+                return
+            } // TODO: there no only faculties at the end
+            
+            if let data = data, let html = String(data: data, encoding: .utf8) {
+                do {
+                    // Создаем экземпляр SwiftSoup и загружаем HTML-контент
+                    let doc = try SwiftSoup.parse(html)
+                    
+                    // Выбираем все элементы <li> с классом "list-group-item"
+                    let liElements = try doc.select("li.list-group-item")
+                    
+                    // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
+                    var elementArray: [(text: String, link: String)] = []
+                    
+                    for liElement in liElements {
+                        if let aElement = try liElement.select("a").first(),
+                           let href = try? aElement.attr("href"), !href.isEmpty,
+                           let text = try? aElement.text(), !text.isEmpty {
+                            elementArray.append((text: text, link: href))
+                        }
+                    }
+                    completion(elementArray)
+                } catch {
+                    print("Ошибка: \(error)")
+                    completion([])
+                }
+            }
+        }
+        task.resume()
+    }
+    /// name of Faculties
+    func getFaculties() -> [(text: String, link: String)] {
+        let semaphore = DispatchSemaphore(value: 0)
+        var elements: [(text: String, link: String)] = []
+        loadFaculties { result in
+            elements = result
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return elements
     }
 }
 
@@ -286,13 +305,13 @@ extension APIManager {
 // MARK: - only years of groups
 
 extension APIManager {
-    private func loadGroupsTitles(completion: @escaping ([SectionWithLinks]) -> Void) {
+    private func loadGroupsTitles(completion: @escaping ([[SectionWithLinks]]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else {
             completion([])
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else {
                 print("Ошибка при загрузке данных: \(error?.localizedDescription ?? "")")
                 completion([])
@@ -303,13 +322,20 @@ extension APIManager {
                 let html = String(data: data, encoding: .utf8)
                 let doc: Document = try SwiftSoup.parse(html ?? "")
                 let listItems = try doc.select("li.common-list-item.row")
-                var sections: [SectionWithLinks] = []
+                var sections: [[SectionWithLinks]] = []
+                var currentSection: [SectionWithLinks] = []
                 
                 for listItem in listItems {
                     // Извлечение значения заголовка
                     if let titleElement = try listItem.select("div.col-sm-5").first() {
                         let title = try titleElement.text()
-                        if title == "Образовательная программа" { continue }
+                        if title == "Образовательная программа" {
+                            if !currentSection.isEmpty {
+                                sections.append(currentSection)
+                                currentSection = []
+                            }
+                            continue
+                        }
                         // Извлечение значений элементов списка
                         let listElements = try listItem.select("a")
                         var sectionItems: [(text: String, link: String)] = []
@@ -318,21 +344,24 @@ extension APIManager {
                             let link = try listElement.attr("href") // Значение ссылки элемента
                             sectionItems.append((text: text, link: link)) // Добавление пары (текст, ссылка) в sectionItems
                         }
-                        sections.append(SectionWithLinks(title: title, items: sectionItems))
+                        currentSection.append(SectionWithLinks(title: title, items: sectionItems))
                     }
+                }
+                if !currentSection.isEmpty {
+                    sections.append(currentSection)
+                    currentSection = []
                 }
                 completion(sections)
             } catch {
                 print("Ошибка при парсинге HTML: \(error)")
                 completion([])
             }
-        }
-        task.resume()
+        }.resume()
     }
     /// list of group recruitment year only
-    func getGroupsTitles() -> [SectionWithLinks] {
+    func getGroupsTitles() -> [[SectionWithLinks]] {
         let semaphore = DispatchSemaphore(value: 0)
-        var section: [SectionWithLinks] = []
+        var section: [[SectionWithLinks]] = []
         loadGroupsTitles { result in
             section = result
             semaphore.signal()

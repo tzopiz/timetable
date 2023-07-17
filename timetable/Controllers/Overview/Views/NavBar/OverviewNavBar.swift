@@ -12,8 +12,7 @@ final class OverviewNavBar: TTBaseView {
     private let titleLabel = TTButton(with: .primary)
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
-    var completionUpdate: ((String?, Int?) -> ())?
-    var completionScroll: ((Int) -> ())?
+    var completionUpdate: ((Int?) -> ())?
 }
 
 extension OverviewNavBar {
@@ -50,17 +49,17 @@ extension OverviewNavBar {
         titleLabel.addButtonTarget(target: self, action: #selector(toToday))
         allWorkoutsButton.backgroundColor = App.Colors.secondary
         
-        weekView.completion = self.completionScroll
+        weekView.completion = self.completionUpdate
     }
     @IBAction func rightSwipeWeek() {
         weekView.shift += 7
         animateLeftSwipe()
-        completionUpdate?(getFirstDay(), nil)
+        completionUpdate?(nil)
     }
     @IBAction func leftSwipeWeek() {
         weekView.shift -= 7
         animateRightSwipe()
-        completionUpdate?(getFirstDay(), nil)
+        completionUpdate?(nil)
     }
     @IBAction func toToday() {
         if weekView.shift > 0 {
@@ -71,7 +70,7 @@ extension OverviewNavBar {
             weekView.shift = 0
             animateLeftSwipe()
         }
-        completionUpdate?(getFirstDay(), weekView.todayIndex)
+        completionUpdate?(weekView.todayIndex)
     }
     private func animateRightSwipe() {
         TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {

@@ -113,7 +113,7 @@ extension ProfileController {
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
             
-            let vc = AuthorizationController()
+            let vc = FacultiesController()
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVc)

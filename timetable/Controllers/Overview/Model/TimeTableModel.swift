@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Lesson {
+struct Lesson: Codable {
     let time: String
     let name: String
     let location: String
@@ -22,11 +22,11 @@ struct Lesson {
         self.isCancelled = isCancelled
     }
 }
-struct StudyDay {
+struct StudyDay: Codable {
     let date: String
     let lessons: [Lesson]
 }
-struct StudyWeek: CustomStringConvertible {
+struct StudyWeek: CustomStringConvertible, Codable{
     let startDate: String
     let days: [StudyDay]
     

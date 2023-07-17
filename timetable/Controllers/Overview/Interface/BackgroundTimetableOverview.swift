@@ -35,6 +35,9 @@ final class BackgroundTimetableOverview: TTBaseView {
             imageView.image = App.Images.lessonsCanceled_dark.randomElement()
         }
     }
+    func configure(height: CGFloat, width: CGFloat) {
+        imageView.setDimensions(height: height, width: width)
+    }
 }
 
 extension BackgroundTimetableOverview {
@@ -48,7 +51,7 @@ extension BackgroundTimetableOverview {
     override func constraintViews() {
         super.constraintViews()
         stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
-        imageView.setDimensions(height: 300, width: 450)
+      
     }
     override func configureAppearance() {
         super.configureAppearance()

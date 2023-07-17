@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AuthorizationController: TTBaseController {
+final class AuthorizationController: TTBaseController { // create Buttons
     private let kindTimetable = ["Студент", "Преподаватель"]
 }
 

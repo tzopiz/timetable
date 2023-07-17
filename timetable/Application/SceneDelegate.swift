@@ -21,9 +21,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let tabBarController = TabBarController()
             window?.rootViewController = tabBarController
         } else {
-            let authVC = AuthorizationController()
+            let vc = FacultiesController()
             UserDefaults.standard.link = "https://timetable.spbu.ru"
-            let navVc = NavigationController(rootViewController: authVC)
+            let navVc = NavigationController(rootViewController: vc)
             window?.rootViewController = navVc
         }
         window?.makeKeyAndVisible()

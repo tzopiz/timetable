@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */; };
+		0A1A697A2A6511C8003FFECB /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A69792A6511C8003FFECB /* DataCacheManager.swift */; };
+		0A1A697D2A655730003FFECB /* TeacherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A697C2A655730003FFECB /* TeacherCell.swift */; };
+		0A1A69802A6570FB003FFECB /* TeacherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A697F2A6570FB003FFECB /* TeacherController.swift */; };
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
@@ -37,13 +40,13 @@
 		0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7529C6620200B3D6AC /* SceneDelegate.swift */; };
 		0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7829C6620200B3D6AC /* TasksController.swift */; };
 		0ACC4EB029C6620300B3D6AC /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7C29C6620200B3D6AC /* TasksCell.swift */; };
-		0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7E29C6620200B3D6AC /* TaskViewController.swift */; };
+		0ACC4EB129C6620300B3D6AC /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7E29C6620200B3D6AC /* TaskController.swift */; };
 		0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8029C6620200B3D6AC /* ContentView.swift */; };
 		0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8229C6620200B3D6AC /* NavigationController.swift */; };
 		0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8329C6620200B3D6AC /* TabBarController.swift */; };
 		0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8529C6620200B3D6AC /* ProfileController.swift */; };
 		0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */; };
-		0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */; };
+		0ACC4EB729C6620300B3D6AC /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8A29C6620200B3D6AC /* PeopleController.swift */; };
 		0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */; };
 		0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */; };
 		0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */; };
@@ -81,6 +84,9 @@
 
 /* Begin PBXFileReference section */
 		0A0ECBF92A5F1E5E004BDB61 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		0A1A69792A6511C8003FFECB /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
+		0A1A697C2A655730003FFECB /* TeacherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCell.swift; sourceTree = "<group>"; };
+		0A1A697F2A6570FB003FFECB /* TeacherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherController.swift; sourceTree = "<group>"; };
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -114,13 +120,13 @@
 		0ACC4E7529C6620200B3D6AC /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0ACC4E7829C6620200B3D6AC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		0ACC4E7C29C6620200B3D6AC /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
-		0ACC4E7E29C6620200B3D6AC /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		0ACC4E7E29C6620200B3D6AC /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		0ACC4E8029C6620200B3D6AC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0ACC4E8229C6620200B3D6AC /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0ACC4E8329C6620200B3D6AC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		0ACC4E8529C6620200B3D6AC /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		0ACC4E8829C6620200B3D6AC /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
-		0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		0ACC4E8A29C6620200B3D6AC /* PeopleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
 		0ACC4E8D29C6620200B3D6AC /* TeacherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 		0ACC4E9129C6620200B3D6AC /* OverviewNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewNavBar.swift; sourceTree = "<group>"; };
 		0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayView.swift; sourceTree = "<group>"; };
@@ -174,6 +180,31 @@
 				6E58B7D905720E602C4B63CF /* Pods-timetable.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		0A1A69782A6511AA003FFECB /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				0A1A69792A6511C8003FFECB /* DataCacheManager.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		0A1A697B2A65570A003FFECB /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0A1A697C2A655730003FFECB /* TeacherCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		0A1A697E2A6570E3003FFECB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0ACC4E8A29C6620200B3D6AC /* PeopleController.swift */,
+				0A1A697F2A6570FB003FFECB /* TeacherController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		0A223B6C29C8936E00C8EDBF /* CoreData */ = {
@@ -386,7 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E7F29C6620200B3D6AC /* Views */,
-				0ACC4E7E29C6620200B3D6AC /* TaskViewController.swift */,
+				0ACC4E7E29C6620200B3D6AC /* TaskController.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -437,8 +468,8 @@
 		0ACC4E8929C6620200B3D6AC /* People */ = {
 			isa = PBXGroup;
 			children = (
+				0A1A697E2A6570E3003FFECB /* Controllers */,
 				0ACC4E8B29C6620200B3D6AC /* Views */,
-				0ACC4E8A29C6620200B3D6AC /* PeopleViewController.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -446,6 +477,7 @@
 		0ACC4E8B29C6620200B3D6AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A1A697B2A65570A003FFECB /* CollectionView */,
 				0AB258F529D8546700215890 /* Model */,
 			);
 			path = Views;
@@ -528,6 +560,7 @@
 		0ACC4EA129C6620300B3D6AC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0A1A69782A6511AA003FFECB /* Storage */,
 				0A58D5E829D4DD4800EE17EA /* Networking */,
 				0ACC4EA429C6620300B3D6AC /* Extensions */,
 				0ACC4EA229C6620300B3D6AC /* Resouces.swift */,
@@ -750,7 +783,7 @@
 				0A26495429DF0510003D080A /* AuthorizationController.swift in Sources */,
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
 				0A58D5E729D4CF2D00EE17EA /* AppearenceCell.swift in Sources */,
-				0ACC4EB729C6620300B3D6AC /* PeopleViewController.swift in Sources */,
+				0ACC4EB729C6620300B3D6AC /* PeopleController.swift in Sources */,
 				0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */,
 				0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */,
 				0ACC4EBA29C6620300B3D6AC /* OverviewNavBar.swift in Sources */,
@@ -769,6 +802,7 @@
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
+				0A1A697D2A655730003FFECB /* TeacherCell.swift in Sources */,
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */,
@@ -777,9 +811,11 @@
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,
 				0A0ECBFA2A5F1E5E004BDB61 /* HeaderView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
+				0A1A697A2A6511C8003FFECB /* DataCacheManager.swift in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,
-				0ACC4EB129C6620300B3D6AC /* TaskViewController.swift in Sources */,
+				0A1A69802A6570FB003FFECB /* TeacherController.swift in Sources */,
+				0ACC4EB129C6620300B3D6AC /* TaskController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,

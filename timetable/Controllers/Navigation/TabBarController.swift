@@ -55,7 +55,7 @@ final class TabBarController: UITabBarController {
         switch tab {
         case .overview: return OverviewController()
         case .tasks:    return TasksController()
-        case .people:   return PeopleViewController()
+        case .people:   return PeopleController()
         case .profile:  return ProfileController()
         }
     }

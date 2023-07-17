@@ -64,7 +64,9 @@ extension DirectionsController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(GroupsTitlesController(), animated: true)
+        let vc = GroupsTitlesController()
+        vc.index = indexPath.row
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

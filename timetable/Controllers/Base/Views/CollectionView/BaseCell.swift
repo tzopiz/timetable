@@ -50,13 +50,13 @@ class BaseCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        constaintViews()
+        constraintViews()
         configureAppearance()
     }
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
         setupViews()
-        constaintViews()
+        constraintViews()
         configureAppearance()
     }
 }
@@ -69,7 +69,7 @@ extension BaseCell {
         stackInfoView.addArrangedSubview(title)
     }
     /// add constaraints to subviews
-    func constaintViews() {
+    func constraintViews() {
         stackInfoView.anchor(top: contentView.topAnchor, bottom: contentView.bottomAnchor,
                              left: contentView.leadingAnchor, paddingLeft: 16,
                              right: contentView.trailingAnchor, paddingRight: -16)

@@ -8,9 +8,9 @@
 import UIKit
 
 final class GroupsTitlesController: TTBaseController {
-    
-    private var groupsTitles: [SectionWithLinks] = APIManager.shared.getGroupsTitles()
-
+    var index = 0
+    private lazy var groupsTitles: [SectionWithLinks] = APIManager.shared.getGroupsTitles()[index]
+    private var isNotFirstLoad = false
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag
         groupsTitles[section].isExpanded.toggle()
@@ -32,10 +32,12 @@ extension GroupsTitlesController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let urlString = UserDefaults.standard.link
-        if let url = URL(string: urlString) {
-            let newURL = url.deletingLastPathComponent().deletingLastPathComponent()
-            UserDefaults.standard.link = String(newURL.absoluteString.dropLast())
+        if UserDefaults.standard.link.count > 30 {
+            let urlString = UserDefaults.standard.link
+            if let url = URL(string: urlString) {
+                let newURL = url.deletingLastPathComponent().deletingLastPathComponent()
+                UserDefaults.standard.link = String(newURL.absoluteString.dropLast())
+            }
         }
     }
 }
@@ -80,10 +82,8 @@ extension GroupsTitlesController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print(UserDefaults.standard.link)
         UserDefaults.standard.link = "https://timetable.spbu.ru" + groupsTitles[indexPath.section].items[indexPath.item].link
         navigationController?.pushViewController(GroupsController(), animated: true)
-//        print(UserDefaults.standard.link)
     }
 }
 

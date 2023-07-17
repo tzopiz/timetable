@@ -8,8 +8,15 @@
 import Foundation
 
 struct Teacher: Codable, Hashable {
-    var name: String
-    var info: String
+    let name: String
+    let position: String
+    let department: String
+    let publications: Int
+    let applications: Int
+    let grants: Int
+    let projects: Int
+    let personalLink: String
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
     }
@@ -20,6 +27,20 @@ struct Teacher: Codable, Hashable {
         guard let filterText = filter else { return true }
         if filterText.isEmpty { return true }
         let lowercasedFilter = filterText.lowercased()
-        return name.lowercased().contains(lowercasedFilter) || info.lowercased().contains(lowercasedFilter)
+        return name.lowercased().contains(lowercasedFilter)
+    }
+    
+    var description: String {
+        return """
+        Name: \(name)
+        Position: \(position)
+        Department: \(department)
+        Publications: \(publications)
+        Applications: \(applications)
+        Grants: \(grants)
+        Projects: \(projects)
+        Personal Link: \(personalLink)
+        =============
+        """
     }
 }

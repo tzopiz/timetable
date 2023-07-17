@@ -48,7 +48,7 @@ extension ProfileCell {
         stackInfoView.addArrangedSubview(subtitle)
         setupView(leftView)
     }
-    override func constaintViews() {
+    override func constraintViews() {
         leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
         title.setDimensions(height: 40)
         stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,

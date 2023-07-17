@@ -74,9 +74,7 @@ extension WeekView {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: i - shift)
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
-            if isToday {
-                self.todayIndex = i
-            }
+            if isToday { self.todayIndex = i }
         }
     }
     private func animateTouch(_ i: Int) {

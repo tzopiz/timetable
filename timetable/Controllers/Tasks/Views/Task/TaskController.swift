@@ -1,5 +1,5 @@
 //
-//  TaskViewController.swift
+//  TaskController.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 08.03.2023.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class TaskViewController: TTBaseController {
+final class TaskController: TTBaseController {
     private let contentView = ContentView()
     var task: Task? = nil
     var completion: ((Bool) -> ())?
 }
 
-extension TaskViewController {
+extension TaskController {
     override func setupViews() {
         view.setupView(contentView)
     }
@@ -36,7 +36,7 @@ extension TaskViewController {
     }
 }
 
-extension TaskViewController {
+extension TaskController {
     @IBAction func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
         let taskName: String?
