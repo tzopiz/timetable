@@ -20,6 +20,20 @@ struct SettingsData {
 final class ProfileController: TTBaseController {
     private var dataSource: [SettingsData] = []
     private let versionLabel = TTLabel()
+    private func showConfirmationAlert() {
+        let alertController = UIAlertController(title: "Подтверждение", message: "Вы точно хотите очистить кеш?", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Очистить", style: .destructive) { (_) in
+            let cacheManager = DataCacheManager()
+            cacheManager.clearCache()
+        }
+        alertController.addAction(confirmAction)
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension ProfileController {
@@ -47,7 +61,8 @@ extension ProfileController {
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
             .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .exit)),
-            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
+            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base)),
+            .init(item: .init(title: "Очистить кеш приложения",    image: App.Images.aboutApp,     type: .base))
         ]
         versionLabel.text = Bundle.main.releaseVersionNumber
         versionLabel.font = App.Fonts.helveticaNeue(with: 10)
@@ -116,6 +131,8 @@ extension ProfileController {
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVc)
+        case 5:
+            showConfirmationAlert()
         default:
             print(#function)
         }
@@ -140,6 +157,8 @@ extension ProfileController {
                                  referenceSizeForHeaderInSection section: Int)
     -> CGSize { CGSize(width: collectionView.frame.width, height: 0) }
 }
+
+// MARK: - PHPickerViewControllerDelegate
 
 extension ProfileController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {

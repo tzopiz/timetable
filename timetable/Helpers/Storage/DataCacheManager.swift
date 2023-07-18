@@ -54,7 +54,15 @@ class DataCacheManager {
             completion(studyWeek, nil)
         }
     }
-
+    func clearCache() {
+        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            print("Не удалось получить доступ к директории кеша.")
+            return
+        }
+        let cacheFileURL = cacheDirectory.appendingPathComponent(cacheFileName)
+        do { try FileManager.default.removeItem(at: cacheFileURL) }
+        catch { print("Ошибка при удалении кеша: \(error)") }
+    }
     
     private func getCachedData(for week: String) -> StudyWeek? { return cache[week] }
     private func cacheData(_ data: StudyWeek, for week: String) {
@@ -85,6 +93,7 @@ class DataCacheManager {
             try encodedCache.write(to: cacheFileURL)
         } catch { print("Ошибка при сохранении кеша в файл: \(error)") }
     }
+    
     private func isInternetAvailable() -> Bool {
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))

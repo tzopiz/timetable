@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TeacherController: UIViewController {
+final class TeacherController: UIViewController {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()

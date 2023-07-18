@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LabelTextView: TTBaseView {
+final class LabelTextView: TTBaseView {
     private let label = TTLabel(fontSize: 16)
     private let textView: UITextView = {
         let textView = UITextView()
