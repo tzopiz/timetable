@@ -29,6 +29,7 @@
 		0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27F2A63F12600F4947D /* GroupsController.swift */; };
 		0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2812A64172E00F4947D /* ModelAuth.swift */; };
 		0A98A2852A64519700F4947D /* BackgroundTimetableOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */; };
+		0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB612E52A66FEF0007E6757 /* FeedbackView.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
@@ -107,6 +108,7 @@
 		0A98A27F2A63F12600F4947D /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
 		0A98A2812A64172E00F4947D /* ModelAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAuth.swift; sourceTree = "<group>"; };
 		0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimetableOverview.swift; sourceTree = "<group>"; };
+		0AB612E52A66FEF0007E6757 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -558,6 +560,7 @@
 				0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */,
 				0ACC4EA029C6620300B3D6AC /* TTButton.swift */,
 				0A1A69862A65CEF2003FFECB /* TTLabel.swift */,
+				0AB612E52A66FEF0007E6757 /* FeedbackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -844,6 +847,7 @@
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
 				0A98A2852A64519700F4947D /* BackgroundTimetableOverview.swift in Sources */,
 				0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */,
+				0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,16 @@ struct SettingsData {
 
 final class ProfileController: TTBaseController {
     private var dataSource: [SettingsData] = []
-    private let versionLabel = TTLabel()
+    private let feedbackView = FeedbackView()
+    private let versionLabel: TTLabel = {
+        let label = TTLabel()
+        label.text = Bundle.main.releaseVersionNumber
+        label.font = App.Fonts.helveticaNeue(with: 7)
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
     private func showConfirmationAlert() {
         let alertController = UIAlertController(title: "Подтверждение", message: "Вы точно хотите очистить кеш?", preferredStyle: .alert)
         
@@ -40,13 +49,16 @@ extension ProfileController {
     override func setupViews() {
         super.setupViews()
         collectionView.addSubview(versionLabel)
+        collectionView.addSubview(feedbackView)
     }
     override func constraintViews() {
         super.constraintViews()
-        versionLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -8,
+        versionLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 4,
                             left: view.leadingAnchor, paddingLeft: 16,
                             right: view.trailingAnchor, paddingRight: -16)
         versionLabel.setDimensions(height: 20)
+        feedbackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -8,
+                            centerX: collectionView.centerXAnchor)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -60,13 +72,11 @@ extension ProfileController {
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
+            .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .base)),
             .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .exit)),
-            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base)),
-            .init(item: .init(title: "Очистить кеш приложения",    image: App.Images.aboutApp,     type: .base))
+            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
+           
         ]
-        versionLabel.text = Bundle.main.releaseVersionNumber
-        versionLabel.font = App.Fonts.helveticaNeue(with: 10)
-        versionLabel.textAlignment = .center
     }
 }
 
@@ -83,7 +93,7 @@ extension ProfileController {
                 withReuseIdentifier: ProfileCell.ProfileCellId,
                 for: indexPath) as? ProfileCell
             else { return UICollectionViewCell() }
-            cell.configure(title: item.title, type: item.type, image: item.image)
+            cell.configure(title: item.title, image: item.image)
             return cell
         case .theme:
             guard let cell = collectionView.dequeueReusableCell(
@@ -124,6 +134,8 @@ extension ProfileController {
         case 0:
             openImagePickerVC()
         case 3:
+            showConfirmationAlert()
+        case 4:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
             
@@ -131,8 +143,6 @@ extension ProfileController {
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVc)
-        case 5:
-            showConfirmationAlert()
         default:
             print(#function)
         }

@@ -184,7 +184,6 @@ extension APIManager {
             }
             
             do {
-                let html = try String(contentsOf: url)
                 let doc = try SwiftSoup.parse(html)
                 let imageElements = try doc.select("img")
                 if let imageUrl = try? imageElements[2].attr("src") {

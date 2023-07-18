@@ -45,7 +45,7 @@ class DataCacheManager {
                 completion(cachedData, nil)
                 return
             }
-        }
+        } // TODO: if dataload != datacache
         if !isInternetAvailable() {
             completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid StudyWeek object."]))
         }

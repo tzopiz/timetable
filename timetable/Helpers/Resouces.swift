@@ -60,10 +60,15 @@ enum App {
         static let feedback    = "Обратная связь"
         static let aboutApp    = "О приложении"
         static let exit        = "Выйти"
+        static let clearCache  = "Очистить кеш"
         
         static let activeTask   = "Активаная задача"
         static let completeTask = "Выполненная задача"
         static let newTask      = "Новая задача"
+        
+        static let vk_link = "https://vk.com/tzopiz"
+        static let tg_link = "https://t.me/tzopiz"
+        static let github_link = "https://github.com/tzopiz"
     }
     
     enum Images {
@@ -102,6 +107,10 @@ enum App {
         static let exclamation_1 = #imageLiteral(resourceName: "warning_1@64")
         static let exclamation_2 = #imageLiteral(resourceName: "warning_2@64")
         static let exclamation_3 = #imageLiteral(resourceName: "warning_3@64")
+        
+        static let vk_icon = #imageLiteral(resourceName: "vk_icon")
+        static let tg_icon = #imageLiteral(resourceName: "tg_icon")
+        static let github_icon = #imageLiteral(resourceName: "github_icon")
     }
     
     enum Fonts {
