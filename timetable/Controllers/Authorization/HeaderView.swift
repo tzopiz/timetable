@@ -11,15 +11,7 @@ class HeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = String(describing: HeaderView.self)
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = App.Colors.text
-        label.font = App.Fonts.helveticaNeue(with: 19)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
+    private let titleLabel = TTLabel(fontSize: 19)
     private let expandButton: TTButton = {
         let button = TTButton(with: .secondary)
         return button

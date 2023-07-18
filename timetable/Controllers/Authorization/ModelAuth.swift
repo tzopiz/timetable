@@ -10,8 +10,8 @@ import UIKit
 struct Section {
     let title: String
     var items: [String]
-    var isExpanded: Bool = false
 }
+
 struct SectionWithLinks {
     let title: String
     let items: [(text: String, link: String)]
@@ -22,12 +22,10 @@ extension Section: CustomStringConvertible {
     var description: String {
         let titleDescription = "Title: \(title)"
         let itemsDescription = "Items:\n\(itemsDescriptionIndented)"
-        let isExpandedDescription = "Is Expanded: \(isExpanded)"
         return """
         Section:
         \(titleDescription)
         \(itemsDescription)
-        \(isExpandedDescription)
         """
     }
     

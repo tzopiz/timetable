@@ -11,12 +11,12 @@ final class ProfileCell: BaseCell {
     
     static let ProfileCellId = String(describing: ProfileCell.self)
     
-    private let subtitle: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 15)
+    private let subtitle: TTLabel = {
+        let label = TTLabel()
+        
         label.textColor = App.Colors.text_2
-        label.textAlignment = .left
-        label.numberOfLines = 0
+        
+        
         return label
     }()
     private let leftView: UIImageView = {

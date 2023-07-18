@@ -12,15 +12,7 @@ final class BackgroundTimetableOverview: TTBaseView {
         let imageView = UIImageView(image: nil)
         return imageView
     }()
-    private let title: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 20)
-        label.textAlignment = .center
-        label.textColor = App.Colors.text_2
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
+    private let title = TTLabel(textColor: App.Colors.text_2, fontSize: 20, textAlignment: .center)
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

@@ -15,7 +15,7 @@ public enum TTButtonType {
 final class TTButton: UIButton {
 
     private var type: TTButtonType = .primary
-    private let label = UILabel()
+    private let label = TTLabel()
     init(with type: TTButtonType) {
         super.init(frame: .zero)
         self.type = type
@@ -66,14 +66,14 @@ private extension TTButton {
     func configureAppearance() {
         switch type {
         case .primary:
-            label.textAlignment = .left
+            
             setTintColor(App.Colors.text)
             label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
             label.textAlignment = .center
             layer.cornerRadius = 7
             setTintColor(App.Colors.active)
-            label.font = App.Fonts.helveticaNeue(with: 15)
+            
         }
         makeSystem(self)
     }

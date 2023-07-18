@@ -12,8 +12,8 @@ final class APIManager {
     static let shared = APIManager()
     private init() { }
     
-    // TODO: --
-    
+}
+extension APIManager {
     func getTeachers(completion: @escaping ([Teacher]?, Error?) -> Void) {
         let urlString = "https://apmath.spbu.ru/studentam/spisok-i-rejting-prepodavatelej.html"
         guard let url = URL(string: urlString) else {
@@ -76,6 +76,154 @@ final class APIManager {
         semaphore.wait()
         return elements
     }
+    
+    func fetchTeacherInfo(link: String, completion: @escaping (TeacherInfo) -> Void) {
+        guard let url = URL(string: link) else { return }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let self = self,
+                  let data = data,
+                  let html = String(data: data, encoding: .utf8) else {
+                return
+            }
+            
+            self.parseTeacherInfo(html: html) { teacherInfo in
+                completion(teacherInfo)
+            }
+        }.resume()
+    }
+    
+    // Функция для парсинга HTML и возврата объекта TeacherInfo через замыкание
+    private func parseTeacherInfo(html: String, completion: @escaping (TeacherInfo) -> Void) {
+        DispatchQueue.global().async {
+            do {
+                let doc: Document = try SwiftSoup.parse(html)
+                
+                // Извлечение данных и заполнение объекта teacherInfo
+                
+                // Имя преподавателя
+                let nameTag = try doc.select("h1").first()
+                let name = try nameTag?.text() ?? ""
+                
+                // Должность и дополнительная информация
+                let positionTag = try doc.select("div.tm-main p").first()
+                let position = positionTag?.ownText() ?? ""
+                let additionalInfo = try positionTag?.text() ?? ""
+                
+                // Ссылки
+                var links: [String] = []
+                let linksTags = try doc.select("div.tm-main p a")
+                for linkTag in linksTags {
+                    if let link = try? linkTag.attr("href") {
+                        links.append(link)
+                    }
+                }
+                
+                // Объединение секций
+                var sections: [Section] = []
+                
+                // Секции с h2.trigger
+                let sectionTags = try doc.select("h2.trigger")
+                for sectionTag in sectionTags {
+                    let section = try self.parseSection(sectionTag: sectionTag)
+                    sections.append(section)
+                }
+                
+                // Создание объекта TeacherInfo
+                let teacherInfo = TeacherInfo(
+                    name: name,
+                    position: position,
+                    additionalInfo: additionalInfo,
+                    links: links,
+                    sections: sections
+                )
+                
+                // Возврат результата через замыкание
+                DispatchQueue.main.async {
+                    completion(teacherInfo)
+                }
+            } catch {
+                print("Error parsing HTML: \(error)")
+            }
+        }
+    }
+    func parseSection(sectionTag: Element) throws -> Section {
+        let title = sectionTag.ownText()
+        
+        // Check if the section has a description list (dl) element
+        if let dlElement = try sectionTag.nextElementSibling()?.select("dl").first() {
+            let dtElements = try dlElement.select("dt")
+            let items = try dtElements.map { dtElement -> String in
+                let itemText = try dtElement.text()
+                return itemText
+            }
+            return Section(title: title, items: items)
+        }
+        
+        // If there is no description list, parse as usual
+        let sectionList = try sectionTag.nextElementSibling()?.select("p")
+        var items: [String] = []
+        for item in sectionList ?? Elements() {
+            let itemText = try item.text()
+            items.append(itemText)
+        }
+        return Section(title: title, items: items)
+    }
+    func getImageURL(from websiteURL: String, completion: @escaping (String?) -> Void) {
+        guard let url = URL(string: websiteURL) else {
+            print("Некорректный URL.")
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard error == nil, let data = data, let html = String(data: data, encoding: .utf8) else {
+                print("Ошибка при загрузке HTML: \(error?.localizedDescription ?? "Неизвестная ошибка")")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let html = try String(contentsOf: url)
+                let doc = try SwiftSoup.parse(html)
+                let imageElements = try doc.select("img")
+                if let imageUrl = try? imageElements[2].attr("src") {
+                    completion("https://apmath.spbu.ru" + imageUrl)
+                }
+            } catch {
+                print("Ошибка при парсинге HTML: \(error)")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+
+    func loadImage(from imageUrl: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: imageUrl) else {
+            print("Некорректный URL.")
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard error == nil, let data = data else {
+                print("Ошибка при загрузке изображения: \(error?.localizedDescription ?? "Неизвестная ошибка")")
+                completion(nil)
+                return
+            }
+            if let image = UIImage(data: data) { completion(image) }
+            else {
+                print("Ошибка при создании изображения из данных.")
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("Данные изображения: \(dataString)")
+                }
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
 }
 
 // MARK: - Timetable
@@ -94,17 +242,17 @@ extension APIManager {
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             // Создаем задачу для загрузки данных с указанным URL и обрабатываем результаты
-
+            
             if let error = error {
                 completion(StudyWeek(startDate: "", days: []))
                 print("Ошибка при чтении данных: \(error)")
                 return
             }
             // Проверяем, возникла ли ошибка при загрузке данных и выводим ее в консоль, если она есть
-
+            
             if let data = data, let html = String(data: data, encoding: .utf8) {
                 // Если данные загружены успешно и удалось преобразовать их в строку с кодировкой UTF-8
-
+                
                 do {
                     let doc = try SwiftSoup.parse(html)
                     // Создаем экземпляр SwiftSoup и парсим HTML
@@ -114,7 +262,7 @@ extension APIManager {
                     // Извлекаем значение атрибута
                     var dayDataArray: [StudyDay] = []
                     // Создаем пустой массив StudyDay
-
+                    
                     for element in try doc.select("div.panel.panel-default") {
                         // Итерируемся по элементам с определенным CSS-селектором
                         guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first() else {
@@ -125,19 +273,19 @@ extension APIManager {
                         // Извлекаем текст и обрезаем лишние пробелы и символы новой строки
                         var lessons: [Lesson] = []
                         // Создаем пустой массив Lesson
-
+                        
                         for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
                             // Итерируемся по элементам с определенным CSS-селектором
-
+                            
                             let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
                             // Извлекаем текст из элемента или используем пустую строку по умолчанию
-
+                            
                             let name = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
                             // Извлекаем текст из элемента или используем пустую строку по умолчанию
-
+                            
                             let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link").first()?.text() ?? ""
                             // Извлекаем текст из элемента или используем пустую строку по умолчанию
-
+                            
                             var teacher = ""
                             if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a").first() {
                                 teacher = try educatorElement.text()
@@ -145,17 +293,17 @@ extension APIManager {
                                 teacher = try educatorElement.text()
                             }
                             // Извлекаем текст преподавателя из элементов или используем пустую строку по умолчанию
-
+                            
                             let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
                             // Проверяем наличие элемента с классом "cancelled"
-
+                            
                             let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
                             lessons.append(lesson)
                         }
                         let schoolDay = StudyDay(date: date, lessons: lessons)
                         dayDataArray.append(schoolDay)
                     }
-
+                    
                     let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate), days: dayDataArray)
                     completion(schoolWeek)
                     // Вызываем завершающее замыкание с объектом schoolWeek

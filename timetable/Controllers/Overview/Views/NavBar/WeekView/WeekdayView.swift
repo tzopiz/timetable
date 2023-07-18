@@ -10,18 +10,8 @@ import UIKit
 extension WeekView {
     final class WeekdayView: TTBaseView {
 
-        private let nameLabel: UILabel = {
-            let label = UILabel()
-            label.font = App.Fonts.helveticaNeue(with: 9)
-            label.textAlignment = .center
-            return label
-        }()
-        private let dateLabel: UILabel = {
-            let label = UILabel()
-            label.font = App.Fonts.helveticaNeue(with: 15)
-            label.textAlignment = .center
-            return label
-        }()
+        private let nameLabel = TTLabel(fontSize: 9, textAlignment: .center)
+        private let dateLabel = TTLabel(textAlignment: .center)
         private let stackView: UIStackView = {
             let stackView = UIStackView()
             stackView.spacing = 3

@@ -50,11 +50,11 @@ class TTBaseController: UIViewController {
     }
     func scrollCollectionViewToTop() { self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true) }
     func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-        let label = UILabel()
+        let label = TTLabel()
         label.text = text
         label.font = font
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        
+        
         let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return size.height
     }
@@ -91,16 +91,28 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
 
 @objc
 extension TTBaseController {
+    /// Добавляет подвиды на контроллер.
     func setupViews() {
+        // Добавьте код для добавления подвидов на контроллер,
+        // таких как их инициализация, настройка свойств и добавление на представление.
         view.setupView(collectionView)
     }
+    
+    /// Устанавливает ограничения для подвидов внутри контроллера.
     func constraintViews() {
+        // Добавьте код для установки ограничений для подвидов,
+        // таких как установка автолейаут-ограничений, задание отступов и т.д.
         collectionView.anchor(top: view.topAnchor,
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
     }
+    
+    /// Настраивает внешний вид контроллера.
     func configureAppearance() {
+        // Добавьте код для настройки внешнего вида контроллера,
+        // таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
+        // Вы также можете применять стили, добавлять тени, закруглять углы и т.д.
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = App.Colors.background

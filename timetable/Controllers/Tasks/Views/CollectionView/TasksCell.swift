@@ -11,18 +11,9 @@ final class TasksCell: UICollectionViewCell {
     
     static let reuseIdentifier =  String(describing: TasksCell.self)
     
-    private let title: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        return label
-    }()
-    private let subtitle: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.text_2
-        return label
-    }()
+    private let title = TTLabel(fontSize: 17)
+    private let subtitle = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

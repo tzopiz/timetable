@@ -1,5 +1,5 @@
 //
-//  PeopleController.swift
+//  TeachersController.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 17.03.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PeopleController: TTBaseController {
+final class TeachersController: TTBaseController {
     private lazy var dataSource: [Teacher] = APIManager.shared.getListOfTeachers()
     private var filteredData: [Teacher] = []
     
@@ -28,26 +28,21 @@ final class PeopleController: TTBaseController {
     }
 }
 
-extension PeopleController {
+extension TeachersController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
-        
+        // TODO: add refresh control
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
-        
-//        let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        
-//        collectionView.refreshControl = refreshControl
         collectionView.register(TeacherCell.self, forCellWithReuseIdentifier: TeacherCell.reuseIdentifier)
     }
 }
 
 // MARK: -  UICollectionViewDataSource
 
-extension PeopleController {
+extension TeachersController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
     -> Int { isFiltering() ? filteredData.count : dataSource.count }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -76,13 +71,15 @@ extension PeopleController {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(TeacherController(), animated: true)
+        let vc = TeacherController()
+        vc.link = isFiltering() ? filteredData[indexPath.row].personalLink : dataSource[indexPath.row].personalLink
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PeopleController {
+extension TeachersController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -90,13 +87,13 @@ extension PeopleController {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         let item = isFiltering() ? filteredData[indexPath.row] : dataSource[indexPath.row]
         
-        let heightForLabelname = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width)
-        let heightForLabelposition = heightForLabel(text: item.position, font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let heightForLabeldepartment = heightForLabel(text: item.department, font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let heightForLabelpublications = heightForLabel(text: String("\(item.publications)"), font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let heightForLabelapplications = heightForLabel(text: String("\(item.applications)"), font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let heightForLabelgrants = heightForLabel(text: String("\(item.grants)"), font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let heightForLabelprojects = heightForLabel(text: String("\(item.projects)"), font: App.Fonts.helveticaNeue(with: 15), width: width)
+        let heightForLabelname = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 19), width: width)
+        let heightForLabelposition = heightForLabel(text: item.position, font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let heightForLabeldepartment = heightForLabel(text: item.department, font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let heightForLabelpublications = heightForLabel(text: String("\(item.publications)"), font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let heightForLabelapplications = heightForLabel(text: String("\(item.applications)"), font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let heightForLabelgrants = heightForLabel(text: String("\(item.grants)"), font: App.Fonts.helveticaNeue(with: 17), width: width)
+        let heightForLabelprojects = heightForLabel(text: String("\(item.projects)"), font: App.Fonts.helveticaNeue(with: 17), width: width)
         
         let totalHeight = heightForLabelname + heightForLabelposition + heightForLabeldepartment + heightForLabelpublications + heightForLabelapplications + heightForLabelgrants + heightForLabelprojects + 52
         return CGSize(width: width, height: totalHeight)
@@ -113,7 +110,7 @@ extension PeopleController {
 
 // MARK: - UISearchResultsUpdating
 
-extension PeopleController: UISearchResultsUpdating {
+extension TeachersController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text)
     }
@@ -128,18 +125,4 @@ extension PeopleController: UISearchResultsUpdating {
     private func isFiltering() -> Bool {
         return navigationItem.searchController?.isActive ?? false && !(navigationItem.searchController?.searchBar.text?.isEmpty ?? true)
     }
-}
-
-
-
-
-
-
-extension PeopleController {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing {
-//            let isSearchBarHidden = scrollView.contentOffset.y < 0
-//            searchController.searchBar.isHidden = isSearchBarHidden
-//        }
-//    }
 }

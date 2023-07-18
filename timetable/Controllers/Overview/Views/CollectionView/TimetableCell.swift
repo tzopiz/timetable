@@ -23,39 +23,10 @@ final class TimetableCell: UICollectionViewCell {
         stackView.spacing = 5
         return stackView
     }()
-    private let time: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 15)
-        label.textColor = App.Colors.text
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    private let nameSubject: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    private let address: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.text_2
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    private let teacherName: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.text_2
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
+    private let time = TTLabel()
+    private let nameSubject = TTLabel(fontSize: 17)
+    private let address = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
+    private let teacherName = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
     private let clock = UIImageView(image: App.Images.clock)
     private var borderLayer = CAShapeLayer()
 

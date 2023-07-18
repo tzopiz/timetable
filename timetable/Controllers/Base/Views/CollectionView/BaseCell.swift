@@ -18,15 +18,7 @@ class BaseCell: UICollectionViewCell {
     
     static let baseId = String(describing: BaseCell.self)
     
-    public let title: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
+    public let title = TTLabel(fontSize: 17)
     public let stackInfoView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 2

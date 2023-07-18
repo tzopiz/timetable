@@ -9,13 +9,9 @@ import UIKit
 
 final class ContentView: TTBaseView {
     
-    private let topLabel: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        label.textAlignment = .center
-        return label
-    }()
+    private let topLabel = TTLabel(fontSize: 17, textAlignment: .center)
+    private let importanceLabel = TTLabel(text: "Важность: ", fontSize: 17)
+    private let deadlineLabel = TTLabel(text: "Deadline: ", fontSize: 17)
     private let nameTaskField: UITextField = {
         let textField = UITextField()
         textField.font = App.Fonts.helveticaNeue(with: 17)
@@ -77,14 +73,6 @@ final class ContentView: TTBaseView {
         view.layer.cornerRadius = 10
         return view
     }()
-    private let importanceLabel: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        label.textAlignment = .left
-        label.text = "Важность: "
-        return label
-    }()
     private let segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [UIImage(),
                                                  App.Images.exclamation_1,
@@ -98,14 +86,6 @@ final class ContentView: TTBaseView {
         view.backgroundColor = App.Colors.BlackWhite
         view.layer.cornerRadius = 10
         return view
-    }()
-    private let deadlineLabel: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 17)
-        label.textColor = App.Colors.text
-        label.textAlignment = .left
-        label.text = "Deadline: "
-        return label
     }()
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()

@@ -11,15 +11,8 @@ final class SectionHeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = String(describing: SectionHeaderView.self)
     
-    private let title: UILabel = {
-        let label = UILabel()
-        label.font = App.Fonts.helveticaNeue(with: 13)
-        label.textColor = App.Colors.text_2
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
+    private let title = TTLabel(textColor: App.Colors.text_2, fontSize: 13, textAlignment: .center)
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()

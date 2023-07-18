@@ -1,29 +1,43 @@
 //
-//  TTBaseView.swift
+//  TTLabel.swift
 //  timetable
 //
-//  Created by Дмитрий Корчагин on 24.11.2022.
+//  Created by Дмитрий Корчагин on 18.07.2023.
 //
 
 import UIKit
 
-class TTBaseView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+/// ```
+/// numberOfLines = 0
+/// textAlignment = .left
+/// lineBreakMode = .byWordWrapping
+/// textColor = App.Colors.text
+/// font = App.Fonts.helveticaNeue(with: 15)
+/// ```
+class TTLabel: UILabel {
+    init(text: String = "",
+         textColor: UIColor = App.Colors.text,
+         fontSize: CGFloat = 15,
+         textAlignment: NSTextAlignment = .left,
+         lineBreakMode: NSLineBreakMode = .byWordWrapping) {
+        super.init(frame: .zero)
+        self.textAlignment = textAlignment
+        self.lineBreakMode = lineBreakMode
+        self.textColor = textColor
+        self.font = App.Fonts.helveticaNeue(with: fontSize)
+        self.text = text
+        self.numberOfLines = 0
         setupViews()
         constraintViews()
         configureAppearance()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupViews()
-        constraintViews()
-        configureAppearance()
     }
 }
 
 @objc
-extension TTBaseView {
+extension TTLabel {
     /// Добавляет подвиды на представление.
     func setupViews() {
         // Добавьте код для добавления подвидов на представление,

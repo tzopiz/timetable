@@ -19,7 +19,7 @@ struct SettingsData {
 
 final class ProfileController: TTBaseController {
     private var dataSource: [SettingsData] = []
-    private let versionLabel = UILabel()
+    private let versionLabel = TTLabel()
 }
 
 extension ProfileController {
@@ -51,7 +51,6 @@ extension ProfileController {
         ]
         versionLabel.text = Bundle.main.releaseVersionNumber
         versionLabel.font = App.Fonts.helveticaNeue(with: 10)
-        versionLabel.textColor = App.Colors.text
         versionLabel.textAlignment = .center
     }
 }

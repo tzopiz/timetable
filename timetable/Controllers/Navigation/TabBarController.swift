@@ -22,6 +22,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
         CoreDataMamanager.shared.saveProfileImage()
+        switchTo(tab: .people)
     }
 
     required init?(coder: NSCoder) {
@@ -55,7 +56,7 @@ final class TabBarController: UITabBarController {
         switch tab {
         case .overview: return OverviewController()
         case .tasks:    return TasksController()
-        case .people:   return PeopleController()
+        case .people:   return TeachersController()
         case .profile:  return ProfileController()
         }
     }

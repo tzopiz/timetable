@@ -44,3 +44,11 @@ struct Teacher: Codable, Hashable {
         """
     }
 }
+
+struct TeacherInfo {
+    let name: String
+    let position: String
+    let additionalInfo: String
+    let links: [String]
+    var sections: [Section]
+}
