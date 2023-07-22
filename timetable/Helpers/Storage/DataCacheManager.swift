@@ -10,7 +10,7 @@ import SystemConfiguration
 
 
 class DataCacheManager {
-    private let cacheFileName = "dataCache.json"
+    private let cacheFileName = "dataTimetableCache.json"
     private var cache: [String: StudyWeek] = [:]
 
     init() { loadCacheFromFile() }
@@ -70,9 +70,8 @@ class DataCacheManager {
         saveCacheToFile()
     }
     private func loadCacheFromFile() {
-        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return
-        }
+        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        else { return }
         let cacheFileURL = cacheDirectory.appendingPathComponent(cacheFileName)
 
         do {
@@ -103,14 +102,10 @@ class DataCacheManager {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, $0)
             }
-        }) else {
-            return false
-        }
+        }) else { return false }
 
         var flags: SCNetworkReachabilityFlags = []
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
-            return false
-        }
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) { return false }
 
         let isReachable = flags.contains(.reachable)
         let needsConnection = flags.contains(.connectionRequired)

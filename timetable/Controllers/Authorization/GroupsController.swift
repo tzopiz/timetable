@@ -27,9 +27,9 @@ extension GroupsController {
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        collectionView.register(HeaderView.self,
+        collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: HeaderView.reuseIdentifier)
+                                withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
     }
 }
 
@@ -55,8 +55,8 @@ extension GroupsController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: HeaderView.reuseIdentifier,
-                                                                         for: indexPath) as! HeaderView
+                                                                         withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
+                                                                         for: indexPath) as! HeaderWithButtonView
         let section = groups[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,
                              target: self, action: #selector(toggleSection(_:)))

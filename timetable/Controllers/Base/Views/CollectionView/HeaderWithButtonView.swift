@@ -1,5 +1,5 @@
 //
-//  HeaderView.swift
+//  HeaderWithButtonView.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 12.07.2023.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class HeaderView: UICollectionReusableView {
+class HeaderWithButtonView: UICollectionReusableView {
     
-    static let reuseIdentifier = String(describing: HeaderView.self)
+    static let reuseIdentifier = String(describing: HeaderWithButtonView.self)
     
     private let titleLabel = TTLabel(fontSize: 19)
     private let expandButton: TTButton = {
