@@ -197,7 +197,7 @@ extension APIManager {
         
         task.resume()
     }
-
+    
     func loadImage(from imageUrl: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: imageUrl) else {
             print("Некорректный URL.")
@@ -239,62 +239,81 @@ extension APIManager {
         let url = URL(string: UserDefaults.standard.link + timeInterval)
         guard let url = url else { return }
         
+        // Создаем задачу для загрузки данных с указанным URL и обрабатываем результаты
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // Создаем задачу для загрузки данных с указанным URL и обрабатываем результаты
             
+            // Проверяем, возникла ли ошибка при загрузке данных и выводим ее в консоль, если она есть
             if let error = error {
                 completion(StudyWeek(startDate: "", days: []))
                 print("Ошибка при чтении данных: \(error)")
                 return
             }
-            // Проверяем, возникла ли ошибка при загрузке данных и выводим ее в консоль, если она есть
             
+            // Если данные загружены успешно и удалось преобразовать их в строку с кодировкой UTF-8
             if let data = data, let html = String(data: data, encoding: .utf8) {
-                // Если данные загружены успешно и удалось преобразовать их в строку с кодировкой UTF-8
-                
                 do {
-                    let doc = try SwiftSoup.parse(html)
                     // Создаем экземпляр SwiftSoup и парсим HTML
-                    let startDateElement = try doc.select("#timetable-week-navigator-chosen-week a")
                     // Выбираем элемент с определенным ID
-                    let startDate = try? startDateElement.attr("data-weekmonday")
                     // Извлекаем значение атрибута
-                    var dayDataArray: [StudyDay] = []
                     // Создаем пустой массив StudyDay
+                    let doc = try SwiftSoup.parse(html)
+                    let startDateElement = try doc.select("#timetable-week-navigator-chosen-week a")
+                    let startDate = try? startDateElement.attr("data-weekmonday")
+                    var dayDataArray: [StudyDay] = []
                     
+                    // Итерируемся по элементам с определенным CSS-селектором
                     for element in try doc.select("div.panel.panel-default") {
-                        // Итерируемся по элементам с определенным CSS-селектором
+                        // Проверяем наличие элемента и его структуру
                         guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first() else {
                             continue
                         }
-                        // Проверяем наличие элемента и его структуру
-                        let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
                         // Извлекаем текст и обрезаем лишние пробелы и символы новой строки
-                        var lessons: [Lesson] = []
+                        let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
                         // Создаем пустой массив Lesson
+                        var lessons: [Lesson] = []
                         
+                        // Итерируемся по элементам с определенным CSS-селектором
                         for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
-                            // Итерируемся по элементам с определенным CSS-селектором
                             
+                            // Извлекаем текст из элемента или используем пустую строку по умолчанию
                             let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
-                            // Извлекаем текст из элемента или используем пустую строку по умолчанию
                             
-                            let name = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
-                            // Извлекаем текст из элемента или используем пустую строку по умолчанию
-                            
-                            let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link").first()?.text() ?? ""
-                            // Извлекаем текст из элемента или используем пустую строку по умолчанию
-                            
-                            var teacher = ""
-                            if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a").first() {
-                                teacher = try educatorElement.text()
-                            } else if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
-                                teacher = try educatorElement.text()
+                            var name: String!
+                            if let nameElement = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first() {
+                                name = try nameElement.text()
+                                var details = ""
+                               
+                                if let detailsElement = try doc.select("div.studyevent-subject > div.with-icon:nth-child(2) > div > span").first() {
+                                    details = try detailsElement.text()
+                                    name = name + "\n" + details
+                                }
                             }
-                            // Извлекаем текст преподавателя из элементов или используем пустую строку по умолчанию
                             
-                            let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
+                            // Парсинг локации из одного из двух классов
+                            let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link, div.col-sm-3.studyevent-multiple-locations").first()?.text() ?? ""
+                            
+                            var teacher = "-_-"
+                            var educators: [String] = []
+                            if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a, div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
+                                teacher = try educatorElement.text()
+                            } else {
+                                let educatorElement = try doc.select("div.studyevent-educators > div.with-icon > div.locations-educators-modal-btn > span.hoverable.link").first()
+                                
+                                if let educatorNames = try educatorElement?.text() {
+                                    // Разделяем имена учителей, используя ";"
+                                    educators = educatorNames.components(separatedBy: ";")
+                                        .map { name in
+                                            if let commaIndex = name.firstIndex(of: ",") {
+                                                return String(name[..<commaIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+                                            }
+                                            return name.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        }
+                                }
+                                teacher = educators.joined(separator: "; ")
+                            }
+                            
                             // Проверяем наличие элемента с классом "cancelled"
+                            let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
                             
                             let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
                             lessons.append(lesson)
@@ -303,11 +322,10 @@ extension APIManager {
                         dayDataArray.append(schoolDay)
                     }
                     
+                    // Вызываем завершающее замыкание с объектом schoolWeek
                     let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate), days: dayDataArray)
                     completion(schoolWeek)
-                    // Вызываем завершающее замыкание с объектом schoolWeek
-                } catch { print("Ошибка при разборе HTML: \(error)") }
-                // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
+                } catch { print("Ошибка при разборе HTML: \(error)") } // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
             }
         }.resume()
     }

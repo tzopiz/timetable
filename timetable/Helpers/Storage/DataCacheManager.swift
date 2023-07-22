@@ -40,18 +40,24 @@ class DataCacheManager {
             return
         }
         let weekKey = "\(url)\(firstDay)"
-        if !needUpdate {
+        if !isInternetAvailable() {
             if let cachedData = getCachedData(for: weekKey) {
                 completion(cachedData, nil)
                 return
+            } else {
+                completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid StudyWeek object."]))
+                return
             }
-        } // TODO: if dataload != datacache
-        if !isInternetAvailable() {
-            completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid StudyWeek object."]))
-        }
-        APIManager.shared.loadTimetableData(with: firstDay) { [weak self] studyWeek in
-            self?.cacheData(studyWeek, for: weekKey)
-            completion(studyWeek, nil)
+        } else { // TODO: показывать расписание из кеша пока грузиться с сайта, если оно есть
+            APIManager.shared.loadTimetableData(with: firstDay) { [weak self] studyWeek in
+                guard let self = self else { return }
+                if let cachedData = getCachedData(for: weekKey), cachedData == studyWeek {
+                    if studyWeek != cachedData {
+                        self.cacheData(studyWeek, for: weekKey)
+                        completion(studyWeek, nil)
+                    } else { completion(cachedData, nil) }
+                } else { completion(studyWeek, nil) }
+            }
         }
     }
     func clearCache() {
@@ -111,5 +117,4 @@ class DataCacheManager {
         let needsConnection = flags.contains(.connectionRequired)
         return isReachable && !needsConnection
     }
-
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Lesson: Codable {
+struct Lesson: Codable, Equatable {
     let time: String
     let name: String
     let location: String
@@ -22,11 +22,20 @@ struct Lesson: Codable {
         self.isCancelled = isCancelled
     }
 }
-struct StudyDay: Codable {
+struct StudyDay: Codable, Equatable {
+    static func == (lhs: StudyDay, rhs: StudyDay) -> Bool {
+        lhs.date == rhs.date && lhs.lessons == rhs.lessons
+    }
+    
     let date: String
     let lessons: [Lesson]
 }
-struct StudyWeek: CustomStringConvertible, Codable{
+struct StudyWeek: CustomStringConvertible, Codable, Equatable {
+    
+    static func == (lhs: StudyWeek, rhs: StudyWeek) -> Bool {
+        lhs.days == rhs.days && lhs.startDate == rhs.startDate
+    }
+    
     let startDate: String
     let days: [StudyDay]
     

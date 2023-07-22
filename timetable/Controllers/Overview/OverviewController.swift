@@ -25,7 +25,7 @@ final class OverviewController: TTBaseController {
     @IBAction func refreshData(needUpdate: Bool = true) {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            loadData(needUpdate: needUpdate) { [weak self] studyWeek in
+            loadData(needUpdate: true) { [weak self] studyWeek in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     self.timetableData = studyWeek
@@ -133,6 +133,7 @@ extension OverviewController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return CGSize(width: 0, height: 0) }
+        // TODO: бывает плохо считает высоту и кучу warning насчет ambigious high
         let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width)
         let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width)
         let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width)
