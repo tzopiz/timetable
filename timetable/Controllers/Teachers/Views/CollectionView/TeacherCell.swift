@@ -9,7 +9,7 @@ import UIKit
 
 class TeacherCell: BaseCell {
     
-    static let reuseIdentifier = String(describing: TeacherCell.self)
+    override class var reuseIdentifier: String { return String(describing: TeacherCell.self) }
     
     private let nameLabel = TTLabel(fontSize: 19)
     private let positionLabel = TTLabel(fontSize: 17)

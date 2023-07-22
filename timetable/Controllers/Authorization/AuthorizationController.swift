@@ -16,7 +16,7 @@ final class AuthorizationController: TTBaseController { // create Buttons
 extension AuthorizationController {
     override func configureAppearance() {
         super.configureAppearance()
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
 
         
@@ -32,7 +32,7 @@ extension AuthorizationController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: BaseCell.baseId, for: indexPath
+            withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
         let data = kindTimetable[indexPath.row]
         cell.configure(title: data, textAlignment: .center, textSize: 32)

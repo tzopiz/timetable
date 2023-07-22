@@ -9,7 +9,7 @@ import UIKit
 
 final class AppearenceCell: BaseCell {
     
-    static let AppearenceCellId = String(describing: AppearenceCell.self)
+    override class var reuseIdentifier: String { return String(describing: AppearenceCell.self) }
     private let button = TTButton(with: .secondary)
     
     func configure(title: String, type: CellType = .base, image: UIImage? = nil) {

@@ -9,8 +9,8 @@ import UIKit
 
 final class ProfileCell: BaseCell {
     
-    static let ProfileCellId = String(describing: ProfileCell.self)
-    
+    override class var reuseIdentifier: String { return String(describing: ProfileCell.self) }
+
     private let subtitle: TTLabel = {
         let label = TTLabel()
         

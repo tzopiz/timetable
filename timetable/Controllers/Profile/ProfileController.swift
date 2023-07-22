@@ -65,9 +65,9 @@ extension ProfileController {
         navigationItem.title = App.Strings.profile
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.ProfileCellId)
-        collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.AppearenceCellId)
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
+        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
+        collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.reuseIdentifier)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
@@ -90,21 +90,21 @@ extension ProfileController {
         switch item.type {
         case .profile:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProfileCell.ProfileCellId,
+                withReuseIdentifier: ProfileCell.reuseIdentifier,
                 for: indexPath) as? ProfileCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, image: item.image)
             return cell
         case .theme:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: AppearenceCell.AppearenceCellId,
+                withReuseIdentifier: AppearenceCell.reuseIdentifier,
                 for: indexPath) as? AppearenceCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BaseCell.baseId,
+                withReuseIdentifier: BaseCell.reuseIdentifier,
                 for: indexPath) as? BaseCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)

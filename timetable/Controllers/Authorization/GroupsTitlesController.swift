@@ -25,7 +25,7 @@ extension GroupsTitlesController {
         super.configureAppearance()
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
-        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.baseId)
+        collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         collectionView.register(HeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderView.reuseIdentifier)
@@ -52,7 +52,7 @@ extension GroupsTitlesController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.baseId, for: indexPath) as! BaseCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath) as! BaseCell
         let item = groupsTitles[indexPath.section].items[indexPath.item]
         let width = collectionView.bounds.width - 32
         let height = heightForLabel(text: item.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16

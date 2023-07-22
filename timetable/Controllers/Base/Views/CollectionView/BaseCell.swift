@@ -16,7 +16,7 @@ enum CellType {
 
 class BaseCell: UICollectionViewCell {
     
-    static let baseId = String(describing: BaseCell.self)
+    class var reuseIdentifier: String { return String(describing: BaseCell.self) }
     
     public let title = TTLabel(fontSize: 17)
     public let stackInfoView: UIStackView = {
