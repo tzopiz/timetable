@@ -335,7 +335,7 @@ extension APIManager {
 // MARK: - list of faculties
 
 extension APIManager {
-    private func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
+    func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
@@ -371,23 +371,12 @@ extension APIManager {
         }
         task.resume()
     }
-    /// name of Faculties
-    func getFaculties() -> [(text: String, link: String)] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var elements: [(text: String, link: String)] = []
-        loadFaculties { result in
-            elements = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return elements
-    }
 }
 
 // MARK: - list of directions + title for headerView of list directions
 
 extension APIManager {
-    private func loadDirectionsTitles(completion: @escaping ([String]) -> Void) {
+    func loadDirectionsTitles(completion: @escaping ([String]) -> Void) {
         let urlStr = UserDefaults.standard.link
         guard let url = URL(string: urlStr) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -414,19 +403,8 @@ extension APIManager {
         }
         task.resume()
     }
-    ///  directions(bak, mag, ..)
-    func getDirections() -> [String] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var ans: [String] = []
-        loadDirectionsTitles { result in
-            ans = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return ans
-    }
     
-    private func loadTitle(completion: @escaping (String?) -> Void) {
+    func loadTitle(completion: @escaping (String?) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else {
             print("Invalid URL")
             completion(nil)
@@ -454,23 +432,12 @@ extension APIManager {
         }
         task.resume()
     }
-    /// title of list directions
-    func getTitle() -> String {
-        var result: String = ""
-        let semaphore = DispatchSemaphore(value: 0)
-        loadTitle { title in
-            if let title = title { result = title }
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
-    }
 }
 
 // MARK: - only years of groups
 
 extension APIManager {
-    private func loadGroupsTitles(completion: @escaping ([[SectionWithLinks]]) -> Void) {
+    func loadGroupsTitles(completion: @escaping ([[SectionWithLinks]]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else {
             completion([])
             return
@@ -494,7 +461,7 @@ extension APIManager {
                     // Извлечение значения заголовка
                     if let titleElement = try listItem.select("div.col-sm-5").first() {
                         let title = try titleElement.text()
-                        if title == "Образовательная программа" {
+                        if title == "Образовательная программа" || title == "Educational programme" {
                             if !currentSection.isEmpty {
                                 sections.append(currentSection)
                                 currentSection = []
@@ -523,23 +490,12 @@ extension APIManager {
             }
         }.resume()
     }
-    /// list of group recruitment year only
-    func getGroupsTitles() -> [[SectionWithLinks]] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var section: [[SectionWithLinks]] = []
-        loadGroupsTitles { result in
-            section = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return section
-    }
 }
 
 // MARK: - list of group at year
 
 extension APIManager {
-    private func loadStudentGroupEvents(completion: @escaping ([SectionWithLinks]) -> Void) {
+    func loadStudentGroupEvents(completion: @escaping ([SectionWithLinks]) -> Void) {
         guard let url = URL(string:  UserDefaults.standard.link) else {
             completion([])
             return
@@ -588,16 +544,5 @@ extension APIManager {
             }
         }
         task.resume()
-    }
-    /// list grops at the year
-    func getGroups() -> [SectionWithLinks] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var section: [SectionWithLinks] = []
-        loadStudentGroupEvents { result in
-            section = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return section
     }
 }

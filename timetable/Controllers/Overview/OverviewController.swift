@@ -22,10 +22,41 @@ final class OverviewController: TTBaseController {
             else { completion(StudyWeek(startDate: "", days: []))}
         }
     }
+    override func refreshData() {
+        // Показываем индикатор загрузки (UIRefreshControl)
+        self.collectionView.refreshControl?.beginRefreshing()
+
+        cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
+            guard let self = self else { return }
+            if let cachedData = cachedData {
+                // Если данные из кеша доступны, обновляем коллекцию с ними
+                DispatchQueue.main.async {
+                    self.updateCollectionView(with: cachedData)
+                    // Завершаем обновление (скрытие индикатора загрузки)
+                    self.collectionView.refreshControl?.endRefreshing()
+                }
+            } else {
+                // Загружаем данные с сервера
+                loadData() { [weak self] studyWeek in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.updateCollectionView(with: studyWeek)
+                        // Завершаем обновление (скрытие индикатора загрузки)
+                        self.collectionView.refreshControl?.endRefreshing()
+                    }
+                }
+            }
+        }
+    }
+
+    
     // Метод обновления UICollectionView и обработки данных
-    private func updateCollectionView(with studyWeek: StudyWeek?) {
-        guard let studyWeek = studyWeek else { return }
-        print(#function)
+    func updateCollectionView(with studyWeek: StudyWeek?) {
+        guard let studyWeek = studyWeek else {
+            // Обработка ошибки или отсутствия данных из кеша
+            return
+        }
+        
         // Обновление данных в UICollectionView и интерфейсе
         self.timetableData = studyWeek
         self.navBar.updateButtonTitle(with: studyWeek.startDate)
@@ -33,30 +64,7 @@ final class OverviewController: TTBaseController {
         self.collectionView.reloadData()
         self.collectionView.layoutIfNeeded()
     }
-    @IBAction func refreshData() {
-        // Показываем индикатор загрузки (UIRefreshControl)
-        self.collectionView.refreshControl?.beginRefreshing()
-
-        // Загружаем данные из кеша
-        cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
-            if let cachedData = cachedData {
-                // Если данные из кеша доступны, обновляем коллекцию с ними
-                self?.updateCollectionView(with: cachedData)
-                // Завершаем обновление (скрытие индикатора загрузки)
-                self?.collectionView.refreshControl?.endRefreshing()
-            } else {
-                // Если данных в кеше нет, загружаем с сервера
-                self?.loadData() { [weak self] studyWeek in
-                    DispatchQueue.main.async {
-                        // После получения данных с сервера, обновляем коллекцию
-                        self?.updateCollectionView(with: studyWeek)
-                        // Завершаем обновление (скрытие индикатора загрузки)
-                        self?.collectionView.refreshControl?.endRefreshing()
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 extension OverviewController {
@@ -88,9 +96,7 @@ extension OverviewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.reuseIdentifier)
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        collectionView.refreshControl = refreshControl
+        collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         backgroundView.isHidden = true
         backgroundView.configure(height: view.bounds.height / 3, width: view.bounds.width - 32)

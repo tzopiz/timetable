@@ -8,8 +8,8 @@
 import UIKit
 
 final class DirectionsController: TTBaseController {
-    private var directions: [String] = APIManager.shared.getDirections()
-    private let headerTitle = APIManager.shared.getTitle()
+    private var directions: [String] = []
+    private var headerTitle = ""
 }
 
 // MARK: -Configure
@@ -23,6 +23,20 @@ extension DirectionsController {
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.reuseIdentifier)
+        collectionView.refreshControl?.beginRefreshing()
+        APIManager.shared.loadDirectionsTitles { [weak self] directions in
+            guard let self = self else { return }
+            APIManager.shared.loadTitle { [weak self] title in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    if let title = title { self.headerTitle = title }
+                    else { self.headerTitle = "" }
+                    self.directions = directions
+                    self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
+                }
+            }
+        }
     }
 }
 
