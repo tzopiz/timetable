@@ -10,7 +10,7 @@ import SystemConfiguration
 
 
 class DataCacheManager {
-    private let cacheFileName = "dataTimetableCache.json"
+    private let cacheFileName = "dataCache.json"
     private var cache: [String: StudyWeek] = [:]
 
     init() { loadCacheFromFile() }
@@ -25,7 +25,8 @@ class DataCacheManager {
     ///   - needUpdate: Нужно ли загружать данные из интернета заново или использовать кешированные данные
     ///   - completion: Замыкание, вызываемое после загрузки данных.
     ///                 Принимает объект типа `StudyWeek` или `nil` в случае ошибки.
-    func loadTimetableData(with firstDay: String?, _ needUpdate: Bool = false, completion: @escaping (StudyWeek?, Error?) -> Void) {
+    func loadTimetableData(with firstDay: String?, completion: @escaping (StudyWeek?, Error?) -> Void) {
+        print(#function)
         let timeInterval: String
         guard let firstDay = firstDay else {
             completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Missing first day."]))
@@ -40,7 +41,7 @@ class DataCacheManager {
             return
         }
         let weekKey = "\(url)\(firstDay)"
-        if !isInternetAvailable() {
+        if isInternetAvailable() {
             if let cachedData = getCachedData(for: weekKey) {
                 completion(cachedData, nil)
                 return
@@ -48,10 +49,10 @@ class DataCacheManager {
                 completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid StudyWeek object."]))
                 return
             }
-        } else { // TODO: показывать расписание из кеша пока грузиться с сайта, если оно есть
+        } else {
             APIManager.shared.loadTimetableData(with: firstDay) { [weak self] studyWeek in
                 guard let self = self else { return }
-                if let cachedData = getCachedData(for: weekKey), cachedData == studyWeek {
+                if let cachedData = getCachedData(for: weekKey) {
                     if studyWeek != cachedData {
                         self.cacheData(studyWeek, for: weekKey)
                         completion(studyWeek, nil)
@@ -59,6 +60,27 @@ class DataCacheManager {
                 } else { completion(studyWeek, nil) }
             }
         }
+    }
+    func getDownloadedTimetable(with firstDay: String?, completion: @escaping (StudyWeek?) -> Void) {
+        print(#function)
+        let timeInterval: String
+        guard let firstDay = firstDay else {
+            completion(nil)
+            return
+        }
+        if firstDay == "\(Date())".components(separatedBy: " ")[0] { timeInterval = "" }
+        else { timeInterval = "/" + firstDay }
+        let urlString = UserDefaults.standard.link + timeInterval
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        let weekKey = "\(url)\(firstDay)"
+        if let cachedData = getCachedData(for: weekKey) {
+            completion(cachedData)
+            return
+        }
+        return
     }
     func clearCache() {
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {

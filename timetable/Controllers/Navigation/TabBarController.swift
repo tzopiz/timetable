@@ -22,6 +22,8 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configureAppearance()
         CoreDataMamanager.shared.saveProfileImage()
+        print(#function)
+        // WTF, WHY NOT WORK
     }
 
     required init?(coder: NSCoder) {

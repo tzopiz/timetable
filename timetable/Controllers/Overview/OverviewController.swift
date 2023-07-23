@@ -14,29 +14,48 @@ final class OverviewController: TTBaseController {
     
     private let cacheManager = DataCacheManager()
     private var timetableData: StudyWeek?
-
-    private func loadData(needUpdate: Bool, completion: @escaping (StudyWeek) -> Void) {
-        cacheManager.loadTimetableData(with: navBar.getFirstDay(), needUpdate) { [weak self] studyWeek, err in
+    
+    private func loadData(completion: @escaping (StudyWeek) -> Void) {
+        cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
             guard self != nil else { return }
             if let studyWeek = studyWeek { completion(studyWeek) }
             else { completion(StudyWeek(startDate: "", days: []))}
         }
     }
-    @IBAction func refreshData(needUpdate: Bool = true) {
+    // Метод обновления UICollectionView и обработки данных
+    private func updateCollectionView(with studyWeek: StudyWeek?) {
+        guard let studyWeek = studyWeek else { return }
+        print(#function)
+        // Обновление данных в UICollectionView и интерфейсе
+        self.timetableData = studyWeek
+        self.navBar.updateButtonTitle(with: studyWeek.startDate)
+        self.updateBackgroundView(value: self.timetableData?.days.count ?? 0)
+        self.collectionView.reloadData()
+        self.collectionView.layoutIfNeeded()
+    }
+    @IBAction func refreshData() {
+        // Показываем индикатор загрузки (UIRefreshControl)
         self.collectionView.refreshControl?.beginRefreshing()
-        if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
-            loadData(needUpdate: true) { [weak self] studyWeek in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    self.timetableData = studyWeek
-                    self.navBar.updateButtonTitle(with: studyWeek.startDate)
-                    self.updateBackgroundView(value: self.timetableData?.days.count ?? 0)
-                    self.collectionView.reloadData()
-                    self.collectionView.layoutIfNeeded()
+
+        // Загружаем данные из кеша
+        cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
+            if let cachedData = cachedData {
+                // Если данные из кеша доступны, обновляем коллекцию с ними
+                self?.updateCollectionView(with: cachedData)
+                // Завершаем обновление (скрытие индикатора загрузки)
+                self?.collectionView.refreshControl?.endRefreshing()
+            } else {
+                // Если данных в кеше нет, загружаем с сервера
+                self?.loadData() { [weak self] studyWeek in
+                    DispatchQueue.main.async {
+                        // После получения данных с сервера, обновляем коллекцию
+                        self?.updateCollectionView(with: studyWeek)
+                        // Завершаем обновление (скрытие индикатора загрузки)
+                        self?.collectionView.refreshControl?.endRefreshing()
+                    }
                 }
             }
         }
-        self.collectionView.refreshControl?.endRefreshing()
     }
 }
 
@@ -77,10 +96,9 @@ extension OverviewController {
         backgroundView.configure(height: view.bounds.height / 3, width: view.bounds.width - 32)
         
         navBar.completionUpdate = { [weak self] index in
-            guard let self = self else { return }
-            refreshData(needUpdate: false)
+            self?.refreshData()
             if let index = index { // TODO: Scroll to day not to index
-                if !(timetableData?.days.isEmpty ?? true) { scrollToDay(with: index) }
+                if !(self?.timetableData?.days.isEmpty ?? true) { self?.scrollToDay(with: index) }
             }
         }
         
