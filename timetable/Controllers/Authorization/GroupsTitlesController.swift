@@ -8,9 +8,10 @@
 import UIKit
 
 final class GroupsTitlesController: TTBaseController {
+    
     var index = 0
-    private lazy var groupsTitles: [SectionWithLinks] = APIManager.shared.getGroupsTitles()[index]
-    private var isNotFirstLoad = false
+    private var groupsTitles: [SectionWithLinks] = []
+    
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag
         groupsTitles[section].isExpanded.toggle()
@@ -29,6 +30,14 @@ extension GroupsTitlesController {
         collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
+        APIManager.shared.loadGroupsTitles { [weak self] sectionsWithLinks in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.groupsTitles = sectionsWithLinks[self.index]
+                self.collectionView.reloadData()
+            }
+            
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

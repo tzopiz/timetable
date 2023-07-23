@@ -11,7 +11,7 @@ final class TeachersController: TTBaseController {
     private lazy var dataSource: [Teacher] = APIManager.shared.getListOfTeachers()
     private var filteredData: [Teacher] = []
     
-    @IBAction func refreshData() {
+    override func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
             APIManager.shared.getTeachers { [weak self] (teachers, error) in

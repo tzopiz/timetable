@@ -8,7 +8,7 @@
 import UIKit
 
 final class FacultiesController: TTBaseController {
-    private let Faculties = APIManager.shared.getFaculties()
+    private var Faculties: [(text: String, link: String)] = []
 }
 
 // MARK: - Configure
@@ -18,6 +18,16 @@ extension FacultiesController {
         super.configureAppearance()
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        title = "SPBU"
+       
+        collectionView.refreshControl?.beginRefreshing()
+        APIManager.shared.loadFaculties { [weak self] result in
+            DispatchQueue.main.async {
+                self?.Faculties = result
+                self?.collectionView.reloadData()
+                self?.collectionView.refreshControl?.endRefreshing()
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

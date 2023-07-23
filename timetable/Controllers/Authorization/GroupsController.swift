@@ -9,7 +9,7 @@ import UIKit
 
 final class GroupsController: TTBaseController {
     
-    private var groups: [SectionWithLinks] = APIManager.shared.getGroups()
+    private var groups: [SectionWithLinks] = []
 
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag
@@ -30,6 +30,15 @@ extension GroupsController {
         collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
+        self.collectionView.refreshControl?.beginRefreshing()
+        APIManager.shared.loadStudentGroupEvents { [weak self] sectionWithLinks in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.groups = sectionWithLinks
+                self.collectionView.reloadData()
+                self.collectionView.refreshControl?.endRefreshing()
+            }
+        }
     }
 }
 

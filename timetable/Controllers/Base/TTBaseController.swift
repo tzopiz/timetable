@@ -116,6 +116,13 @@ extension TTBaseController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = App.Colors.background
+        let refreshControl = UIRefreshControl()
+        collectionView.refreshControl = refreshControl
+        collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
+    }
+    func refreshData() {
+        self.collectionView.refreshControl?.endRefreshing()
     }
     func navBarLeftButtonHandler() { print("NavBar left button tapped") }
     func navBarRightButtonHandler() { print("NavBar right button tapped") }
