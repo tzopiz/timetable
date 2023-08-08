@@ -19,7 +19,7 @@ final class OverviewController: TTBaseController {
         cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
             guard self != nil else { return }
             if let studyWeek = studyWeek { completion(studyWeek) }
-            else { completion(StudyWeek(startDate: "", days: []))}
+            else { completion(StudyWeek(startDate: "nil", days: []))}
         }
     }
     override func refreshData() {
@@ -48,23 +48,17 @@ final class OverviewController: TTBaseController {
             }
         }
     }
-
     
     // Метод обновления UICollectionView и обработки данных
-    func updateCollectionView(with studyWeek: StudyWeek?) {
-        guard let studyWeek = studyWeek else {
-            // Обработка ошибки или отсутствия данных из кеша
-            return
-        }
+    private func updateCollectionView(with studyWeek: StudyWeek?) {
+        guard let studyWeek = studyWeek else { return }
         
-        // Обновление данных в UICollectionView и интерфейсе
         self.timetableData = studyWeek
         self.navBar.updateButtonTitle(with: studyWeek.startDate)
         self.updateBackgroundView(value: self.timetableData?.days.count ?? 0)
         self.collectionView.reloadData()
         self.collectionView.layoutIfNeeded()
     }
-    
 }
 
 extension OverviewController {
@@ -115,6 +109,16 @@ extension OverviewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
         leftSwipe.direction = .left
         collectionView.addGestureRecognizer(leftSwipe)
+        
+        navBar.completionbackAction = { [weak self] in
+            guard let self = self else { return }
+            self.rightSwipeWeek()
+        }
+        navBar.completionforwardAction = { [weak self] in
+            guard let self = self else { return }
+            self.leftSwipeWeek()
+        }
+        
         navBar.toToday()
     }
 }
@@ -158,11 +162,11 @@ extension OverviewController {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return CGSize(width: 0, height: 0) }
         // TODO: бывает плохо считает высоту и кучу warning насчет ambigious high
-        let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width)
-        let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width)
-        let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width)
-        let teacherLabelHeight = heightForLabel(text: item.teacher, font: App.Fonts.helveticaNeue(with: 13), width: width)
-        let totalHeight = timeLabelHeight + nameLabelHeight + locationLabelHeight + teacherLabelHeight + 40
+        let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width - 32)
+        let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width - 32)
+        let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width - 32)
+        let teacherLabelHeight = heightForLabel(text: item.teacher, font: App.Fonts.helveticaNeue(with: 13), width: width - 32)
+        let totalHeight = timeLabelHeight + nameLabelHeight + locationLabelHeight + teacherLabelHeight + 24 + 16
         return CGSize(width: width, height: totalHeight)
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -173,6 +177,8 @@ extension OverviewController {
         else { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0) }
     }
 }
+
+// MARK: - Animate
 
 extension OverviewController {
     private func scrollToDay(with index: Int) {
@@ -194,7 +200,46 @@ extension OverviewController {
         backgroundView.updateImage()
         backgroundView.isHidden = value == 0 ? false : true
     }
-    // TODO: normal animate swipe collection view and navbar
-    @IBAction func rightSwipeWeek() { navBar.rightSwipeWeek() }
-    @IBAction func leftSwipeWeek() { navBar.leftSwipeWeek() }
+    @IBAction func rightSwipeWeek() {
+        animateCollectionRightSwipe()
+        navBar.rightSwipeWeek()
+    }
+    @IBAction func leftSwipeWeek() {
+        animateCollectionLeftSwipe()
+        navBar.leftSwipeWeek()
+    }
+    private func animateCollectionLeftSwipe() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.collectionView.alpha = 0.5
+        }) { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.transform = CGAffineTransform(translationX: -1, y: 0).scaledBy(x: 0.001, y: 0.9)
+                self.collectionView.alpha = 0.5
+            }) { _ in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.collectionView.transform = .identity
+                    self.collectionView.alpha = 1.0
+                    // Выполните здесь обновление данных для вашей коллекции после анимации
+                })
+            }
+        }
+    }
+    private func animateCollectionRightSwipe() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.collectionView.alpha = 0.5
+        }) { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.transform = CGAffineTransform(translationX: 1, y: 0).scaledBy(x: 0.001, y: 0.9)
+                self.collectionView.alpha = 0.5
+            }) { _ in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.collectionView.transform = .identity
+                    self.collectionView.alpha = 1.0
+                    // Выполните здесь обновление данных для вашей коллекции после анимации
+                })
+            }
+        }
+    }
 }

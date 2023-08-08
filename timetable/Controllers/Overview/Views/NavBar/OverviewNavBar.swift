@@ -9,23 +9,25 @@ import UIKit
 
 final class OverviewNavBar: TTBaseView {
     private let weekView = WeekView()
-    private let titleLabel = TTButton(with: .primary)
+    private let scheduleNavigatorView = ScheduleNavigatorView()
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
     var completionUpdate: ((Int?) -> ())?
+    var completionbackAction: (() -> Void)?
+    var completionforwardAction: (() -> Void)?
 }
 
 extension OverviewNavBar {
     override func setupViews() {
         super.setupViews()
-        setupView(titleLabel)
+        setupView(scheduleNavigatorView)
         setupView(weekView)
         setupView(separator)
         setupView(allWorkoutsButton)
     }
     override func constraintViews() {
         super.constraintViews()
-        titleLabel.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
+        scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                           left: leadingAnchor, paddingLeft: 16,
                           centerY: allWorkoutsButton.centerYAnchor)
         
@@ -33,7 +35,7 @@ extension OverviewNavBar {
                                  right: trailingAnchor, paddingRight: -16)
         allWorkoutsButton.setDimensions(height: 28)
         
-        weekView.anchor(top: titleLabel.bottomAnchor, paddingTop: 16,
+        weekView.anchor(top: scheduleNavigatorView.bottomAnchor, paddingTop: 16,
                         bottom: bottomAnchor, paddingBottom: -16,
                         left: leadingAnchor, paddingLeft: 16,
                         right: trailingAnchor, paddingRight: -16)
@@ -45,19 +47,20 @@ extension OverviewNavBar {
         weekView.updateWeekView()
         addBottomBorder(separator: &separator, with: App.Colors.separator, height: 1)
         
-        titleLabel.setTitle(App.Strings.overview)
-        titleLabel.addButtonTarget(target: self, action: #selector(toToday))
+        scheduleNavigatorView.titleAction = { [weak self] in
+            guard let self = self else { return }
+            self.toToday()
+        }
+        scheduleNavigatorView.forwardAction = completionforwardAction
+        scheduleNavigatorView.backAction = completionbackAction
         allWorkoutsButton.backgroundColor = App.Colors.secondary
-        
         weekView.completion = self.completionUpdate
     }
     @IBAction func rightSwipeWeek() {
-        weekView.shift += 7
         animateLeftSwipe()
         completionUpdate?(nil)
     }
     @IBAction func leftSwipeWeek() {
-        weekView.shift -= 7
         animateRightSwipe()
         completionUpdate?(nil)
     }
@@ -73,31 +76,43 @@ extension OverviewNavBar {
         completionUpdate?(weekView.todayIndex)
     }
     private func animateRightSwipe() {
-        TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-            var weekViewFrame = self.weekView.frame
-            weekViewFrame.origin.x -= weekViewFrame.size.width
-            self.weekView.frame = weekViewFrame
-            
-            self.weekView.updateWeekView()
-        }, completion:  {_ in })
-        
-        var weekViewFrame = self.weekView.frame
-        weekViewFrame.origin.x += weekViewFrame.size.width
-        self.weekView.frame = weekViewFrame
+        UIView.animate(withDuration: 0.3, animations: {
+            self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.weekView.alpha = 0.5
+        }) { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.weekView.transform = CGAffineTransform(translationX: -1, y: 0).scaledBy(x: 0.001, y: 0.9)
+                self.weekView.alpha = 0.5
+            }) { _ in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.weekView.transform = .identity
+                    self.weekView.alpha = 1.0
+                    self.weekView.shift -= 7
+                    self.weekView.updateWeekView()
+                })
+            }
+        }
     }
+
     private func animateLeftSwipe() {
-        TTBaseView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-            var weekViewFrame = self.weekView.frame
-            weekViewFrame.origin.x += weekViewFrame.size.width
-            self.weekView.frame = weekViewFrame
-            
-            self.weekView.updateWeekView()
-        }, completion:  {_ in })
-        
-        var weekViewFrame = self.weekView.frame
-        weekViewFrame.origin.x -= weekViewFrame.size.width
-        self.weekView.frame = weekViewFrame
+        UIView.animate(withDuration: 0.3, animations: {
+            self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.weekView.alpha = 0.5
+        }) { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.weekView.transform = CGAffineTransform(translationX: 1, y: 0).scaledBy(x: 0.001, y: 0.9)
+                self.weekView.alpha = 0.5
+            }) { _ in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.weekView.transform = .identity
+                    self.weekView.alpha = 1.0
+                    self.weekView.shift += 7
+                    self.weekView.updateWeekView()
+                })
+            }
+        }
     }
+
     func getFirstDay() -> String {
         guard let firstDay = self.weekView.firstDay else { return "" }
         return "\(firstDay)".components(separatedBy: " ").first ?? "\(Date())"

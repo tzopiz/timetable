@@ -111,18 +111,4 @@ extension UIView {
         if let width = width { widthAnchor.constraint(equalToConstant: width).isActive = true }
         if let height = height { heightAnchor.constraint(equalToConstant: height).isActive = true }
     }
-    func addStrikeThroughLine(lineWidth: CGFloat = 1.0, lineColor: UIColor = .black) {
-        let lineView = UIView()
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = lineColor
-        self.addSubview(lineView)
-        
-        NSLayoutConstraint.activate([
-            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            lineView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: lineWidth)
-        ])
-    }
-    
 }
