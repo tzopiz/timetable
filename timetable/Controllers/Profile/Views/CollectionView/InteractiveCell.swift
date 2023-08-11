@@ -10,34 +10,49 @@ import UIKit
 final class InteractiveCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: InteractiveCell.self) }
-    private var button: TTButton!
-    private var switcher: UISwitch!
+    private let button = TTButton(with: .secondary)
+    private let switcher = UISwitch(frame: .zero)
     
-    func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
-        super.configure(title: title, type: type, image: image)
-        if type == .theme {
-            button = TTButton(with: .secondary)
-            setupView(button)
-            let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
-            "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
-            "Светлая" : "Системная"
-            button.setTitle(title)
-            button.setFontSize(18)
-            button.addButtonTarget(target: self, action: #selector(showAlertController))
-            button.setDimensions(height: 40)
-            button.anchor(right: trailingAnchor, paddingRight: -16,
-                          centerY: centerYAnchor)
-        }
-        else if type == .switcher {
-            switcher = UISwitch(frame: .zero)
-            setupView(switcher)
-            switcher.isOn = UserDefaults.standard.CachingTimetable
-            switcher.onTintColor = App.Colors.active
-            switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+    func configure(title: String, type: CellType = .base) {
+        super.configure(title: title, type: type)
 
-            switcher.anchor(right: trailingAnchor, paddingRight: -20,
-                          centerY: centerYAnchor)
+        switch type {
+        case .switcher:
+            button.isHidden = true
+            switcher.isHidden = false
+        case .theme:
+            switcher.isHidden = true
+            button.isHidden = false
+        default: break
         }
+    }
+    override func setupViews() {
+        super.setupViews()
+        setupView(switcher)
+        setupView(button)
+    }
+    override func configureAppearance() {
+        super.configureAppearance()
+        
+        switcher.isOn = UserDefaults.standard.CachingTimetable
+        switcher.onTintColor = App.Colors.active
+        switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+
+        switcher.anchor(right: trailingAnchor, paddingRight: -20,
+                      centerY: centerYAnchor)
+        
+        let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
+        "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
+        "Светлая" : "Системная"
+        button.setTitle(title)
+        button.setFontSize(18)
+        button.addButtonTarget(target: self, action: #selector(showAlertController))
+        button.setDimensions(height: 40)
+        button.anchor(right: trailingAnchor, paddingRight: -16,
+                      centerY: centerYAnchor)
+        
+        
+        
     }
     @IBAction func showAlertController() {
         showInputDialog(firstTitle: "Светлое",

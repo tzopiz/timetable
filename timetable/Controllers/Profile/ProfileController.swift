@@ -101,14 +101,14 @@ extension ProfileController {
                 withReuseIdentifier: InteractiveCell.reuseIdentifier,
                 for: indexPath) as? InteractiveCell
             else { return UICollectionViewCell() }
-            cell.configure(title: item.title, type: item.type, image: item.image)
+            cell.configure(title: item.title, type: item.type)
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: BaseCell.reuseIdentifier,
                 for: indexPath) as? BaseCell
             else { return UICollectionViewCell() }
-            cell.configure(title: item.title, type: item.type, image: item.image)
+            cell.configure(title: item.title, type: item.type)
             return cell
         }
     }

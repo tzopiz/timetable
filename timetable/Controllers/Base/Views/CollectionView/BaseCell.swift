@@ -27,8 +27,8 @@ class BaseCell: UICollectionViewCell {
         return stackView
     }()
     
-    func configure(title: String, type: CellType = .base, image: UIImage? = nil,
-                   backgroundColor color: UIColor? = nil, textAlignment alignment: NSTextAlignment? = nil,
+    func configure(title: String, type: CellType = .base, backgroundColor color: UIColor? = nil,
+                   textAlignment alignment: NSTextAlignment? = nil,
                    textSize size: CGFloat? = nil, cornerRadius: CGFloat = 16) {
         self.title.text = title
         if let color = color { self.backgroundColor = color }

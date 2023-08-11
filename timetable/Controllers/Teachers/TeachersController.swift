@@ -32,7 +32,6 @@ extension TeachersController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
-        // TODO: add refresh control
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
@@ -48,25 +47,15 @@ extension TeachersController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TeacherCell.reuseIdentifier, for: indexPath) as? TeacherCell
         else { return UICollectionViewCell() }
-        if isFiltering() {
-            cell.configure(with: Teacher(name: filteredData[indexPath.item].name,
-                                         position: filteredData[indexPath.item].position,
-                                         department: filteredData[indexPath.item].department,
-                                         publications: filteredData[indexPath.item].publications,
-                                         applications: filteredData[indexPath.item].applications,
-                                         grants: filteredData[indexPath.item].grants,
-                                         projects: filteredData[indexPath.item].projects,
-                                         personalLink: filteredData[indexPath.item].personalLink))
-        } else {
-            cell.configure(with: Teacher(name: dataSource[indexPath.item].name,
-                                         position: dataSource[indexPath.item].position,
-                                         department: dataSource[indexPath.item].department,
-                                         publications: dataSource[indexPath.item].publications,
-                                         applications: dataSource[indexPath.item].applications,
-                                         grants: dataSource[indexPath.item].grants,
-                                         projects: dataSource[indexPath.item].projects,
-                                         personalLink: dataSource[indexPath.item].personalLink))
-        }
+        let info = isFiltering() ? filteredData : dataSource
+        cell.configure(with: Teacher(name: info[indexPath.item].name,
+                                     position: info[indexPath.item].position,
+                                     department: info[indexPath.item].department,
+                                     publications: info[indexPath.item].publications,
+                                     applications: info[indexPath.item].applications,
+                                     grants: info[indexPath.item].grants,
+                                     projects: info[indexPath.item].projects,
+                                     personalLink: info[indexPath.item].personalLink))
 
         return cell
     }

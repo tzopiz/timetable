@@ -199,10 +199,12 @@ extension OverviewController {
         backgroundView.isHidden = value == 0 ? false : true
     }
     @IBAction func rightSwipeWeek() {
+        scrollCollectionViewToTop()
         animateCollectionRightSwipe()
         navBar.rightSwipeWeek()
     }
     @IBAction func leftSwipeWeek() {
+        scrollCollectionViewToTop()
         animateCollectionLeftSwipe()
         navBar.leftSwipeWeek()
     }
