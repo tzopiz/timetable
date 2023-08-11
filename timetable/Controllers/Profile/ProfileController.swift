@@ -78,6 +78,7 @@ extension ProfileController {
             .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
            
         ]
+        collectionView.refreshControl = nil
     }
 }
 

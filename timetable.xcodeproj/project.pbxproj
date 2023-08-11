@@ -16,7 +16,6 @@
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
-		0A26495429DF0510003D080A /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26495329DF0510003D080A /* AuthorizationController.swift */; };
 		0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5D929D4960200EE17EA /* TimeTableModel.swift */; };
 		0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5DB29D49B2300EE17EA /* APIManager.swift */; };
 		0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E429D4CCB900EE17EA /* BaseCell.swift */; };
@@ -96,7 +95,6 @@
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		0A26495329DF0510003D080A /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		0A58D5D929D4960200EE17EA /* TimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
 		0A58D5DB29D49B2300EE17EA /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0A58D5E429D4CCB900EE17EA /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 		0A26495229DF044D003D080A /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				0A26495329DF0510003D080A /* AuthorizationController.swift */,
 				0AC485C629E05F63009B9EE5 /* FacultiesController.swift */,
 				0A98A27D2A63C6A800F4947D /* DirectionsController.swift */,
 				0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */,
@@ -398,6 +395,7 @@
 				0ACC4E8929C6620200B3D6AC /* Teachers */,
 				0ACC4E8429C6620200B3D6AC /* Profile */,
 				0ACC4E9929C6620200B3D6AC /* Base */,
+				0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -550,7 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4E9B29C6620300B3D6AC /* Views */,
-				0ACC4E9A29C6620200B3D6AC /* TTBaseController.swift */,
+				0ACC4E9D29C6620300B3D6AC /* CollectionView */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -558,7 +556,6 @@
 		0ACC4E9B29C6620300B3D6AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9D29C6620300B3D6AC /* CollectionView */,
 				0ACC4E9C29C6620300B3D6AC /* TTBaseView.swift */,
 				0ACC4EA029C6620300B3D6AC /* TTButton.swift */,
 				0A1A69862A65CEF2003FFECB /* TTLabel.swift */,
@@ -808,7 +805,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A26495429DF0510003D080A /* AuthorizationController.swift in Sources */,
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
 				0A1A69872A65CEF2003FFECB /* TTLabel.swift in Sources */,
 				0A58D5E729D4CF2D00EE17EA /* InteractiveCell.swift in Sources */,

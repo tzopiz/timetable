@@ -26,6 +26,7 @@ extension TasksController {
         case .active: addNavBarButton(at: .left, with: "Активные")
         case .all: addNavBarButton(at: .left, with: "Все")
         }
+        collectionView.refreshControl = nil
     }
     override func navBarRightButtonHandler() {
         let taskVC = TaskController()
