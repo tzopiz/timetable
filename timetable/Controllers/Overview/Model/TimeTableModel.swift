@@ -58,3 +58,46 @@ struct StudyWeek: CustomStringConvertible, Codable, Equatable {
         return result
     }
 }
+extension StudyWeek {
+    func addingFreeDays(_ date: String) -> StudyWeek {
+        func formatDate(_ date: Date) -> String {
+            let dayFormatter = DateFormatter()
+            dayFormatter.locale = Locale(identifier: "ru_RU")
+            dayFormatter.dateFormat = "EEEE"
+            
+            let dayOfWeek = dayFormatter.string(from: date)
+            
+            let monthFormatter = DateFormatter()
+            monthFormatter.locale = Locale(identifier: "ru_RU")
+            monthFormatter.dateFormat = "MMMM"
+            
+            let month = monthFormatter.string(from: date)
+            
+            let day = Calendar.current.component(.day, from: date)
+            
+            let resultString = "\(dayOfWeek), \(day) \(month)"
+            
+            return resultString
+        }
+
+        var updatedDays = self.days
+        if self.days.isEmpty { return StudyWeek(startDate: self.startDate, days: []) }
+                
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard var currentDate = dateFormatter.date(from: "\(date)") else { return StudyWeek(startDate: self.startDate, days: []) }
+        for i in 0..<7 {
+            let isDayPresent = updatedDays.contains { studyDay in
+                studyDay.date.contains(formatDate(currentDate))
+            }
+            
+            if !isDayPresent {
+                let freeDay = StudyDay(date: formatDate(currentDate), lessons: [Lesson(time: " ", name: "nil", location: " ", teacher: "")])
+                updatedDays.insert(freeDay, at: i)
+            }
+            currentDate = currentDate.nextDay
+        }
+        
+        return StudyWeek(startDate: self.startDate, days: updatedDays)
+    }
+}

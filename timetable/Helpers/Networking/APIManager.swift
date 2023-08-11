@@ -235,7 +235,6 @@ extension APIManager {
         guard let firstDay = firstDay else { return }
         if firstDay == "\(Date())".components(separatedBy: " ")[0] { timeInterval = "" }
         else { timeInterval = "/" + firstDay }
-        
         let url = URL(string: UserDefaults.standard.link + timeInterval)
         guard let url = url else { return }
         
@@ -323,7 +322,9 @@ extension APIManager {
                     }
                     
                     // Вызываем завершающее замыкание с объектом schoolWeek
-                    let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate), days: dayDataArray)
+                    let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate),
+                                               days: dayDataArray).addingFreeDays(firstDay)
+                    print(schoolWeek)
                     completion(schoolWeek)
                 } catch { print("Ошибка при разборе HTML: \(error)") } // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
             }

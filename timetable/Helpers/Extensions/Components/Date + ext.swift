@@ -19,6 +19,9 @@ extension Date {
         calendar.firstWeekday = 2
         return calendar
     }()
+    var nextDay: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: self)!
+    }
     var startOfWeek: Date {
         let components = Date.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         guard let firstDay = Date.calendar.date(from: components) else { return self }
