@@ -66,14 +66,15 @@ extension ProfileController {
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
-        collectionView.register(AppearenceCell.self, forCellWithReuseIdentifier: AppearenceCell.reuseIdentifier)
+        collectionView.register(InteractiveCell.self, forCellWithReuseIdentifier: InteractiveCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
+            .init(item: .init(title: "Кешировать расписание",  image: App.Images.theme,       type: .switcher)),
             .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .base)),
-            .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .exit)),
+            .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .base)),
             .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
            
         ]
@@ -95,10 +96,10 @@ extension ProfileController {
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, image: item.image)
             return cell
-        case .theme:
+        case .theme, .switcher:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: AppearenceCell.reuseIdentifier,
-                for: indexPath) as? AppearenceCell
+                withReuseIdentifier: InteractiveCell.reuseIdentifier,
+                for: indexPath) as? InteractiveCell
             else { return UICollectionViewCell() }
             cell.configure(title: item.title, type: item.type, image: item.image)
             return cell
@@ -133,9 +134,9 @@ extension ProfileController {
         switch indexPath.row {
         case 0:
             openImagePickerVC()
-        case 3:
-            showConfirmationAlert()
         case 4:
+            showConfirmationAlert()
+        case 5:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
             

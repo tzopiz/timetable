@@ -41,11 +41,15 @@ class DataCacheManager {
                 if let cachedData = getCachedData(for: weekKey) {
                     if studyWeek != cachedData {
                         completion(studyWeek, nil)
-                        self.cacheData(studyWeek, for: weekKey)
+                        if UserDefaults.standard.CachingTimetable {
+                            self.cacheData(studyWeek, for: weekKey)
+                        }
                     } else { completion(cachedData, nil) }
                 } else {
                     completion(studyWeek, nil)
-                    self.cacheData(studyWeek, for: weekKey)
+                    if UserDefaults.standard.CachingTimetable {
+                        self.cacheData(studyWeek, for: weekKey)
+                    }
                 }
             }
         }

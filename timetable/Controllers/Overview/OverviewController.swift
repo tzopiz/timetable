@@ -76,9 +76,7 @@ extension OverviewController {
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
                               right: view.trailingAnchor)
-        backgroundView.anchor(left: view.leadingAnchor, paddingLeft: 16,
-                              right: view.trailingAnchor, paddingRight: -16,
-                              centerY: view.centerYAnchor, centerX: view.centerXAnchor)
+        backgroundView.anchor(centerY: view.centerYAnchor, centerX: view.centerXAnchor)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -210,34 +208,32 @@ extension OverviewController {
     }
     private func animateCollectionLeftSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
             self.collectionView.alpha = 0.5
         }) { _ in
-            UIView.animate(withDuration: 0.3, animations: {
-                self.collectionView.transform = CGAffineTransform(translationX: -1, y: 0).scaledBy(x: 0.001, y: 0.9)
-                self.collectionView.alpha = 0.5
+            UIView.animate(withDuration: 0.001, animations: {
+                self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
+                self.collectionView.alpha = 0
             }) { _ in
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: 0.4, animations: {
                     self.collectionView.transform = .identity
                     self.collectionView.alpha = 1.0
-                    // Выполните здесь обновление данных для вашей коллекции после анимации
                 })
             }
         }
     }
     private func animateCollectionRightSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0).scaledBy(x: 0.9, y: 0.9)
+            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
             self.collectionView.alpha = 0.5
         }) { _ in
-            UIView.animate(withDuration: 0.3, animations: {
-                self.collectionView.transform = CGAffineTransform(translationX: 1, y: 0).scaledBy(x: 0.001, y: 0.9)
-                self.collectionView.alpha = 0.5
+            UIView.animate(withDuration: 0.001, animations: {
+                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+                self.collectionView.alpha = 0
             }) { _ in
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: 0.4, animations: {
                     self.collectionView.transform = .identity
                     self.collectionView.alpha = 1.0
-                    // Выполните здесь обновление данных для вашей коллекции после анимации
                 })
             }
         }

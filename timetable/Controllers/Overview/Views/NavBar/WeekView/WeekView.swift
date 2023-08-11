@@ -93,5 +93,4 @@ extension WeekView {
             view.backgroundColor = backgroundColor
         }, completion:  {_ in })
     }
-    
 }

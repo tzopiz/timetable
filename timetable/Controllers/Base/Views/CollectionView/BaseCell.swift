@@ -10,7 +10,7 @@ import UIKit
 enum CellType {
     case base
     case profile
-    case exit
+    case switcher
     case theme
 }
 

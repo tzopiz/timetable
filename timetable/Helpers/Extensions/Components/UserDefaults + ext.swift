@@ -28,4 +28,8 @@ extension UserDefaults {
         get { UserDefaults.standard.bool(forKey: "registered") }
         set { UserDefaults.standard.set(newValue, forKey: "registered") }
     }
+    var CachingTimetable: Bool {
+        get { UserDefaults.standard.bool(forKey: "CachingTimetable") }
+        set { UserDefaults.standard.set(newValue, forKey: "CachingTimetable") }
+    }
 }
