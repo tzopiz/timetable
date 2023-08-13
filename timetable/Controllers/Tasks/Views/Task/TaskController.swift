@@ -40,7 +40,7 @@ extension TaskController {
     @IBAction func saveTask() {
         let taskInfoDictionary = contentView.getTaskInfo()
         let taskName: String?
-        if (taskInfoDictionary["taskName"] as? String) == "" { taskName = "Безымянная" }
+        if (taskInfoDictionary["taskName"] as? String) == "" { taskName = App.Strings.untitle }
         else { taskName = (taskInfoDictionary["taskName"] as? String) }
         if (taskInfoDictionary["needCreate"] as? Bool ?? false) == true {
             CoreDataMamanager.shared.createTask(taskName: taskName,

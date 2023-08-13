@@ -23,9 +23,6 @@ class TTBaseController: UIViewController {
         
         return view
     }()
-    public func update() {
-        collectionView.reloadData()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -63,13 +60,9 @@ class TTBaseController: UIViewController {
 // MARK: - UICollectionViewDataSource
 
 extension TTBaseController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 0 }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell { UICollectionViewCell() }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -121,9 +114,7 @@ extension TTBaseController {
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
 
     }
-    func refreshData() {
-        self.collectionView.refreshControl?.endRefreshing()
-    }
+    func refreshData() { self.collectionView.refreshControl?.endRefreshing() }
     func navBarLeftButtonHandler() { print("NavBar left button tapped") }
     func navBarRightButtonHandler() { print("NavBar right button tapped") }
 }

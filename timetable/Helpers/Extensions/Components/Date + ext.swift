@@ -44,9 +44,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        guard let startDate = dateFormatter.date(from: startDateString) else {
-            return "Неверный формат начальной даты"
-        }
+        guard let startDate = dateFormatter.date(from: startDateString) else { return "Что-то сломалось.🙈" }
         
         let calendar = Calendar.current
         let endDate = calendar.date(byAdding: .day, value: 7, to: startDate) ?? startDate

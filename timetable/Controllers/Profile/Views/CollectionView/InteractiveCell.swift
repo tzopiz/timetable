@@ -11,35 +11,18 @@ final class InteractiveCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: InteractiveCell.self) }
     private let button = TTButton(with: .secondary)
-    private let switcher = UISwitch(frame: .zero)
     
     func configure(title: String, type: CellType = .base) {
         super.configure(title: title, type: type)
-
-        switch type {
-        case .switcher:
-            button.isHidden = true
-            switcher.isHidden = false
-        case .theme:
-            switcher.isHidden = true
-            button.isHidden = false
-        default: break
-        }
     }
+}
+extension InteractiveCell {
     override func setupViews() {
         super.setupViews()
-        setupView(switcher)
         setupView(button)
     }
     override func configureAppearance() {
         super.configureAppearance()
-        
-        switcher.isOn = UserDefaults.standard.CachingTimetable
-        switcher.onTintColor = App.Colors.active
-        switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-
-        switcher.anchor(right: trailingAnchor, paddingRight: -20,
-                      centerY: centerYAnchor)
         
         let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
         "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
@@ -50,34 +33,17 @@ final class InteractiveCell: BaseCell {
         button.setDimensions(height: 40)
         button.anchor(right: trailingAnchor, paddingRight: -16,
                       centerY: centerYAnchor)
-        
-        
-        
     }
+}
+
+extension InteractiveCell {
     @IBAction func showAlertController() {
         showInputDialog(firstTitle: "Светлое",
                         secondTitle: "Темное",
                         thirdTitle: "Системное",
                         cancelTitle: "Отмена")
     }
-    @IBAction func switchValueChanged(_ sender: UISwitch) {
-        if !switcher.isOn {
-            let alert = UIAlertController(title: "Attention", message: "Do u want clear Timetable cache?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel,  handler: { (action: UIAlertAction) in
-                self.switcher.isOn = true
-            }))
-            alert.addAction(UIAlertAction(title: "Yes", style: .destructive,  handler: { (action: UIAlertAction) in
-                UserDefaults.standard.CachingTimetable = sender.isOn
-                let cacheManager = DataCacheManager()
-                cacheManager.clearCache()
-            }))
-            let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let window = windowScenes?.windows.first
-            let viewController = window?.rootViewController
-            viewController?.present(alert, animated: true, completion: nil)
-        }
-       
-    }
+    
     func showInputDialog(firstTitle: String, secondTitle: String, thirdTitle: String, cancelTitle: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene

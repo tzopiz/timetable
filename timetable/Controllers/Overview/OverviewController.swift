@@ -80,10 +80,13 @@ extension OverviewController {
     }
     override func configureAppearance() {
         super.configureAppearance()
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
         
         collectionView.register(TimetableCell.self,
                                 forCellWithReuseIdentifier: TimetableCell.reuseIdentifier)
+        collectionView.register(ImageViewCell.self,
+                                forCellWithReuseIdentifier: ImageViewCell.reuseIdentifier)
+        
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderView.reuseIdentifier)
@@ -131,13 +134,21 @@ extension OverviewController {
     -> Int { timetableData?.days[section].lessons.count ?? 0 }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TimetableCell.reuseIdentifier, for: indexPath
-        ) as? TimetableCell else { return UICollectionViewCell() }
-        
-        guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return cell }
-        cell.configure(time: item.time, nameSubject: item.name, location: item.location, teacherName: item.teacher, isCancelled: item.isCancelled)
-        return cell
+        guard let lesson = timetableData?.days[indexPath.section].lessons[indexPath.row]
+        else { return UICollectionViewCell() }
+        if lesson.isEmpty {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ImageViewCell.reuseIdentifier, for: indexPath
+            ) as? ImageViewCell else { return UICollectionViewCell() }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: TimetableCell.reuseIdentifier, for: indexPath
+            ) as? TimetableCell else { return UICollectionViewCell() }
+            
+            cell.configure(time: lesson.time, nameSubject: lesson.name, location: lesson.location, teacherName: lesson.teacher, isCancelled: lesson.isCancelled)
+            return cell
+        }
     }
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,

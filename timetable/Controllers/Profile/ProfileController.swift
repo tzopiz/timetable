@@ -67,16 +67,16 @@ extension ProfileController {
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
         collectionView.register(InteractiveCell.self, forCellWithReuseIdentifier: InteractiveCell.reuseIdentifier)
+        collectionView.register(ToggleCell.self, forCellWithReuseIdentifier: ToggleCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         dataSource = [
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
-            .init(item: .init(title: "Кешировать расписание",  image: App.Images.theme,       type: .switcher)),
+            .init(item: .init(title: App.Strings.cacheMode,   image: App.Images.theme,       type: .switcher)),
             .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .base)),
             .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .base)),
             .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
-           
         ]
         collectionView.refreshControl = nil
     }
@@ -91,25 +91,28 @@ extension ProfileController {
         let item = dataSource[indexPath.row].item
         switch item.type {
         case .profile:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProfileCell.reuseIdentifier,
-                for: indexPath) as? ProfileCell
-            else { return UICollectionViewCell() }
-            cell.configure(title: item.title, image: item.image)
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseIdentifier,
+                                                                for: indexPath) as? ProfileCell else
+            { return UICollectionViewCell() }
+            cell.configure(title: item.title)
             return cell
-        case .theme, .switcher:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: InteractiveCell.reuseIdentifier,
-                for: indexPath) as? InteractiveCell
-            else { return UICollectionViewCell() }
-            cell.configure(title: item.title, type: item.type)
+        case .theme:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InteractiveCell.reuseIdentifier,
+                                                                for: indexPath) as? InteractiveCell else
+            { return UICollectionViewCell() }
+            cell.configure(title: item.title)
+            return cell
+        case .switcher:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ToggleCell.reuseIdentifier,
+                                                                for: indexPath) as? ToggleCell else
+            { return UICollectionViewCell() }
+            cell.configure(title: item.title)
             return cell
         default:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BaseCell.reuseIdentifier,
-                for: indexPath) as? BaseCell
-            else { return UICollectionViewCell() }
-            cell.configure(title: item.title, type: item.type)
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
+                                                                for: indexPath) as? BaseCell else
+            { return UICollectionViewCell() }
+            cell.configure(title: item.title)
             return cell
         }
     }
@@ -133,10 +136,8 @@ extension ProfileController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            openImagePickerVC()
-        case 4:
-            showConfirmationAlert()
+        case 0: openImagePickerVC()
+        case 4: showConfirmationAlert()
         case 5:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
@@ -145,8 +146,7 @@ extension ProfileController {
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVc)
-        default:
-            print(#function)
+        default: print(#function)
         }
     }
 }

@@ -77,6 +77,8 @@ extension APIManager {
         return elements
     }
     
+    // MARK: - TeacherInfo
+    
     func fetchTeacherInfo(link: String, completion: @escaping (TeacherInfo) -> Void) {
         guard let url = URL(string: link) else { return }
         
@@ -147,7 +149,7 @@ extension APIManager {
             }
         }
     }
-    func parseSection(sectionTag: Element) throws -> Section {
+    private func parseSection(sectionTag: Element) throws -> Section {
         let title = sectionTag.ownText()
         
         // Check if the section has a description list (dl) element
@@ -225,10 +227,10 @@ extension APIManager {
     }
 }
 
-// MARK: - Timetable
-
 extension APIManager {
-    /// timetable
+    
+    // MARK: - timetable
+    
     func loadTimetableData(with firstDay: String?, completion: @escaping (StudyWeek) -> Void) {
         
         let timeInterval: String
@@ -281,7 +283,7 @@ extension APIManager {
                             if let nameElement = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first() {
                                 name = try nameElement.text()
                                 var details = ""
-                               
+                                
                                 if let detailsElement = try doc.select("div.studyevent-subject > div.with-icon:nth-child(2) > div > span").first() {
                                     details = try detailsElement.text()
                                     name = name + "\n" + details
@@ -324,18 +326,14 @@ extension APIManager {
                     // Вызываем завершающее замыкание с объектом schoolWeek
                     let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate),
                                                days: dayDataArray).addingFreeDays(firstDay)
-                    print(schoolWeek)
                     completion(schoolWeek)
                 } catch { print("Ошибка при разборе HTML: \(error)") } // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
             }
         }.resume()
     }
-}
-
-
-// MARK: - list of faculties
-
-extension APIManager {
+    
+    // MARK: - list of faculties
+    
     func loadFaculties(completion: @escaping ([(text: String, link: String)]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -372,11 +370,9 @@ extension APIManager {
         }
         task.resume()
     }
-}
-
-// MARK: - list of directions + title for headerView of list directions
-
-extension APIManager {
+    
+    // MARK: - list of directions + title for headerView of list directions
+    
     func loadDirectionsTitles(completion: @escaping ([String]) -> Void) {
         let urlStr = UserDefaults.standard.link
         guard let url = URL(string: urlStr) else { return }
@@ -433,11 +429,9 @@ extension APIManager {
         }
         task.resume()
     }
-}
-
-// MARK: - only years of groups
-
-extension APIManager {
+    
+    // MARK: - only years of groups
+    
     func loadGroupsTitles(completion: @escaping ([[SectionWithLinks]]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else {
             completion([])
@@ -491,11 +485,9 @@ extension APIManager {
             }
         }.resume()
     }
-}
-
-// MARK: - list of group at year
-
-extension APIManager {
+    
+    // MARK: - list of group at year
+    
     func loadStudentGroupEvents(completion: @escaping ([SectionWithLinks]) -> Void) {
         guard let url = URL(string:  UserDefaults.standard.link) else {
             completion([])

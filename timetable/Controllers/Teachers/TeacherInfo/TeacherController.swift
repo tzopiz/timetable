@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TeacherController: UIViewController {
+final class TeacherController: TTBaseController {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -45,16 +45,13 @@ final class TeacherController: UIViewController {
     private let linksLabel = TTLabel()
     private var teacherInfo: TeacherInfo!
     var link: String!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-        constraintViews()
-        configureAppearence()
-    }
 }
 extension TeacherController {
-    func setupViews() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    override func setupViews() {
         view.setupView(scrollView)
         scrollView.setupView(contentView)
         contentView.addArrangedSubview(nameLabel)
@@ -68,7 +65,7 @@ extension TeacherController {
         rightStackView.addArrangedSubview(additionalInfoLabel)
     }
     
-    func constraintViews() {
+   override func constraintViews() {
         
         scrollView.anchor(top: view.topAnchor,
                           bottom: view.bottomAnchor,
@@ -81,7 +78,8 @@ extension TeacherController {
         photoImageView.setDimensions(height: 200, width: 150)
     }
     
-    func configureAppearence() {
+    override func configureAppearance() {
+        super.configureAppearance()
         view.backgroundColor = App.Colors.background
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         APIManager.shared.fetchTeacherInfo(link: link) { [weak self] teacherInfo in

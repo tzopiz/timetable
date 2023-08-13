@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TimetableCell: UICollectionViewCell {
+final class TimetableCell: BaseCell {
     
-    static let reuseIdentifier = String(describing: TimetableCell.self)
+    override class var reuseIdentifier: String { return String(describing: TimetableCell.self) }
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,21 +28,6 @@ final class TimetableCell: UICollectionViewCell {
     private let address = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
     private let teacherName = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
     private let clock = UIImageView(image: App.Images.clock)
-    private var borderLayer = CAShapeLayer()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        constaintViews()
-        configureAppearance()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(frame: .zero)
-        setupViews()
-        constaintViews()
-        configureAppearance()
-    }
 
     func configure(time: String, nameSubject: String, location: String, teacherName: String, isCancelled: Bool) {
         if isCancelled { // bolt
@@ -50,7 +35,6 @@ final class TimetableCell: UICollectionViewCell {
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
                 NSAttributedString.Key.strikethroughColor: App.Colors.red
             ])
-
             let attributedNameString = NSAttributedString(string: nameSubject, attributes: [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
                 NSAttributedString.Key.strikethroughColor: App.Colors.red
@@ -82,8 +66,8 @@ final class TimetableCell: UICollectionViewCell {
     }
 }
 
-private extension TimetableCell {
-    func setupViews() {
+extension TimetableCell {
+    override func setupViews() {
         contentView.setupView(stackView)
         setupView(firstLineView)
         
@@ -95,17 +79,16 @@ private extension TimetableCell {
         stackView.addArrangedSubview(address)
         stackView.addArrangedSubview(teacherName)
     }
-    func constaintViews() {
+    override func constraintViews() {
         stackView.anchor(top: contentView.topAnchor, paddingTop: 8,
-                             bottom: contentView.bottomAnchor, paddingBottom: -8,
-                             left: contentView.leadingAnchor, paddingLeft: 16,
-                             right: contentView.trailingAnchor, paddingRight: -16)
-
+                         bottom: contentView.bottomAnchor, paddingBottom: -8,
+                         left: contentView.leadingAnchor, paddingLeft: 16,
+                         right: contentView.trailingAnchor, paddingRight: -16)
         self.contentView.setDimensions(width: bounds.width)
         self.contentView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
         clock.setDimensions(height: 16, width: 16)
     }
-    func configureAppearance() {
+    override func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 16
     }

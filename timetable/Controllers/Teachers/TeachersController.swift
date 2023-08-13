@@ -11,6 +11,16 @@ final class TeachersController: TTBaseController {
     private lazy var dataSource: [Teacher] = APIManager.shared.getListOfTeachers()
     private var filteredData: [Teacher] = []
     
+    private lazy var customSearchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Поиск"
+        searchBar.showsCancelButton = true
+        searchBar.delegate = self
+        return searchBar
+    }()
+    private var searchBarVisible = true
+    private var lastContentOffset: CGFloat = 0
+    
     override func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
@@ -32,9 +42,7 @@ extension TeachersController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
+        navigationItem.titleView = customSearchBar
         collectionView.register(TeacherCell.self, forCellWithReuseIdentifier: TeacherCell.reuseIdentifier)
     }
 }
@@ -56,7 +64,7 @@ extension TeachersController {
                                      grants: info[indexPath.item].grants,
                                      projects: info[indexPath.item].projects,
                                      personalLink: info[indexPath.item].personalLink))
-
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -98,20 +106,50 @@ extension TeachersController {
 }
 
 // MARK: - UISearchResultsUpdating
-
-extension TeachersController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text)
+extension TeachersController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterContentForSearchText(searchText)
     }
-    private func filterContentForSearchText(_ searchText: String?) {
-        if let searchText = searchText, !searchText.isEmpty {
-            filteredData = dataSource.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        } else {
-            filteredData = dataSource
-        }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        collectionView.reloadData()
+    }
+    private func filterContentForSearchText(_ searchText: String) {
+        filteredData = dataSource.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         collectionView.reloadData()
     }
     private func isFiltering() -> Bool {
-        return navigationItem.searchController?.isActive ?? false && !(navigationItem.searchController?.searchBar.text?.isEmpty ?? true)
+        return customSearchBar.isFirstResponder && !(customSearchBar.text?.isEmpty ?? true)
+    }
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        
+        if contentOffsetY > 20 && searchBarVisible {
+            toggleSearchBarVisibility(hidden: true)
+        } else if contentOffsetY <= 20 && !searchBarVisible {
+            toggleSearchBarVisibility(hidden: false)
+        }
+    }
+    
+    func toggleSearchBarVisibility(hidden: Bool) {
+        searchBarVisible = !hidden
+        let alpha: CGFloat = hidden ? 0 : 1
+        if alpha == 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customSearchBar.alpha = alpha
+            }) { _ in
+                self.navigationItem.titleView = nil
+                self.navigationItem.title = "Teachers"
+            }
+        } else {
+            self.navigationItem.titleView = customSearchBar
+            UIView.animate(withDuration: 0.3) {
+                self.customSearchBar.alpha = alpha
+            }
+        }
     }
 }

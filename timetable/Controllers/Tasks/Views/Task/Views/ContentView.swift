@@ -16,7 +16,7 @@ final class ContentView: TTBaseView {
         let textField = UITextField()
         textField.font = App.Fonts.helveticaNeue(with: 17)
         textField.textColor = App.Colors.text
-        textField.placeholder = "Новая задача"
+        textField.placeholder = App.Strings.newTask
         textField.backgroundColor = App.Colors.BlackWhite
         textField.layer.cornerRadius = 10
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))

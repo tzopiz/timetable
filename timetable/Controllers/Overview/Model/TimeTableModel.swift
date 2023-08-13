@@ -13,13 +13,16 @@ struct Lesson: Codable, Equatable {
     let location: String
     let teacher: String
     let isCancelled: Bool
+    let isEmpty: Bool
 
-    init(time: String, name: String, location: String, teacher: String, isCancelled: Bool = false) {
+    init(time: String, name: String, location: String, teacher: String,
+         isCancelled: Bool = false, isEmpty: Bool = false) {
         self.time = time
         self.name = name
         self.location = location
         self.teacher = teacher
         self.isCancelled = isCancelled
+        self.isEmpty = isEmpty
     }
 }
 struct StudyDay: Codable, Equatable {
@@ -90,14 +93,15 @@ extension StudyWeek {
             let isDayPresent = updatedDays.contains { studyDay in
                 studyDay.date.contains(formatDate(currentDate))
             }
-            
             if !isDayPresent {
-                let freeDay = StudyDay(date: formatDate(currentDate), lessons: [Lesson(time: " ", name: "nil", location: " ", teacher: "")])
+                let freeDay = StudyDay(date: formatDate(currentDate),
+                                       lessons: [Lesson(time: " \n", name: " \n",
+                                                        location: " \n", teacher: " \n",
+                                                        isEmpty: true)])
                 updatedDays.insert(freeDay, at: i)
             }
             currentDate = currentDate.nextDay
         }
-        
         return StudyWeek(startDate: self.startDate, days: updatedDays)
     }
 }
