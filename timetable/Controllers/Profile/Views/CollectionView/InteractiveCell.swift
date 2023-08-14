@@ -12,7 +12,7 @@ final class InteractiveCell: BaseCell {
     private let button = TTButton(with: .secondary)
     
     func configure(title: String, type: CellType = .base) {
-        super.configure(title: title, type: type)
+        super.configure(title: title)
     }
 }
 extension InteractiveCell {

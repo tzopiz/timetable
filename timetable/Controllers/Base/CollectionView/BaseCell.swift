@@ -7,14 +7,6 @@
 
 import UIKit
 
-enum CellType {
-    case base
-    case profile
-    case switcher
-    case theme
-    case clearCache
-}
-
 class BaseCell: UICollectionViewCell {
     
     class var reuseIdentifier: String { return String(describing: BaseCell.self) }
@@ -28,7 +20,7 @@ class BaseCell: UICollectionViewCell {
         return stackView
     }()
     
-    func configure(title: String, type: CellType = .base, backgroundColor color: UIColor? = nil,
+    func configure(title: String, backgroundColor color: UIColor? = nil,
                    textAlignment alignment: NSTextAlignment? = nil,
                    textSize size: CGFloat? = nil, cornerRadius: CGFloat = 16) {
         self.title.text = title

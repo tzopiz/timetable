@@ -8,6 +8,14 @@
 import UIKit
 import PhotosUI
 
+enum CellType {
+    case base
+    case profile
+    case switcher
+    case theme
+    case clearCache
+}
+
 struct SettingsData {
     struct Data {
         let title: String
