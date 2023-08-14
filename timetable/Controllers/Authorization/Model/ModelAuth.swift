@@ -6,27 +6,27 @@
 //
 
 import UIKit
-
-struct Section {
-    let title: String
-    var items: [String]
+struct Auth {
+    struct Section {
+        let title: String
+        var items: [String]
+    }
+    
+    struct SectionWithLinks {
+        let title: String
+        let items: [(text: String, link: String)]
+        var isExpanded: Bool = false
+    }
 }
-
-struct SectionWithLinks {
-    let title: String
-    let items: [(text: String, link: String)]
-    var isExpanded: Bool = false
-}
-
-extension Section: CustomStringConvertible {
+extension Auth.Section: CustomStringConvertible {
     var description: String {
         let titleDescription = "Title: \(title)"
         let itemsDescription = "Items:\n\(itemsDescriptionIndented)"
         return """
-        Section:
-        \(titleDescription)
-        \(itemsDescription)
-        """
+    Section:
+    \(titleDescription)
+    \(itemsDescription)
+    """
     }
     
     private var itemsDescriptionIndented: String {
@@ -36,17 +36,17 @@ extension Section: CustomStringConvertible {
     }
 }
 
-extension SectionWithLinks: CustomStringConvertible {
+extension Auth.SectionWithLinks: CustomStringConvertible {
     var description: String {
         let titleDescription = "Title: \(title)"
         let itemsDescription = "Items:\n\(itemsDescriptionIndented)"
         let isExpandedDescription = "Is Expanded: \(isExpanded)"
         return """
-        Section with Links:
-        \(titleDescription)
-        \(itemsDescription)
-        \(isExpandedDescription)
-        """
+    Section with Links:
+    \(titleDescription)
+    \(itemsDescription)
+    \(isExpandedDescription)
+    """
     }
     
     private var itemsDescriptionIndented: String {

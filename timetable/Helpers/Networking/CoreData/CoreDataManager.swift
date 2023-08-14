@@ -25,11 +25,12 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String?,
-                           taskInfo: String?,
-                           isDone: Bool?,
-                           importance: Int16?,
-                           deadline: Date? = nil) {
+    public func createTask(taskName: String,
+                           taskInfo: String,
+                           isDone: Bool,
+                           importance: Int16,
+                           deadline: Date? = nil,
+                           completion: @escaping (Task) -> Void) {
         guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
             return
         }
@@ -37,10 +38,11 @@ public final class CoreDataMamanager: NSObject {
         task.id = UUID()
         task.taskName = taskName
         task.taskInfo = taskInfo
-        if let isDone = isDone { task.isDone = isDone }
-        if let importance = importance { task.importance = importance }
+        task.isDone = isDone
+        task.importance = importance
         task.deadline = deadline
         appDelegate.saveContext()
+        completion(task)
     }
     public func saveProfileImage(_ image: UIImage? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
@@ -105,24 +107,23 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Update
     
-    public func updataTask(with id: UUID?, taskName: String? = "",
-                           taskInfo: String? = "",
-                           isDone: Bool? = false,
-                           importance: Int16? = 0,
+    public func updateTask(with id: UUID?, taskName: String = "",
+                           taskInfo: String = "",
+                           isDone: Bool = false,
+                           importance: Int16 = 0,
                            deadline: Date? = nil) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        do {
-            guard let tasks = try? context.fetch(fetchRequest) as? [Task],
-                  let task = tasks.first(where: { $0.id == id }) else { return }
-            task.taskName = taskName
-            task.taskInfo = taskInfo
-            task.isDone = isDone!
-            task.importance = importance!
-            task.deadline = deadline
-        }
-        appDelegate.saveContext()
+        guard let tasks = try? context.fetch(fetchRequest) as? [Task],
+              let task = tasks.first(where: { $0.id == id }) else { return }
+        task.taskName = taskName
+        task.taskInfo = taskInfo
+        task.isDone = isDone
+        task.importance = importance
+        task.deadline = deadline
+        appDelegate.saveContext() // Сохранить изменения в Core Data
     }
+    
     public func updataTypeTask(with id: UUID?, isDone: Bool) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")

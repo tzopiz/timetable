@@ -10,7 +10,7 @@ import UIKit
 final class GroupsTitlesController: TTBaseController {
     
     var index = 0
-    private var groupsTitles: [SectionWithLinks] = []
+    private var groupsTitles: [Auth.SectionWithLinks] = []
     
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag

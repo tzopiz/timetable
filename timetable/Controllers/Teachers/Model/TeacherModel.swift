@@ -50,5 +50,5 @@ struct TeacherInfo {
     let position: String
     let additionalInfo: String
     let links: [String]
-    var sections: [Section]
+    var sections: [Auth.Section]
 }

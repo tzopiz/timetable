@@ -30,6 +30,10 @@
 		0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2812A64172E00F4947D /* ModelAuth.swift */; };
 		0A98A2852A64519700F4947D /* BackgroundTimetableOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */; };
 		0AA605802A8A8D4A008C4A6B /* CacheInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */; };
+		0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A42A8AC290008C4A6B /* TasksController.swift */; };
+		0AA605AC2A8AC290008C4A6B /* NoteEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A62A8AC290008C4A6B /* NoteEditView.swift */; };
+		0AA605AD2A8AC290008C4A6B /* NoteEditHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */; };
+		0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605AA2A8AC290008C4A6B /* TasksCell.swift */; };
 		0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB612E52A66FEF0007E6757 /* FeedbackView.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
@@ -47,10 +51,6 @@
 		0ACC4E7229C661AA00B3D6AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7029C661AA00B3D6AC /* README.md */; };
 		0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7429C6620200B3D6AC /* AppDelegate.swift */; };
 		0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7529C6620200B3D6AC /* SceneDelegate.swift */; };
-		0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7829C6620200B3D6AC /* TasksController.swift */; };
-		0ACC4EB029C6620300B3D6AC /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7C29C6620200B3D6AC /* TasksCell.swift */; };
-		0ACC4EB129C6620300B3D6AC /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E7E29C6620200B3D6AC /* TaskController.swift */; };
-		0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8029C6620200B3D6AC /* ContentView.swift */; };
 		0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8229C6620200B3D6AC /* NavigationController.swift */; };
 		0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8329C6620200B3D6AC /* TabBarController.swift */; };
 		0ACC4EB529C6620300B3D6AC /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E8529C6620200B3D6AC /* ProfileController.swift */; };
@@ -115,6 +115,10 @@
 		0A98A2812A64172E00F4947D /* ModelAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAuth.swift; sourceTree = "<group>"; };
 		0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimetableOverview.swift; sourceTree = "<group>"; };
 		0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInfoCell.swift; sourceTree = "<group>"; };
+		0AA605A42A8AC290008C4A6B /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		0AA605A62A8AC290008C4A6B /* NoteEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditView.swift; sourceTree = "<group>"; };
+		0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditHostingController.swift; sourceTree = "<group>"; };
+		0AA605AA2A8AC290008C4A6B /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		0AB612E52A66FEF0007E6757 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
@@ -136,10 +140,6 @@
 		0ACC4E7029C661AA00B3D6AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		0ACC4E7429C6620200B3D6AC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACC4E7529C6620200B3D6AC /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0ACC4E7829C6620200B3D6AC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
-		0ACC4E7C29C6620200B3D6AC /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
-		0ACC4E7E29C6620200B3D6AC /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
-		0ACC4E8029C6620200B3D6AC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0ACC4E8229C6620200B3D6AC /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0ACC4E8329C6620200B3D6AC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		0ACC4E8529C6620200B3D6AC /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -318,6 +318,33 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		0AA605A32A8AC290008C4A6B /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				0AA605A52A8AC290008C4A6B /* Task */,
+				0AA605A92A8AC290008C4A6B /* CollectionView */,
+				0AA605A42A8AC290008C4A6B /* TasksController.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		0AA605A52A8AC290008C4A6B /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				0AA605A62A8AC290008C4A6B /* NoteEditView.swift */,
+				0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		0AA605A92A8AC290008C4A6B /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0AA605AA2A8AC290008C4A6B /* TasksCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		0AB258F529D8546700215890 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,58 +437,15 @@
 		0ACC4E7629C6620200B3D6AC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0AA605A32A8AC290008C4A6B /* Tasks */,
 				0A26495229DF044D003D080A /* Authorization */,
 				0ACC4E8129C6620200B3D6AC /* Navigation */,
 				0ACC4E8E29C6620200B3D6AC /* Overview */,
-				0ACC4E7729C6620200B3D6AC /* Tasks */,
 				0ACC4E8929C6620200B3D6AC /* Teachers */,
 				0ACC4E8429C6620200B3D6AC /* Profile */,
 				0ACC4E9929C6620200B3D6AC /* Base */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		0ACC4E7729C6620200B3D6AC /* Tasks */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E7929C6620200B3D6AC /* Views */,
-				0ACC4E7829C6620200B3D6AC /* TasksController.swift */,
-			);
-			path = Tasks;
-			sourceTree = "<group>";
-		};
-		0ACC4E7929C6620200B3D6AC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E7A29C6620200B3D6AC /* CollectionView */,
-				0ACC4E7D29C6620200B3D6AC /* Task */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0ACC4E7A29C6620200B3D6AC /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E7C29C6620200B3D6AC /* TasksCell.swift */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
-		0ACC4E7D29C6620200B3D6AC /* Task */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E7F29C6620200B3D6AC /* Views */,
-				0ACC4E7E29C6620200B3D6AC /* TaskController.swift */,
-			);
-			path = Task;
-			sourceTree = "<group>";
-		};
-		0ACC4E7F29C6620200B3D6AC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4E8029C6620200B3D6AC /* ContentView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		0ACC4E8129C6620200B3D6AC /* Navigation */ = {
@@ -847,13 +831,14 @@
 				0AC82F742A8946C800E67D4F /* ToggleCell.swift in Sources */,
 				0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */,
 				0AC82F782A894A2800E67D4F /* Resources + ext Image.swift in Sources */,
-				0ACC4EB029C6620300B3D6AC /* TasksCell.swift in Sources */,
+				0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */,
 				0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */,
 				0AC82F762A8949C100E67D4F /* Resources + ext String.swift in Sources */,
 				0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */,
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
+				0AA605AC2A8AC290008C4A6B /* NoteEditView.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
@@ -864,25 +849,24 @@
 				0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0AC82F722A893EF300E67D4F /* ImageViewCell.swift in Sources */,
-				0ACC4EB229C6620300B3D6AC /* ContentView.swift in Sources */,
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,
 				0A0ECBFA2A5F1E5E004BDB61 /* HeaderWithButtonView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0A1A697A2A6511C8003FFECB /* DataCacheManager.swift in Sources */,
+				0AA605AD2A8AC290008C4A6B /* NoteEditHostingController.swift in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0A1A69822A659E2B003FFECB /* LabelTextView.swift in Sources */,
 				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,
 				0A1A69802A6570FB003FFECB /* TeacherController.swift in Sources */,
-				0ACC4EB129C6620300B3D6AC /* TaskController.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
-				0ACC4EAF29C6620300B3D6AC /* TasksController.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionHeaderView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,
 				0AC82F7B2A89510200E67D4F /* SearchableTopBarView.swift in Sources */,
+				0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */,
 				0ACC4EBE29C6620300B3D6AC /* OverviewController.swift in Sources */,
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
 				0A98A2852A64519700F4947D /* BackgroundTimetableOverview.swift in Sources */,
@@ -1070,12 +1054,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1103,12 +1087,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.timetable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

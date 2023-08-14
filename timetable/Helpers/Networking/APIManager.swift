@@ -122,7 +122,7 @@ extension APIManager {
                 }
                 
                 // Объединение секций
-                var sections: [Section] = []
+                var sections: [Auth.Section] = []
                 
                 // Секции с h2.trigger
                 let sectionTags = try doc.select("h2.trigger")
@@ -149,7 +149,7 @@ extension APIManager {
             }
         }
     }
-    private func parseSection(sectionTag: Element) throws -> Section {
+    private func parseSection(sectionTag: Element) throws -> Auth.Section {
         let title = sectionTag.ownText()
         
         // Check if the section has a description list (dl) element
@@ -159,7 +159,7 @@ extension APIManager {
                 let itemText = try dtElement.text()
                 return itemText
             }
-            return Section(title: title, items: items)
+            return Auth.Section(title: title, items: items)
         }
         
         // If there is no description list, parse as usual
@@ -169,7 +169,7 @@ extension APIManager {
             let itemText = try item.text()
             items.append(itemText)
         }
-        return Section(title: title, items: items)
+        return Auth.Section(title: title, items: items)
     }
     func getImageURL(from websiteURL: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: websiteURL) else {
@@ -432,7 +432,7 @@ extension APIManager {
     
     // MARK: - only years of groups
     
-    func loadGroupsTitles(completion: @escaping ([[SectionWithLinks]]) -> Void) {
+    func loadGroupsTitles(completion: @escaping ([[Auth.SectionWithLinks]]) -> Void) {
         guard let url = URL(string: UserDefaults.standard.link) else {
             completion([])
             return
@@ -449,8 +449,8 @@ extension APIManager {
                 let html = String(data: data, encoding: .utf8)
                 let doc: Document = try SwiftSoup.parse(html ?? "")
                 let listItems = try doc.select("li.common-list-item.row")
-                var sections: [[SectionWithLinks]] = []
-                var currentSection: [SectionWithLinks] = []
+                var sections: [[Auth.SectionWithLinks]] = []
+                var currentSection: [Auth.SectionWithLinks] = []
                 
                 for listItem in listItems {
                     // Извлечение значения заголовка
@@ -471,7 +471,7 @@ extension APIManager {
                             let link = try listElement.attr("href") // Значение ссылки элемента
                             sectionItems.append((text: text, link: link)) // Добавление пары (текст, ссылка) в sectionItems
                         }
-                        currentSection.append(SectionWithLinks(title: title, items: sectionItems))
+                        currentSection.append(Auth.SectionWithLinks(title: title, items: sectionItems))
                     }
                 }
                 if !currentSection.isEmpty {
@@ -488,7 +488,7 @@ extension APIManager {
     
     // MARK: - list of group at year
     
-    func loadStudentGroupEvents(completion: @escaping ([SectionWithLinks]) -> Void) {
+    func loadStudentGroupEvents(completion: @escaping ([Auth.SectionWithLinks]) -> Void) {
         guard let url = URL(string:  UserDefaults.standard.link) else {
             completion([])
             return
@@ -505,7 +505,7 @@ extension APIManager {
                 let html = String(data: data, encoding: .utf8)
                 let doc: Document = try SwiftSoup.parse(html ?? "")
                 let panelHeadings = try doc.select("div.panel-heading")
-                var sections: [SectionWithLinks] = []
+                var sections: [Auth.SectionWithLinks] = []
                 
                 for i in 0..<panelHeadings.count {
                     let panelHeading = panelHeadings[i]
@@ -527,7 +527,7 @@ extension APIManager {
                                 }
                             }
                         }
-                        sections.append(SectionWithLinks(title: title, items: items))
+                        sections.append(Auth.SectionWithLinks(title: title, items: items))
                     }
                 }
                 completion(sections)

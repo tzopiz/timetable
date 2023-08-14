@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class TasksController: TTBaseController {
     private var currentType: App.TaskType = UserDefaults.standard.taskType.getUserTaskType()
@@ -29,12 +30,19 @@ extension TasksController {
         collectionView.refreshControl = nil
     }
     override func navBarRightButtonHandler() {
-        let taskVC = TaskController()
-        taskVC.completion = { [weak self] _ in
-            guard let self = self else { return }
-            self.collectionView.reloadData()
+        CoreDataMamanager.shared.createTask(taskName: "", taskInfo: "",
+                                            isDone: false, importance: 0, deadline: nil) { [weak self] task in
+            var newtask = task
+            let taskEditController = NoteEditHostingController(
+                task: Binding<Task>(
+                    get: { newtask },
+                    set: { newtask = $0 }
+                )
+            ) { self?.collectionView.reloadData() }
+            
+            taskEditController.modalPresentationStyle = .formSheet
+            self?.present(taskEditController, animated: true)
         }
-        present(taskVC, animated: true)
     }
     override func navBarLeftButtonHandler() {
         switch currentType {
@@ -67,24 +75,22 @@ extension TasksController {
         cell.configure(task: task)
         cell.completion = { [weak self] in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            self.collectionView.reloadData()
         }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
-        let taskVC = TaskController()
-        taskVC.task = task
-        taskVC.completion = { [weak self] needInsert in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-        present(taskVC, animated: true)
+        var task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        let noteEditController = NoteEditHostingController(
+            task: Binding<Task>(
+                get: { task },
+                set: { task = $0 }
+            )
+        ){ self.collectionView.reloadData()  }
+        noteEditController.modalPresentationStyle = .formSheet
+        present(noteEditController, animated: true)
     }
+
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? TasksCell
