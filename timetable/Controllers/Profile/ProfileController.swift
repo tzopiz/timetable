@@ -35,6 +35,7 @@ final class ProfileController: TTBaseController {
         let confirmAction = UIAlertAction(title: "Очистить", style: .destructive) { (_) in
             let cacheManager = DataCacheManager()
             cacheManager.clearCache()
+            self.collectionView.reloadData()
         }
         alertController.addAction(confirmAction)
         
@@ -43,9 +44,23 @@ final class ProfileController: TTBaseController {
         
         present(alertController, animated: true, completion: nil)
     }
+    private func openImagePickerVC() {  // TODO: read about this
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        
+        present(picker, animated: true)
+    }
 }
 
 extension ProfileController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
     override func setupViews() {
         super.setupViews()
         collectionView.addSubview(versionLabel)
@@ -66,6 +81,7 @@ extension ProfileController {
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
+        collectionView.register(CacheInfoCell.self, forCellWithReuseIdentifier: CacheInfoCell.reuseIdentifier)
         collectionView.register(InteractiveCell.self, forCellWithReuseIdentifier: InteractiveCell.reuseIdentifier)
         collectionView.register(ToggleCell.self, forCellWithReuseIdentifier: ToggleCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
@@ -73,8 +89,8 @@ extension ProfileController {
             .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
             .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
-            .init(item: .init(title: App.Strings.cacheMode,   image: App.Images.theme,       type: .switcher)),
-            .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .base)),
+            .init(item: .init(title: App.Strings.cacheMode,   image: App.Images.theme,        type: .switcher)),
+            .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .clearCache)),
             .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .base)),
             .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
         ]
@@ -107,6 +123,16 @@ extension ProfileController {
                                                                 for: indexPath) as? ToggleCell else
             { return UICollectionViewCell() }
             cell.configure(title: item.title)
+            cell.completion = { [weak self] in
+                self?.collectionView.reloadData()
+            }
+            return cell
+        case .clearCache:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CacheInfoCell.reuseIdentifier,
+                                                                for: indexPath) as? CacheInfoCell else
+            { return UICollectionViewCell() }
+            let cacheSize = DataCacheManager().calculateCacheSize()
+            cell.configure(title: item.title, cacheSize: cacheSize)
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
@@ -123,16 +149,6 @@ extension ProfileController {
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isUnHighlighted()
-    }
-    func openImagePickerVC() {  // TODO: read about this
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        
-        present(picker, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {

@@ -82,6 +82,34 @@ class DataCacheManager {
         do { try FileManager.default.removeItem(at: cacheFileURL) }
         catch { print("Ошибка при удалении кеша: \(error)") }
     }
+    func calculateCacheSize() -> String {
+        guard FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first != nil else {
+            return "(0.0 кб)"
+        }
+
+        do {
+            var totalCacheSizeInBytes = 0
+            for (_, studyWeek) in cache {
+                let encoder = JSONEncoder()
+                let encodedCache = try encoder.encode(studyWeek)
+                totalCacheSizeInBytes += encodedCache.count
+            }
+            
+            let totalCacheSizeInKilobytes = Double(totalCacheSizeInBytes) / 1024.0
+            let totalCacheSizeInMegabytes = totalCacheSizeInKilobytes / 1024.0
+
+            if totalCacheSizeInMegabytes >= 1.0 {
+                return String(format: "%.2f мб", totalCacheSizeInMegabytes)
+            } else {
+                return String(format: "%.2f кб", totalCacheSizeInKilobytes)
+            }
+        } catch {
+            print("Ошибка при расчете размера кеша: \(error)")
+            return "(0.0 кб)"
+        }
+    }
+    
+    // MARK: - Private
 
     private func getCachedData(for week: String) -> StudyWeek? { return cache[week] }
     private func cacheData(_ data: StudyWeek, for week: String) {

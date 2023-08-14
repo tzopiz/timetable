@@ -8,7 +8,6 @@
 import UIKit
 
 final class InteractiveCell: BaseCell {
-    
     override class var reuseIdentifier: String { return String(describing: InteractiveCell.self) }
     private let button = TTButton(with: .secondary)
     

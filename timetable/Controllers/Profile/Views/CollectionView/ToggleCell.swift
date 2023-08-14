@@ -7,9 +7,10 @@
 
 import UIKit
 
-class ToggleCell: BaseCell {
+final class ToggleCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: ToggleCell.self) }
     private let switcher = UISwitch()
+    var completion: (() -> ())?
 }
 
 extension ToggleCell {
@@ -40,6 +41,7 @@ extension ToggleCell {
                 UserDefaults.standard.CachingTimetable = sender.isOn
                 let cacheManager = DataCacheManager()
                 cacheManager.clearCache()
+                self.completion?()
             }))
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let window = windowScenes?.windows.first

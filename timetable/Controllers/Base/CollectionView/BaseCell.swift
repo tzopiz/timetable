@@ -12,6 +12,7 @@ enum CellType {
     case profile
     case switcher
     case theme
+    case clearCache
 }
 
 class BaseCell: UICollectionViewCell {

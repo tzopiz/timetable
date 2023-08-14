@@ -11,7 +11,6 @@ final class OverviewController: TTBaseController {
     
     private let navBar = OverviewNavBar()
     private let backgroundView = BackgroundTimetableOverview()
-    
     private let cacheManager = DataCacheManager()
     private var timetableData: StudyWeek?
     
@@ -19,7 +18,7 @@ final class OverviewController: TTBaseController {
         cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
             guard self != nil else { return }
             if let studyWeek = studyWeek { completion(studyWeek) }
-            else { completion(StudyWeek(startDate: "nil", days: []))}
+            else { completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))}
         }
     }
     override func refreshData() {
