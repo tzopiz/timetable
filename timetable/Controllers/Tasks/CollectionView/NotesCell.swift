@@ -1,5 +1,5 @@
 //
-//  TasksCellView.swift
+//  NotesCell.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
@@ -7,43 +7,31 @@
 
 import UIKit
 
-final class TasksCell: UICollectionViewCell {
+final class NotesCell: BaseCell {
     
-    static let reuseIdentifier =  String(describing: TasksCell.self)
+    override class var reuseIdentifier: String { return String(describing: NotesCell.self) }
     
-    private let title = TTLabel(fontSize: 17)
-    private let subtitle = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
-
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 3
         return stackView
     }()
+    private let taskNameLabel = TTLabel(fontSize: 17)
+    private let taskInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
     private let importance = UIImageView()
     private let notificationButton = TTButton(with: .primary)
     private let buttonCheckmarkView = TTButton(with: .primary)
+    
     private var task: Task?
     private var deadline: String = ""
+    
     var completion: (() -> ())?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        constaintViews()
-        configureAppearance()
-    }
-    required init?(coder: NSCoder) {
-        super.init(frame: .zero)
-        setupViews()
-        constaintViews()
-        configureAppearance()
-    }
-    
     func configure(task: Task) {
         self.task = task
-        self.title.text = task.taskName
-        self.subtitle.text = task.taskInfo
+        self.taskNameLabel.text = task.taskName
+        self.taskInfoLabel.text = task.taskInfo
         buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
         switch task.importance {
         case 1: self.importance.image = App.Images.exclamation_1
@@ -69,8 +57,8 @@ final class TasksCell: UICollectionViewCell {
         }
     }
     
-    func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
-    func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    override func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
+    override func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
 
     @IBAction func updateCheckmarkView() {
         guard let task = self.task else { return }
@@ -84,17 +72,17 @@ final class TasksCell: UICollectionViewCell {
     private func handler(action: UIAction) {}
 }
 
-private extension TasksCell {
-    func setupViews() {
+extension NotesCell {
+    override func setupViews() {
         setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
         setupView(notificationButton)
         
         stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(subtitle)
+        stackView.addArrangedSubview(taskInfoLabel)
     }
-    func constaintViews() {
+    override func constraintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                              centerY: centerYAnchor)
@@ -107,7 +95,7 @@ private extension TasksCell {
         notificationButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
-    func configureAppearance() {
+    override func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 16
         
