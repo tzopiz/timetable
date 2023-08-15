@@ -31,8 +31,8 @@
 		0A98A2852A64519700F4947D /* BackgroundTimetableOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */; };
 		0AA605802A8A8D4A008C4A6B /* CacheInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */; };
 		0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A42A8AC290008C4A6B /* TasksController.swift */; };
-		0AA605AC2A8AC290008C4A6B /* NoteEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A62A8AC290008C4A6B /* NoteEditView.swift */; };
-		0AA605AD2A8AC290008C4A6B /* NoteEditHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */; };
+		0AA605AC2A8AC290008C4A6B /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A62A8AC290008C4A6B /* TaskEditView.swift */; };
+		0AA605AD2A8AC290008C4A6B /* TaskEditHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */; };
 		0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605AA2A8AC290008C4A6B /* TasksCell.swift */; };
 		0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB612E52A66FEF0007E6757 /* FeedbackView.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
@@ -116,8 +116,8 @@
 		0A98A2842A64519700F4947D /* BackgroundTimetableOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimetableOverview.swift; sourceTree = "<group>"; };
 		0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInfoCell.swift; sourceTree = "<group>"; };
 		0AA605A42A8AC290008C4A6B /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
-		0AA605A62A8AC290008C4A6B /* NoteEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditView.swift; sourceTree = "<group>"; };
-		0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditHostingController.swift; sourceTree = "<group>"; };
+		0AA605A62A8AC290008C4A6B /* TaskEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
+		0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditHostingController.swift; sourceTree = "<group>"; };
 		0AA605AA2A8AC290008C4A6B /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		0AB612E52A66FEF0007E6757 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 		0AA605A32A8AC290008C4A6B /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				0AA605A52A8AC290008C4A6B /* Task */,
 				0AA605A92A8AC290008C4A6B /* CollectionView */,
+				0AA605A52A8AC290008C4A6B /* Task */,
 				0AA605A42A8AC290008C4A6B /* TasksController.swift */,
 			);
 			path = Tasks;
@@ -331,8 +331,8 @@
 		0AA605A52A8AC290008C4A6B /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				0AA605A62A8AC290008C4A6B /* NoteEditView.swift */,
-				0AA605A72A8AC290008C4A6B /* NoteEditHostingController.swift */,
+				0AA605A62A8AC290008C4A6B /* TaskEditView.swift */,
+				0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -437,10 +437,10 @@
 		0ACC4E7629C6620200B3D6AC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0AA605A32A8AC290008C4A6B /* Tasks */,
 				0A26495229DF044D003D080A /* Authorization */,
 				0ACC4E8129C6620200B3D6AC /* Navigation */,
 				0ACC4E8E29C6620200B3D6AC /* Overview */,
+				0AA605A32A8AC290008C4A6B /* Tasks */,
 				0ACC4E8929C6620200B3D6AC /* Teachers */,
 				0ACC4E8429C6620200B3D6AC /* Profile */,
 				0ACC4E9929C6620200B3D6AC /* Base */,
@@ -838,7 +838,7 @@
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
-				0AA605AC2A8AC290008C4A6B /* NoteEditView.swift in Sources */,
+				0AA605AC2A8AC290008C4A6B /* TaskEditView.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
 				0ACC4EB929C6620300B3D6AC /* TeacherModel.swift in Sources */,
@@ -853,7 +853,7 @@
 				0A0ECBFA2A5F1E5E004BDB61 /* HeaderWithButtonView.swift in Sources */,
 				0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */,
 				0A1A697A2A6511C8003FFECB /* DataCacheManager.swift in Sources */,
-				0AA605AD2A8AC290008C4A6B /* NoteEditHostingController.swift in Sources */,
+				0AA605AD2A8AC290008C4A6B /* TaskEditHostingController.swift in Sources */,
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0A1A69822A659E2B003FFECB /* LabelTextView.swift in Sources */,
 				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,

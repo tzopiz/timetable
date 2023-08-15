@@ -1,5 +1,5 @@
 //
-//  NotesCell.swift
+//  TasksCell.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 24.11.2022.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class NotesCell: BaseCell {
+final class TasksCell: BaseCell {
     
-    override class var reuseIdentifier: String { return String(describing: NotesCell.self) }
+    override class var reuseIdentifier: String { return String(describing: TasksCell.self) }
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -17,8 +17,8 @@ final class NotesCell: BaseCell {
         stackView.spacing = 3
         return stackView
     }()
-    private let taskNameLabel = TTLabel(fontSize: 17)
-    private let taskInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
+    private let noteNameLabel = TTLabel(fontSize: 17)
+    private let noteInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
     private let importance = UIImageView()
     private let notificationButton = TTButton(with: .primary)
     private let buttonCheckmarkView = TTButton(with: .primary)
@@ -30,8 +30,8 @@ final class NotesCell: BaseCell {
 
     func configure(task: Task) {
         self.task = task
-        self.taskNameLabel.text = task.taskName
-        self.taskInfoLabel.text = task.taskInfo
+        self.noteNameLabel.text = task.taskName
+        self.noteInfoLabel.text = task.taskInfo
         buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
         switch task.importance {
         case 1: self.importance.image = App.Images.exclamation_1
@@ -72,15 +72,15 @@ final class NotesCell: BaseCell {
     private func handler(action: UIAction) {}
 }
 
-extension NotesCell {
+extension TasksCell {
     override func setupViews() {
         setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
         setupView(notificationButton)
         
-        stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(taskInfoLabel)
+        stackView.addArrangedSubview(noteNameLabel)
+        stackView.addArrangedSubview(noteInfoLabel)
     }
     override func constraintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)

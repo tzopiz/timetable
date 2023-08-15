@@ -33,7 +33,7 @@ extension TasksController {
         CoreDataMamanager.shared.createTask(taskName: "", taskInfo: "",
                                             isDone: false, importance: 0, deadline: nil) { [weak self] task in
             var newtask = task
-            let taskEditController = NoteEditHostingController(
+            let taskEditController = TaskEditHostingController(
                 task: Binding<Task>(
                     get: { newtask },
                     set: { newtask = $0 }
@@ -81,14 +81,14 @@ extension TasksController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
-        let noteEditController = NoteEditHostingController(
+        let taskEditController = TaskEditHostingController(
             task: Binding<Task>(
                 get: { task },
                 set: { task = $0 }
             )
         ){ self.collectionView.reloadData()  }
-        noteEditController.modalPresentationStyle = .formSheet
-        present(noteEditController, animated: true)
+        taskEditController.modalPresentationStyle = .formSheet
+        present(taskEditController, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView,

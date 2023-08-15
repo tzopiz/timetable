@@ -39,6 +39,6 @@ enum App {
         static let secondary  = UIColor.dynamic(light: #colorLiteral(red: 0.9403048754, green: 0.9514570832, blue: 1, alpha: 1), dark: #colorLiteral(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0))
         static let separator  = UIColor.dynamic(light: #colorLiteral(red: 0.9082805514, green: 0.924728632, blue: 0.9373794794, alpha: 1), dark: #colorLiteral(red: 0.1726317406, green: 0.1726317406, blue: 0.1726317406, alpha: 1))
         static let BlackWhite = UIColor.dynamic(light: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), dark: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-        static let background = UIColor.dynamic(light: #colorLiteral(red: 0.9718694091, green: 0.9750172496, blue: 0.9750832915, alpha: 1), dark: #colorLiteral(red: 0.1409981251, green: 0.1364274919, blue: 0.1622747779, alpha: 1))
+        static let background = UIColor.dynamic(light: #colorLiteral(red: 0.9501417279, green: 0.9502555728, blue: 0.9682293534, alpha: 1), dark: #colorLiteral(red: 0.1073041037, green: 0.107375659, blue: 0.1182927862, alpha: 1))
     }
 }
