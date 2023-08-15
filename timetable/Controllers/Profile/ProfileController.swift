@@ -165,7 +165,7 @@ extension ProfileController {
         case 5:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
-            
+            DataCacheManager().clearCache()
             let vc = FacultiesController()
             let navVc = NavigationController(rootViewController: vc)
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene

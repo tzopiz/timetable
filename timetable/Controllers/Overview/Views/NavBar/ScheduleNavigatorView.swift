@@ -27,7 +27,7 @@ class ScheduleNavigatorView: TTBaseView {
     
     private let titleLabelButton: TTButton = {
         let button = TTButton(with: .primary)
-        button.setTitle("Today")
+        button.setTitle("Сегодня")
         button.setFontSize(21)
         return button
     }()

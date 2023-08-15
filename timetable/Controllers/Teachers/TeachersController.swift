@@ -18,9 +18,11 @@ final class TeachersController: TTBaseController {
         searchBar.delegate = self
         return searchBar
     }()
-    private var searchBarVisible = true
+    private var searchBarVisible = false
     private var lastContentOffset: CGFloat = 0
-    
+}
+
+extension TeachersController {
     override func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         if let isRefreshing = self.collectionView.refreshControl?.isRefreshing, isRefreshing {
@@ -36,13 +38,11 @@ final class TeachersController: TTBaseController {
         }
         self.collectionView.refreshControl?.endRefreshing()
     }
-}
-
-extension TeachersController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
-        navigationItem.titleView = customSearchBar
+        navigationItem.titleView = nil
+        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         collectionView.register(TeacherCell.self, forCellWithReuseIdentifier: TeacherCell.reuseIdentifier)
     }
 }
@@ -128,10 +128,10 @@ extension TeachersController: UISearchBarDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         
-        if contentOffsetY > 20 && searchBarVisible {
-            toggleSearchBarVisibility(hidden: true)
-        } else if contentOffsetY <= 20 && !searchBarVisible {
+        if contentOffsetY > 20 && !searchBarVisible {
             toggleSearchBarVisibility(hidden: false)
+        } else if contentOffsetY <= 20 && searchBarVisible {
+            toggleSearchBarVisibility(hidden: true)
         }
     }
     
@@ -143,7 +143,7 @@ extension TeachersController: UISearchBarDelegate {
                 self.customSearchBar.alpha = alpha
             }) { _ in
                 self.navigationItem.titleView = nil
-                self.navigationItem.title = "Teachers"
+                self.navigationItem.title = App.Strings.people
             }
         } else {
             self.navigationItem.titleView = customSearchBar

@@ -28,7 +28,7 @@ extension App {
         
         // MARK: Teacher
         
-        static let people   = "Люди"
+        static let people   = "Teachers"
         
         // MARK: Profile
         

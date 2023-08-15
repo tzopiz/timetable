@@ -9,6 +9,9 @@ import SwiftUI
 
 struct TaskEditView: View {
     
+    @State private var isPickerVisible = false
+    @State private var selectedDate = Date()
+    
     @Binding var task: Task
     @Environment(\.presentationMode) var presentationMode
     
@@ -43,19 +46,28 @@ struct TaskEditView: View {
                 .foregroundColor(.blue)
         }
     }
-
+    var DatePickerSection: some View {
+        Section(header: Text("Дедлайн")) {
+            Toggle(isOn: $isPickerVisible) { Text("Показать") }
+            
+            if isPickerVisible {
+                DatePicker("Дата", selection: $selectedDate, in: Date()..., displayedComponents: .date)
+                    .datePickerStyle(GraphicalDatePickerStyle())
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Заголовок")) {
+                Section(header: Text("Название")) {
                     TextField("Введите название заметки", text: $task.taskName)
                 }
                 Section(header: Text("Текст заметки")) {
                     TextEditor(text: $task.taskInfo)
                         .frame(height: 150)
                 }
-
-                // add properties
+                DatePickerSection
                 
                 Section {
                     Button("Готово") {

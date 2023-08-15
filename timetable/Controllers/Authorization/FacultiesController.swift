@@ -23,9 +23,19 @@ extension FacultiesController {
         collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadFaculties { [weak self] result in
             DispatchQueue.main.async {
-                self?.Faculties = result
-                self?.collectionView.reloadData()
-                self?.collectionView.refreshControl?.endRefreshing()
+                if result.isEmpty {
+                    self?.collectionView.refreshControl?.endRefreshing()
+                    UserDefaults.standard.link = "https://timetable.spbu.ru"
+                    UserDefaults.standard.registered = true
+                    UserDefaults.standard.group = "Выберете группу"
+                    
+                    let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    windowScenes?.windows.first?.switchRootViewController(TabBarController())
+                } else {
+                    self?.Faculties = result
+                    self?.collectionView.reloadData()
+                    self?.collectionView.refreshControl?.endRefreshing()
+                }
             }
         }
     }
