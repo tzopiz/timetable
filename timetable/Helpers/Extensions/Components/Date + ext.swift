@@ -27,7 +27,13 @@ extension Date {
         guard let firstDay = Date.calendar.date(from: components) else { return self }
         return Date.calendar.date(byAdding: .day, value: 0, to: firstDay) ?? self
     }
-    
+    func formattedDeadline(_ date: Date?) -> String {
+        guard let date = date else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        dateFormatter.locale = Locale(identifier: "ru_RU") // Для русского языка
+        return dateFormatter.string(from: date)
+    }
     func agoForward(to days: Int) -> Date { Date.calendar.date(byAdding: .day, value: days, to: self) ?? self }
     func stripTime(_ stripTimeType: Date.StripTimeType) -> Date {
         switch stripTimeType {

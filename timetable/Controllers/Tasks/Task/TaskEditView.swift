@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TaskEditView: View {
     
-    @State private var isPickerVisible = false
     @State private var selectedDate = Date()
+    @State private var isDatePickerPresented = false
     
     @Binding var task: Task
     @Environment(\.presentationMode) var presentationMode
@@ -29,6 +29,8 @@ struct TaskEditView: View {
             }) {
                 Label("Duplicate", systemImage: "plus.square.on.square")
             }
+            if task.deadline != nil { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell") } }
+            else { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell.slash") } }
             Button(action: {
                 CoreDataMamanager.shared.deletaTask(with: task.id)
                 onTaskUpdated()
@@ -45,47 +47,48 @@ struct TaskEditView: View {
             Image(systemName: "square.and.pencil")
                 .foregroundColor(.blue)
         }
-    }
-    var DatePickerSection: some View {
-        Section(header: Text("Дедлайн")) {
-            Toggle(isOn: $isPickerVisible) { Text("Показать") }
-            
-            if isPickerVisible {
-                DatePicker("Дата", selection: $selectedDate, in: Date()..., displayedComponents: .date)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-            }
+        .sheet(isPresented: $isDatePickerPresented) {
+            DatePickerView(selectedDate: $task.deadline,
+                           isPresented: $isDatePickerPresented)
+            .presentationDetents([.medium])
         }
     }
-    
+
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Название")) {
-                    TextField("Введите название заметки", text: $task.taskName)
-                }
-                Section(header: Text("Текст заметки")) {
-                    TextEditor(text: $task.taskInfo)
-                        .frame(height: 150)
-                }
-                DatePickerSection
-                
-                Section {
-                    Button("Готово") {
-                        CoreDataMamanager.shared.updateTask(with: task.id,
-                                                            taskName: task.taskName == "" ? "Безымянная" : task.taskName,
-                                                            taskInfo: task.taskInfo, isDone: task.isDone,
-                                                            importance: task.importance,
-                                                            deadline: isPickerVisible ? selectedDate : nil)
-                        onTaskUpdated()
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    .foregroundColor(Color(uiColor: App.Colors.active))
-                }
+        Form {
+            Text("Заметка")
+                .font(.largeTitle)
+                .bold()
+                .listRowBackground(Color.clear)
+            Section {
+                TextField("Без Названия", text: $task.taskName)
+                    .padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -15))
+                    .font(.system(size: 18, weight: .bold))
             }
-            .navigationBarTitle("Заметка")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) { menu }
+        header: { Text("название") }
+            
+            Section {
+                TextEditor(text: $task.taskInfo)
+                    .padding(EdgeInsets(top: -10, leading: -10, bottom: -10, trailing: -10))
+                    .font(.system(size: 16))
+                    .frame(height: 200)
+            }
+        header: { Text("текст заметки") }
+        footer: { Text(task.deadline == nil ? "" : "Дедлайн: \(Date().formattedDeadline(task.deadline))") }
+            Section {
+                Button("Готово") {
+                    CoreDataMamanager.shared.updateTask(with: task.id,
+                                                        taskName: task.taskName == "" ? "Безымянная" : task.taskName,
+                                                        taskInfo: task.taskInfo, isDone: task.isDone,
+                                                        importance: task.importance,
+                                                        deadline: task.deadline)
+                    onTaskUpdated()
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .foregroundColor(Color(uiColor: App.Colors.active))
             }
         }
     }
 }
+
+

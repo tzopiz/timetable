@@ -40,7 +40,7 @@ extension TasksController {
                 )
             ) { self?.collectionView.reloadData() }
             
-            taskEditController.modalPresentationStyle = .formSheet
+            taskEditController.modalPresentationStyle = .popover
             self?.present(taskEditController, animated: true)
         }
     }

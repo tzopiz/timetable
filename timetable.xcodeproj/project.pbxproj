@@ -70,6 +70,7 @@
 		0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA529C6620300B3D6AC /* Date + ext.swift */; };
 		0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */; };
 		0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */; };
+		0AE955FD2AA136D200B72E2F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE955FC2AA136D200B72E2F /* DatePickerView.swift */; };
 		37FEA58FBFE9E29BB0BAF621 /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +159,7 @@
 		0ACC4EA529C6620300B3D6AC /* Date + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
 		0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
+		0AE955FC2AA136D200B72E2F /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB1F17F90B6400C8B936EBE /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
 		6E58B7D905720E602C4B63CF /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				0AA605A62A8AC290008C4A6B /* TaskEditView.swift */,
+				0AE955FC2AA136D200B72E2F /* DatePickerView.swift */,
 				0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */,
 			);
 			path = Task;
@@ -814,6 +817,7 @@
 			files = (
 				0ACC4EB629C6620300B3D6AC /* ProfileCell.swift in Sources */,
 				0A1A69872A65CEF2003FFECB /* TTLabel.swift in Sources */,
+				0AE955FD2AA136D200B72E2F /* DatePickerView.swift in Sources */,
 				0A58D5E729D4CF2D00EE17EA /* InteractiveCell.swift in Sources */,
 				0ACC4EB729C6620300B3D6AC /* TeachersController.swift in Sources */,
 				0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */,
@@ -1050,7 +1054,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1083,7 +1087,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
