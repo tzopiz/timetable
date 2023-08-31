@@ -8,7 +8,8 @@
 import UIKit
 
 final class TeachersController: TTBaseController {
-    private lazy var dataSource: [Teacher] = APIManager.shared.getListOfTeachers()
+    
+    private var dataSource: [Teacher]?
     private var filteredData: [Teacher] = []
     
     private lazy var customSearchBar: UISearchBar = {
@@ -32,12 +33,12 @@ extension TeachersController {
                           let teachers = teachers else { return }
                     self.dataSource = teachers
                     self.collectionView.reloadData()
-                    
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             }
         }
-        self.collectionView.refreshControl?.endRefreshing()
     }
+    
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.people
@@ -51,11 +52,11 @@ extension TeachersController {
 
 extension TeachersController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
-    -> Int { isFiltering() ? filteredData.count : dataSource.count }
+    -> Int { isFiltering() ? filteredData.count : dataSource?.count ?? 0 }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TeacherCell.reuseIdentifier, for: indexPath) as? TeacherCell
         else { return UICollectionViewCell() }
-        let info = isFiltering() ? filteredData : dataSource
+        let info = isFiltering() ? filteredData : dataSource ?? []
         cell.configure(with: Teacher(name: info[indexPath.item].name,
                                      position: info[indexPath.item].position,
                                      department: info[indexPath.item].department,
@@ -68,9 +69,9 @@ extension TeachersController {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = TeacherController()
-        vc.link = isFiltering() ? filteredData[indexPath.row].personalLink : dataSource[indexPath.row].personalLink
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = TeacherController()
+//        vc.link = isFiltering() ? filteredData[indexPath.row].personalLink : dataSource[indexPath.row].personalLink
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -82,7 +83,8 @@ extension TeachersController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let item = isFiltering() ? filteredData[indexPath.row] : dataSource[indexPath.row]
+        guard let dataSourceItem = dataSource?[indexPath.row] else { return CGSize(width: 0, height: 0) }
+        let item = isFiltering() ? filteredData[indexPath.row] : dataSourceItem
         
         let heightForLabelname = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 19), width: width)
         let heightForLabelposition = heightForLabel(text: item.position, font: App.Fonts.helveticaNeue(with: 17), width: width)
@@ -117,22 +119,21 @@ extension TeachersController: UISearchBarDelegate {
         collectionView.reloadData()
     }
     private func filterContentForSearchText(_ searchText: String) {
+        guard let dataSource = dataSource else { return }
         filteredData = dataSource.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         collectionView.reloadData()
     }
     private func isFiltering() -> Bool {
         return customSearchBar.isFirstResponder && !(customSearchBar.text?.isEmpty ?? true)
     }
+    
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         
-        if contentOffsetY > 20 && !searchBarVisible {
-            toggleSearchBarVisibility(hidden: false)
-        } else if contentOffsetY <= 20 && searchBarVisible {
-            toggleSearchBarVisibility(hidden: true)
-        }
+        if contentOffsetY > 20, !searchBarVisible { toggleSearchBarVisibility(hidden: false) }
+        else if contentOffsetY <= 20, searchBarVisible, !isFiltering() { toggleSearchBarVisibility(hidden: true) }
     }
     
     func toggleSearchBarVisibility(hidden: Bool) {

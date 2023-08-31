@@ -75,14 +75,14 @@ struct TaskEditView: View {
                                                             taskName: task.taskName == "" ? "Безымянная" : task.taskName,
                                                             taskInfo: task.taskInfo, isDone: task.isDone,
                                                             importance: task.importance,
-                                                            deadline: task.deadline)
+                                                            deadline: isPickerVisible ? selectedDate : nil)
                         onTaskUpdated()
                         presentationMode.wrappedValue.dismiss()
                     }
                     .foregroundColor(Color(uiColor: App.Colors.active))
                 }
             }
-            .navigationBarTitle("Редактирование")
+            .navigationBarTitle("Заметка")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { menu }
             }

@@ -16,12 +16,8 @@ public final class CoreDataMamanager: NSObject {
     public static let shared = CoreDataMamanager()
     private override init() {}
     
-    private var appDelegate: AppDelegate {
-        UIApplication.shared.delegate as! AppDelegate
-    }
-    private var context: NSManagedObjectContext {
-        appDelegate.persistentContainer.viewContext
-    }
+    private var appDelegate: AppDelegate { UIApplication.shared.delegate as! AppDelegate }
+    private var context: NSManagedObjectContext { appDelegate.persistentContainer.viewContext }
     
     // MARK: - Create
     

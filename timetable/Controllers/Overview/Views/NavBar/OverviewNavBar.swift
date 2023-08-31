@@ -13,8 +13,7 @@ final class OverviewNavBar: TTBaseView {
     private let allWorkoutsButton = TTButton(with: .secondary)
     private var separator = UIView()
     var completionUpdate: ((Int?) -> ())?
-    var completionbackAction: (() -> Void)?
-    var completionforwardAction: (() -> Void)?
+    var completionActionTo: ((WeekView.Directions) -> Void)?
 }
 
 extension OverviewNavBar {
@@ -51,8 +50,7 @@ extension OverviewNavBar {
             guard let self = self else { return }
             self.toToday()
         }
-        scheduleNavigatorView.forwardAction = completionforwardAction
-        scheduleNavigatorView.backAction = completionbackAction
+        scheduleNavigatorView.completionActionTo = completionActionTo
         allWorkoutsButton.backgroundColor = App.Colors.secondary
         weekView.completion = self.completionUpdate
     }

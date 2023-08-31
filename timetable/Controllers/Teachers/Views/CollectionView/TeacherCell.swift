@@ -33,10 +33,10 @@ class TeacherCell: BaseCell {
         nameLabel.text = teacher.name
         positionLabel.text = teacher.position
         departmentLabel.text = teacher.department
-        publicationsLabel.text = "Publications: \(teacher.publications)"
-        applicationsLabel.text = "Applications: \(teacher.applications)"
-        grantsLabel.text = "Grants: \(teacher.grants)"
-        projectsLabel.text = "Projects: \(teacher.projects)"
+        publicationsLabel.text = "Публикации: \(teacher.publications)"
+        applicationsLabel.text = "Заявки: \(teacher.applications)"
+        grantsLabel.text = "Гранты: \(teacher.grants)"
+        projectsLabel.text = "Проекты: \(teacher.projects)"
         personalLink = teacher.personalLink
     }
     

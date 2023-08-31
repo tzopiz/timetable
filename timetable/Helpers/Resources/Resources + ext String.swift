@@ -28,11 +28,11 @@ extension App {
         
         // MARK: Teacher
         
-        static let people   = "Teachers"
+        static let people   = "Преподаватели"
         
         // MARK: Profile
         
-        static let profile  = "Профиль"
+        static let profile     = "Профиль"
         static let changeGroup = "Сменить группу"
         static let appearance  = "Оформление"
         static let share       = "Поделиться"

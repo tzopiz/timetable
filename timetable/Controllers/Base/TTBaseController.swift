@@ -29,6 +29,10 @@ class TTBaseController: UIViewController {
         constraintViews()
         configureAppearance()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshData()
+    }
     func addNavBarButton(at position: NavBarPosition, with title: String) {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -50,7 +54,6 @@ class TTBaseController: UIViewController {
         let label = TTLabel()
         label.text = text
         label.font = font
-        
         
         let size = label.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return size.height

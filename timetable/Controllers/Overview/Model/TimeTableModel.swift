@@ -95,8 +95,8 @@ extension StudyWeek {
             }
             if !isDayPresent {
                 let freeDay = StudyDay(date: formatDate(currentDate),
-                                       lessons: [Lesson(time: " \n", name: " \n",
-                                                        location: " \n", teacher: " \n",
+                                       lessons: [Lesson(time: "", name: "",
+                                                        location: "", teacher: "",
                                                         isEmpty: true)])
                 updatedDays.insert(freeDay, at: i)
             }

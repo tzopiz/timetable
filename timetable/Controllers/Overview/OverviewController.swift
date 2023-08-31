@@ -83,8 +83,8 @@ extension OverviewController {
         
         collectionView.register(TimetableCell.self,
                                 forCellWithReuseIdentifier: TimetableCell.reuseIdentifier)
-        collectionView.register(ImageViewCell.self,
-                                forCellWithReuseIdentifier: ImageViewCell.reuseIdentifier)
+        collectionView.register(BaseCell.self,
+                                forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         
         collectionView.register(SectionHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -110,16 +110,11 @@ extension OverviewController {
         leftSwipe.direction = .left
         collectionView.addGestureRecognizer(leftSwipe)
         
-        navBar.completionbackAction = { [weak self] in
+        navBar.completionActionTo = { [weak self] direction in
             guard let self = self else { return }
-            self.rightSwipeWeek()
+            if direction == .forward { self.leftSwipeWeek() }
+            else { self.rightSwipeWeek() }
         }
-        navBar.completionforwardAction = { [weak self] in
-            guard let self = self else { return }
-            self.leftSwipeWeek()
-        }
-        
-        navBar.toToday()
     }
 }
 
@@ -137,8 +132,9 @@ extension OverviewController {
         else { return UICollectionViewCell() }
         if lesson.isEmpty {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ImageViewCell.reuseIdentifier, for: indexPath
-            ) as? ImageViewCell else { return UICollectionViewCell() }
+                withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath
+            ) as? BaseCell else { return UICollectionViewCell() }
+            cell.configure(title: "Занятий нет", textAlignment: .center)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
@@ -169,7 +165,7 @@ extension OverviewController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return CGSize(width: 0, height: 0) }
-        // TODO: бывает плохо считает высоту и кучу warning насчет ambigious high
+        // TODO: heap warnings ambigious high
         let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width - 32)
         let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width - 32)
         let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width - 32)

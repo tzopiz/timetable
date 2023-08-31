@@ -8,6 +8,10 @@
 import UIKit
 
 final class WeekView: TTBaseView {
+    enum Directions {
+        case back
+        case forward
+    }
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 7
