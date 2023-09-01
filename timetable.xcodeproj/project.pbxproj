@@ -331,8 +331,7 @@
 		0AA605A52A8AC290008C4A6B /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				0AA605A62A8AC290008C4A6B /* TaskEditView.swift */,
-				0AE955FC2AA136D200B72E2F /* DatePickerView.swift */,
+				0AE955FE2AA1BC8500B72E2F /* Views */,
 				0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */,
 			);
 			path = Task;
@@ -610,6 +609,15 @@
 				0A98A2812A64172E00F4947D /* ModelAuth.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0AE955FE2AA1BC8500B72E2F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AA605A62A8AC290008C4A6B /* TaskEditView.swift */,
+				0AE955FC2AA136D200B72E2F /* DatePickerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6B6510A76BDA03997E614F99 /* Frameworks */ = {

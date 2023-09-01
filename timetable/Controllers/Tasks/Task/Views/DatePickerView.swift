@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct DatePickerView: View {
     @Binding var selectedDate: Date?
     @Binding var isPresented: Bool
@@ -23,35 +22,38 @@ struct DatePickerView: View {
     var body: some View {
         VStack {
             DatePicker("Select a Date", selection: $unoptionalSelectedDate, in: Date()..., displayedComponents: .date)
-                .datePickerStyle(.graphical) // Или любой другой стиль, который тебе нравится
+                .datePickerStyle(.graphical)
                 .padding()
             
             HStack {
                 Button(action: {
+                    selectedDate = nil
                     isPresented = false
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Отмена")
-                        .padding()
-                        .background(Color.red)
-                        .foregroundColor(.white)
+                    Text("Сброс")
+                        .padding([.horizontal, .vertical], 10)
+                        .background(.white)
+                        .foregroundColor(.red)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
                 
                 Button(action: {
+                    selectedDate = unoptionalSelectedDate
                     isPresented = false
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Готово")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
+                        .padding([.horizontal, .vertical], 10)
+                        .background(.white)
+                        .foregroundColor(.blue)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
             }
             .padding(.bottom)
         }
+        .background(Color(uiColor: App.Colors.background))
     }
 }
