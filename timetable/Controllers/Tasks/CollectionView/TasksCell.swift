@@ -14,17 +14,16 @@ final class TasksCell: BaseCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 3
+        stackView.spacing = 5
         return stackView
     }()
     private let noteNameLabel = TTLabel(fontSize: 17)
-    private let noteInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 13)
+    private let noteInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 15)
+    private let deadlineLabel = TTLabel(fontSize: 13)
     private let importance = UIImageView()
-    private let notificationButton = TTButton(with: .primary)
     private let buttonCheckmarkView = TTButton(with: .primary)
     
     private var task: Task?
-    private var deadline: String = ""
     
     var completion: (() -> ())?
 
@@ -39,22 +38,23 @@ final class TasksCell: BaseCell {
         case 3: self.importance.image = App.Images.exclamation_3
         default: self.importance.image = nil
         }
-        if task.deadline != nil {
-            var imageNotification: UIImage = App.Images.notification
-            UIImage.resizeImage(image: &imageNotification, targetSize: CGSizeMake(8, 8))
-            notificationButton.setImage(imageNotification, for: .normal)
-            self.deadline = "\(task.deadline!)".components(separatedBy: " ").first ?? "\(Date())"
-            let buttonMenu = UIMenu(
-                title: "", children:[
-                    UIAction(title: NSLocalizedString(self.deadline, comment: ""),
-                             image: nil,
-                             handler: handler)
-            ])
-            notificationButton.menu = buttonMenu
+        if let deadline = task.deadline {
+            deadlineLabel.isHidden = false
+            let calendar = Calendar.current
+            if calendar.isDateInToday(deadline) {
+                deadlineLabel.text = "Дедлайн сегодня: " + Date().formattedDeadline(deadline)
+                deadlineLabel.textColor = App.Colors.red
+            }
+            else {
+                deadlineLabel.text = "Дедлайн: " + Date().formattedDeadline(deadline)
+                deadlineLabel.textColor = App.Colors.active
+            }
         } else {
-            notificationButton.setImage(nil, for: .normal)
-            notificationButton.menu = nil
+            deadlineLabel.isHidden = true
+            deadlineLabel.text = nil
         }
+        noteInfoLabel.isHidden = false
+        if task.taskInfo == "" { noteInfoLabel.isHidden = true }
     }
     
     override func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
@@ -77,10 +77,10 @@ extension TasksCell {
         setupView(buttonCheckmarkView)
         setupView(stackView)
         setupView(importance)
-        setupView(notificationButton)
         
         stackView.addArrangedSubview(noteNameLabel)
         stackView.addArrangedSubview(noteInfoLabel)
+        stackView.addArrangedSubview(deadlineLabel)
     }
     override func constraintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
@@ -91,15 +91,11 @@ extension TasksCell {
                          centerY: centerYAnchor)
         importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
-        notificationButton.setDimensions(height: 32, width: 32)
-        notificationButton.anchor(right: importance.leadingAnchor, paddingRight: -16,
-                         centerY: centerYAnchor)
     }
     override func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 16
         
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
-        notificationButton.showsMenuAsPrimaryAction = true
     }
 }

@@ -108,8 +108,12 @@ extension TasksController {
 extension TasksController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath)
-    -> CGSize { CGSize(width: collectionView.frame.width - 32, height: 70) }
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        if let _ = item.deadline, item.taskInfo != "" { return CGSize(width: collectionView.frame.width - 32, height: 90) }
+        else if item.deadline == nil, item.taskInfo == "" {return CGSize(width: collectionView.frame.width - 32, height: 60) }
+        else { return CGSize(width: collectionView.frame.width - 32, height: 70) }
+    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int)

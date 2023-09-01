@@ -34,15 +34,14 @@ final class OverviewController: TTBaseController {
                     // Завершаем обновление (скрытие индикатора загрузки)
                     self.collectionView.refreshControl?.endRefreshing()
                 }
-            } else {
-                // Загружаем данные с сервера
-                loadData() { [weak self] studyWeek in
-                    guard let self = self else { return }
-                    DispatchQueue.main.async {
-                        self.updateCollectionView(with: studyWeek)
-                        // Завершаем обновление (скрытие индикатора загрузки)
-                        self.collectionView.refreshControl?.endRefreshing()
-                    }
+            }
+            // Загружаем данные с сервера
+            loadData() { [weak self] studyWeek in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.updateCollectionView(with: studyWeek)
+                    // Завершаем обновление (скрытие индикатора загрузки)
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             }
         }
