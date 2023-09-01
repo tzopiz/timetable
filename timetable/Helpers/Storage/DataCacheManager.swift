@@ -126,7 +126,9 @@ class DataCacheManager {
             let decoder = JSONDecoder()
             let decodedCache = try decoder.decode([String: StudyWeek].self, from: data)
             cache = decodedCache
-        } catch { print("Ошибка при загрузке кеша из файла: \(error)") }
+        } catch {
+            if UserDefaults.standard.CachingTimetable { print("Ошибка при загрузке кеша из файла: \(error)") }
+        }
     }
     private func saveCacheToFile() {
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first

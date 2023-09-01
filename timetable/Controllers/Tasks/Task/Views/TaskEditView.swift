@@ -11,12 +11,19 @@ struct TaskEditView: View {
     
     @State private var selectedDate = Date()
     @State private var isDatePickerPresented = false
+    @State private var isImportant = false
     
     @Binding var task: Task
     
     @Environment(\.presentationMode) var presentationMode
     
     var onTaskUpdated: () -> Void
+    
+    init(task: Binding<Task>, onTaskUpdated: @escaping () -> Void) {
+        self._isImportant = State(initialValue: task.wrappedValue.isImportant)
+        self._task = task
+        self.onTaskUpdated = onTaskUpdated
+    }
     
     var menu: some View {
         Menu {
@@ -28,9 +35,7 @@ struct TaskEditView: View {
                 CoreDataMamanager.shared.deletaTask(with: task.id)
                 onTaskUpdated()
                 presentationMode.wrappedValue.dismiss()
-            }) {
-                Label("Delete", systemImage: "trash")
-            }
+            }) { Label("Delete", systemImage: "trash") }
             Button(action: { }) { Label("Share", systemImage: "square.and.arrow.up")  }
         } label: {
             Image(systemName: "square.and.pencil")
@@ -58,12 +63,21 @@ struct TaskEditView: View {
             CoreDataMamanager.shared.updateTask(with: task.id,
                                                 taskName: task.taskName == "" ? "Безымянная" : task.taskName,
                                                 taskInfo: task.taskInfo, isDone: task.isDone,
-                                                importance: task.importance,
+                                                isImportant: task.isImportant,
                                                 deadline: task.deadline)
             onTaskUpdated()
             presentationMode.wrappedValue.dismiss()
         }
         .foregroundColor(Color(uiColor: App.Colors.active))
+    }
+    var buttonIsImportant: some View {
+        Button {
+            isImportant.toggle()
+            task.isImportant = isImportant
+        } label: {
+            Image(systemName: task.isImportant ? "star.fill" : "star")
+                .foregroundColor(Color(uiColor: App.Colors.purple))
+        }
     }
     
     var body: some View {
@@ -82,6 +96,7 @@ struct TaskEditView: View {
             }
             .navigationBarTitle("Заметка", displayMode: .large)
             .navigationBarItems(trailing: menu)
+            .navigationBarItems(trailing: buttonIsImportant)
         }
     }
 }

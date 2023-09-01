@@ -17,27 +17,29 @@ final class TasksCell: BaseCell {
         stackView.spacing = 5
         return stackView
     }()
-    private let noteNameLabel = TTLabel(fontSize: 17)
-    private let noteInfoLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 15)
+    private let noteNameLabel: TTLabel = {
+        let label = TTLabel(fontSize: 17)
+        label.lineBreakMode = .byCharWrapping
+        label.numberOfLines = 1
+        return label
+    }()
+    private let noteInfoLabel: TTLabel = {
+        let label = TTLabel(textColor: App.Colors.text_2, fontSize: 15)
+        label.lineBreakMode = .byCharWrapping
+        label.numberOfLines = 1
+        return label
+    }()
     private let deadlineLabel = TTLabel(fontSize: 13)
-    private let importance = UIImageView()
     private let buttonCheckmarkView = TTButton(with: .primary)
     
     private var task: Task?
-    
     var completion: (() -> ())?
-
+    
     func configure(task: Task) {
         self.task = task
         self.noteNameLabel.text = task.taskName
         self.noteInfoLabel.text = task.taskInfo
         buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
-        switch task.importance {
-        case 1: self.importance.image = App.Images.exclamation_1
-        case 2: self.importance.image = App.Images.exclamation_2
-        case 3: self.importance.image = App.Images.exclamation_3
-        default: self.importance.image = nil
-        }
         if let deadline = task.deadline {
             deadlineLabel.isHidden = false
             let calendar = Calendar.current
@@ -53,13 +55,40 @@ final class TasksCell: BaseCell {
             deadlineLabel.isHidden = true
             deadlineLabel.text = nil
         }
+        drawGradientTriangle(task.isImportant)
+
         noteInfoLabel.isHidden = false
         if task.taskInfo == "" { noteInfoLabel.isHidden = true }
+    }
+    private func drawGradientTriangle(_ needDraw: Bool) {
+        if needDraw {
+            let trianglePath = UIBezierPath()
+            trianglePath.move(to: CGPoint(x: bounds.width - 32, y: 0))
+            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 32))
+            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 0))
+            trianglePath.close()
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = bounds
+            gradientLayer.colors = [App.Colors.purple.cgColor, App.Colors.active.cgColor, App.Colors.active.cgColor]
+            
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = trianglePath.cgPath
+            gradientLayer.mask = maskLayer
+            
+            layer.addSublayer(gradientLayer)
+        } else {
+            if let sublayers = layer.sublayers {
+                for sublayer in sublayers {
+                    if sublayer is CAGradientLayer { sublayer.removeFromSuperlayer() }
+                }
+            }
+        }
     }
     
     override func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
     override func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
-
+    
     @IBAction func updateCheckmarkView() {
         guard let task = self.task else { return }
         task.isDone = !task.isDone
@@ -69,14 +98,12 @@ final class TasksCell: BaseCell {
         self.task = task
         completion?()
     }
-    private func handler(action: UIAction) {}
 }
 
 extension TasksCell {
     override func setupViews() {
         setupView(buttonCheckmarkView)
         setupView(stackView)
-        setupView(importance)
         
         stackView.addArrangedSubview(noteNameLabel)
         stackView.addArrangedSubview(noteInfoLabel)
@@ -85,17 +112,15 @@ extension TasksCell {
     override func constraintViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
-                             centerY: centerYAnchor)
+                                   centerY: centerYAnchor)
         stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
                          right: trailingAnchor, paddingRight: -16,
-                         centerY: centerYAnchor)
-        importance.anchor(right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
     override func configureAppearance() {
         self.backgroundColor = App.Colors.BlackWhite
         self.layer.cornerRadius = 16
-        
+        self.clipsToBounds = true
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)
     }
 }

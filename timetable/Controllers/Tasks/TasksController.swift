@@ -30,8 +30,7 @@ extension TasksController {
         collectionView.refreshControl = nil
     }
     override func navBarRightButtonHandler() {
-        CoreDataMamanager.shared.createTask(taskName: "", taskInfo: "",
-                                            isDone: false, importance: 0, deadline: nil) { [weak self] task in
+        CoreDataMamanager.shared.createTask { [weak self] task in
             var newtask = task
             let taskEditController = TaskEditHostingController(
                 task: Binding<Task>(
@@ -86,7 +85,7 @@ extension TasksController {
                 get: { task },
                 set: { task = $0 }
             )
-        ){ self.collectionView.reloadData()  }
+        ) { self.collectionView.reloadData() }
         taskEditController.modalPresentationStyle = .formSheet
         present(taskEditController, animated: true)
     }

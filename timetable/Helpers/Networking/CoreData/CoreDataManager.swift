@@ -21,10 +21,10 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String,
-                           taskInfo: String,
-                           isDone: Bool,
-                           importance: Int16,
+    public func createTask(taskName: String = "",
+                           taskInfo: String = "",
+                           isDone: Bool = false,
+                           isImportant: Bool = false,
                            deadline: Date? = nil,
                            completion: @escaping (Task) -> Void) {
         guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
@@ -35,8 +35,9 @@ public final class CoreDataMamanager: NSObject {
         task.taskName = taskName
         task.taskInfo = taskInfo
         task.isDone = isDone
-        task.importance = importance
+        task.isImportant = isImportant
         task.deadline = deadline
+        task.dataCreation = Date()
         appDelegate.saveContext()
         completion(task)
     }
@@ -106,7 +107,7 @@ public final class CoreDataMamanager: NSObject {
     public func updateTask(with id: UUID?, taskName: String = "",
                            taskInfo: String = "",
                            isDone: Bool = false,
-                           importance: Int16 = 0,
+                           isImportant: Bool = false,
                            deadline: Date? = nil) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
@@ -115,7 +116,7 @@ public final class CoreDataMamanager: NSObject {
         task.taskName = taskName
         task.taskInfo = taskInfo
         task.isDone = isDone
-        task.importance = importance
+        task.isImportant = isImportant
         task.deadline = deadline
         appDelegate.saveContext() // Сохранить изменения в Core Data
     }

@@ -19,6 +19,7 @@ extension Task {
     @NSManaged public var taskName: String
     @NSManaged public var taskInfo: String
     @NSManaged public var isDone: Bool
-    @NSManaged public var importance: Int16
+    @NSManaged public var isImportant: Bool
+    @NSManaged public var dataCreation: Date
     @NSManaged public var deadline: Date?
 }
