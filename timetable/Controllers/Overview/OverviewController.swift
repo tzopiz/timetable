@@ -24,7 +24,7 @@ final class OverviewController: TTBaseController {
     override func refreshData() {
         // Показываем индикатор загрузки (UIRefreshControl)
         self.collectionView.refreshControl?.beginRefreshing()
-
+        
         cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
             guard let self = self else { return }
             if let cachedData = cachedData {
@@ -95,9 +95,10 @@ extension OverviewController {
         backgroundView.configure(height: view.bounds.height / 3, width: view.bounds.width - 32)
         
         navBar.completionUpdate = { [weak self] index in
-            self?.refreshData()
-            if let index = index { // TODO: Scroll to day not to index
-                if !(self?.timetableData?.days.isEmpty ?? true) { self?.scrollToDay(with: index) }
+            guard let self = self else { return }
+            self.refreshData()
+            if let index = index {
+                if !(self.timetableData?.days.isEmpty ?? true) { self.scrollToDay(with: index) }
             }
         }
         
@@ -188,14 +189,14 @@ extension OverviewController {
         if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
             guard let timetableData = timetableData else { return }
             if index < timetableData.days.count {
-                // Получаем высоту UICollectionReusableView
+                // Высота UICollectionReusableView
                 let headerHeight = collectionView.collectionViewLayout
                     .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                           at: IndexPath(item: 0, section: index))?.frame.height ?? 0
                 let yOffset = collectionView
                     .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
                                                              at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
-                collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+                DispatchQueue.main.async { self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true) }
             } else { scrollCollectionViewToTop() }
         }
     }
