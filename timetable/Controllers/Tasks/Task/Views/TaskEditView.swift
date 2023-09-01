@@ -61,7 +61,7 @@ struct TaskEditView: View {
     var buttonSave: some View {
         Button("Готово") {
             CoreDataMamanager.shared.updateTask(with: task.id,
-                                                taskName: task.taskName == "" ? "Безымянная" : task.taskName,
+                                                taskName: task.taskName == "" ? "Без названия" : task.taskName,
                                                 taskInfo: task.taskInfo, isDone: task.isDone,
                                                 isImportant: task.isImportant,
                                                 deadline: task.deadline)

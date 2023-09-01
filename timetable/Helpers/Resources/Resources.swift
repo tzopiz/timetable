@@ -20,17 +20,28 @@ enum App {
             }
         }
     }
-    enum TaskType: Int {
-        case active
-        case all
-        // TODO: rename to sortfilter and add keyes
-        func getUserTaskType() -> TaskType {
+    enum TaskSortKey: Int, CaseIterable {
+        case importanceTop
+        case importanceDown
+        case deadlineTop
+        case deadlineDown
+        case completed
+        case notCompleted
+        case none
+        var title: String {
             switch self {
-            case .all:    return .all
-            case .active: return .active
+            case .importanceTop:    return "Сначала важные"
+            case .importanceDown:   return "Сначала неважные"
+            case .deadlineTop:      return "Скоро дедлайн"
+            case .deadlineDown:     return "Дедлайн не скоро"
+            case .completed:        return "Выполненные задачи"
+            case .notCompleted:     return "Невыполненные задачи"
+            case .none:             return "Все"
             }
         }
     }
+    
+    
     enum Colors {
         static let red      = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         static let active   = #colorLiteral(red: 0, green: 0.4800075889, blue: 1, alpha: 1)

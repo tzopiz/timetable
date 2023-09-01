@@ -21,7 +21,7 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String = "",
+    public func createTask(taskName: String = "Без названия",
                            taskInfo: String = "",
                            isDone: Bool = false,
                            isImportant: Bool = false,
@@ -67,20 +67,18 @@ public final class CoreDataMamanager: NSObject {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do { return (try? context.fetch(fetchRequest) as? [Task]) ?? [] }
     }
-    func fetchTasksDefined(with type: App.TaskType) -> [Task] {
+    func fetchTasksDefined(with type: App.TaskSortKey = .none) -> [Task] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        let tasks = (try? context.fetch(fetchRequest) as? [Task]) ?? []
         do {
             switch type {
-            case .active:
-                var ans: [Task] = []
-                guard let tasks = try? context.fetch(fetchRequest) as? [Task] else { return [] }
-                for task in tasks {
-                    if !task.isDone {
-                        ans.append(task)
-                    }
-                }
-                return ans
-            case .all: return (try? context.fetch(fetchRequest) as? [Task]) ?? []
+            case .importanceTop:    return tasks.sorted(by: { $0.isImportant.description > $1.isImportant.description })
+            case .importanceDown:   return tasks.sorted(by: { $0.isImportant.description < $1.isImportant.description })
+            case .deadlineTop:      return tasks.sorted(by: { $0.deadline ?? Date.distantFuture < $1.deadline ?? Date.distantFuture })
+            case .deadlineDown:     return tasks.sorted(by: { $0.deadline ?? Date() > $1.deadline ?? Date() })
+            case .completed:        return tasks.filter { $0.isDone == true }
+            case .notCompleted:     return tasks.filter { $0.isDone == false }
+            case .none:             return tasks
             }
         }
     }

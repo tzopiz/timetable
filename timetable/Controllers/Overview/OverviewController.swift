@@ -85,9 +85,9 @@ extension OverviewController {
         collectionView.register(BaseCell.self,
                                 forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         
-        collectionView.register(SectionHeaderView.self,
+        collectionView.register(SectionView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SectionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: SectionView.reuseIdentifier)
         
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
@@ -149,8 +149,8 @@ extension OverviewController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: SectionHeaderView.reuseIdentifier,
-                                                                         for: indexPath) as? SectionHeaderView
+                                                                         withReuseIdentifier: SectionView.reuseIdentifier,
+                                                                         for: indexPath) as? SectionView
         else { return UICollectionReusableView() }
         view.configure(with: timetableData?.days[indexPath.section].date ?? "")
         return view

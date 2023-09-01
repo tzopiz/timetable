@@ -20,9 +20,9 @@ extension DirectionsController {
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        collectionView.register(SectionHeaderView.self,
+        collectionView.register(SectionView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SectionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: SectionView.reuseIdentifier)
         collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadDirectionsTitles { [weak self] directions in
             guard let self = self else { return }
@@ -62,8 +62,8 @@ extension DirectionsController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: SectionHeaderView.reuseIdentifier,
-                                                                         for: indexPath) as! SectionHeaderView
+                                                                         withReuseIdentifier: SectionView.reuseIdentifier,
+                                                                         for: indexPath) as! SectionView
         headerView.configure(with: headerTitle, textSize: 19)
         return headerView
     }

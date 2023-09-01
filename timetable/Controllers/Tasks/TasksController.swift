@@ -9,7 +9,13 @@ import UIKit
 import SwiftUI
 
 final class TasksController: TTBaseController {
-    private var currentType: App.TaskType = UserDefaults.standard.taskType.getUserTaskType()
+    private var taskSortKey: App.TaskSortKey = UserDefaults.standard.taskSortKey
+    private let menuButton: TTButton = {
+        let button = TTButton(with: .primary)
+        button.setImage(UIImage(systemName: "arrow.up.and.down.text.horizontal"), for: .normal)
+        button.tintColor = App.Colors.active
+        return button
+    }()
 }
 
 // MARK: - Configure
@@ -21,14 +27,38 @@ extension TasksController {
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseIdentifier)
-        
-        addNavBarButton(at: .right, with: "Добавить")
-        switch currentType {
-        case .active: addNavBarButton(at: .left, with: "Активные")
-        case .all: addNavBarButton(at: .left, with: "Все")
-        }
+        collectionView.register(SectionView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: SectionView.reuseIdentifier)
+
         collectionView.refreshControl = nil
+        
+        addNavBarButton(at: .right, image: UIImage(systemName: "plus"))
+
+        let taskSortKeyActions: [UIAction] = {
+            var actions = [UIAction]()
+            for taskSortKey in App.TaskSortKey.allCases {
+                let title = taskSortKey.title
+                
+                let action = UIAction(title: title, handler: { [self] _ in
+                    DispatchQueue.main.async {
+                        UserDefaults.standard.taskSortKey = taskSortKey
+                        self.taskSortKey = UserDefaults.standard.taskSortKey
+                        self.collectionView.reloadData()
+                    }
+                })
+                
+                actions.append(action)
+            }
+            return actions
+        }()
+        menuButton.menu = UIMenu(title: "Сортировка", options: .displayInline, children: taskSortKeyActions)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
+        
+        menuButton.addButtonTarget(target: self, action: #selector(handler))
+        menuButton.showsMenuAsPrimaryAction = true
     }
+    @IBAction func handler() { }
     override func navBarRightButtonHandler() {
         CoreDataMamanager.shared.createTask { [weak self] task in
             var newtask = task
@@ -39,23 +69,9 @@ extension TasksController {
                 )
             ) { self?.collectionView.reloadData() }
             
-            taskEditController.modalPresentationStyle = .popover
+            taskEditController.modalPresentationStyle = .pageSheet
             self?.present(taskEditController, animated: true)
         }
-    }
-    override func navBarLeftButtonHandler() {
-        switch currentType {
-        case .active:
-            UserDefaults.standard.taskType = .all
-            navigationItem.leftBarButtonItems = nil
-            addNavBarButton(at: .left, with: "Все")
-        case .all:
-            UserDefaults.standard.taskType = .active
-            navigationItem.leftBarButtonItems = nil
-            addNavBarButton(at: .left, with: "Активные")
-        }
-        currentType = UserDefaults.standard.taskType.getUserTaskType()
-        self.collectionView.reloadData()
     }
 }
 
@@ -63,14 +79,13 @@ extension TasksController {
 
 extension TasksController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
-    -> Int { CoreDataMamanager.shared.fetchTasksDefined(with: currentType).count }
-
+    -> Int { CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey).count }
     override func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TasksCell.reuseIdentifier, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
-        let task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        let task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
         cell.configure(task: task)
         cell.completion = { [weak self] in
             guard let self = self else { return }
@@ -79,7 +94,7 @@ extension TasksController {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var task = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        var task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
         let taskEditController = TaskEditHostingController(
             task: Binding<Task>(
                 get: { task },
@@ -89,7 +104,26 @@ extension TasksController {
         taskEditController.modalPresentationStyle = .formSheet
         present(taskEditController, animated: true)
     }
-
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            guard let footerView = collectionView
+                .dequeueReusableSupplementaryView(ofKind: kind,
+                                                  withReuseIdentifier: SectionView.reuseIdentifier, for: indexPath) as? SectionView
+            else { return UICollectionReusableView() }
+            footerView.configure(with: UserDefaults.standard.taskSortKey.title, textSize: 13)
+            
+            return footerView
+        }
+        return UICollectionReusableView()
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 32, height: 10)
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? TasksCell
@@ -108,7 +142,7 @@ extension TasksController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = CoreDataMamanager.shared.fetchTasksDefined(with: currentType)[indexPath.row]
+        let item = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
         if let _ = item.deadline, item.taskInfo != "" { return CGSize(width: collectionView.frame.width - 32, height: 90) }
         else if item.deadline == nil, item.taskInfo == "" {return CGSize(width: collectionView.frame.width - 32, height: 60) }
         else { return CGSize(width: collectionView.frame.width - 32, height: 70) }

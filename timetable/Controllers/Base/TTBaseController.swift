@@ -29,16 +29,18 @@ class TTBaseController: UIViewController {
         constraintViews()
         configureAppearance()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
         refreshData()
     }
-    func addNavBarButton(at position: NavBarPosition, with title: String) {
+    func addNavBarButton(at position: NavBarPosition, with title: String = "", image: UIImage? = nil) {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(App.Colors.active, for: .normal)
         button.setTitleColor(App.Colors.inactive, for: .disabled)
         button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
+        if let image = image { button.setImage(image, for: .normal)}
         
         switch position {
         case .left:

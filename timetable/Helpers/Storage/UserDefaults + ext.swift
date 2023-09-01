@@ -12,9 +12,9 @@ extension UserDefaults {
         get { App.Theme(rawValue: UserDefaults.standard.integer(forKey: "selectedTheme")) ?? .device }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: "selectedTheme") }
     }
-    var taskType: App.TaskType {
-        get { App.TaskType(rawValue: UserDefaults.standard.integer(forKey: "selectedTaskType")) ?? .all }
-        set { UserDefaults.standard.set(newValue.rawValue, forKey: "selectedTaskType") }
+    var taskSortKey: App.TaskSortKey {
+        get { App.TaskSortKey(rawValue: UserDefaults.standard.integer(forKey: "taskSortKey")) ?? .none }
+        set { UserDefaults.standard.set(newValue.rawValue, forKey: "taskSortKey") }
     }
     var group: String {
         get { UserDefaults.standard.string(forKey: "currentGorp") ?? "select a group" }
