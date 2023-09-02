@@ -48,8 +48,13 @@ final class TasksCell: BaseCell {
                 deadlineLabel.textColor = App.Colors.red
             }
             else {
-                deadlineLabel.text = "Дедлайн: " + Date().formattedDeadline(deadline)
-                deadlineLabel.textColor = App.Colors.active
+                if deadline > Date.now {
+                    deadlineLabel.text = "Дедлайн: " + Date().formattedDeadline(deadline)
+                    deadlineLabel.textColor = App.Colors.active
+                } else {
+                    deadlineLabel.text = "Дедлайн был: " + Date().formattedDeadline(deadline)
+                    deadlineLabel.textColor = App.Colors.inactive
+                }
             }
         } else {
             deadlineLabel.isHidden = true
@@ -63,14 +68,15 @@ final class TasksCell: BaseCell {
     private func drawGradientTriangle(_ needDraw: Bool) {
         if needDraw {
             let trianglePath = UIBezierPath()
-            trianglePath.move(to: CGPoint(x: bounds.width - 32, y: 0))
-            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 32))
-            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 0))
+            trianglePath.move(to: CGPoint(x: bounds.width - 40, y: 0))
+            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 40))
+            trianglePath.addLine(to: CGPoint(x: bounds.width, y: 16))
+            trianglePath.addLine(to: CGPoint(x: bounds.width - 16, y: 0))
             trianglePath.close()
             
             let gradientLayer = CAGradientLayer()
             gradientLayer.frame = bounds
-            gradientLayer.colors = [App.Colors.purple.cgColor, App.Colors.active.cgColor, App.Colors.active.cgColor]
+            gradientLayer.colors = [App.Colors.purple.cgColor, App.Colors.active.cgColor]
             
             let maskLayer = CAShapeLayer()
             maskLayer.path = trianglePath.cgPath

@@ -10,7 +10,7 @@ import UIKit
 final class OverviewNavBar: TTBaseView {
     private let weekView = WeekView()
     private let scheduleNavigatorView = ScheduleNavigatorView()
-    private let allWorkoutsButton = TTButton(with: .secondary)
+    private let monthButton = TTButton(with: .secondary)
     private var separator = UIView()
     var completionUpdate: ((Int?) -> ())?
     var completionActionTo: ((WeekView.Directions) -> Void)?
@@ -22,17 +22,17 @@ extension OverviewNavBar {
         setupView(scheduleNavigatorView)
         setupView(weekView)
         setupView(separator)
-        setupView(allWorkoutsButton)
+        setupView(monthButton)
     }
     override func constraintViews() {
         super.constraintViews()
         scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                      left: leadingAnchor, paddingLeft: 16,
-                                     centerY: allWorkoutsButton.centerYAnchor)
+                                     centerY: monthButton.centerYAnchor)
         
-        allWorkoutsButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
+        monthButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                  right: trailingAnchor, paddingRight: -16)
-        allWorkoutsButton.setDimensions(height: 28)
+        monthButton.setDimensions(height: 28)
         
         weekView.anchor(top: scheduleNavigatorView.bottomAnchor, paddingTop: 16,
                         bottom: bottomAnchor, paddingBottom: -16,
@@ -51,7 +51,8 @@ extension OverviewNavBar {
             self.toToday()
         }
         scheduleNavigatorView.completionActionTo = completionActionTo
-        allWorkoutsButton.backgroundColor = App.Colors.secondary
+        monthButton.backgroundColor = App.Colors.secondary
+        monthButton.isUserInteractionEnabled = false // TODO: show datapicker
         weekView.completion = self.completionUpdate
     }
     @IBAction func rightSwipeWeek() {
@@ -73,7 +74,7 @@ extension OverviewNavBar {
             weekView.shift = 0
             animateLeftSwipe()
         }
-        completionUpdate?(weekView.todayIndex)
+        completionUpdate?(0)
     }
     private func animateRightSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
@@ -115,5 +116,5 @@ extension OverviewNavBar {
         guard let firstDay = self.weekView.firstDay else { return "" }
         return "\(firstDay)".components(separatedBy: " ").first ?? "\(Date())"
     }
-    func updateButtonTitle(with title: String) { allWorkoutsButton.setTitle(title) }
+    func updateButtonTitle(with title: String) { monthButton.setTitle(title) }
 }

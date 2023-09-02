@@ -102,6 +102,11 @@ extension OverviewController {
             }
         }
         
+        navBar.completionActionTo = { [weak self] direction in
+            guard let self = self else { return }
+            if direction == .forward { self.leftSwipeWeek() }
+            else { self.rightSwipeWeek() }
+        }
         let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
         rightSwipe.direction = .right
         collectionView.addGestureRecognizer(rightSwipe)
@@ -109,12 +114,6 @@ extension OverviewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
         leftSwipe.direction = .left
         collectionView.addGestureRecognizer(leftSwipe)
-        
-        navBar.completionActionTo = { [weak self] direction in
-            guard let self = self else { return }
-            if direction == .forward { self.leftSwipeWeek() }
-            else { self.rightSwipeWeek() }
-        }
     }
 }
 
@@ -191,7 +190,7 @@ extension OverviewController {
             if index < timetableData.days.count {
                 // Высота UICollectionReusableView
                 let headerHeight = collectionView.collectionViewLayout
-                    .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                    .layoutAttributesForSupplementaryView(ofKind:   UICollectionView.elementKindSectionHeader,
                                                           at: IndexPath(item: 0, section: index))?.frame.height ?? 0
                 let yOffset = collectionView
                     .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,

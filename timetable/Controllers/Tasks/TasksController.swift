@@ -121,7 +121,12 @@ extension TasksController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: 10)
+        if CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey).count == 0 {
+            return CGSize(width: collectionView.frame.width - 32, height: 0)
+        } else {
+            return CGSize(width: collectionView.frame.width - 32, height: 10)
+        }
+       
     }
     
     func collectionView(_ collectionView: UICollectionView,
