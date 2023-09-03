@@ -14,13 +14,6 @@ final class OverviewController: TTBaseController {
     private let cacheManager = DataCacheManager()
     private var timetableData: StudyWeek?
     
-    private func loadData(completion: @escaping (StudyWeek) -> Void) {
-        cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
-            guard self != nil else { return }
-            if let studyWeek = studyWeek { completion(studyWeek) }
-            else { completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))}
-        }
-    }
     override func refreshData() {
         // Показываем индикатор загрузки (UIRefreshControl)
         self.collectionView.refreshControl?.beginRefreshing()
@@ -38,24 +31,33 @@ final class OverviewController: TTBaseController {
             // Загружаем данные с сервера
             loadData() { [weak self] studyWeek in
                 guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.updateCollectionView(with: studyWeek)
-                    // Завершаем обновление (скрытие индикатора загрузки)
-                    self.collectionView.refreshControl?.endRefreshing()
+                if studyWeek != cachedData {
+                    DispatchQueue.main.async {
+                        self.updateCollectionView(with: studyWeek)
+                        // Завершаем обновление (скрытие индикатора загрузки)
+                        self.collectionView.refreshControl?.endRefreshing()
+                    }
                 }
             }
         }
     }
     
-    // Метод обновления UICollectionView и обработки данных
+    private func loadData(completion: @escaping (StudyWeek) -> Void) {
+        cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
+            guard self != nil else { return }
+            if let studyWeek = studyWeek { completion(studyWeek) }
+            else { completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))}
+        }
+    }
+    
     private func updateCollectionView(with studyWeek: StudyWeek?) {
         guard let studyWeek = studyWeek else { return }
         
-        self.timetableData = studyWeek
-        self.navBar.updateButtonTitle(with: studyWeek.startDate)
-        self.updateBackgroundView(value: self.timetableData?.days.count ?? 0)
-        self.collectionView.reloadData()
-        self.collectionView.layoutIfNeeded()
+        timetableData = studyWeek
+        animateImageAppearance(shouldAppear: (timetableData?.days.count ?? 0) == 0)
+        navBar.updateButtonTitle(with: studyWeek.startDate)
+        collectionView.reloadData()
+        collectionView.layoutIfNeeded()
     }
 }
 
@@ -98,8 +100,8 @@ extension OverviewController {
             self.animateSwipe(to: direction)
         }
         navBar.scrollCompletion = { [weak self] index in
-            guard let self = self else { return }
-            if !(self.timetableData?.days.isEmpty ?? true) { self.scrollToDay(with: index) }
+            guard let self = self, let isEmpty = self.timetableData?.days.isEmpty else { return }
+            if !isEmpty { self.scrollToDay(with: index) }
         }
         
         let backSwipe = UISwipeGestureRecognizer(target: self,action: #selector(backSwipeWeek))
@@ -180,10 +182,8 @@ extension OverviewController {
 
 extension OverviewController {
     private func scrollToDay(with index: Int) {
-        guard let timetableData = timetableData,
-            collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil else { return }
+        guard let timetableData = timetableData else { return }
         if index < timetableData.days.count {
-            // Высота UICollectionReusableView
             let headerHeight = collectionView.collectionViewLayout
                 .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                       at: IndexPath(item: 0, section: index))?.frame.height ?? 0
@@ -193,10 +193,22 @@ extension OverviewController {
             DispatchQueue.main.async { self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true) }
         } else { scrollCollectionViewToTop() }
     }
-    private func updateBackgroundView(value: Int) {
-        let isHidden = value == 0 ? false : true
-        if isHidden != backgroundView.isHidden { backgroundView.updateImage() }
-        backgroundView.isHidden = isHidden
+    
+    func animateImageAppearance(shouldAppear: Bool) {
+        switch shouldAppear {
+        case true:
+            self.backgroundView.isHidden = false
+            self.backgroundView.updateImage()
+            TTBaseView.animate(withDuration: 0.2, animations: {
+                self.backgroundView.transform = .identity
+            })
+        case false:
+            TTBaseView.animate(withDuration: 0.2, animations: {
+                self.backgroundView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            }) { _ in
+                self.backgroundView.isHidden = true
+            }
+        }
     }
     
     private func animateSwipe(to direcet: WeekView.SwipeDirections) {
@@ -213,32 +225,26 @@ extension OverviewController {
                 self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
                 self.collectionView.alpha = 0.5
             }) { _ in
-                UIView.animate(withDuration: 0.001, animations: {
-                    self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
-                    self.collectionView.alpha = 0
-                }) { _ in
-                    self.refreshData()
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.collectionView.transform = .identity
-                        self.collectionView.alpha = 1.0
-                    })
-                }
+                self.collectionView.alpha = 0
+                self.refreshData()
+                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.collectionView.transform = .identity
+                    self.collectionView.alpha = 1.0
+                })
             }
         case .forward:
             UIView.animate(withDuration: 0.3, animations: {
                 self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
                 self.collectionView.alpha = 0.5
             }) { _ in
-                UIView.animate(withDuration: 0.001, animations: {
-                    self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
-                    self.collectionView.alpha = 0
-                }) { _ in
-                    self.refreshData()
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.collectionView.transform = .identity
-                        self.collectionView.alpha = 1.0
-                    })
-                }
+                self.collectionView.alpha = 0
+                self.refreshData()
+                self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.collectionView.transform = .identity
+                    self.collectionView.alpha = 1.0
+                })
             }
         }
     }

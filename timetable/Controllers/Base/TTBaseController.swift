@@ -29,10 +29,9 @@ class TTBaseController: UIViewController {
         constraintViews()
         configureAppearance()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
         refreshData()
+        super.viewWillAppear(animated)
     }
     func addNavBarButton(at position: NavBarPosition, with title: String = "", image: UIImage? = nil) {
         let button = UIButton(type: .system)

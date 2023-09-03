@@ -53,7 +53,7 @@ final class TasksCell: BaseCell {
                     deadlineLabel.textColor = App.Colors.active
                 } else {
                     deadlineLabel.text = "Дедлайн был: " + Date().formattedDeadline(deadline)
-                    deadlineLabel.textColor = App.Colors.inactive
+                    deadlineLabel.textColor = App.Colors.text_2
                 }
             }
         } else {

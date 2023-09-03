@@ -19,20 +19,20 @@ final class WeekView: TTBaseView {
         return stackView
     }()
     private var weekdayViews: [WeekdayView] = []
+    
     var shift = 0
     var firstDay: Date?
     var todayIndex: Int = 0
-    var scrollCompletion: ((Int) -> ())?
+    var scrollCompletion: ((Int) -> Void)?
 }
 extension WeekView {
     override func setupViews() {
-        super.setupViews()
         setupView(stackView)
     }
     override func constraintViews() {
-        super.constraintViews()
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
+    
     override func configureAppearance() {
         super.configureAppearance()
         self.backgroundColor = .clear
@@ -44,7 +44,12 @@ extension WeekView {
         }
         
         weekdays.enumerated().forEach { index, name in
-            weekdayViews.append(WeekdayView())
+            let day = WeekdayView(index: index)
+            day.scrollCompletion = { [weak self] index in
+                guard let self = self else { return }
+                scrollCompletion?(index)
+            }
+            weekdayViews.append(day)
             weekdayViews[index].configure(with: index, name: name, shift: shift)
             stackView.addArrangedSubview(weekdayViews[index])
         }
@@ -58,43 +63,26 @@ extension WeekView {
             weekdays.append(sun)
         }
         weekdays.enumerated().forEach { index, name in
-            let view = WeekdayView()
-            weekdayViews.append(view)
+            let day = WeekdayView(index: index)
+            day.scrollCompletion = { [weak self] index in
+                guard let self = self else { return }
+                scrollCompletion?(index)
+            }
+            weekdayViews.append(day)
             weekdayViews[index].configure(with: index, name: name, shift: shift)
         }
         firstDay = WeekdayView.getFirstDay(with: shift)
         updateTodayIndex()
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            for i in 0..<weekdayViews.count where touch.view == weekdayViews[i] {
-                animateTouch(i)
-                scrollCompletion?(i)
-            }
-        }
-    }
+}
+
+extension WeekView {
     private func updateTodayIndex() {
         for i in 0..<weekdayViews.count {
             let startOfWeek = Date().startOfWeek
-            let currenrDay = startOfWeek.agoForward(to: i - shift)
+            let currenrDay = startOfWeek.agoForward(to: i + shift)
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
             if isToday { self.todayIndex = i }
         }
-    }
-    private func animateTouch(_ i: Int) {
-        let view = weekdayViews[i]
-        let startOfWeek = Date().startOfWeek
-        let currenrDay = startOfWeek.agoForward(to: i - shift)
-        let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
-        
-        let backgroundColor = isToday ? App.Colors.active : App.Colors.background
-        let animateColor = isToday ? App.Colors.active.withAlphaComponent(0.4) : App.Colors.secondary
-        
-        TTBaseView.animate(withDuration: 0.5, delay: 0, options: .allowAnimatedContent, animations: {
-            view.backgroundColor = animateColor
-        }, completion:  {_ in })
-        TTBaseView.animate(withDuration: 0.5, delay: 0, options: .allowAnimatedContent, animations: {
-            view.backgroundColor = backgroundColor
-        }, completion:  {_ in })
     }
 }

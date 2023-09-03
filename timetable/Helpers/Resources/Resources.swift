@@ -53,5 +53,8 @@ enum App {
         static let separator  = UIColor.dynamic(light: #colorLiteral(red: 0.9082805514, green: 0.924728632, blue: 0.9373794794, alpha: 1), dark: #colorLiteral(red: 0.1726317406, green: 0.1726317406, blue: 0.1726317406, alpha: 1))
         static let BlackWhite = UIColor.dynamic(light: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), dark: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
         static let background = UIColor.dynamic(light: #colorLiteral(red: 0.9501417279, green: 0.9502555728, blue: 0.9682293534, alpha: 1), dark: #colorLiteral(red: 0.1073041037, green: 0.107375659, blue: 0.1182927862, alpha: 1))
+        
+        static let commonButtonTappedColor = UIColor.dynamic(light: #colorLiteral(red: 0.802088201, green: 0.8978492618, blue: 1, alpha: 1), dark: #colorLiteral(red: 0.02281055972, green: 0.2113282979, blue: 0.4042652547, alpha: 1))
+        static let actionButtonTappedColor = UIColor.dynamic(light: #colorLiteral(red: 0.2660993636, green: 0.6176995635, blue: 1, alpha: 1), dark: #colorLiteral(red: 0.2455064356, green: 0.6242460608, blue: 1, alpha: 1))
     }
 }

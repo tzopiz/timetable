@@ -62,20 +62,6 @@ extension APIManager {
             }
         }.resume()
     }
-    func getListOfTeachers() -> [Teacher] {
-        let semaphore = DispatchSemaphore(value: 0)
-        var elements: [Teacher] = []
-        getTeachers { (result, error) in
-            if let result = result {
-                elements = result
-            } else {
-                print("getListOfTeachers error: \(String(describing: error))")
-            }
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return elements
-    }
     
     // MARK: - TeacherInfo
     

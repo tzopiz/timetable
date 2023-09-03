@@ -18,14 +18,12 @@ final class OverviewNavBar: TTBaseView {
 
 extension OverviewNavBar {
     override func setupViews() {
-        super.setupViews()
         setupView(scheduleNavigatorView)
         setupView(weekView)
         setupView(separator)
         setupView(monthButton)
     }
     override func constraintViews() {
-        super.constraintViews()
         scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                      left: leadingAnchor, paddingLeft: 16,
                                      centerY: monthButton.centerYAnchor)
@@ -39,10 +37,11 @@ extension OverviewNavBar {
                         left: leadingAnchor, paddingLeft: 16,
                         right: trailingAnchor, paddingRight: -16)
         weekView.setDimensions(height: 47)
+        
+        separator.anchor(bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
+        separator.setDimensions(height: 1)
     }
     override func configureAppearance() {
-        super.configureAppearance()
-        
         self.backgroundColor = App.Colors.BlackWhite
         
         scheduleNavigatorView.swipeCompletion =  { [weak self] direction in
@@ -61,7 +60,8 @@ extension OverviewNavBar {
         
         monthButton.backgroundColor = App.Colors.secondary
         monthButton.isUserInteractionEnabled = false // TODO: show datapicker
-       
+        
+        separator.backgroundColor = App.Colors.separator
     }
     
     func swipeWeekView(to direct: WeekView.SwipeDirections) {
@@ -73,17 +73,16 @@ extension OverviewNavBar {
             weekView.shift += 7
             animateSwipeWeekView(to: .forward)
         }
+        scrollCompletion?(0)
     }
     private func toToday() {
         if weekView.shift > 0 {
             weekView.shift = 7
             swipeCompletion?(.back)
-            scrollCompletion?(weekView.todayIndex)
         } else if weekView.shift < 0 {
             weekView.shift = -7
             swipeCompletion?(.forward)
-            scrollCompletion?(weekView.todayIndex)
-        }
+        } else { scrollCompletion?(weekView.todayIndex) }
     }
     private func animateSwipeWeekView(to direct: WeekView.SwipeDirections) {
         switch direct {
@@ -92,35 +91,28 @@ extension OverviewNavBar {
                 self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
                 self.weekView.alpha = 0.5
             }) { _ in
-                UIView.animate(withDuration: 0.001, animations: {
-                    self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
-                    self.weekView.alpha = 0
-                }) { _ in
-                    self.weekView.updateWeekView()
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.weekView.transform = .identity
-                        self.weekView.alpha = 1.0
-                    })
-                }
+                self.weekView.alpha = 0
+                self.weekView.updateWeekView()
+                self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.weekView.transform = .identity
+                    self.weekView.alpha = 1.0
+                })
             }
         case .forward:
             UIView.animate(withDuration: 0.3, animations: {
                 self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
                 self.weekView.alpha = 0.5
             }) { _ in
-                UIView.animate(withDuration: 0.001, animations: {
-                    self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
-                    self.weekView.alpha = 0
-                }) { _ in
-                    self.weekView.updateWeekView()
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.weekView.transform = .identity
-                        self.weekView.alpha = 1.0
-                    })
-                }
+                self.weekView.alpha = 0
+                self.weekView.updateWeekView()
+                self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.weekView.transform = .identity
+                    self.weekView.alpha = 1.0
+                })
             }
         }
-        
     }
     
     func getFirstDay() -> String {

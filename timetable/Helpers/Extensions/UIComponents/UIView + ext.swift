@@ -112,3 +112,11 @@ extension UIView {
         if let height = height { heightAnchor.constraint(equalToConstant: height).isActive = true }
     }
 }
+extension UIView {
+    func addBottomBorderGPT(withColor color: UIColor, thickness: CGFloat) {
+        let bottomBorder = CALayer()
+        bottomBorder.backgroundColor = color.cgColor
+        bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - thickness, width: self.frame.size.width, height: thickness)
+        self.layer.addSublayer(bottomBorder)
+    }
+}

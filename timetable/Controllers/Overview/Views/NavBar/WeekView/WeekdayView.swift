@@ -9,7 +9,7 @@ import UIKit
 
 extension WeekView {
     final class WeekdayView: TTBaseView {
-
+        private let index: Int
         private let nameLabel = TTLabel(fontSize: 9, textAlignment: .center)
         private let dateLabel = TTLabel(textAlignment: .center)
         private let stackView: UIStackView = {
@@ -19,7 +19,22 @@ extension WeekView {
             stackView.isUserInteractionEnabled = false
             return stackView
         }()
-
+        
+        private var normalColor = UIColor()
+        private var tappedColor = UIColor()
+        private var isHighlighted = false
+        
+        var scrollCompletion: ((Int) -> Void)?
+        
+        init(index: Int) {
+            self.index = index
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         func configure(with index: Int, name: String, shift: Int) {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: index + shift)
@@ -27,7 +42,10 @@ extension WeekView {
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
 
             backgroundColor = isToday ? App.Colors.active : App.Colors.background
-
+            
+            normalColor = isToday ? App.Colors.active : App.Colors.background
+            tappedColor = App.Colors.commonButtonTappedColor
+            
             nameLabel.text = name.uppercased()
             nameLabel.textColor = isToday ? .white : App.Colors.text_2
 
@@ -44,18 +62,45 @@ extension WeekView {
 
 extension WeekView.WeekdayView {
     override func setupViews() {
-        super.setupViews()
         setupView(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
     }
     override func constraintViews() {
-        super.constraintViews()
         stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
     }
     override func configureAppearance() {
-        super.configureAppearance()
         layer.cornerRadius = 5
         layer.masksToBounds = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        
+        // Настройка параметров жестов
+        tapGesture.numberOfTapsRequired = 1
+        longPressGesture.minimumPressDuration = 0.05
+        
+        // Добавляем жесты на view
+        self.addGestureRecognizer(tapGesture)
+        self.addGestureRecognizer(longPressGesture)
+        
+    }
+}
+extension WeekView.WeekdayView {
+    @IBAction private func handleTap(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            UIView.animate(withDuration: 0.2) { self.backgroundColor = self.normalColor }
+        }
+    }
+    
+    @IBAction private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began: UIView.animate(withDuration: 0.2) { self.backgroundColor = self.tappedColor }
+        case .ended: UIView.animate(withDuration: 0.2) {
+            self.backgroundColor = self.normalColor
+            self.scrollCompletion?(self.index)
+        }
+        default: break
+        }
     }
 }

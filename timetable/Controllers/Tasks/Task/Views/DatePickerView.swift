@@ -33,8 +33,8 @@ struct DatePickerView: View {
                 }) {
                     Text("Сброс")
                         .padding([.horizontal, .vertical], 10)
-                        .background(.white)
-                        .foregroundColor(.red)
+                        .background(.red)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
@@ -46,8 +46,8 @@ struct DatePickerView: View {
                 }) {
                     Text("Готово")
                         .padding([.horizontal, .vertical], 10)
-                        .background(.white)
-                        .foregroundColor(.blue)
+                        .background(.blue)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)

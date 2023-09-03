@@ -44,7 +44,6 @@ class ScheduleNavigatorView: TTBaseView {
     var titleAction: (() -> Void)?
     
     override func setupViews() {
-        super.setupViews()
         addSubview(stackView)
         stackView.addArrangedSubview(backButton)
         stackView.addArrangedSubview(titleLabelButton)
@@ -56,7 +55,6 @@ class ScheduleNavigatorView: TTBaseView {
     }
     
     override func constraintViews() {
-        super.constraintViews()
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
     
