@@ -537,8 +537,8 @@
 		0ACC4E9229C6620200B3D6AC /* WeekView */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC4E9429C6620200B3D6AC /* WeekView.swift */,
 				0ACC4E9329C6620200B3D6AC /* WeekdayView.swift */,
+				0ACC4E9429C6620200B3D6AC /* WeekView.swift */,
 			);
 			path = WeekView;
 			sourceTree = "<group>";

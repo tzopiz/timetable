@@ -8,7 +8,7 @@
 import UIKit
 
 final class WeekView: TTBaseView {
-    enum Directions {
+    enum SwipeDirections {
         case back
         case forward
     }
@@ -22,7 +22,7 @@ final class WeekView: TTBaseView {
     var shift = 0
     var firstDay: Date?
     var todayIndex: Int = 0
-    var completion: ((Int) -> ())?
+    var scrollCompletion: ((Int) -> ())?
 }
 extension WeekView {
     override func setupViews() {
@@ -35,7 +35,7 @@ extension WeekView {
     }
     override func configureAppearance() {
         super.configureAppearance()
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = .clear
         
         var weekdays = Date.calendar.shortStandaloneWeekdaySymbols
         if Date.calendar.firstWeekday == 2 {
@@ -69,7 +69,7 @@ extension WeekView {
         if let touch = touches.first {
             for i in 0..<weekdayViews.count where touch.view == weekdayViews[i] {
                 animateTouch(i)
-                completion?(i)
+                scrollCompletion?(i)
             }
         }
     }

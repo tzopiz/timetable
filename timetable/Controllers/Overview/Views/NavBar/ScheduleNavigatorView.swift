@@ -40,7 +40,7 @@ class ScheduleNavigatorView: TTBaseView {
         return button
     }()
     
-    var completionActionTo: ((WeekView.Directions) -> Void)?
+    var swipeCompletion: ((WeekView.SwipeDirections) -> Void)?
     var titleAction: (() -> Void)?
     
     override func setupViews() {
@@ -60,7 +60,7 @@ class ScheduleNavigatorView: TTBaseView {
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
     
-    @IBAction private func backButtonTapped() { completionActionTo?(.back) }
+    @IBAction private func backButtonTapped() { swipeCompletion?(.back) }
     @IBAction private func titleButtonTapped() { titleAction?() }
-    @IBAction private func forwardButtonTapped() { completionActionTo?(.forward) }
+    @IBAction private func forwardButtonTapped() { swipeCompletion?(.forward) }
 }

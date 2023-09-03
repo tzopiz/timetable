@@ -84,7 +84,6 @@ extension OverviewController {
                                 forCellWithReuseIdentifier: TimetableCell.reuseIdentifier)
         collectionView.register(BaseCell.self,
                                 forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        
         collectionView.register(SectionView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionView.reuseIdentifier)
@@ -94,20 +93,16 @@ extension OverviewController {
         backgroundView.isHidden = true
         backgroundView.configure(height: view.bounds.height / 3, width: view.bounds.width - 32)
         
-        navBar.completionUpdate = { [weak self] index in
+        navBar.swipeCompletion = { [weak self] direction in
             guard let self = self else { return }
-            if let index = index {
-                if !(self.timetableData?.days.isEmpty ?? true) { self.scrollToDay(with: index) }
-            }
-            self.refreshData()
+            self.animateSwipe(to: direction)
+        }
+        navBar.scrollCompletion = { [weak self] index in
+            guard let self = self else { return }
+            if !(self.timetableData?.days.isEmpty ?? true) { self.scrollToDay(with: index) }
         }
         
-        navBar.completionActionTo = { [weak self] direction in
-            guard let self = self else { return }
-            if direction == .forward { self.forwardSwipeWeek() }
-            else { self.backSwipeWeek() }
-        }
-        let backSwipe = UISwipeGestureRecognizer(target: self,action: #selector(forwardSwipeWeek))
+        let backSwipe = UISwipeGestureRecognizer(target: self,action: #selector(backSwipeWeek))
         backSwipe.direction = .right
         collectionView.addGestureRecognizer(backSwipe)
         
@@ -181,67 +176,69 @@ extension OverviewController {
     }
 }
 
-// MARK: - Animate
+// MARK: - Animation
 
 extension OverviewController {
     private func scrollToDay(with index: Int) {
-        if collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil {
-            guard let timetableData = timetableData else { return }
-            if index < timetableData.days.count {
-                // Высота UICollectionReusableView
-                let headerHeight = collectionView.collectionViewLayout
-                    .layoutAttributesForSupplementaryView(ofKind:   UICollectionView.elementKindSectionHeader,
-                                                          at: IndexPath(item: 0, section: index))?.frame.height ?? 0
-                let yOffset = collectionView
-                    .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
-                                                             at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
-                DispatchQueue.main.async { self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true) }
-            } else { scrollCollectionViewToTop() }
-        }
+        guard let timetableData = timetableData,
+            collectionView.dataSource?.collectionView(self.collectionView, cellForItemAt: IndexPath(row: 0, section: 0)) != nil else { return }
+        if index < timetableData.days.count {
+            // Высота UICollectionReusableView
+            let headerHeight = collectionView.collectionViewLayout
+                .layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                      at: IndexPath(item: 0, section: index))?.frame.height ?? 0
+            let yOffset = collectionView
+                .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
+                                                         at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
+            DispatchQueue.main.async { self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true) }
+        } else { scrollCollectionViewToTop() }
     }
     private func updateBackgroundView(value: Int) {
-        backgroundView.updateImage()
-        backgroundView.isHidden = value == 0 ? false : true
+        let isHidden = value == 0 ? false : true
+        if isHidden != backgroundView.isHidden { backgroundView.updateImage() }
+        backgroundView.isHidden = isHidden
     }
-    @IBAction func forwardSwipeWeek() {
-        scrollCollectionViewToTop()
-        animateCollectionForwardSwipe()
-        navBar.forwardSwipeWeek()
+    
+    private func animateSwipe(to direcet: WeekView.SwipeDirections) {
+        animanteSwipeCollectionView(to: direcet)
+        navBar.swipeWeekView(to: direcet)
     }
-    @IBAction func backSwipeWeek() {
-        scrollCollectionViewToTop()
-        animateCollectionBackSwipe()
-        navBar.backSwipeWeek()
-    }
-    private func animateCollectionBackSwipe() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
-            self.collectionView.alpha = 0.5
-        }) { _ in
-            UIView.animate(withDuration: 0.001, animations: {
-                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
-                self.collectionView.alpha = 0
-            }) { _ in
-                UIView.animate(withDuration: 0.4, animations: {
-                    self.collectionView.transform = .identity
-                    self.collectionView.alpha = 1.0
-                })
-            }
-        }
-    }
-    private func animateCollectionForwardSwipe() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
-            self.collectionView.alpha = 0.5
-        }) { _ in
-            UIView.animate(withDuration: 0.001, animations: {
+    @IBAction func forwardSwipeWeek() { animateSwipe(to: .forward) }
+    @IBAction func backSwipeWeek() { animateSwipe(to: .back) }
+    
+    private func animanteSwipeCollectionView(to direct: WeekView.SwipeDirections) {
+        switch direct {
+        case .back:
+            UIView.animate(withDuration: 0.3, animations: {
                 self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
-                self.collectionView.alpha = 0
+                self.collectionView.alpha = 0.5
             }) { _ in
-                UIView.animate(withDuration: 0.4, animations: {
-                    self.collectionView.transform = .identity
-                    self.collectionView.alpha = 1.0
-                })
+                UIView.animate(withDuration: 0.001, animations: {
+                    self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+                    self.collectionView.alpha = 0
+                }) { _ in
+                    self.refreshData()
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.collectionView.transform = .identity
+                        self.collectionView.alpha = 1.0
+                    })
+                }
+            }
+        case .forward:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+                self.collectionView.alpha = 0.5
+            }) { _ in
+                UIView.animate(withDuration: 0.001, animations: {
+                    self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
+                    self.collectionView.alpha = 0
+                }) { _ in
+                    self.refreshData()
+                    UIView.animate(withDuration: 0.4, animations: {
+                        self.collectionView.transform = .identity
+                        self.collectionView.alpha = 1.0
+                    })
+                }
             }
         }
     }
