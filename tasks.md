@@ -3,7 +3,6 @@
     - добавлять задачи
     - отображать задачи
 - 2 вкладка (задачи)
-    - сортировка задач
     - дедлайн (notifiaction)
     - фото видео аудио и тд
 - 3 вкладка (люди)
@@ -18,4 +17,4 @@
     - советы по погоде
     - виджет
     - dark theme launchScreen
-    - load all teachers from website
+    - load ans show all teacher's info from website

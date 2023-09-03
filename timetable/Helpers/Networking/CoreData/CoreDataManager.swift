@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 20.03.2023.
 //
 
-import Foundation
 import UIKit
 import CoreData
+import UserNotifications
 
 // MARK: - CRUD
 
@@ -38,6 +38,9 @@ public final class CoreDataMamanager: NSObject {
         task.isImportant = isImportant
         task.deadline = deadline
         task.dataCreation = Date()
+        if let _ = task.deadline {
+            scheduleNotification(for: task)
+        }
         appDelegate.saveContext()
         completion(task)
     }
@@ -74,8 +77,24 @@ public final class CoreDataMamanager: NSObject {
             switch type {
             case .importanceTop:    return tasks.sorted(by: { $0.isImportant.description > $1.isImportant.description })
             case .importanceDown:   return tasks.sorted(by: { $0.isImportant.description < $1.isImportant.description })
-            case .deadlineTop:      return tasks.sorted(by: { $0.deadline ?? Date.distantFuture < $1.deadline ?? Date.distantFuture })
-            case .deadlineDown:     return tasks.sorted(by: { $0.deadline ?? Date() > $1.deadline ?? Date() })
+            case .deadlineTop:
+                return tasks.sorted { t1, t2 in
+                    if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
+                        return t1.isImportant.description > t2.isImportant.description
+                    }
+                    else {
+                        return t1.deadline ?? Date.distantFuture < t2.deadline ?? Date.distantFuture
+                    }
+            }
+            case .deadlineDown:
+                return tasks.sorted { t1, t2 in
+                    if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
+                        return t1.isImportant.description > t2.isImportant.description
+                    }
+                    else {
+                        return t1.deadline ?? Date.distantFuture > t2.deadline ?? Date.distantFuture
+                    }
+            }
             case .completed:        return tasks.filter { $0.isDone == true }
             case .notCompleted:     return tasks.filter { $0.isDone == false }
             case .none:             return tasks
@@ -116,6 +135,9 @@ public final class CoreDataMamanager: NSObject {
         task.isDone = isDone
         task.isImportant = isImportant
         task.deadline = deadline
+        if let _ = task.deadline {
+            scheduleNotification(for: task)
+        }
         appDelegate.saveContext() // Сохранить изменения в Core Data
     }
     
@@ -136,6 +158,9 @@ public final class CoreDataMamanager: NSObject {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.deadline = deadline
+            if let _ = task.deadline {
+                scheduleNotification(for: task)
+            }
         }
         appDelegate.saveContext()
     }
@@ -169,5 +194,28 @@ public final class CoreDataMamanager: NSObject {
             profile.photo = pngImage
         }
         appDelegate.saveContext()
+    }
+    
+    // MARK: - Notifications
+    
+    private func scheduleNotification(for task: Task) {
+        guard let deadline = task.deadline else { return }
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Напоминание о задаче"
+        notificationContent.body = "У вас есть задача '\(task.taskName)' с крайним сроком \(deadline)"
+        notificationContent.sound = task.isImportant ?  UNNotificationSound.defaultCritical : UNNotificationSound.default
+
+        let calendar = Calendar.current
+        let notificationDate = calendar.date(byAdding: .day, value: -1, to: deadline)
+
+        let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate!)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+
+        let notificationRequest = UNNotificationRequest(identifier: task.id.uuidString, content: notificationContent, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(notificationRequest) { error in
+            if let error = error { print("Ошибка при планировании уведомления: \(error)") }
+            else { print("Уведомление успешно запланировано") }
+        }
     }
 }
