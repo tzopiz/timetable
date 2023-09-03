@@ -1,6 +1,7 @@
 # Aims:
 - 1 вкладка (расписание)
-    - доделать (брать расписание с сайта)
+    - добавлять задачи
+    - отображать задачи
 - 2 вкладка (задачи)
     - сортировка задач
     - дедлайн (notifiaction)
@@ -16,7 +17,5 @@
     - AppIcon
     - советы по погоде
     - виджет
-    - сортировка заданий на завтра
-    - добавлять задачи из timetableVC
     - dark theme launchScreen
-    - open teachersvc and then load teacherinfo
+    - load all teachers from website

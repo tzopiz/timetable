@@ -55,34 +55,32 @@ extension OverviewNavBar {
         monthButton.isUserInteractionEnabled = false // TODO: show datapicker
         weekView.completion = self.completionUpdate
     }
-    @IBAction func rightSwipeWeek() {
+    @IBAction func forwardSwipeWeek() {
         weekView.shift += 7
-        animateLeftSwipe()
+        animateForwardSwipe()
         completionUpdate?(nil)
     }
-    @IBAction func leftSwipeWeek() {
+    @IBAction func backSwipeWeek() {
         weekView.shift -= 7
-        animateRightSwipe()
+        animateBackSwipe()
         completionUpdate?(nil)
     }
     @IBAction func toToday() {
         if weekView.shift > 0 {
             weekView.shift = 0
-            animateRightSwipe()
-        }
-        if weekView.shift < 0 {
+            animateBackSwipe()
+        } else if weekView.shift < 0 {
             weekView.shift = 0
-            animateLeftSwipe()
-        }
-        completionUpdate?(0)
+            animateForwardSwipe()
+        } else { completionUpdate?(0) }
     }
-    private func animateRightSwipe() {
+    private func animateBackSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
+            self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
             self.weekView.alpha = 0.5
         }) { _ in
             UIView.animate(withDuration: 0.001, animations: {
-                self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
+                self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
                 self.weekView.alpha = 0
             }) { _ in
                 UIView.animate(withDuration: 0.4, animations: {
@@ -94,13 +92,13 @@ extension OverviewNavBar {
         self.weekView.updateWeekView()
     }
     
-    private func animateLeftSwipe() {
+    private func animateForwardSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
+            self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
             self.weekView.alpha = 0.5
         }) { _ in
             UIView.animate(withDuration: 0.001, animations: {
-                self.weekView.transform = CGAffineTransform(translationX: -self.weekView.frame.width, y: 0)
+                self.weekView.transform = CGAffineTransform(translationX: self.weekView.frame.width, y: 0)
                 self.weekView.alpha = 0
             }) { _ in
                 UIView.animate(withDuration: 0.4, animations: {

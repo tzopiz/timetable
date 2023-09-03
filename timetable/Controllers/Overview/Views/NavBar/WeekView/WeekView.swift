@@ -45,7 +45,7 @@ extension WeekView {
         
         weekdays.enumerated().forEach { index, name in
             weekdayViews.append(WeekdayView())
-            weekdayViews[index].configure(with: index, and: name, shift: shift)
+            weekdayViews[index].configure(with: index, name: name, shift: shift)
             stackView.addArrangedSubview(weekdayViews[index])
         }
         firstDay = WeekdayView.getFirstDay(with: shift)
@@ -60,7 +60,7 @@ extension WeekView {
         weekdays.enumerated().forEach { index, name in
             let view = WeekdayView()
             weekdayViews.append(view)
-            weekdayViews[index].configure(with: index, and: name, shift: shift)
+            weekdayViews[index].configure(with: index, name: name, shift: shift)
         }
         firstDay = WeekdayView.getFirstDay(with: shift)
         updateTodayIndex()

@@ -96,24 +96,24 @@ extension OverviewController {
         
         navBar.completionUpdate = { [weak self] index in
             guard let self = self else { return }
-            self.refreshData()
             if let index = index {
                 if !(self.timetableData?.days.isEmpty ?? true) { self.scrollToDay(with: index) }
             }
+            self.refreshData()
         }
         
         navBar.completionActionTo = { [weak self] direction in
             guard let self = self else { return }
-            if direction == .forward { self.leftSwipeWeek() }
-            else { self.rightSwipeWeek() }
+            if direction == .forward { self.forwardSwipeWeek() }
+            else { self.backSwipeWeek() }
         }
-        let rightSwipe = UISwipeGestureRecognizer(target: self,action: #selector(rightSwipeWeek))
-        rightSwipe.direction = .right
-        collectionView.addGestureRecognizer(rightSwipe)
+        let backSwipe = UISwipeGestureRecognizer(target: self,action: #selector(forwardSwipeWeek))
+        backSwipe.direction = .right
+        collectionView.addGestureRecognizer(backSwipe)
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self,action: #selector(leftSwipeWeek))
-        leftSwipe.direction = .left
-        collectionView.addGestureRecognizer(leftSwipe)
+        let forwardSwipe = UISwipeGestureRecognizer(target: self,action: #selector(forwardSwipeWeek))
+        forwardSwipe.direction = .left
+        collectionView.addGestureRecognizer(forwardSwipe)
     }
 }
 
@@ -203,23 +203,23 @@ extension OverviewController {
         backgroundView.updateImage()
         backgroundView.isHidden = value == 0 ? false : true
     }
-    @IBAction func rightSwipeWeek() {
+    @IBAction func forwardSwipeWeek() {
         scrollCollectionViewToTop()
-        animateCollectionRightSwipe()
-        navBar.rightSwipeWeek()
+        animateCollectionForwardSwipe()
+        navBar.forwardSwipeWeek()
     }
-    @IBAction func leftSwipeWeek() {
+    @IBAction func backSwipeWeek() {
         scrollCollectionViewToTop()
-        animateCollectionLeftSwipe()
-        navBar.leftSwipeWeek()
+        animateCollectionBackSwipe()
+        navBar.backSwipeWeek()
     }
-    private func animateCollectionLeftSwipe() {
+    private func animateCollectionBackSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
             self.collectionView.alpha = 0.5
         }) { _ in
             UIView.animate(withDuration: 0.001, animations: {
-                self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
+                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
                 self.collectionView.alpha = 0
             }) { _ in
                 UIView.animate(withDuration: 0.4, animations: {
@@ -229,13 +229,13 @@ extension OverviewController {
             }
         }
     }
-    private func animateCollectionRightSwipe() {
+    private func animateCollectionForwardSwipe() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
+            self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
             self.collectionView.alpha = 0.5
         }) { _ in
             UIView.animate(withDuration: 0.001, animations: {
-                self.collectionView.transform = CGAffineTransform(translationX: -self.collectionView.frame.width, y: 0)
+                self.collectionView.transform = CGAffineTransform(translationX: self.collectionView.frame.width, y: 0)
                 self.collectionView.alpha = 0
             }) { _ in
                 UIView.animate(withDuration: 0.4, animations: {

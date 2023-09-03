@@ -20,9 +20,9 @@ extension WeekView {
             return stackView
         }()
 
-        func configure(with index: Int, and name: String, shift: Int) {
+        func configure(with index: Int, name: String, shift: Int) {
             let startOfWeek = Date().startOfWeek
-            let currenrDay = startOfWeek.agoForward(to: index - shift)
+            let currenrDay = startOfWeek.agoForward(to: index + shift)
             let day = Date.calendar.component(.day, from: currenrDay)
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
 
@@ -36,7 +36,7 @@ extension WeekView {
         }
         static func getFirstDay(with index: Int) -> Date {
             let startOfWeek = Date().startOfWeek
-            let currenrDay = startOfWeek.agoForward(to: 1 - index)
+            let currenrDay = startOfWeek.agoForward(to: 1 + index)
             return currenrDay
         }
     }
