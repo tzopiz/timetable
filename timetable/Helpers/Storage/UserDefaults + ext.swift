@@ -24,6 +24,10 @@ extension UserDefaults {
         get { UserDefaults.standard.string(forKey: "link") ?? "" }
         set { UserDefaults.standard.set(newValue, forKey: "link") }
     }
+    var groupsLink: String {
+        get { UserDefaults.standard.string(forKey: "groupsLink") ?? "" }
+        set { UserDefaults.standard.set(newValue, forKey: "groupsLink") }
+    }
     var registered: Bool {
         get { UserDefaults.standard.bool(forKey: "registered") }
         set { UserDefaults.standard.set(newValue, forKey: "registered") }

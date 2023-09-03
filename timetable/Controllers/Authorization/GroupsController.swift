@@ -82,6 +82,7 @@ extension GroupsController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UserDefaults.standard.groupsLink = UserDefaults.standard.link
         UserDefaults.standard.link = "https://timetable.spbu.ru" + groups[indexPath.section].items[indexPath.item].link
         UserDefaults.standard.registered = true
         UserDefaults.standard.group = groups[indexPath.section].items[indexPath.item].text

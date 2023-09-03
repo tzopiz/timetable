@@ -30,11 +30,13 @@ extension GroupsTitlesController {
         collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
+        self.collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadGroupsTitles { [weak self] sectionsWithLinks in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                guard let self = self else { return }
                 self.groupsTitles = sectionsWithLinks[self.index]
                 self.collectionView.reloadData()
+                self.collectionView.refreshControl?.endRefreshing()
             }
             
         }

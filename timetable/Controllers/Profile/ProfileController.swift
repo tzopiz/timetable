@@ -161,10 +161,27 @@ extension ProfileController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0: openImagePickerVC()
+        case 1:
+            UserDefaults.standard.registered = false
+            UserDefaults.standard.link = UserDefaults.standard.groupsLink
+            DataCacheManager().clearCache()
+            
+            let secondVC = DirectionsController()
+            let firstVC = FacultiesController()
+            let thirdVC = GroupsTitlesController()
+            let thourthVC = GroupsController()
+            
+            let navVC = UINavigationController(rootViewController: secondVC)
+            navVC.setViewControllers([firstVC, secondVC, thirdVC, thourthVC], animated: false)
+
+            let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            windowScenes?.windows.first?.switchRootViewController(navVC)
+
         case 4: showConfirmationAlert()
         case 5:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = "https://timetable.spbu.ru"
+            UserDefaults.standard.groupsLink = ""
             DataCacheManager().clearCache()
             let vc = FacultiesController()
             let navVc = NavigationController(rootViewController: vc)
