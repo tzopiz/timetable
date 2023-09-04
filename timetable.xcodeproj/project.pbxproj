@@ -35,6 +35,7 @@
 		0AA605AD2A8AC290008C4A6B /* TaskEditHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */; };
 		0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605AA2A8AC290008C4A6B /* TasksCell.swift */; };
 		0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB612E52A66FEF0007E6757 /* FeedbackView.swift */; };
+		0AB7D2332AA617490082FADC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB7D2322AA617490082FADC /* ActivityViewController.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
 		0AC82F722A893EF300E67D4F /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC82F712A893EF300E67D4F /* ImageViewCell.swift */; };
@@ -120,6 +121,7 @@
 		0AA605A72A8AC290008C4A6B /* TaskEditHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditHostingController.swift; sourceTree = "<group>"; };
 		0AA605AA2A8AC290008C4A6B /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		0AB612E52A66FEF0007E6757 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		0AB7D2322AA617490082FADC /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
 		0AC82F712A893EF300E67D4F /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				0AA605A62A8AC290008C4A6B /* TaskEditView.swift */,
+				0AB7D2322AA617490082FADC /* ActivityViewController.swift */,
 				0AE955FC2AA136D200B72E2F /* DatePickerView.swift */,
 			);
 			path = Views;
@@ -856,6 +859,7 @@
 				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A58D5DC29D49B2300EE17EA /* APIManager.swift in Sources */,
 				0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */,
+				0AB7D2332AA617490082FADC /* ActivityViewController.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0AC82F722A893EF300E67D4F /* ImageViewCell.swift in Sources */,
 				0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */,

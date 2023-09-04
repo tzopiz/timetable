@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct TaskEditView: View {
     
-    @State private var selectedDate = Date()
     @State private var isDatePickerPresented = false
     @State private var isImportant = false
+    @State private var showAlert = false
+    @State private var isShareSheetPresented: Bool = false
     
     @Binding var task: Task
     
@@ -27,16 +29,20 @@ struct TaskEditView: View {
     
     var menu: some View {
         Menu {
-            Button(action: { }) { Label("Copy", systemImage: "doc.on.doc") }
-            Button(action: { }) { Label("Duplicate", systemImage: "plus.square.on.square") }
+            Button(action: { UIPasteboard.general.string = task.formattedDescription() }) { Label("Copy", systemImage: "doc.on.doc") }
+            Button(action: { self.showAlert.toggle() }) { Label("Duplicate", systemImage: "plus.square.on.square") }
+            
             if task.deadline != nil { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell") } }
             else { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell.slash") } }
+            
             Button(action: {
                 CoreDataMamanager.shared.deletaTask(with: task.id)
                 onTaskUpdated()
                 presentationMode.wrappedValue.dismiss()
             }) { Label("Delete", systemImage: "trash") }
-            Button(action: { }) { Label("Share", systemImage: "square.and.arrow.up")  }
+            
+            Button(action: { self.isShareSheetPresented.toggle() }) { Label("Share", systemImage: "square.and.arrow.up") }
+            
         } label: {
             Image(systemName: "square.and.pencil")
                 .foregroundColor(.blue)
@@ -45,6 +51,16 @@ struct TaskEditView: View {
             DatePickerView(selectedDate: $task.deadline,
                            isPresented: $isDatePickerPresented)
             .presentationDetents([.medium])
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Подтверждение"),
+                  message: Text("Вы точно хотите создать дубликат задачи?"),
+                  primaryButton: .default(Text("Да")) { CoreDataMamanager.shared.createDuplicate(of: task) },
+                  secondaryButton: .cancel(Text("Отмена"))
+            )
+        }
+        .sheet(isPresented: $isShareSheetPresented) {
+            ActivityViewController(activityItems: [task.formattedDescription()])
         }
     }
     var taskNameTextField: some View {

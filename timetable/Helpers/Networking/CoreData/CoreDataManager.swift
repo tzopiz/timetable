@@ -27,9 +27,7 @@ public final class CoreDataMamanager: NSObject {
                            isImportant: Bool = false,
                            deadline: Date? = nil,
                            completion: @escaping (Task) -> Void) {
-        guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else {
-            return
-        }
+        guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
         let task = Task(entity: taskEntityDescription, insertInto: context)
         task.id = UUID()
         task.taskName = taskName
@@ -37,12 +35,23 @@ public final class CoreDataMamanager: NSObject {
         task.isDone = isDone
         task.isImportant = isImportant
         task.deadline = deadline
-        task.dataCreation = Date()
-        if let _ = task.deadline {
-            scheduleNotification(for: task)
-        }
+        task.dataCreation = Date.now
+        if let _ = task.deadline { scheduleNotification(for: task) }
         appDelegate.saveContext()
         completion(task)
+    }
+    public func createDuplicate(of task: Task) {
+        guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
+        let copyTask = Task(entity: taskEntityDescription, insertInto: context)
+        copyTask.id = UUID()
+        copyTask.taskName = task.taskName + " copy"
+        copyTask.taskInfo = task.taskInfo
+        copyTask.isDone = task.isDone
+        copyTask.deadline = task.deadline
+        copyTask.isImportant = task.isImportant
+        if let _ = copyTask.deadline { scheduleNotification(for: task) }
+        copyTask.dataCreation = Date.now
+        appDelegate.saveContext()
     }
     public func saveProfileImage(_ image: UIImage? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
@@ -121,22 +130,22 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Update
     
-    public func updateTask(with id: UUID?, taskName: String = "",
-                           taskInfo: String = "",
-                           isDone: Bool = false,
-                           isImportant: Bool = false,
-                           deadline: Date? = nil) {
+    public func updateTask(with id: UUID?, taskName: String? = nil,
+                           taskInfo: String? = nil,
+                           isDone: Bool? = nil,
+                           isImportant: Bool? = nil,
+                           deadline: Date?) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         guard let tasks = try? context.fetch(fetchRequest) as? [Task],
               let task = tasks.first(where: { $0.id == id }) else { return }
-        task.taskName = taskName
-        task.taskInfo = taskInfo
-        task.isDone = isDone
-        task.isImportant = isImportant
-        task.deadline = deadline
-        if let _ = task.deadline {
-            scheduleNotification(for: task)
+        if let taskName = taskName { task.taskName = taskName }
+        if let taskInfo = taskInfo { task.taskInfo = taskInfo }
+        if let isDone = isDone { task.isDone = isDone }
+        if let isImportant = isImportant { task.isImportant = isImportant }
+        if task.deadline != deadline {
+            task.deadline = deadline
+            if let _ = task.deadline { scheduleNotification(for: task) }
         }
         appDelegate.saveContext() // Сохранить изменения в Core Data
     }
@@ -158,9 +167,7 @@ public final class CoreDataMamanager: NSObject {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.deadline = deadline
-            if let _ = task.deadline {
-                scheduleNotification(for: task)
-            }
+            if let _ = task.deadline { scheduleNotification(for: task) }
         }
         appDelegate.saveContext()
     }

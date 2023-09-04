@@ -30,11 +30,11 @@ extension TasksController {
         collectionView.register(SectionView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                 withReuseIdentifier: SectionView.reuseIdentifier)
-
+        
         collectionView.refreshControl = nil
         
         addNavBarButton(at: .right, image: UIImage(systemName: "plus"))
-
+        
         let taskSortKeyActions: [UIAction] = {
             var actions = [UIAction]()
             for taskSortKey in App.TaskSortKey.allCases {
@@ -81,7 +81,7 @@ extension TasksController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
     -> Int { CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey).count }
     override func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TasksCell.reuseIdentifier, for: indexPath
         ) as? TasksCell else { return UICollectionViewCell() }
@@ -126,7 +126,7 @@ extension TasksController {
         } else {
             return CGSize(width: collectionView.frame.width - 32, height: 10)
         }
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -159,5 +159,5 @@ extension TasksController {
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)
-     -> CGSize { CGSize(width: 0, height: 0) }
+    -> CGSize { CGSize(width: 0, height: 0) }
 }

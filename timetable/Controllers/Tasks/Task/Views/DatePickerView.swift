@@ -54,6 +54,5 @@ struct DatePickerView: View {
             }
             .padding(.bottom)
         }
-        .background(Color(uiColor: App.Colors.background))
     }
 }

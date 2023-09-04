@@ -13,7 +13,7 @@ import UserNotifications
 final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, error in
             if granted { print("Разрешение на уведомления получено") }
@@ -22,6 +22,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationC
         }
         return true
     }
+    
 
     // MARK: - UISceneSession Lifecycle
 
@@ -56,4 +57,3 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationC
     }
 
 }
-
