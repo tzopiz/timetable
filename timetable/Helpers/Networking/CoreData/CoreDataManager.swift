@@ -94,7 +94,7 @@ public final class CoreDataMamanager: NSObject {
                     else {
                         return t1.deadline ?? Date.distantFuture < t2.deadline ?? Date.distantFuture
                     }
-            }
+                }
             case .deadlineDown:
                 return tasks.sorted { t1, t2 in
                     if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
@@ -103,7 +103,7 @@ public final class CoreDataMamanager: NSObject {
                     else {
                         return t1.deadline ?? Date.distantFuture > t2.deadline ?? Date.distantFuture
                     }
-            }
+                }
             case .completed:        return tasks.filter { $0.isDone == true }
             case .notCompleted:     return tasks.filter { $0.isDone == false }
             case .none:             return tasks
@@ -144,6 +144,7 @@ public final class CoreDataMamanager: NSObject {
         if let isDone = isDone { task.isDone = isDone }
         if let isImportant = isImportant { task.isImportant = isImportant }
         if task.deadline != deadline {
+            deleteNotification(for: task)
             task.deadline = deadline
             if let _ = task.deadline { scheduleNotification(for: task) }
         }
@@ -160,14 +161,17 @@ public final class CoreDataMamanager: NSObject {
         }
         appDelegate.saveContext()
     }
-    public func updataDeadlineTask(with id: UUID?, deadline: Date) {
+    public func updataDeadlineTask(with id: UUID?, deadline: Date?) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
-            task.deadline = deadline
-            if let _ = task.deadline { scheduleNotification(for: task) }
+            if deadline != task.deadline {
+                deleteNotification(for: task)
+                task.deadline = deadline
+                if let _ = task.deadline { scheduleNotification(for: task) }
+            }
         }
         appDelegate.saveContext()
     }
@@ -188,6 +192,7 @@ public final class CoreDataMamanager: NSObject {
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id}) else { return }
+            deleteNotification(for: task)
             context.delete(task)
         }
         appDelegate.saveContext()
@@ -211,18 +216,22 @@ public final class CoreDataMamanager: NSObject {
         notificationContent.title = "Напоминание о задаче"
         notificationContent.body = "У вас есть задача '\(task.taskName)' с крайним сроком \(deadline)"
         notificationContent.sound = task.isImportant ?  UNNotificationSound.defaultCritical : UNNotificationSound.default
-
+        
         let calendar = Calendar.current
         let notificationDate = calendar.date(byAdding: .day, value: -1, to: deadline)
-
+        
         let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate!)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-
+        
         let notificationRequest = UNNotificationRequest(identifier: task.id.uuidString, content: notificationContent, trigger: trigger)
-
+        
         UNUserNotificationCenter.current().add(notificationRequest) { error in
             if let error = error { print("Ошибка при планировании уведомления: \(error)") }
             else { print("Уведомление успешно запланировано") }
         }
+    }
+    private func deleteNotification(for task: Task) {
+        let identifier = task.id.uuidString
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
     }
 }

@@ -29,18 +29,15 @@ public class Task: NSManagedObject, Codable {
     @NSManaged public var isImportant: Bool
     @NSManaged public var dataCreation: Date
     @NSManaged public var deadline: Date?
-
-    // You can inject the managed object context via an initializer if needed.
-    // This example assumes you have a persistentContainer that provides the context.
     
     required convenience public init(from decoder: Decoder) throws {
         guard let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext,
               let entity = NSEntityDescription.entity(forEntityName: "Task", in: managedObjectContext) else {
             fatalError("Failed to decode Task")
         }
-
+        
         self.init(entity: entity, insertInto: managedObjectContext)
-
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
         taskName = try container.decode(String.self, forKey: .taskName)
