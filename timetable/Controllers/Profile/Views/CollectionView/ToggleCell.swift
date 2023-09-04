@@ -25,7 +25,7 @@ extension ToggleCell {
     }
     override func configureAppearance() {
         super.configureAppearance()
-        switcher.isOn = UserDefaults.standard.CachingTimetable
+        switcher.isOn = UserDefaults.standard.cachingTimetable
         switcher.onTintColor = App.Colors.active
         switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
     }
@@ -38,7 +38,7 @@ extension ToggleCell {
                 self.switcher.isOn = true
             }))
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive,  handler: { (action: UIAlertAction) in
-                UserDefaults.standard.CachingTimetable = sender.isOn
+                UserDefaults.standard.cachingTimetable = sender.isOn
                 let cacheManager = DataCacheManager()
                 cacheManager.clearCache()
                 self.completion?()
@@ -47,6 +47,6 @@ extension ToggleCell {
             let window = windowScenes?.windows.first
             let viewController = window?.rootViewController
             viewController?.present(alert, animated: true, completion: nil)
-        } else { UserDefaults.standard.CachingTimetable = sender.isOn }
+        } else { UserDefaults.standard.cachingTimetable = sender.isOn }
     }
 }

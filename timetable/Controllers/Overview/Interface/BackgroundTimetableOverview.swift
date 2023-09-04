@@ -12,7 +12,7 @@ final class BackgroundTimetableOverview: TTBaseView {
         let imageView = UIImageView(image: nil)
         return imageView
     }()
-    private let title = TTLabel(textColor: App.Colors.text_2, fontSize: 20, textAlignment: .center)
+    private let title = TTLabel(textColor: App.Colors.subtitle, fontSize: 20, textAlignment: .center)
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -22,9 +22,9 @@ final class BackgroundTimetableOverview: TTBaseView {
     func updateImage() {
         switch UserDefaults.standard.theme {
         case .light, .device:
-            imageView.image = App.Images.lessonsCanceled_light.randomElement()
+            imageView.image = App.Images.lessonsCanceledLight.randomElement()
         case .dark:
-            imageView.image = App.Images.lessonsCanceled_dark.randomElement()
+            imageView.image = App.Images.lessonsCanceledDark.randomElement()
         }
     }
     func configure(height: CGFloat, width: CGFloat) {

@@ -47,10 +47,10 @@ extension WeekView {
             tappedColor = App.Colors.commonButtonTappedColor
             
             nameLabel.text = name.uppercased()
-            nameLabel.textColor = isToday ? .white : App.Colors.text_2
+            nameLabel.textColor = isToday ? .white : App.Colors.subtitle
 
             dateLabel.text = "\(day)"
-            dateLabel.textColor = isToday ? .white : App.Colors.text_2
+            dateLabel.textColor = isToday ? .white : App.Colors.subtitle
         }
         static func getFirstDay(with index: Int) -> Date {
             let startOfWeek = Date().startOfWeek

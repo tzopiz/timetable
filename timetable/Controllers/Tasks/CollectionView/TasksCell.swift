@@ -24,7 +24,7 @@ final class TasksCell: BaseCell {
         return label
     }()
     private let noteInfoLabel: TTLabel = {
-        let label = TTLabel(textColor: App.Colors.text_2, fontSize: 15)
+        let label = TTLabel(textColor: App.Colors.subtitle, fontSize: 15)
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 1
         return label
@@ -53,7 +53,7 @@ final class TasksCell: BaseCell {
                     deadlineLabel.textColor = App.Colors.active
                 } else {
                     deadlineLabel.text = "Дедлайн был: " + Date().formattedDeadline(deadline)
-                    deadlineLabel.textColor = App.Colors.text_2
+                    deadlineLabel.textColor = App.Colors.subtitle
                 }
             }
         } else {

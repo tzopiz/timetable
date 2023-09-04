@@ -17,7 +17,7 @@ final class NavigationController: UINavigationController {
         view.backgroundColor = App.Colors.BlackWhite
         navigationBar.isTranslucent = false
         navigationBar.standardAppearance.titleTextAttributes = [
-            .foregroundColor: App.Colors.text,
+            .foregroundColor: App.Colors.title,
             .font: App.Fonts.helveticaNeue(with: 17)
         ]
     }

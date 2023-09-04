@@ -16,7 +16,7 @@ import UIKit
 /// ```
 class TTLabel: UILabel {
     init(text: String = "",
-         textColor: UIColor = App.Colors.text,
+         textColor: UIColor = App.Colors.title,
          fontSize: CGFloat = 15,
          textAlignment: NSTextAlignment = .left,
          lineBreakMode: NSLineBreakMode = .byWordWrapping) {

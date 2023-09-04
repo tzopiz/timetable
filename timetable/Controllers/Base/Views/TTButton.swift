@@ -67,7 +67,7 @@ private extension TTButton {
         switch type {
         case .primary:
             
-            setTintColor(App.Colors.text)
+            setTintColor(App.Colors.title)
             label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
             label.textAlignment = .center

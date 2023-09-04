@@ -8,7 +8,7 @@
 import UIKit
 
 final class FacultiesController: TTBaseController {
-    private var Faculties: [(text: String, link: String)] = []
+    private var faculties: [(text: String, link: String)] = []
 }
 
 // MARK: - Configure
@@ -32,7 +32,7 @@ extension FacultiesController {
                     let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
                     windowScenes?.windows.first?.switchRootViewController(TabBarController())
                 } else {
-                    self?.Faculties = result
+                    self?.faculties = result
                     self?.collectionView.reloadData()
                     self?.collectionView.refreshControl?.endRefreshing()
                 }
@@ -49,13 +49,13 @@ extension FacultiesController {
 
 extension FacultiesController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int)
-    -> Int { Faculties.count }
+    -> Int { faculties.count }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath
         ) as? BaseCell else { return UICollectionViewCell() }
-        let faculty = Faculties[indexPath.row]
+        let faculty = faculties[indexPath.row]
         let width = collectionView.bounds.width - 32
         let height = heightForLabel(text: faculty.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
         cell.configure(title: faculty.text, textAlignment: .center, cornerRadius: height / 4)
@@ -72,7 +72,7 @@ extension FacultiesController {
         cell?.isUnHighlighted()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UserDefaults.standard.link += Faculties[indexPath.row].link
+        UserDefaults.standard.link += faculties[indexPath.row].link
         navigationController?.pushViewController(DirectionsController(), animated: true)
     }
 }
@@ -84,7 +84,7 @@ extension FacultiesController {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let item = Faculties[indexPath.item].text
+        let item = faculties[indexPath.item].text
         let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 32
         
         return CGSize(width: width, height: height)

@@ -49,8 +49,9 @@ extension DirectionsController {
     -> Int { directions.count }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath) as! BaseCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
+                                                            for: indexPath) as? BaseCell
+        else { return UICollectionViewCell() }
         let item = directions[indexPath.item]
         let width = collectionView.bounds.width - 32
         let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
@@ -61,9 +62,10 @@ extension DirectionsController {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: SectionView.reuseIdentifier,
-                                                                         for: indexPath) as! SectionView
+                                                                         for: indexPath) as? SectionView
+        else { return UICollectionReusableView() }
         headerView.configure(with: headerTitle, textSize: 19)
         return headerView
     }

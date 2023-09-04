@@ -51,7 +51,10 @@ extension APIManager {
                         let projects = try Int(columns[6].text()) ?? 0
                         let personalLink = try columns[0].select("a").attr("href")
                         let link = "https://apmath.spbu.ru" + personalLink
-                        let teacher = Teacher(name: name, position: position, department: department, publications: publications, applications: applications, grants: grants, projects: projects, personalLink: link)
+                        let teacher = Teacher(name: name, position: position,
+                                              department: department, publications: publications,
+                                              applications: applications, grants: grants,
+                                              projects: projects, personalLink: link)
                         teachers.append(teacher)
                     }
                 }
@@ -251,9 +254,8 @@ extension APIManager {
                     // Итерируемся по элементам с определенным CSS-селектором
                     for element in try doc.select("div.panel.panel-default") {
                         // Проверяем наличие элемента и его структуру
-                        guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first() else {
-                            continue
-                        }
+                        guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first()
+                        else { continue }
                         // Извлекаем текст и обрезаем лишние пробелы и символы новой строки
                         let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
                         // Создаем пустой массив Lesson

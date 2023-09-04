@@ -12,7 +12,7 @@ final class LabelTextView: TTBaseView {
     private let textView: UITextView = {
         let textView = UITextView()
         textView.font = App.Fonts.helveticaNeue(with: 14)
-        textView.textColor = App.Colors.text
+        textView.textColor = App.Colors.title
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.layer.cornerRadius = 16

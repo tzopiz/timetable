@@ -41,13 +41,13 @@ class DataCacheManager {
                 if let cachedData = getCachedData(for: weekKey) {
                     if studyWeek != cachedData {
                         completion(studyWeek, nil)
-                        if UserDefaults.standard.CachingTimetable {
+                        if UserDefaults.standard.cachingTimetable {
                             self.cacheData(studyWeek, for: weekKey)
                         }
                     } else { completion(cachedData, nil) }
                 } else {
                     completion(studyWeek, nil)
-                    if UserDefaults.standard.CachingTimetable {
+                    if UserDefaults.standard.cachingTimetable {
                         self.cacheData(studyWeek, for: weekKey)
                     }
                 }
@@ -127,7 +127,7 @@ class DataCacheManager {
             let decodedCache = try decoder.decode([String: StudyWeek].self, from: data)
             cache = decodedCache
         } catch {
-            if UserDefaults.standard.CachingTimetable { print("Ошибка при загрузке кеша из файла: \(error)") }
+            if UserDefaults.standard.cachingTimetable { print("Ошибка при загрузке кеша из файла: \(error)") }
         }
     }
     private func saveCacheToFile() {

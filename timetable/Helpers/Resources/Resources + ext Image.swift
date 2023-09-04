@@ -20,9 +20,9 @@ extension App {
         
         static let backgroundSPBU = #imageLiteral(resourceName: "spbu")
         
-        static let lessonsCanceled_light = [#imageLiteral(resourceName: "Gamers using different devices and playing on mobile phone.png"), #imageLiteral(resourceName: "8401.png"), #imageLiteral(resourceName: "8728.png"), #imageLiteral(resourceName: "10966.png"), #imageLiteral(resourceName: "11057.png"), #imageLiteral(resourceName: "Happy girl wearing headphones.png")]
-        static let lessonsCanceled_dark = [#imageLiteral(resourceName: "8270.png"), #imageLiteral(resourceName: "Female designer working late in room flat vector illustration.png")]
-        static let null_background = #imageLiteral(resourceName: "null_background")
+        static let lessonsCanceledLight = [#imageLiteral(resourceName: "Gamers using different devices and playing on mobile phone.png"), #imageLiteral(resourceName: "8401.png"), #imageLiteral(resourceName: "8728.png"), #imageLiteral(resourceName: "10966.png"), #imageLiteral(resourceName: "11057.png"), #imageLiteral(resourceName: "Happy girl wearing headphones.png")]
+        static let lessonsCanceledDark = [#imageLiteral(resourceName: "8270.png"), #imageLiteral(resourceName: "Female designer working late in room flat vector illustration.png")]
+        static let nullBackground = #imageLiteral(resourceName: "null_background")
         static let icon = #imageLiteral(resourceName: "icon")
         
         static let clock = #imageLiteral(resourceName: "clock@256")

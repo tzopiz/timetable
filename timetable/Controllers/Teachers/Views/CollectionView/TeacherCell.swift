@@ -14,10 +14,10 @@ class TeacherCell: BaseCell {
     private let nameLabel = TTLabel(fontSize: 19)
     private let positionLabel = TTLabel(fontSize: 17)
     private let departmentLabel = TTLabel(fontSize: 17)
-    private let publicationsLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 17)
-    private let applicationsLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 17)
-    private let grantsLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 17)
-    private let projectsLabel = TTLabel(textColor: App.Colors.text_2, fontSize: 17)
+    private let publicationsLabel = TTLabel(textColor: App.Colors.subtitle, fontSize: 17)
+    private let applicationsLabel = TTLabel(textColor: App.Colors.subtitle, fontSize: 17)
+    private let grantsLabel = TTLabel(textColor: App.Colors.subtitle, fontSize: 17)
+    private let projectsLabel = TTLabel(textColor: App.Colors.subtitle, fontSize: 17)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()

@@ -14,7 +14,7 @@ final class ProfileCell: BaseCell {
     private let subtitle: TTLabel = {
         let label = TTLabel()
         
-        label.textColor = App.Colors.text_2
+        label.textColor = App.Colors.subtitle
         
         
         return label

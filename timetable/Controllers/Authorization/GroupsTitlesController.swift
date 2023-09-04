@@ -63,7 +63,9 @@ extension GroupsTitlesController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath) as! BaseCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
+                                                            for: indexPath) as? BaseCell
+        else { return UICollectionViewCell() }
         let item = groupsTitles[indexPath.section].items[indexPath.item]
         let width = collectionView.bounds.width - 32
         let height = heightForLabel(text: item.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
@@ -74,9 +76,10 @@ extension GroupsTitlesController {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
-                                                                         for: indexPath) as! HeaderWithButtonView
+                                                                         for: indexPath) as? HeaderWithButtonView
+        else { return UICollectionReusableView() }
         let section = groupsTitles[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,
                              target: self, action: #selector(toggleSection(_:)))
