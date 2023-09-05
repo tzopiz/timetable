@@ -30,19 +30,21 @@ extension GroupsTitlesController {
         collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
+    }
+    override func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadGroupsTitles { [weak self] sectionsWithLinks in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.groupsTitles = sectionsWithLinks[self.index]
+                if self.index < sectionsWithLinks.count {
+                    self.groupsTitles = sectionsWithLinks[self.index]
+                }
                 self.collectionView.reloadData()
                 self.collectionView.refreshControl?.endRefreshing()
             }
-            
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         if UserDefaults.standard.link.count > 30 {
             let urlString = UserDefaults.standard.link
             if let url = URL(string: urlString) {
@@ -50,6 +52,7 @@ extension GroupsTitlesController {
                 UserDefaults.standard.link = String(newURL.absoluteString.dropLast())
             }
         }
+        super.viewWillAppear(animated)
     }
 }
 
@@ -77,8 +80,8 @@ extension GroupsTitlesController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
-                                                                         for: indexPath) as? HeaderWithButtonView
+                                                                               withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
+                                                                               for: indexPath) as? HeaderWithButtonView
         else { return UICollectionReusableView() }
         let section = groupsTitles[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,

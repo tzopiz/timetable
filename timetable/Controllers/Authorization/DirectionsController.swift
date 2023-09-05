@@ -12,7 +12,7 @@ final class DirectionsController: TTBaseController {
     private var headerTitle = ""
 }
 
-// MARK: -Configure
+// MARK: - Configure
 
 extension DirectionsController {
     override func configureAppearance() {
@@ -23,6 +23,8 @@ extension DirectionsController {
         collectionView.register(SectionView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionView.reuseIdentifier)
+    }
+    override func refreshData() {
         collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadDirectionsTitles { [weak self] directions in
             guard let self = self else { return }
@@ -63,8 +65,8 @@ extension DirectionsController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: SectionView.reuseIdentifier,
-                                                                         for: indexPath) as? SectionView
+                                                                               withReuseIdentifier: SectionView.reuseIdentifier,
+                                                                               for: indexPath) as? SectionView
         else { return UICollectionReusableView() }
         headerView.configure(with: headerTitle, textSize: 19)
         return headerView

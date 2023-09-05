@@ -19,12 +19,18 @@ extension FacultiesController {
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
         title = "SPBU"
-       
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.link = "https://timetable.spbu.ru"
+        super.viewWillAppear(animated)
+    }
+    override func refreshData() {
         collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadFaculties { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 if result.isEmpty {
-                    self?.collectionView.refreshControl?.endRefreshing()
+                    self.collectionView.refreshControl?.endRefreshing()
                     UserDefaults.standard.link = "https://timetable.spbu.ru"
                     UserDefaults.standard.registered = true
                     UserDefaults.standard.group = "Выберете группу"
@@ -32,16 +38,12 @@ extension FacultiesController {
                     let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
                     windowScenes?.windows.first?.switchRootViewController(TabBarController())
                 } else {
-                    self?.faculties = result
-                    self?.collectionView.reloadData()
-                    self?.collectionView.refreshControl?.endRefreshing()
+                    self.faculties = result
+                    self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             }
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UserDefaults.standard.link = "https://timetable.spbu.ru"
     }
 }
 

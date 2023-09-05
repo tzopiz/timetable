@@ -16,8 +16,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationC
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if granted { print("Разрешение на уведомления получено") }
-            else { print("Разрешение на уведомления не получено: \(error?.localizedDescription ?? "")") }
+            if !granted { print("Разрешение на уведомления не получено: \(error?.localizedDescription ?? "")") }
             center.delegate = self
         }
         return true

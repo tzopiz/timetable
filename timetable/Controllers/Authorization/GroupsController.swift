@@ -10,7 +10,7 @@ import UIKit
 final class GroupsController: TTBaseController {
     
     private var groups: [Auth.SectionWithLinks] = []
-
+    
     @IBAction func toggleSection(_ sender: TTButton) {
         let section = sender.tag
         groups[section].isExpanded.toggle()
@@ -30,6 +30,8 @@ extension GroupsController {
         collectionView.register(HeaderWithButtonView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderWithButtonView.reuseIdentifier)
+    }
+    override func refreshData() {
         self.collectionView.refreshControl?.beginRefreshing()
         APIManager.shared.loadStudentGroupEvents { [weak self] sectionWithLinks in
             guard let self = self else { return }
@@ -66,8 +68,8 @@ extension GroupsController {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
-                                                                         for: indexPath) as? HeaderWithButtonView
+                                                                               withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
+                                                                               for: indexPath) as? HeaderWithButtonView
         else { return UICollectionReusableView() }
         let section = groups[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,

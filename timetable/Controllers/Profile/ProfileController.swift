@@ -166,13 +166,13 @@ extension ProfileController {
             UserDefaults.standard.link = UserDefaults.standard.groupsLink
             DataCacheManager().clearCache()
             
-            let secondVC = DirectionsController()
-            let firstVC = FacultiesController()
-            let thirdVC = GroupsTitlesController()
-            let thourthVC = GroupsController()
+            let vc_1 = FacultiesController()
+            let vc_2 = DirectionsController()
+            let vc_3 = GroupsTitlesController()
+            let vc_4 = GroupsController()
             
-            let navVC = UINavigationController(rootViewController: secondVC)
-            navVC.setViewControllers([firstVC, secondVC, thirdVC, thourthVC], animated: false)
+            let navVC = UINavigationController(rootViewController: vc_1)
+            navVC.setViewControllers([vc_1, vc_2, vc_3, vc_4], animated: false)
 
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVC)
