@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Profile)
-public class Profile: NSManagedObject { }
+public final class Profile: NSManagedObject { }
 
 extension Profile {
     

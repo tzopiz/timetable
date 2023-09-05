@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderWithButtonView: UICollectionReusableView {
+final class HeaderWithButtonView: UICollectionReusableView {
     
     static let reuseIdentifier = String(describing: HeaderWithButtonView.self)
     
@@ -40,7 +40,10 @@ class HeaderWithButtonView: UICollectionReusableView {
     func configure(with text: String, status isOpen: Bool, tag: Int, target: Any?, action: Selector) {
         titleLabel.text = text
         expandButton.tag = tag
-        expandButton.setImage(isOpen ? UIImage(systemName: "chevron.down") : UIImage(systemName: "minus"), for: .normal)
+        let image = isOpen ? UIImage(systemName: "chevron.down") : UIImage(systemName: "minus")
+        UIView.transition(with: expandButton, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.expandButton.setImage(image, for: .normal)
+        })
         expandButton.addButtonTarget(target: target, action: action)
     }
 }

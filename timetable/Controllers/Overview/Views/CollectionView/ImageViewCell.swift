@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageViewCell: BaseCell {
+final class ImageViewCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: ImageViewCell.self) }
     private let imageView = UIImageView(image: App.Images.nullBackground)
 }

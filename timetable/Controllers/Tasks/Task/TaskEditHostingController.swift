@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TaskEditHostingController: UIHostingController<TaskEditView> {
+final class TaskEditHostingController: UIHostingController<TaskEditView> {
     init(task: Binding<Task>, onTaskUpdated: @escaping () -> Void) {
         let rootView = TaskEditView(task: task, onTaskUpdated: onTaskUpdated)
         super.init(rootView: rootView)

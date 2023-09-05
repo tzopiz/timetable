@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleNavigatorView: TTBaseView {
+final class ScheduleNavigatorView: TTBaseView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TTBaseView: UIView {
+public class TTBaseView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()

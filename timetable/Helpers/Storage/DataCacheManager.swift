@@ -9,23 +9,21 @@ import Foundation
 import SystemConfiguration
 
 
-class DataCacheManager {
+final class DataCacheManager {
     private let cacheFileName = "timetableCache.json"
     private var cache: [String: StudyWeek] = [:]
     
     init() { loadCacheFromFile() }
     
     /// Загружает данные расписания с указанной даты.
-    ///
     /// Если кэшированные данные для запрошенной даты доступны, они будут использованы.
     /// В противном случае будет выполнен сетевой запрос для загрузки данных с сервера.
     ///
     /// - Parameters:
-    ///   - firstDay: Дата, с которой необходимо загрузить расписание.
-    ///   - needUpdate: Нужно ли загружать данные из интернета заново или использовать кешированные данные
+    ///   - firstDay:   Дата, с которой необходимо загрузить расписание.
     ///   - completion: Замыкание, вызываемое после загрузки данных.
     ///                 Принимает объект типа `StudyWeek` или `nil` в случае ошибки.
-    func loadTimetableData(with firstDay: String, completion: @escaping (StudyWeek?, Error?) -> Void) {
+    public func loadTimetableData(with firstDay: String, completion: @escaping (StudyWeek?, Error?) -> Void) {
         guard let url = getUrl(from: firstDay) else {
             completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid get url"]))
             return
@@ -54,7 +52,7 @@ class DataCacheManager {
             }
         }
     }
-    func getDownloadedTimetable(with firstDay: String, completion: @escaping (StudyWeek?) -> Void) {
+    public func getDownloadedTimetable(with firstDay: String, completion: @escaping (StudyWeek?) -> Void) {
         guard let url = getUrl(from: firstDay) else {
             completion(nil)
             return
@@ -63,17 +61,7 @@ class DataCacheManager {
         if let cachedData = getCachedData(for: weekKey) { completion(cachedData) }
         else { completion(nil) }
     }
-    private func getUrl(from str: String) -> URL? {
-        let timeInterval: String
-        if str == "\(Date())".components(separatedBy: " ")[0] { timeInterval = "" }
-        else { timeInterval = "/" + str }
-        let urlString = UserDefaults.standard.link + timeInterval
-        guard let url = URL(string: urlString) else {
-            return nil
-        }
-        return url
-    }
-    func clearCache() {
+    public func clearCache() {
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             print("Не удалось получить доступ к директории кеша.")
             return
@@ -82,7 +70,7 @@ class DataCacheManager {
         do { try FileManager.default.removeItem(at: cacheFileURL) }
         catch { print("Ошибка при удалении кеша: \(error)") }
     }
-    func calculateCacheSize() -> String {
+    public func calculateCacheSize() -> String {
         guard FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first != nil else {
             return "(0.0 кб)"
         }
@@ -115,6 +103,14 @@ class DataCacheManager {
     private func cacheData(_ data: StudyWeek, for week: String) {
         cache[week] = data
         saveCacheToFile()
+    }
+    private func getUrl(from str: String) -> URL? {
+        let timeInterval: String
+        if str == "\(Date())".components(separatedBy: " ").first! { timeInterval = "" }
+        else { timeInterval = "/" + str }
+        let urlString = UserDefaults.standard.link + timeInterval
+        guard let url = URL(string: urlString) else { return nil }
+        return url
     }
     private func loadCacheFromFile() {
         guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first

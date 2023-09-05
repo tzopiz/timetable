@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TeacherCell: BaseCell {
+final class TeacherCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: TeacherCell.self) }
     

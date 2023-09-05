@@ -12,7 +12,7 @@ import UIKit
 
 // codable not use but may be later
 @objc(Task)
-public class Task: NSManagedObject, Codable {
+public final class Task: NSManagedObject, Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case taskName

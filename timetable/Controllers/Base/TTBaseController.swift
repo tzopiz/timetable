@@ -7,13 +7,12 @@
 
 import UIKit
 
-enum NavBarPosition {
-    case left
-    case right
-}
-
 class TTBaseController: UIViewController {
-    var collectionView: UICollectionView = {
+    enum NavBarPosition {
+        case left
+        case right
+    }
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         
@@ -89,16 +88,16 @@ extension TTBaseController: UICollectionViewDelegateFlowLayout {
 @objc
 extension TTBaseController {
     /// Добавляет подвиды на контроллер.
+    /// Добавьте код для добавления подвидов на контроллер,
+    /// таких как их инициализация, настройка свойств и добавление на представление.
     func setupViews() {
-        // Добавьте код для добавления подвидов на контроллер,
-        // таких как их инициализация, настройка свойств и добавление на представление.
         view.setupView(collectionView)
     }
     
     /// Устанавливает ограничения для подвидов внутри контроллера.
+    /// Добавьте код для установки ограничений для подвидов,
+    /// таких как установка автолейаут-ограничений, задание отступов и т.д.
     func constraintViews() {
-        // Добавьте код для установки ограничений для подвидов,
-        // таких как установка автолейаут-ограничений, задание отступов и т.д.
         collectionView.anchor(top: view.topAnchor,
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
@@ -106,10 +105,10 @@ extension TTBaseController {
     }
     
     /// Настраивает внешний вид контроллера.
+    /// Добавьте код для настройки внешнего вида контроллера,
+    /// таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
+    /// Вы также можете применять стили, добавлять тени, закруглять углы и т.д.
     func configureAppearance() {
-        // Добавьте код для настройки внешнего вида контроллера,
-        // таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
-        // Вы также можете применять стили, добавлять тени, закруглять углы и т.д.
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = App.Colors.background

@@ -58,7 +58,6 @@ extension TasksController {
         menuButton.addButtonTarget(target: self, action: #selector(handler))
         menuButton.showsMenuAsPrimaryAction = true
     }
-    @IBAction func handler() { }
     override func navBarRightButtonHandler() {
         CoreDataMamanager.shared.createTask { [weak self] task in
             var newtask = task
@@ -69,10 +68,11 @@ extension TasksController {
                 )
             ) { self?.collectionView.reloadData() }
             
-            taskEditController.modalPresentationStyle = .pageSheet
+            taskEditController.modalPresentationStyle = .automatic
             self?.present(taskEditController, animated: true)
         }
     }
+    @IBAction func handler() { }
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate

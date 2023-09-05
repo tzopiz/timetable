@@ -14,7 +14,7 @@ import UIKit
 /// textColor = App.Colors.text
 /// font = App.Fonts.helveticaNeue(with: 15)
 /// ```
-class TTLabel: UILabel {
+public class TTLabel: UILabel {
     init(text: String = "",
          textColor: UIColor = App.Colors.title,
          fontSize: CGFloat = 15,
