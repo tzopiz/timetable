@@ -63,7 +63,7 @@ struct StudyWeek: CustomStringConvertible, Codable, Equatable {
 }
 extension StudyWeek {
     func addingFreeDays(_ date: String) -> StudyWeek {
-        func formatDate(_ date: Date) -> String {
+        func formatDateRus(_ date: Date) -> String {
             let dayFormatter = DateFormatter()
             dayFormatter.locale = Locale(identifier: "ru_RU")
             dayFormatter.dateFormat = "EEEE"
@@ -82,19 +82,34 @@ extension StudyWeek {
             
             return resultString
         }
-
-        var updatedDays = self.days
+        func formatDateEng(_ date: Date) -> String {
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "EEEE"
+            
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            
+            let dayOfWeek = dayFormatter.string(from: date)
+            let month = monthFormatter.string(from: date)
+            let day = Calendar.current.component(.day, from: date)
+            
+            let resultString = "\(dayOfWeek), \(month) \(day)"
+            
+            return resultString
+        }
+        if self.days.count == 7 { return StudyWeek(startDate: self.startDate, days: self.days) }
         if self.days.isEmpty { return StudyWeek(startDate: self.startDate, days: []) }
+        var updatedDays = self.days
                 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         guard var currentDate = dateFormatter.date(from: "\(date)") else { return StudyWeek(startDate: self.startDate, days: []) }
         for i in 0..<7 {
-            let isDayPresent = updatedDays.contains { studyDay in
-                studyDay.date.contains(formatDate(currentDate))
-            }
-            if !isDayPresent {
-                let freeDay = StudyDay(date: formatDate(currentDate),
+            let (curDayRus, curDayEng) = (formatDateRus(currentDate), formatDateEng(currentDate))
+            let isDayPresentRus = updatedDays.contains { $0.date.contains(curDayRus) }
+            let isDayPresentEng = updatedDays.contains { $0.date.contains(curDayEng) }
+            if !isDayPresentRus && !isDayPresentEng {
+                let freeDay = StudyDay(date: curDayEng,
                                        lessons: [Lesson(time: "", name: "",
                                                         location: "", teacher: "",
                                                         isEmpty: true)])

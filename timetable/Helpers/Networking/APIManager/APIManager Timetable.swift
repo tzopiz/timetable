@@ -35,25 +35,19 @@ extension APIManager {
             // Если данные загружены успешно и удалось преобразовать их в строку с кодировкой UTF-8
             if let data = data, let html = String(data: data, encoding: .utf8) {
                 do {
-                    let doc = try SwiftSoup.parse(html)
-                    let startDateElement = try doc.select("#timetable-week-navigator-chosen-week a")
-                    let startDate = try? startDateElement.attr("data-weekmonday")
+                    let doc = try SwiftSoup.parse(html),
+                        startDateElement = try doc.select("#timetable-week-navigator-chosen-week a"),
+                        startDate = try? startDateElement.attr("data-weekmonday")
                     var dayDataArray: [StudyDay] = []
                     
-                    // Итерируемся по элементам с определенным CSS-селектором
                     for element in try doc.select("div.panel.panel-default") {
-                        // Проверяем наличие элемента и его структуру
                         guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first()
                         else { continue }
-                        // Извлекаем текст и обрезаем лишние пробелы и символы новой строки
+                        
                         let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
-                        // Создаем пустой массив Lesson
                         var lessons: [Lesson] = []
                         
-                        // Итерируемся по элементам с определенным CSS-селектором
                         for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
-                            
-                            // Извлекаем текст из элемента или используем пустую строку по умолчанию
                             let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
                             
                             var name: String!
@@ -66,11 +60,10 @@ extension APIManager {
                                     name = name + "\n" + details
                                 }
                             }
-                            
-                            // Парсинг локации из одного из двух классов
+
                             let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link, div.col-sm-3.studyevent-multiple-locations").first()?.text() ?? ""
                             
-                            var teacher = "-_-"
+                            var teacher = ""
                             if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a, div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
                                 teacher = try educatorElement.text()
                             } else {
@@ -87,7 +80,6 @@ extension APIManager {
                                 } else { teacher = "error" }
                             }
                             
-                            // Проверяем наличие элемента с классом "cancelled"
                             let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
                             
                             let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
@@ -101,7 +93,7 @@ extension APIManager {
                     let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate),
                                                days: dayDataArray).addingFreeDays(firstDay)
                     completion(schoolWeek)
-                } catch { print("Ошибка при разборе HTML: \(error)") } // Обрабатываем ошибку при разборе HTML и выводим ее в консоль
+                } catch { print("Ошибка при разборе HTML: \(error)") }
             }
         }.resume()
     }
