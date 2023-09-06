@@ -37,7 +37,8 @@ extension WeekView {
         super.configureAppearance()
         self.backgroundColor = .clear
         
-        var weekdays = Date.calendar.shortStandaloneWeekdaySymbols
+        let russianLocale = Locale(identifier: "ru_RU")
+        var weekdays = russianLocale.calendar.shortWeekdaySymbols
         if Date.calendar.firstWeekday == 2 {
             let sun = weekdays.remove(at: 0)
             weekdays.append(sun)

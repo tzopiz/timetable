@@ -118,6 +118,6 @@ extension TTBaseController {
 
     }
     func refreshData() { self.collectionView.refreshControl?.endRefreshing() }
-    func navBarLeftButtonHandler() { print("NavBar left button tapped") }
-    func navBarRightButtonHandler() { print("NavBar right button tapped") }
+    func navBarLeftButtonHandler() { }
+    func navBarRightButtonHandler() { }
 }

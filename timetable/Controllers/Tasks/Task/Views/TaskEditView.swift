@@ -29,19 +29,19 @@ struct TaskEditView: View {
     
     var menu: some View {
         Menu {
-            Button(action: { UIPasteboard.general.string = task.formattedDescription() }) { Label("Copy", systemImage: "doc.on.doc") }
-            Button(action: { self.showAlert.toggle() }) { Label("Duplicate", systemImage: "plus.square.on.square") }
+            Button(action: { UIPasteboard.general.string = task.formattedDescription() }) { Label("Скопировать", systemImage: "doc.on.doc") }
+            Button(action: { self.showAlert.toggle() }) { Label("Дублировать", systemImage: "plus.square.on.square") }
             
-            if task.deadline != nil { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell") } }
-            else { Button(action: { isDatePickerPresented.toggle() }) { Label("Notification", systemImage: "bell.slash") } }
+            if task.deadline != nil { Button(action: { isDatePickerPresented.toggle() }) { Label("Уведомление", systemImage: "bell") } }
+            else { Button(action: { isDatePickerPresented.toggle() }) { Label("Уведомление", systemImage: "bell.slash") } }
             
             Button(action: {
                 CoreDataMamanager.shared.deletaTask(with: task.id)
                 onTaskUpdated()
                 presentationMode.wrappedValue.dismiss()
-            }) { Label("Delete", systemImage: "trash") }
+            }) { Label("Удалить", systemImage: "trash") }
             
-            Button(action: { self.isShareSheetPresented.toggle() }) { Label("Share", systemImage: "square.and.arrow.up") }
+            Button(action: { self.isShareSheetPresented.toggle() }) { Label("Поделиться", systemImage: "square.and.arrow.up") }
             
         } label: {
             Image(systemName: "square.and.pencil")

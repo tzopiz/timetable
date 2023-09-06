@@ -22,7 +22,6 @@ extension WeekView {
         
         private var normalColor = UIColor()
         private var tappedColor = UIColor()
-        private var isHighlighted = false
         
         var scrollCompletion: ((Int) -> Void)?
         
@@ -76,11 +75,9 @@ extension WeekView.WeekdayView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         
-        // Настройка параметров жестов
         tapGesture.numberOfTapsRequired = 1
         longPressGesture.minimumPressDuration = 0.05
         
-        // Добавляем жесты на view
         self.addGestureRecognizer(tapGesture)
         self.addGestureRecognizer(longPressGesture)
         
