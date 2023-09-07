@@ -84,8 +84,6 @@ public final class CoreDataMamanager: NSObject {
         let tasks = (try? context.fetch(fetchRequest) as? [Task]) ?? []
         do {
             switch type {
-            case .importanceTop:    return tasks.sorted(by: { $0.isImportant.description > $1.isImportant.description })
-            case .importanceDown:   return tasks.sorted(by: { $0.isImportant.description < $1.isImportant.description })
             case .deadlineTop:
                 return tasks.sorted { t1, t2 in
                     if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
@@ -104,9 +102,11 @@ public final class CoreDataMamanager: NSObject {
                         return t1.deadline ?? Date.distantFuture > t2.deadline ?? Date.distantFuture
                     }
                 }
-            case .completed:        return tasks.filter { $0.isDone == true }
-            case .notCompleted:     return tasks.filter { $0.isDone == false }
-            case .none:             return tasks
+            case .importanceTop:  return tasks.sorted(by: { $0.isImportant.description > $1.isImportant.description })
+            case .importanceDown: return tasks.sorted(by: { $0.isImportant.description < $1.isImportant.description })
+            case .completed:      return tasks.filter { $0.isDone == true }
+            case .notCompleted:   return tasks.filter { $0.isDone == false }
+            case .none:           return tasks
             }
         }
     }
