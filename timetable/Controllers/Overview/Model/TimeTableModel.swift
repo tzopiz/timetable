@@ -109,7 +109,7 @@ extension StudyWeek {
             let isDayPresentRus = updatedDays.contains { $0.date.contains(curDayRus) }
             let isDayPresentEng = updatedDays.contains { $0.date.contains(curDayEng) }
             if !isDayPresentRus && !isDayPresentEng {
-                let freeDay = StudyDay(date: curDayEng,
+                let freeDay = StudyDay(date: curDayRus,
                                        lessons: [Lesson(time: "", name: "",
                                                         location: "", teacher: "",
                                                         isEmpty: true)])

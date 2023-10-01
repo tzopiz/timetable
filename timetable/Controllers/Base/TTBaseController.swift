@@ -117,7 +117,11 @@ extension TTBaseController {
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
 
     }
-    func refreshData() { self.collectionView.refreshControl?.endRefreshing() }
+    func refreshData() {
+        self.collectionView.refreshControl?.beginRefreshing()
+        self.collectionView.reloadData()
+        self.collectionView.refreshControl?.endRefreshing()
+    }
     func navBarLeftButtonHandler() { }
     func navBarRightButtonHandler() { }
 }
