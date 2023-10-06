@@ -8,6 +8,12 @@
 import UIKit
 import SwiftSoup
 
+final class APIManager {
+    static let shared = APIManager()
+    private init() { }
+    
+}
+
 extension APIManager {
     
     // MARK: - timetable
@@ -23,7 +29,7 @@ extension APIManager {
         var i = 0, educators: [String] = []
         
         // Создаем задачу для загрузки данных с указанным URL и обрабатываем результаты
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
             
             // Проверяем, возникла ли ошибка при загрузке данных и выводим ее в консоль, если она есть
             if let error = error {

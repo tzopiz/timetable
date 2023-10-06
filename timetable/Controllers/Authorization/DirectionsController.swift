@@ -47,8 +47,8 @@ extension DirectionsController {
 extension DirectionsController {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
     override func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int)
-    -> Int { directions.count }
+                                 numberOfItemsInSection section: Int) -> Int { directions.count }
+    
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,

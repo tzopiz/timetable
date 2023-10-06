@@ -26,10 +26,6 @@ extension App {
         static let currentTasks   = "Текущие задания"
         static let completedTasks = "Завершенные задания"
         
-        // MARK: Teacher
-        
-        static let people   = "Преподаватели"
-        
         // MARK: Profile
         
         static let profile     = "Профиль"

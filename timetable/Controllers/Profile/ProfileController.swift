@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PhotosUI
 
 enum CellType {
     case base
@@ -51,16 +50,6 @@ final class ProfileController: TTBaseController {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
-    }
-    private func openImagePickerVC() {  // TODO: read about this
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        
-        present(picker, animated: true)
     }
 }
 
@@ -160,7 +149,6 @@ extension ProfileController {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: openImagePickerVC()
         case 1:
             UserDefaults.standard.registered = false
             UserDefaults.standard.link = UserDefaults.standard.groupsLink
@@ -209,23 +197,4 @@ extension ProfileController {
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)
     -> CGSize { CGSize(width: collectionView.frame.width, height: 0) }
-}
-
-// MARK: - PHPickerViewControllerDelegate
-
-extension ProfileController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        dismiss(animated: true)
-        
-        guard let result = results.first else { return }
-        
-        result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
-            if let image = object as? UIImage {
-                DispatchQueue.main.async {
-                    CoreDataMamanager.shared.saveProfileImage(image)
-                    self?.collectionView.reloadData()
-                }
-            }
-        }
-    }
 }

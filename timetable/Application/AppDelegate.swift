@@ -7,20 +7,13 @@
 
 import UIKit
 import CoreData
-import UserNotifications
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if !granted { print("Разрешение на уведомления не получено: \(error?.localizedDescription ?? "")") }
-            center.delegate = self
-        }
-        return true
-    }
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)
+    -> Bool { true }
     
 
     // MARK: - UISceneSession Lifecycle

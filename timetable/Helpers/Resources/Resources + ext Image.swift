@@ -13,7 +13,6 @@ extension App {
             switch tab {
             case .overview: return UIImage(systemName: "house")
             case .tasks:    return UIImage(systemName: "list.bullet.rectangle")
-            case .people:   return UIImage(systemName: "person")
             case .profile:  return UIImage(systemName: "gear")
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 struct Auth {
     struct Section {
         let title: String

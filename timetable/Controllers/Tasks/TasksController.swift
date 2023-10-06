@@ -53,26 +53,13 @@ extension TasksController {
             return actions
         }()
         menuButton.menu = UIMenu(title: "Сортировка", options: .displayInline, children: taskSortKeyActions)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
-        
-        menuButton.addButtonTarget(target: self, action: #selector(handler))
         menuButton.showsMenuAsPrimaryAction = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
+    
     }
     override func navBarRightButtonHandler() {
-        CoreDataMamanager.shared.createTask { [weak self] task in
-            var newtask = task
-            let taskEditController = TaskEditHostingController(
-                task: Binding<Task>(
-                    get: { newtask },
-                    set: { newtask = $0 }
-                )
-            ) { self?.collectionView.reloadData() }
-            
-            taskEditController.modalPresentationStyle = .automatic
-            self?.present(taskEditController, animated: true)
-        }
+        print(#function)
     }
-    @IBAction func handler() { }
 }
 
 // MARK: - UICollectionViewDataSource && UICollectionViewDelegate
@@ -94,15 +81,9 @@ extension TasksController {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
-        let taskEditController = TaskEditHostingController(
-            task: Binding<Task>(
-                get: { task },
-                set: { task = $0 }
-            )
-        ) { self.collectionView.reloadData() }
-        taskEditController.modalPresentationStyle = .formSheet
-        present(taskEditController, animated: true)
+//        var task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
+        let taskVC = TaskController()
+        present(taskVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
