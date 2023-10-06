@@ -15,20 +15,20 @@ import UIKit
 public final class Task: NSManagedObject, Codable {
     enum CodingKeys: String, CodingKey {
         case id
-        case taskName
-        case taskInfo
+        case name
+        case info
         case isDone
         case isImportant
         case dataCreation
         case deadline
     }
     @NSManaged public var id: UUID
-    @NSManaged public var taskName: String
-    @NSManaged public var taskInfo: String
+    @NSManaged public var name: String
+    @NSManaged public var info: String
     @NSManaged public var isDone: Bool
+    @NSManaged public var deadline: Date?
     @NSManaged public var isImportant: Bool
     @NSManaged public var dataCreation: Date
-    @NSManaged public var deadline: Date?
     
     required convenience public init(from decoder: Decoder) throws {
         guard let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext,
@@ -40,8 +40,8 @@ public final class Task: NSManagedObject, Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
-        taskName = try container.decode(String.self, forKey: .taskName)
-        taskInfo = try container.decode(String.self, forKey: .taskInfo)
+        name = try container.decode(String.self, forKey: .name)
+        info = try container.decode(String.self, forKey: .info)
         isDone = try container.decode(Bool.self, forKey: .isDone)
         isImportant = try container.decode(Bool.self, forKey: .isImportant)
         dataCreation = try container.decode(Date.self, forKey: .dataCreation)
@@ -50,16 +50,16 @@ public final class Task: NSManagedObject, Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(taskName, forKey: .taskName)
-        try container.encode(taskInfo, forKey: .taskInfo)
+        try container.encode(name, forKey: .name)
+        try container.encode(info, forKey: .info)
         try container.encode(isDone, forKey: .isDone)
         try container.encode(isImportant, forKey: .isImportant)
         try container.encode(dataCreation, forKey: .dataCreation)
         try container.encodeIfPresent(deadline, forKey: .deadline)
     }
     public func formattedDescription() -> String {
-        var description = "Задача: \(taskName)\n"
-        description += "Описание: \(taskInfo)\n"
+        var description = "Задача: \(name)\n"
+        description += "Описание: \(info)\n"
         description += "Сделано: \(isDone ? "Да" : "Нет")\n"
         description += "Важная: \(isImportant ? "Да" : "Нет")\n"
         description += "Дата создания: \(Date().formattedDeadline(dataCreation))\n"
@@ -71,7 +71,5 @@ public final class Task: NSManagedObject, Codable {
         return description
     }
 }
-
-
 
 extension Task : Identifiable {}

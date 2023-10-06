@@ -21,8 +21,8 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Create
     
-    public func createTask(taskName: String = "Без названия",
-                           taskInfo: String = "",
+    public func createTask(name: String = "Без названия",
+                           info: String = "",
                            isDone: Bool = false,
                            isImportant: Bool = false,
                            deadline: Date? = nil,
@@ -30,8 +30,8 @@ public final class CoreDataMamanager: NSObject {
         guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
         let task = Task(entity: taskEntityDescription, insertInto: context)
         task.id = UUID()
-        task.taskName = taskName
-        task.taskInfo = taskInfo
+        task.name = name
+        task.info = info
         task.isDone = isDone
         task.isImportant = isImportant
         task.deadline = deadline
@@ -44,33 +44,14 @@ public final class CoreDataMamanager: NSObject {
         guard let taskEntityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
         let copyTask = Task(entity: taskEntityDescription, insertInto: context)
         copyTask.id = UUID()
-        copyTask.taskName = task.taskName + " copy"
-        copyTask.taskInfo = task.taskInfo
+        copyTask.name = task.name + " copy"
+        copyTask.info = task.info
         copyTask.isDone = task.isDone
         copyTask.deadline = task.deadline
         copyTask.isImportant = task.isImportant
         if let _ = copyTask.deadline { scheduleNotification(for: task) }
         copyTask.dataCreation = Date.now
         appDelegate.saveContext()
-    }
-    public func saveProfileImage(_ image: UIImage? = nil) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
-        do {
-            let profiles = try? context.fetch(fetchRequest) as? [Profile]
-            var profile: Profile?
-            if profiles?.count == 0 {
-                profile = NSEntityDescription.insertNewObject(forEntityName: "Profile",
-                                                              into: context) as? Profile
-            } else {
-                profile = profiles?.first
-            }
-            if image == nil &&  profile?.photo == nil{
-                profile?.photo = App.Images.imageProfile.pngData()
-            } else if image != nil {
-                profile?.photo = image?.pngData()
-            }
-            appDelegate.saveContext()
-        }
     }
     
     // MARK: - Read
@@ -118,20 +99,11 @@ public final class CoreDataMamanager: NSObject {
             return tasks?.first(where: { $0.id == id })
         }
     }
-    public func fetchImageProfile() -> UIImage? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
-        do {
-            let profiles = try context.fetch(fetchRequest) as! [Profile]
-            let profile = profiles.first
-            return UIImage(data: profile?.photo ?? Data())
-        } catch { print(error.localizedDescription) }
-        return nil
-    }
     
     // MARK: - Update
     
-    public func updateTask(with id: UUID?, taskName: String? = nil,
-                           taskInfo: String? = nil,
+    public func updateTask(with id: UUID?, name: String? = nil,
+                           info: String? = nil,
                            isDone: Bool? = nil,
                            isImportant: Bool? = nil,
                            deadline: Date?) {
@@ -139,8 +111,8 @@ public final class CoreDataMamanager: NSObject {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         guard let tasks = try? context.fetch(fetchRequest) as? [Task],
               let task = tasks.first(where: { $0.id == id }) else { return }
-        if let taskName = taskName { task.taskName = taskName }
-        if let taskInfo = taskInfo { task.taskInfo = taskInfo }
+        if let name = name { task.name = name }
+        if let info = info { task.info = info }
         if let isDone = isDone { task.isDone = isDone }
         if let isImportant = isImportant { task.isImportant = isImportant }
         if task.deadline != deadline {
@@ -197,6 +169,37 @@ public final class CoreDataMamanager: NSObject {
         }
         appDelegate.saveContext()
     }
+}
+
+extension CoreDataMamanager {
+    public func saveProfileImage(_ image: UIImage? = nil) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
+        do {
+            let profiles = try? context.fetch(fetchRequest) as? [Profile]
+            var profile: Profile?
+            if profiles?.count == 0 {
+                profile = NSEntityDescription.insertNewObject(forEntityName: "Profile",
+                                                              into: context) as? Profile
+            } else {
+                profile = profiles?.first
+            }
+            if image == nil &&  profile?.photo == nil{
+                profile?.photo = App.Images.imageProfile.pngData()
+            } else if image != nil {
+                profile?.photo = image?.pngData()
+            }
+            appDelegate.saveContext()
+        }
+    }
+    public func fetchImageProfile() -> UIImage? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
+        do {
+            let profiles = try context.fetch(fetchRequest) as! [Profile]
+            let profile = profiles.first
+            return UIImage(data: profile?.photo ?? Data())
+        } catch { print(error.localizedDescription) }
+        return nil
+    }
     public func deleteProfilePhoto() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Profile")
         do {
@@ -208,14 +211,18 @@ public final class CoreDataMamanager: NSObject {
         appDelegate.saveContext()
     }
     
-    // TODO: - 
+}
+
+
+extension CoreDataMamanager {
+    // TODO: -
     // MARK: - Notifications
     
     private func scheduleNotification(for task: Task) {
         guard let deadline = task.deadline else { return }
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Напоминание о задаче"
-        notificationContent.body = "У вас есть задача '\(task.taskName)' с крайним сроком \(deadline)"
+        notificationContent.body = "У вас есть задача '\(task.name)' с крайним сроком \(deadline)"
         notificationContent.sound = task.isImportant ?  UNNotificationSound.defaultCritical : UNNotificationSound.default
         
         let calendar = Calendar.current

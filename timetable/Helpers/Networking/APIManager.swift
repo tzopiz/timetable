@@ -1,5 +1,5 @@
 //
-//  APIManager Timetable.swift
+//  APIManager.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 05.09.2023.
@@ -11,7 +11,6 @@ import SwiftSoup
 final class APIManager {
     static let shared = APIManager()
     private init() { }
-    
 }
 
 extension APIManager {

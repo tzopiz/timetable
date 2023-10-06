@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22158.8" systemVersion="23A5337a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22158.8" systemVersion="23B5046f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Profile" representedClassName="Profile" syncable="YES">
         <attribute name="photo" optional="YES" attributeType="Binary"/>
     </entity>
@@ -7,9 +7,9 @@
         <attribute name="dataCreation" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="info" attributeType="String"/>
         <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isImportant" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="taskInfo" attributeType="String"/>
-        <attribute name="taskName" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
     </entity>
 </model>

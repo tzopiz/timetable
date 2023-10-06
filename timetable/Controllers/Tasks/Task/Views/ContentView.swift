@@ -1,5 +1,5 @@
 //
-//  TopTitleView.swift
+//  ContentView.swift
 //  timetable
 //
 //  Created by Дмитрий Корчагин on 09.03.2023.
@@ -9,9 +9,8 @@ import UIKit
 
 final class ContentView: TTBaseView {
     
-    private let topLabel = TTLabel(fontSize: 17, textAlignment: .center)
     private let importanceLabel = TTLabel(text: "Важность: ", fontSize: 17)
-    private let deadlineLabel = TTLabel(text: "Deadline: ", fontSize: 17)
+    private let deadlineLabel = TTLabel(text: "Дедлайн: ", fontSize: 17)
     private let nameTaskField: UITextField = {
         let textField = UITextField()
         textField.font = App.Fonts.helveticaNeue(with: 17)
@@ -32,28 +31,6 @@ final class ContentView: TTBaseView {
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         return textView
-    }()
-    private let buttonSave: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = App.Colors.active
-        button.setTitle("Сохранить", for: .normal)
-        button.backgroundColor = UIColor.clear
-        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        return button
-    }()
-    private let buttonDelete: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = App.Colors.red
-        button.setTitle("Удалить", for: .normal)
-        button.backgroundColor = UIColor.clear
-        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
-        return button
-    }()
-    private let buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        return stackView
     }()
     private let settingsStackView: UIStackView = {
         let stackView = UIStackView()
@@ -106,15 +83,14 @@ final class ContentView: TTBaseView {
     private var deadline: Date?
     
     func configure(label: String,
-                   taskName: String? = "",
-                   text: String? = "",
-                   isDone: Bool,
+                   name: String? = "",
+                   info: String? = "",
+                   isDone: Bool = false,
                    importance: Bool = false,
                    deadline: Date? = nil,
-                   _ needCreate: Bool = false) {
-        self.topLabel.text = label
-        self.nameTaskField.text = taskName
-        self.taskInfoView.text = text
+                   needCreate: Bool = false) {
+        self.nameTaskField.text = name
+        self.taskInfoView.text = info
         self.isDone = isDone
         self.needCreate = needCreate
         self.importance = importance
@@ -139,16 +115,13 @@ final class ContentView: TTBaseView {
         task["deadline"] = deadline
         return task
     }
-    func addTargetButtonSave(target: Any?, action: Selector) { buttonSave.addTarget(action, action: action, for: .touchUpInside) }
-    func addTargetButtonDelete(target: Any?, action: Selector) { buttonDelete.addTarget(action, action: action, for: .touchUpInside) }
     
     @IBAction func segmentedControlChange(_ sender: UISegmentedControl) { importance = (Int16(sender.selectedSegmentIndex) != 0) }
     @IBAction func datePickerChange(parametr: UIDatePicker) { deadline = parametr.date }
     @IBAction func deadlineHandler(_ sender: UISwitch) {
         if sender.isOn {
             TTBaseView.animate(
-                withDuration: 0.4, delay: 0.2, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-                options: .curveEaseOut, animations: {
+                withDuration: 0.4, animations: {
                     self.datePicker.transform = .identity
                     self.datePicker.alpha = 1
                 }, completion: { _ in
@@ -157,8 +130,7 @@ final class ContentView: TTBaseView {
                 })
         } else {
             TTBaseView.animate(
-                withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-                options: .curveEaseOut, animations: {
+                withDuration: 0.4, animations: {
                     self.datePicker.alpha = 0
                     self.datePicker.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }, completion: { _ in
@@ -171,12 +143,7 @@ final class ContentView: TTBaseView {
 
 extension ContentView {
     override func setupViews() {
-        super.setupViews()
         setupView(mainStackView)
-        
-        buttonStackView.addArrangedSubview(buttonDelete)
-        buttonStackView.addArrangedSubview(topLabel)
-        buttonStackView.addArrangedSubview(buttonSave)
         
         settingsStackView.addArrangedSubview(importanceTask)
         settingsStackView.addArrangedSubview(deadlineTask)
@@ -188,14 +155,11 @@ extension ContentView {
         deadlineTask.addSubview(datePicker)
         deadlineTask.addSubview(switcher)
         
-        mainStackView.addArrangedSubview(buttonStackView)
         mainStackView.addArrangedSubview(nameTaskField)
         mainStackView.addArrangedSubview(taskInfoView)
         mainStackView.addArrangedSubview(settingsStackView)
     }
     override func constraintViews() {
-        super.constraintViews()
-        topLabel.anchor(centerX: centerXAnchor)
         nameTaskField.setDimensions(height: 50)
         mainStackView.anchor(top: topAnchor, paddingTop: 16,
                              left: leadingAnchor, paddingLeft: 16,
@@ -217,11 +181,8 @@ extension ContentView {
         datePicker.anchor(right: switcher.leadingAnchor, paddingRight: -16,
                           centerY: deadlineTask.centerYAnchor)
         
-        buttonSave.setDimensions(width: 88)
-        buttonDelete.setDimensions(width: 88)
     }
     override func configureAppearance() {
-        super.configureAppearance()
         self.backgroundColor = App.Colors.background
         
         segmentedControl.addTarget(self, action: #selector(segmentedControlChange), for: .valueChanged)

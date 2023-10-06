@@ -10,6 +10,7 @@ import UIKit
 final class TasksCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: TasksCell.self) }
+    weak var delegate: UICollectionViewUpdatable?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -33,12 +34,11 @@ final class TasksCell: BaseCell {
     private let buttonCheckmarkView = TTButton(with: .primary)
     
     private var task: Task?
-    var completion: (() -> ())?
     
     func configure(task: Task) {
         self.task = task
-        self.noteNameLabel.text = task.taskName
-        self.noteInfoLabel.text = task.taskInfo
+        self.noteNameLabel.text = task.name
+        self.noteInfoLabel.text = task.info
         buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
         if let deadline = task.deadline {
             deadlineLabel.isHidden = false
@@ -63,7 +63,7 @@ final class TasksCell: BaseCell {
         drawGradientTriangle(task.isImportant)
 
         noteInfoLabel.isHidden = false
-        if task.taskInfo == "" { noteInfoLabel.isHidden = true }
+        if task.info == "" { noteInfoLabel.isHidden = true }
     }
     private func drawGradientTriangle(_ needDraw: Bool) {
         if needDraw {
@@ -102,7 +102,7 @@ final class TasksCell: BaseCell {
                                           for: .normal)
         CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
         self.task = task
-        completion?()
+        self.delegate?.updateCollectionView()
     }
 }
 

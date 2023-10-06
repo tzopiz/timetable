@@ -32,7 +32,7 @@ final class ProfileCell: BaseCell {
     func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         super.configure(title: title)
         subtitle.text = UserDefaults.standard.group
-        let profileImage = CoreDataMamanager.shared.fetchImageProfile()
+        let profileImage = App.Images.imageProfile
         leftView.image = profileImage
         leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }

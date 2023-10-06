@@ -8,17 +8,27 @@
 import UIKit
 
 final class TaskController: TTBaseController {
-    private let contentView = ContentView()
-    var task: Task? = nil
-    var completion: ((Bool) -> ())?
+    
+    private let mainView = MainView()
+    weak var delegate: UICollectionViewUpdatable?
+    var task: Task
+    
+    init(with task: Task) {
+        self.task = task
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension TaskController {
     override func setupViews() {
-        view.setupView(contentView)
+        view.setupView(mainView)
     }
     override func constraintViews() {
-        contentView.anchor(top: view.topAnchor,
+        mainView.anchor(top: view.topAnchor,
                            bottom: view.bottomAnchor,
                            left: view.leadingAnchor,
                            right: view.trailingAnchor)
@@ -26,31 +36,26 @@ extension TaskController {
     override func configureAppearance() {
         super.configureAppearance()
         self.view.tintColor = App.Colors.active
-        if let task = self.task {
-            contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
-                                  taskName: task.taskName, text: task.taskInfo,
-                                  isDone: task.isDone, importance: task.isImportant, deadline: task.deadline)
-        } else { contentView.configure(label: App.Strings.newTask, isDone: false, true) }
-        contentView.addTargetButtonSave(target: self, action: #selector(saveTask))
-        contentView.addTargetButtonDelete(target: self, action: #selector(deleteTask))
+        
+        mainView.updateDelegate = delegate
+        mainView.actionDelegate = self
+        mainView.configure(with: task)
+        
+//        contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
+//                              taskName: task.taskName, text: task.taskInfo,
+//                              isDone: task.isDone, importance: task.isImportant, deadline: task.deadline)
+        
     }
 }
 
-extension TaskController {
-    @IBAction func saveTask() {
-//        let taskInfoDictionary = contentView.getTaskInfo()
-//        let taskName: String?
-//        if (taskInfoDictionary["taskName"] as? String) == "" { taskName = App.Strings.untitle }
-//        else { taskName = (taskInfoDictionary["taskName"] as? String) }
-//        print("save task")
-//        self.dismiss(animated: true)
-//        completion?(true)
-        print(#function)
-    }
-    @IBAction func deleteTask() {
-//        CoreDataMamanager.shared.deletaTask(with: self.task?.id)
-//        self.dismiss(animated: true)
-//        completion?(false)
-        print(#function)
+// MARK: - CustomViewActionDelegate
+
+protocol CustomViewActionDelegate: AnyObject {
+    func didTapDismissButton(completion: @escaping () -> Void)
+}
+
+extension TaskController: CustomViewActionDelegate {
+    func didTapDismissButton(completion: @escaping () -> Void) {
+        dismiss(animated: true) { completion() }
     }
 }
