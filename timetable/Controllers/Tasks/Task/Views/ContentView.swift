@@ -11,27 +11,7 @@ final class ContentView: TTBaseView {
     
     private let importanceLabel = TTLabel(text: "Важность: ", fontSize: 17)
     private let deadlineLabel = TTLabel(text: "Дедлайн: ", fontSize: 17)
-    private let nameTaskField: UITextField = {
-        let textField = UITextField()
-        textField.font = App.Fonts.helveticaNeue(with: 17)
-        textField.textColor = App.Colors.title
-        textField.placeholder = App.Strings.newTask
-        textField.backgroundColor = App.Colors.BlackWhite
-        textField.layer.cornerRadius = 10
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
-        textField.leftViewMode = .always
-        return textField
-    }()
-    private let taskInfoView: UITextView = {
-        let textView = UITextView()
-        textView.font = App.Fonts.helveticaNeue(with: 17)
-        textView.textColor = App.Colors.title
-        textView.text = ""
-        textView.backgroundColor = App.Colors.BlackWhite
-        textView.layer.cornerRadius = 10
-        textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        return textView
-    }()
+    
     private let settingsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -89,8 +69,6 @@ final class ContentView: TTBaseView {
                    importance: Bool = false,
                    deadline: Date? = nil,
                    needCreate: Bool = false) {
-        self.nameTaskField.text = name
-        self.taskInfoView.text = info
         self.isDone = isDone
         self.needCreate = needCreate
         self.importance = importance
@@ -107,8 +85,6 @@ final class ContentView: TTBaseView {
     }
     func getTaskInfo() -> [String: Any] {
         var task: [String: Any] = [:]
-        task["taskName"] = nameTaskField.text
-        task["taskInfo"] = taskInfoView.text
         task["isDone"] = isDone
         task["importance"] = importance
         task["needCreate"] = needCreate
@@ -155,16 +131,13 @@ extension ContentView {
         deadlineTask.addSubview(datePicker)
         deadlineTask.addSubview(switcher)
         
-        mainStackView.addArrangedSubview(nameTaskField)
-        mainStackView.addArrangedSubview(taskInfoView)
         mainStackView.addArrangedSubview(settingsStackView)
     }
     override func constraintViews() {
-        nameTaskField.setDimensions(height: 50)
         mainStackView.anchor(top: topAnchor, paddingTop: 16,
                              left: leadingAnchor, paddingLeft: 16,
                              right: trailingAnchor, paddingRight: -16)
-        taskInfoView.setDimensions(height: 200)
+
         
         importanceTask.setDimensions(height: 50)
         segmentedControl.anchor(right: settingsStackView.trailingAnchor, paddingRight: -16,

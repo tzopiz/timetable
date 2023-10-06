@@ -127,3 +127,15 @@ extension TTBaseController {
     func navBarLeftButtonHandler() { }
     func navBarRightButtonHandler() { }
 }
+
+// MARK: - UICollectionViewUpdatable
+
+protocol UICollectionViewUpdatable: AnyObject {
+    func updateCollectionView()
+}
+
+extension TTBaseController: UICollectionViewUpdatable {
+    func updateCollectionView() {
+        DispatchQueue.main.async { self.collectionView.reloadData() }
+    }
+}

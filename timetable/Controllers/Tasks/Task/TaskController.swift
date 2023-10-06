@@ -28,10 +28,10 @@ extension TaskController {
         view.setupView(mainView)
     }
     override func constraintViews() {
-        mainView.anchor(top: view.topAnchor,
-                           bottom: view.bottomAnchor,
-                           left: view.leadingAnchor,
-                           right: view.trailingAnchor)
+        mainView.anchor(top: view.topAnchor, paddingTop: 16,
+                        bottom: view.bottomAnchor, paddingBottom: -16,
+                        left: view.leadingAnchor, paddingLeft: 16,
+                        right: view.trailingAnchor, paddingRight: -16)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -40,10 +40,6 @@ extension TaskController {
         mainView.updateDelegate = delegate
         mainView.actionDelegate = self
         mainView.configure(with: task)
-        
-//        contentView.configure(label: task.isDone ? App.Strings.completeTask : App.Strings.activeTask,
-//                              taskName: task.taskName, text: task.taskInfo,
-//                              isDone: task.isDone, importance: task.isImportant, deadline: task.deadline)
         
     }
 }

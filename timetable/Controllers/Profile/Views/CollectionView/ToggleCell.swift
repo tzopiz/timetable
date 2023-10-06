@@ -10,7 +10,7 @@ import UIKit
 final class ToggleCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: ToggleCell.self) }
     private let switcher = UISwitch()
-    var completion: (() -> ())?
+    weak var delegate: UICollectionViewUpdatable?
 }
 
 extension ToggleCell {
@@ -20,8 +20,7 @@ extension ToggleCell {
     }
     override func constraintViews() {
         super.constraintViews()
-        switcher.anchor(right: trailingAnchor, paddingRight: -20,
-                        centerY: centerYAnchor)
+        switcher.anchor(right: trailingAnchor, paddingRight: -20, centerY: centerYAnchor)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -41,7 +40,7 @@ extension ToggleCell {
                 UserDefaults.standard.cachingTimetable = sender.isOn
                 let cacheManager = DataCacheManager()
                 cacheManager.clearCache()
-                self.completion?()
+                self.delegate?.updateCollectionView()
             }))
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let window = windowScenes?.windows.first

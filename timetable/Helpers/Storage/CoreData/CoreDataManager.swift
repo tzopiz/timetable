@@ -150,7 +150,7 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Delete
     
-    public func deletaAllTask() {
+    public func deletaAllTasks() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             let tasks = try? context.fetch(fetchRequest) as? [Task]

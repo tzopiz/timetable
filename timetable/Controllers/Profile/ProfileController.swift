@@ -54,10 +54,6 @@ final class ProfileController: TTBaseController {
 }
 
 extension ProfileController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.reloadData()
-    }
     override func setupViews() {
         super.setupViews()
         collectionView.addSubview(versionLabel)
@@ -120,9 +116,7 @@ extension ProfileController {
                                                                 for: indexPath) as? ToggleCell else
             { return UICollectionViewCell() }
             cell.configure(title: item.title)
-            cell.completion = { [weak self] in
-                self?.collectionView.reloadData()
-            }
+            cell.delegate = self
             return cell
         case .clearCache:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CacheInfoCell.reuseIdentifier,

@@ -31,34 +31,41 @@ final class MainView: TTBaseView {
         stackView.spacing = 8
         return stackView
     }()
-    /*
-     private let infoView (name, info)
-     private let fieldView (isImportant, isDone, deadline)
-     */
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    private let taskInfoView = TaskInfoView()
+    //    private let fieldsView (isImportant, isDone, deadline)
     
     weak var updateDelegate: UICollectionViewUpdatable?
     weak var actionDelegate: CustomViewActionDelegate?
     func configure(with task: Task?) {
         guard let task = task else { return }
         self.topLabel.text = "Задача"
-        
+        taskInfoView.configure(name: task.name, info: task.info)
     }
 }
 
 extension MainView {
     override func setupViews() {
-        setupView(buttonStackView)
+        setupView(mainStackView)
         
         buttonStackView.addArrangedSubview(buttonDelete)
         buttonStackView.addArrangedSubview(topLabel)
         buttonStackView.addArrangedSubview(buttonSave)
+        
+        mainStackView.addArrangedSubview(buttonStackView)
+        mainStackView.addArrangedSubview(taskInfoView)
+        //        mainStackView.addArrangedSubview(fieldsView)
     }
     
     override func constraintViews() {
         topLabel.anchor(centerX: centerXAnchor)
-        buttonStackView.anchor(top: topAnchor, paddingTop: 16,
-                               left: leadingAnchor, paddingLeft: 32,
-                               right: trailingAnchor, paddingRight: -32)
+        mainStackView.anchor(top: topAnchor, bottom: bottomAnchor,
+                             left: leadingAnchor, right: trailingAnchor)
         buttonStackView.setDimensions(height: 30)
         
         buttonSave.setDimensions(width: 88)
@@ -80,6 +87,7 @@ extension MainView {
         }
     }
     @IBAction func deleteTask() {
+//        CoreDataMamanager.shared.deletaAllTasks()
         actionDelegate?.didTapDismissButton {
             print(#function)
             self.updateDelegate?.updateCollectionView()

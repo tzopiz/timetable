@@ -66,6 +66,7 @@
 		0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */; };
 		0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */; };
 		0AD936312AD07D9900FA5022 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD936302AD07D9900FA5022 /* MainView.swift */; };
+		0AD936332AD0B18E00FA5022 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */; };
 		37FEA58FBFE9E29BB0BAF621 /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +152,7 @@
 		0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
 		0AD936302AD07D9900FA5022 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
 		1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB1F17F90B6400C8B936EBE /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
 		6E58B7D905720E602C4B63CF /* Pods-timetable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.release.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.release.xcconfig"; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				0A8D33BF2AD0555A005B20EF /* ContentView.swift */,
+				0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */,
 				0AD936302AD07D9900FA5022 /* MainView.swift */,
 			);
 			path = Views;
@@ -778,6 +781,7 @@
 				0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */,
 				0AC82F782A894A2800E67D4F /* Resources + ext Image.swift in Sources */,
 				0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */,
+				0AD936332AD0B18E00FA5022 /* TaskInfoView.swift in Sources */,
 				0A9FA52D2AA77B0A004EF8B6 /* APIManager.swift in Sources */,
 				0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */,
 				0AC82F762A8949C100E67D4F /* Resources + ext String.swift in Sources */,

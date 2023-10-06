@@ -41,11 +41,9 @@ extension TasksController {
                 let title = taskSortKey.title
                 
                 let action = UIAction(title: title, handler: { [self] _ in
-                    DispatchQueue.main.async {
-                        UserDefaults.standard.taskSortKey = taskSortKey
-                        self.taskSortKey = UserDefaults.standard.taskSortKey
-                        self.collectionView.reloadData()
-                    }
+                    UserDefaults.standard.taskSortKey = taskSortKey
+                    self.taskSortKey = UserDefaults.standard.taskSortKey
+                    updateCollectionView()
                 })
                 
                 actions.append(action)
@@ -58,9 +56,16 @@ extension TasksController {
         
     }
     override func navBarRightButtonHandler() {
-        CoreDataMamanager.shared.createTask { [weak self] task in
+        CoreDataMamanager.shared.createTask(name: "Some Name",
+                                            info: "some info about this task \n....",
+                                            isDone: Bool.random(),
+                                            isImportant: Bool.random()) { [weak self] task in
             guard let self = self else { return }
             let newtask = task
+            newtask.name = "Some name"
+            newtask.info = "task info ..."
+            newtask.isImportant = Bool.random()
+            newtask.isDone = Bool.random()
             let taskVC = TaskController(with: newtask)
             taskVC.delegate = self
             self.present(taskVC, animated: true)
@@ -144,16 +149,4 @@ extension TasksController {
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int)
     -> CGSize { CGSize(width: 0, height: 0) }
-}
-
-// MARK: - UICollectionViewUpdatable
-
-protocol UICollectionViewUpdatable: AnyObject {
-    func updateCollectionView()
-}
-
-extension TasksController: UICollectionViewUpdatable {
-    func updateCollectionView() {
-        DispatchQueue.main.async { self.collectionView.reloadData() }
-    }
 }
