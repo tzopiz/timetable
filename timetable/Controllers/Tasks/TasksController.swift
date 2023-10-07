@@ -46,29 +46,24 @@ extension TasksController {
                     updateCollectionView()
                 })
                 
+                if self.taskSortKey == taskSortKey { action.state = .on } // ставим галочку у текущей
+                
                 actions.append(action)
             }
             return actions
         }()
-        menuButton.menu = UIMenu(title: "Сортировка", options: .displayInline, children: taskSortKeyActions)
+        
+        menuButton.menu = UIMenu(title: "Сортировка", options: .singleSelection, children: taskSortKeyActions)
         menuButton.showsMenuAsPrimaryAction = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
         
     }
     override func navBarRightButtonHandler() {
-        CoreDataMamanager.shared.createTask(name: "Some Name",
-                                            info: "some info about this task \n....",
-                                            isDone: Bool.random(),
-                                            isImportant: Bool.random()) { [weak self] task in
+        CoreDataMamanager.shared.createTask { [weak self] task  in
             guard let self = self else { return }
-            let newtask = task
-            newtask.name = "Some name"
-            newtask.info = "task info ..."
-            newtask.isImportant = Bool.random()
-            newtask.isDone = Bool.random()
-            let taskVC = TaskController(with: newtask)
+            let taskVC = TaskController(with: task)
             taskVC.delegate = self
-            self.present(taskVC, animated: true)
+            navigationController?.pushViewController(taskVC, animated: true)
         }
     }
 }
@@ -91,7 +86,7 @@ extension TasksController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
         let taskVC = TaskController(with: task)
-        present(taskVC, animated: true)
+        navigationController?.pushViewController(taskVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,

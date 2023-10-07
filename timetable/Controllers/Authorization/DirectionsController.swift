@@ -18,6 +18,7 @@ extension DirectionsController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        title = "Направления"
         
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         collectionView.register(SectionView.self,

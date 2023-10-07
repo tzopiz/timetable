@@ -19,9 +19,11 @@ public final class CoreDataMamanager: NSObject {
     private var appDelegate: AppDelegate { UIApplication.shared.delegate as! AppDelegate }
     private var context: NSManagedObjectContext { appDelegate.persistentContainer.viewContext }
     
+    public func save() { appDelegate.saveContext() }
+    
     // MARK: - Create
     
-    public func createTask(name: String = "Без названия",
+    public func createTask(name: String = "",
                            info: String = "",
                            isDone: Bool = false,
                            isImportant: Bool = false,
@@ -37,7 +39,7 @@ public final class CoreDataMamanager: NSObject {
         task.deadline = deadline
         task.dataCreation = Date.now
         if let _ = task.deadline { scheduleNotification(for: task) }
-        appDelegate.saveContext()
+        save()
         completion(task)
     }
     public func createDuplicate(of task: Task) {
@@ -51,7 +53,7 @@ public final class CoreDataMamanager: NSObject {
         copyTask.isImportant = task.isImportant
         if let _ = copyTask.deadline { scheduleNotification(for: task) }
         copyTask.dataCreation = Date.now
-        appDelegate.saveContext()
+        save()
     }
     
     // MARK: - Read
@@ -102,12 +104,11 @@ public final class CoreDataMamanager: NSObject {
     
     // MARK: - Update
     
-    public func updateTask(with id: UUID?, name: String? = nil,
+    public func updateTask(with id: UUID, name: String? = nil,
                            info: String? = nil,
                            isDone: Bool? = nil,
                            isImportant: Bool? = nil,
-                           deadline: Date?) {
-        guard let id = id else { return }
+                           deadline: Date? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         guard let tasks = try? context.fetch(fetchRequest) as? [Task],
               let task = tasks.first(where: { $0.id == id }) else { return }
@@ -120,7 +121,7 @@ public final class CoreDataMamanager: NSObject {
             task.deadline = deadline
             if let _ = task.deadline { scheduleNotification(for: task) }
         }
-        appDelegate.saveContext() // Сохранить изменения в Core Data
+        save() // Сохранить изменения в Core Data
     }
     
     public func updataTypeTask(with id: UUID?, isDone: Bool) {
@@ -131,7 +132,7 @@ public final class CoreDataMamanager: NSObject {
                   let task = tasks.first(where: { $0.id == id }) else { return }
             task.isDone = isDone
         }
-        appDelegate.saveContext()
+        save()
     }
     public func updataDeadlineTask(with id: UUID?, deadline: Date?) {
         guard let id = id else { return }
@@ -145,20 +146,20 @@ public final class CoreDataMamanager: NSObject {
                 if let _ = task.deadline { scheduleNotification(for: task) }
             }
         }
-        appDelegate.saveContext()
+        save()
     }
     
     // MARK: - Delete
     
-    public func deletaAllTasks() {
+    public func deleteAllTasks() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
             let tasks = try? context.fetch(fetchRequest) as? [Task]
             tasks?.forEach { context.delete($0) }
         }
-        appDelegate.saveContext()
+        save()
     }
-    public func deletaTask(with id: UUID?) {
+    public func deleteTask(with id: UUID?) {
         guard let id = id else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         do {
@@ -167,7 +168,7 @@ public final class CoreDataMamanager: NSObject {
             deleteNotification(for: task)
             context.delete(task)
         }
-        appDelegate.saveContext()
+        save()
     }
 }
 
@@ -188,7 +189,7 @@ extension CoreDataMamanager {
             } else if image != nil {
                 profile?.photo = image?.pngData()
             }
-            appDelegate.saveContext()
+            save()
         }
     }
     public func fetchImageProfile() -> UIImage? {
@@ -208,7 +209,7 @@ extension CoreDataMamanager {
             let pngImage = App.Images.imageProfile.pngData()
             profile.photo = pngImage
         }
-        appDelegate.saveContext()
+        save()
     }
     
 }

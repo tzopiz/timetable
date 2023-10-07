@@ -18,9 +18,9 @@ public final class Task: NSManagedObject, Codable {
         case name
         case info
         case isDone
+        case deadline
         case isImportant
         case dataCreation
-        case deadline
     }
     @NSManaged public var id: UUID
     @NSManaged public var name: String
@@ -64,9 +64,7 @@ public final class Task: NSManagedObject, Codable {
         description += "Важная: \(isImportant ? "Да" : "Нет")\n"
         description += "Дата создания: \(Date().formattedDeadline(dataCreation))\n"
         
-        if let deadline = deadline {
-            description += "Дедлайн: \(Date().formattedDeadline(deadline))\n"
-        }
+        if let deadline = deadline { description += "Дедлайн: \(Date().formattedDeadline(deadline))\n" }
         
         return description
     }

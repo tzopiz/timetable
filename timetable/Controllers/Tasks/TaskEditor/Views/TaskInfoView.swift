@@ -7,12 +7,12 @@
 
 import UIKit
 
-class TaskInfoView: TTBaseView {
+final class TaskInfoView: TTBaseView {
     private let nameTaskField: UITextField = {
         let textField = UITextField()
         textField.font = App.Fonts.HelveticaNeueBold(with: 21)
         textField.textColor = App.Colors.title
-        textField.placeholder = App.Strings.newTask
+        textField.placeholder = App.Strings.untitle
         textField.backgroundColor = App.Colors.background
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftViewMode = .always
@@ -35,11 +35,16 @@ class TaskInfoView: TTBaseView {
         self.nameTaskField.text = name
         self.taskInfoView.text = info
     }
+    func retrieveData() -> (name: String, info: String) {
+        let name = nameTaskField.text ?? App.Strings.untitle
+        return (name.count > 0 ? name : App.Strings.untitle, taskInfoView.text)
+    }
 }
+
+// MARK: - Configure
 
 extension TaskInfoView {
     override func setupViews() {
-        
         setupView(stackView)
         
         stackView.addArrangedSubview(nameTaskField)
@@ -50,8 +55,5 @@ extension TaskInfoView {
                          left: leadingAnchor, paddingLeft: 0,
                          right: trailingAnchor, paddingRight: -0)
         nameTaskField.setDimensions(height: 50)
-        
-    }
-    override func configureAppearance() {
     }
 }

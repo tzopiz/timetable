@@ -22,7 +22,6 @@
 		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
 		0A8D33C22AD0555A005B20EF /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D33BD2AD0555A005B20EF /* TaskController.swift */; };
-		0A8D33C32AD0555A005B20EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D33BF2AD0555A005B20EF /* ContentView.swift */; };
 		0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27D2A63C6A800F4947D /* DirectionsController.swift */; };
 		0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27F2A63F12600F4947D /* GroupsController.swift */; };
 		0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A2812A64172E00F4947D /* ModelAuth.swift */; };
@@ -65,7 +64,6 @@
 		0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA529C6620300B3D6AC /* Date + ext.swift */; };
 		0ACC4EC729C6620300B3D6AC /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */; };
 		0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */; };
-		0AD936312AD07D9900FA5022 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD936302AD07D9900FA5022 /* MainView.swift */; };
 		0AD936332AD0B18E00FA5022 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */; };
 		37FEA58FBFE9E29BB0BAF621 /* Pods_timetable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */; };
 /* End PBXBuildFile section */
@@ -103,7 +101,6 @@
 		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
 		0A8D33BD2AD0555A005B20EF /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
-		0A8D33BF2AD0555A005B20EF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0A98A27D2A63C6A800F4947D /* DirectionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsController.swift; sourceTree = "<group>"; };
 		0A98A27F2A63F12600F4947D /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
 		0A98A2812A64172E00F4947D /* ModelAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAuth.swift; sourceTree = "<group>"; };
@@ -151,7 +148,6 @@
 		0ACC4EA529C6620300B3D6AC /* Date + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date + ext.swift"; sourceTree = "<group>"; };
 		0ACC4EA629C6620300B3D6AC /* UIColor + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
-		0AD936302AD07D9900FA5022 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
 		1ABDEC79CC5612E7D4C2BF44 /* Pods_timetable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timetable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB1F17F90B6400C8B936EBE /* Pods-timetable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timetable.debug.xcconfig"; path = "Target Support Files/Pods-timetable/Pods-timetable.debug.xcconfig"; sourceTree = "<group>"; };
@@ -278,21 +274,19 @@
 			path = PhotoProfile;
 			sourceTree = "<group>";
 		};
-		0A8D33B72AD0555A005B20EF /* Task */ = {
+		0A8D33B72AD0555A005B20EF /* TaskEditor */ = {
 			isa = PBXGroup;
 			children = (
 				0A8D33BE2AD0555A005B20EF /* Views */,
 				0A8D33BD2AD0555A005B20EF /* TaskController.swift */,
 			);
-			path = Task;
+			path = TaskEditor;
 			sourceTree = "<group>";
 		};
 		0A8D33BE2AD0555A005B20EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A8D33BF2AD0555A005B20EF /* ContentView.swift */,
 				0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */,
-				0AD936302AD07D9900FA5022 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				0AA605A92A8AC290008C4A6B /* CollectionView */,
-				0A8D33B72AD0555A005B20EF /* Task */,
+				0A8D33B72AD0555A005B20EF /* TaskEditor */,
 				0AA605A42A8AC290008C4A6B /* TasksController.swift */,
 			);
 			path = Tasks;
@@ -786,9 +780,7 @@
 				0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */,
 				0AC82F762A8949C100E67D4F /* Resources + ext String.swift in Sources */,
 				0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */,
-				0A8D33C32AD0555A005B20EF /* ContentView.swift in Sources */,
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
-				0AD936312AD07D9900FA5022 /* MainView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,
 				0ACC4EAD29C6620300B3D6AC /* AppDelegate.swift in Sources */,
 				0ACC4EC529C6620300B3D6AC /* UserDefaults + ext.swift in Sources */,

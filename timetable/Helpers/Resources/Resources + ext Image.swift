@@ -48,6 +48,9 @@ extension App {
         static let vk_icon = #imageLiteral(resourceName: "vk_icon")
         static let tg_icon = #imageLiteral(resourceName: "tg_icon")
         static let github_icon = #imageLiteral(resourceName: "github_icon")
+        
+        static let isImportant = UIImage(systemName: "star.fill")
+        static let NotIsImportant = UIImage(systemName: "star")
     }
 }
 

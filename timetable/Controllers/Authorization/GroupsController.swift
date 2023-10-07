@@ -23,8 +23,8 @@ final class GroupsController: TTBaseController {
 extension GroupsController {
     override func configureAppearance() {
         super.configureAppearance()
-        navigationItem.title = ""
         navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        title = ""
         
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         collectionView.register(HeaderWithButtonView.self,
