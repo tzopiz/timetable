@@ -19,6 +19,7 @@ final class TaskController: TTBaseController {
     private var taskInfoView = TaskInfoView()
     
     private var importanceChangeItem: UIBarButtonItem?
+    private var isDelete: Bool = false
     weak var delegate: UICollectionViewUpdatable?
     var task: Task
     
@@ -73,10 +74,13 @@ extension TaskController {
 
 extension TaskController {
     private func updateTask() {
-        let (newName, newInfo) = taskInfoView.retrieveData()
-        self.task.name = newName
-        self.task.info = newInfo
-        CoreDataMamanager.shared.save()
+        if !isDelete {
+            let (newName, newInfo) = taskInfoView.retrieveData()
+            
+            self.task.name = newName
+            self.task.info = newInfo
+            CoreDataMamanager.shared.save()
+        }
     }
     private func menuActions() -> [UIAction] {
         let actionCopy = UIAction(title: "Копировать", image: UIImage(systemName: "doc.on.doc")) { _ in
@@ -97,8 +101,14 @@ extension TaskController {
             
             self.present(alertController, animated: true)
         }
-        let actionNotification = UIAction(title: "Уведомление", image: UIImage(systemName: "bell.slash")) { _ in
-            print("actionNotification")
+        let actionNotification = UIAction(title: "Уведомление", image: UIImage(systemName: "bell")) { _ in
+            if self.task.deadline == nil {
+                let calendar = Calendar.current
+                let deadline = calendar.date(byAdding: .day, value: Int.random(in: 0...5), to: Date())
+                CoreDataMamanager.shared.updataDeadlineTask(with: self.task.id, deadline: deadline)
+            } else {
+                CoreDataMamanager.shared.updataDeadlineTask(with: self.task.id, deadline: nil)
+            }
         }
         let actionDelete = UIAction(title: "Удалить", image: UIImage(systemName: "trash")) { _ in
             let alertController = UIAlertController(title: "Подтверждение",
@@ -109,6 +119,7 @@ extension TaskController {
             
             let confirmAction = UIAlertAction(title: "Да", style: .default) { _ in
                 CoreDataMamanager.shared.deleteTask(with: self.task.id)
+                self.isDelete = true
                 self.navigationController?.popViewController(animated: true)
             }
             

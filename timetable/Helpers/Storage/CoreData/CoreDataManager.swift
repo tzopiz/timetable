@@ -211,18 +211,23 @@ extension CoreDataMamanager {
         }
         save()
     }
-    
 }
 
 
 extension CoreDataMamanager {
-    // TODO: -
+    // TODO: - (нужны push'ы ???)
+    /**
+     * уведомления с помощью UNUserNotificationCenter не сохраняются между сессиями
+     * поэтому надо бы исопльзвать CoreDara для хранния списка увемлений
+     * но тогда вопрос, как их отправлять, если приложения не активно(?)
+     * Либо использовать пуши но я пока не знаю как(KEKW)
+     */
     // MARK: - Notifications
     
     private func scheduleNotification(for task: Task) {
         guard let deadline = task.deadline else { return }
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "Напоминание о задаче"
+        notificationContent.title = "timetable"
         notificationContent.body = "У вас есть задача '\(task.name)' с крайним сроком \(deadline)"
         notificationContent.sound = task.isImportant ?  UNNotificationSound.defaultCritical : UNNotificationSound.default
         
