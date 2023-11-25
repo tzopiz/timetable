@@ -51,17 +51,10 @@ extension UIView {
             .touchCancel
         ])
     }
+    
     @IBAction func handleIn() { UIView.animate(withDuration: 0.15) { self.alpha = 0.55 } }
     @IBAction func handleOut() { UIView.animate(withDuration: 0.15) { self.alpha = 1 } }
-    func roundCorners(with borderLayer: inout CAShapeLayer, _ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds,
-                                byRoundingCorners: corners,
-                                cornerRadii: CGSize(width: radius, height: radius))
-        borderLayer.frame = bounds
-        borderLayer.path = path.cgPath
-        borderLayer.strokeColor = UIColor.clear.cgColor
-        borderLayer.lineWidth = 1
-    }
+
     func addTapGesture(tapNumber: Int, target: Any, action: Selector) {
         let tap = UITapGestureRecognizer(target: target, action: action)
         tap.numberOfTapsRequired = tapNumber

@@ -21,7 +21,6 @@
 		0A5B8A6429D8DCBC00966EAC /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B8A6229D8DCBC00966EAC /* Profile+CoreDataProperties.swift */; };
 		0A5BC6342A8238A600A809B5 /* ScheduleNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5BC6332A8238A600A809B5 /* ScheduleNavigatorView.swift */; };
 		0A71EAB329D6E19600C13723 /* Bundle + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB229D6E19600C13723 /* Bundle + ext.swift */; };
-		0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */; };
 		0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */; };
 		0A8D33C22AD0555A005B20EF /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D33BD2AD0555A005B20EF /* TaskController.swift */; };
 		0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98A27D2A63C6A800F4947D /* DirectionsController.swift */; };
@@ -112,7 +111,6 @@
 		0A5B8A6229D8DCBC00966EAC /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A5BC6332A8238A600A809B5 /* ScheduleNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNavigatorView.swift; sourceTree = "<group>"; };
 		0A71EAB229D6E19600C13723 /* Bundle + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle + ext.swift"; sourceTree = "<group>"; };
-		0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + ext.swift"; sourceTree = "<group>"; };
 		0A8D33BD2AD0555A005B20EF /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		0A98A27D2A63C6A800F4947D /* DirectionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsController.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4EA729C6620300B3D6AC /* UIView + ext.swift */,
-				0A71EAB429D6E1AF00C13723 /* UIImage + ext.swift */,
 				0A71EAB829D700BC00C13723 /* UIWindow + ext.swift */,
 			);
 			path = UIComponents;
@@ -353,6 +350,7 @@
 		0AA7D41A2B1172D800AA856D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0ACC4EA229C6620300B3D6AC /* Resources.swift */,
 				0AA7D41D2B1184C900AA856D /* Roboto */,
 				0AA7D4192B11714600AA856D /* Generated */,
 			);
@@ -376,14 +374,6 @@
 				0AA7D4292B1184C900AA856D /* Roboto-Black.ttf */,
 			);
 			path = Roboto;
-			sourceTree = "<group>";
-		};
-		0AC82F792A894A6700E67D4F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC4EA229C6620300B3D6AC /* Resources.swift */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		0ACC4E3229C660CE00B3D6AC = {
@@ -594,7 +584,6 @@
 				0A1A69782A6511AA003FFECB /* Storage */,
 				0A58D5E829D4DD4800EE17EA /* Networking */,
 				0ACC4EA429C6620300B3D6AC /* Extensions */,
-				0AC82F792A894A6700E67D4F /* Resources */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -769,7 +758,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		0AA7D4182B116FD200AA856D /* R.swift generate */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -781,7 +770,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/timetable/Resources/Generated/R.generated.swift\"\n";
 		};
@@ -856,7 +845,6 @@
 				0A8D33C22AD0555A005B20EF /* TaskController.swift in Sources */,
 				0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */,
 				0AA605802A8A8D4A008C4A6B /* CacheInfoCell.swift in Sources */,
-				0A71EAB529D6E1AF00C13723 /* UIImage + ext.swift in Sources */,
 				0A98A2802A63F12600F4947D /* GroupsController.swift in Sources */,
 				0ACC4EC329C6620300B3D6AC /* TTButton.swift in Sources */,
 				0AC82F722A893EF300E67D4F /* ImageViewCell.swift in Sources */,

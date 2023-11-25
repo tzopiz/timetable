@@ -7,25 +7,14 @@
 
 import UIKit
 import CoreData
-import UserNotifications
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    private let notificationCenter = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)
-    -> Bool {
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            guard granted else { return }
-            self.notificationCenter.getNotificationSettings { settings in
-                guard settings.authorizationStatus == .authorized else { return }
-            }
-        }
-        notificationCenter.delegate = self
-        return true
-    }
+    -> Bool { true }
     
     // MARK: - UISceneSession Lifecycle
     
@@ -57,18 +46,5 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.sound, .banner])
-    }
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
     }
 }

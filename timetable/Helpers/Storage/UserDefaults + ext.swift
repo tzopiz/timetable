@@ -20,7 +20,7 @@ extension UserDefaults {
         get { UserDefaults.standard.string(forKey: "currentGorp") ?? "select a group" }
         set { UserDefaults.standard.set(newValue, forKey: "currentGorp") }
     }
-    var link: String { // https://timetable.spbu.ru
+    var link: String { /// https://timetable.spbu.ru
         get { UserDefaults.standard.string(forKey: "link") ?? "" }
         set { UserDefaults.standard.set(newValue, forKey: "link") }
     }

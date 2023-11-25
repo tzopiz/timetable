@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import UserNotifications
 
 // MARK: - CRUD
 
@@ -38,7 +37,6 @@ public final class CoreDataMamanager: NSObject {
         task.isImportant = isImportant
         task.deadline = deadline
         task.dataCreation = Date.now
-        if let _ = task.deadline { scheduleNotification(for: task) }
         save()
         completion(task)
     }
@@ -51,7 +49,6 @@ public final class CoreDataMamanager: NSObject {
         copyTask.isDone = task.isDone
         copyTask.deadline = task.deadline
         copyTask.isImportant = task.isImportant
-        if let _ = copyTask.deadline { scheduleNotification(for: task) }
         copyTask.dataCreation = Date.now
         save()
     }
@@ -116,12 +113,8 @@ public final class CoreDataMamanager: NSObject {
         if let info = info { task.info = info }
         if let isDone = isDone { task.isDone = isDone }
         if let isImportant = isImportant { task.isImportant = isImportant }
-        if task.deadline != deadline {
-            deleteNotification(for: task)
-            task.deadline = deadline
-            if let _ = task.deadline { scheduleNotification(for: task) }
-        }
-        save() // Сохранить изменения в Core Data
+        task.deadline = deadline
+        save()
     }
     
     public func updataTypeTask(with id: UUID?, isDone: Bool) {
@@ -140,11 +133,7 @@ public final class CoreDataMamanager: NSObject {
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id }) else { return }
-            if deadline != task.deadline {
-                deleteNotification(for: task)
-                task.deadline = deadline
-                if let _ = task.deadline { scheduleNotification(for: task) }
-            }
+            task.deadline = deadline
         }
         save()
     }
@@ -165,7 +154,6 @@ public final class CoreDataMamanager: NSObject {
         do {
             guard let tasks = try? context.fetch(fetchRequest) as? [Task],
                   let task = tasks.first(where: { $0.id == id}) else { return }
-            deleteNotification(for: task)
             context.delete(task)
         }
         save()
@@ -209,39 +197,12 @@ extension CoreDataMamanager {
     }
 }
 
+// MARK: - Notifications
 
-extension CoreDataMamanager {
-    // TODO: - (нужны push'ы ???)
-    /**
-     * уведомления с помощью UNUserNotificationCenter не сохраняются между сессиями
-     * поэтому надо бы исопльзвать CoreDara для хранния списка увемлений
-     * но тогда вопрос, как их отправлять, если приложения не активно(?)
-     * Либо использовать пуши но я пока не знаю как(KEKW)
-     */
-    // MARK: - Notifications
-    
-    private func scheduleNotification(for task: Task) {
-        guard let deadline = task.deadline else { return }
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "timetable"
-        notificationContent.body = "У вас есть задача '\(task.name)' с крайним сроком \(deadline)"
-        notificationContent.sound = task.isImportant ?  UNNotificationSound.defaultCritical : UNNotificationSound.default
-        
-        let calendar = Calendar.current
-        let notificationDate = calendar.date(byAdding: .day, value: -1, to: deadline)
-        
-        let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate!)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
-        let notificationRequest = UNNotificationRequest(identifier: task.id.uuidString, content: notificationContent, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(notificationRequest) { error in
-            if let error = error { print("Ошибка при планировании уведомления: \(error)") }
-            else { print("Уведомление успешно запланировано") }
-        }
-    }
-    private func deleteNotification(for task: Task) {
-        let identifier = task.id.uuidString
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-    }
-}
+// TODO: - (нужны push'ы ???)
+/**
+ * уведомления с помощью UNUserNotificationCenter не сохраняются между сессиями
+ * поэтому надо бы исопльзвать CoreDara для хранния списка увемлений
+ * но тогда вопрос, как их отправлять, если приложения не активно(?)
+ * Либо использовать пуши но я пока не знаю как(KEKW)
+ */
