@@ -25,7 +25,7 @@ class DataPickerController: TTBaseController {
 
 extension DataPickerController {
     override func setupViews() {
-        view.setupView(dataPicker)
+        view.addSubview(dataPicker)
         view.insertSubview(swipeAreaView, belowSubview: dataPicker)
     }
     override func layoutViews() {

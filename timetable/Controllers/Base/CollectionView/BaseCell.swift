@@ -35,14 +35,14 @@ class BaseCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
 }
 
@@ -50,17 +50,17 @@ class BaseCell: UICollectionViewCell {
 extension BaseCell {
     /// set up subview on cell
     func setupViews() {
-        contentView.setupView(stackInfoView)
+        contentView.addSubview(stackInfoView)
         stackInfoView.addArrangedSubview(title)
     }
     /// add constaraints to subviews
-    func constraintViews() {
+    func layoutViews() {
         stackInfoView.anchor(top: contentView.topAnchor, bottom: contentView.bottomAnchor,
                              left: contentView.leadingAnchor, paddingLeft: 16,
                              right: contentView.trailingAnchor, paddingRight: -16)
     }
     /// configre appearence subviews
-    func configureAppearance() {
+    func configureViews() {
         self.backgroundColor = R.color.blackWhite()
     }
 }

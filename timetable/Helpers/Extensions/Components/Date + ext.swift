@@ -8,12 +8,6 @@
 import Foundation
 
 extension Date {
-    
-    enum StripTimeType: CaseIterable {
-        case toDays
-        case toMinutes
-    }
-    
     static var calendar: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 2
@@ -35,22 +29,17 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     func agoForward(to days: Int) -> Date { Date.calendar.date(byAdding: .day, value: days, to: self) ?? self }
-    func stripTime(_ stripTimeType: Date.StripTimeType) -> Date {
-        switch stripTimeType {
-        case .toDays:
-            let components = Date.calendar.dateComponents([.year, .month, .day], from: self)
-            return Date.calendar.date(from: components) ?? self
-        case .toMinutes:
-            let components = Date.calendar.dateComponents([.year, .month, .day, .hour, .minute], from: self)
-            return Date.calendar.date(from: components) ?? self
-        }
+    func stripTime(_ components: Set<Calendar.Component>) -> Date {
+        let components = Date.calendar.dateComponents(components, from: self)
+        return Date.calendar.date(from: components) ?? self
     }
     func getMonthChanges(for startDateString: String?) -> String {
         guard let startDateString = startDateString else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        guard let startDate = dateFormatter.date(from: startDateString) else { return "Что-то сломалось.🙈" }
+        guard let startDate = dateFormatter.date(from: startDateString) 
+        else { return "Что-то сломалось.🙈" }
         
         let calendar = Calendar.current
         let endDate = calendar.date(byAdding: .day, value: 7, to: startDate) ?? startDate

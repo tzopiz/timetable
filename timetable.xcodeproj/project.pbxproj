@@ -411,9 +411,9 @@
 		0ACC4E3D29C660CE00B3D6AC /* timetable */ = {
 			isa = PBXGroup;
 			children = (
-				0AA7D41A2B1172D800AA856D /* Resources */,
 				0ACC4E7029C661AA00B3D6AC /* README.md */,
 				0ACC4E6F29C661AA00B3D6AC /* tasks.md */,
+				0AA7D41A2B1172D800AA856D /* Resources */,
 				0ACC4EA129C6620300B3D6AC /* Helpers */,
 				0ACC4E7329C6620200B3D6AC /* Application */,
 				0ACC4E7629C6620200B3D6AC /* Controllers */,

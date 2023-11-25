@@ -110,14 +110,14 @@ final class TasksCell: BaseCell {
 
 extension TasksCell {
     override func setupViews() {
-        setupView(buttonCheckmarkView)
-        setupView(stackView)
+        addSubview(buttonCheckmarkView)
+        addSubview(stackView)
         
         stackView.addArrangedSubview(noteNameLabel)
         stackView.addArrangedSubview(noteInfoLabel)
         stackView.addArrangedSubview(deadlineLabel)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         buttonCheckmarkView.setDimensions(height: 28, width: 28)
         buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
                                    centerY: centerYAnchor)
@@ -125,7 +125,7 @@ extension TasksCell {
                          right: trailingAnchor, paddingRight: -16,
                          centerY: centerYAnchor)
     }
-    override func configureAppearance() {
+    override func configureViews() {
         self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
         self.clipsToBounds = true

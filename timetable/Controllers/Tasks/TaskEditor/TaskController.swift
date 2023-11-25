@@ -45,7 +45,7 @@ extension TaskController {
         updateTask()
     }
     override func setupViews() {
-        view.setupView(stackView)
+        view.addSubview(stackView)
         stackView.addArrangedSubview(taskInfoView)
     }
     override func layoutViews() {

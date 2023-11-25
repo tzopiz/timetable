@@ -38,7 +38,7 @@ extension WeekView {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: index + shift)
             let day = Date.calendar.component(.day, from: currenrDay)
-            let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
+            let isToday = currenrDay.stripTime([.year, .month, .day]) == Date().stripTime([.year, .month, .day,])
 
             normalColor = isToday ? R.color.active() : R.color.background()
             tappedColor = R.color.commonButtonTappedColor()
@@ -61,7 +61,7 @@ extension WeekView {
 
 extension WeekView.WeekdayView {
     override func setupViews() {
-        setupView(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
     }

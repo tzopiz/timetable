@@ -27,7 +27,7 @@ final class WeekView: TTBaseView {
 }
 extension WeekView {
     override func setupViews() {
-        setupView(stackView)
+        addSubview(stackView)
     }
     override func layoutViews() {
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
@@ -82,7 +82,8 @@ extension WeekView {
         for i in 0..<weekdayViews.count {
             let startOfWeek = Date().startOfWeek
             let currenrDay = startOfWeek.agoForward(to: i + shift)
-            let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
+            let isToday = currenrDay.stripTime([.year, .month, .day])
+                == Date().stripTime([.year, .month, .day])
             if isToday { self.todayIndex = i }
         }
     }

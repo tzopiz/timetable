@@ -33,7 +33,7 @@ final class SectionView: UICollectionReusableView {
 
 private extension SectionView {
     /// set up subview on view
-    func setupViews() { setupView(title) }
+    func setupViews() { addSubview(title) }
     /// add constaraints to subviews
     func constaintViews() {
         title.anchor(left: leadingAnchor, paddingLeft: 32,

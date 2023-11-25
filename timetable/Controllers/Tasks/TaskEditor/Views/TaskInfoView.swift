@@ -45,7 +45,7 @@ final class TaskInfoView: TTBaseView {
 
 extension TaskInfoView {
     override func setupViews() {
-        setupView(stackView)
+        addSubview(stackView)
         
         stackView.addArrangedSubview(nameTaskField)
         stackView.addArrangedSubview(taskInfoView)

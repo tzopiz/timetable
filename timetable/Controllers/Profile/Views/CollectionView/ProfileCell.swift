@@ -39,9 +39,9 @@ extension ProfileCell {
     override func setupViews() {
         super.setupViews()
         stackInfoView.addArrangedSubview(subtitle)
-        setupView(leftView)
+        addSubview(leftView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
         title.setDimensions(height: 40)
         stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
@@ -49,8 +49,8 @@ extension ProfileCell {
                              centerY: centerYAnchor)
         leftView.setDimensions(height: 88, width: 88)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         stackInfoView.axis = .vertical
         stackInfoView.spacing = 10
     }

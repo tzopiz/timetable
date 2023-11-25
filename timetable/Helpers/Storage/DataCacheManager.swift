@@ -23,16 +23,15 @@ final class DataCacheManager {
     ///   - firstDay:   Дата, с которой необходимо загрузить расписание.
     ///   - completion: Замыкание, вызываемое после загрузки данных.
     ///                 Принимает объект типа `StudyWeek` или `nil` в случае ошибки.
-    public func loadTimetableData(with firstDay: String, completion: @escaping (StudyWeek?, Error?) -> Void) {
+    public func loadTimetableData(with firstDay: String,
+                                  completion: @escaping (StudyWeek?, Error?) -> Void) {
         guard let url = getUrl(from: firstDay) else {
             completion(nil, NSError(domain: "com.example.app", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid get url"]))
             return
         }
         let weekKey = "\(url)\(firstDay)"
         if !isInternetAvailable() {
-            getDownloadedTimetable(with: firstDay) { cachedData in
-                completion(cachedData, nil)
-            }
+            getDownloadedTimetable(with: firstDay) { completion($0, nil) }
         } else {
             APIManager.shared.loadTimetableData(with: firstDay) { [weak self] studyWeek in
                 guard let self = self else { return }
@@ -45,9 +44,7 @@ final class DataCacheManager {
                     } else { completion(cachedData, nil) }
                 } else {
                     completion(studyWeek, nil)
-                    if UserDefaults.standard.cachingTimetable {
-                        self.cacheData(studyWeek, for: weekKey)
-                    }
+                    if UserDefaults.standard.cachingTimetable { self.cacheData(studyWeek, for: weekKey) }
                 }
             }
         }
@@ -62,7 +59,9 @@ final class DataCacheManager {
         else { completion(nil) }
     }
     public func clearCache() {
-        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory,
+                                                            in: .userDomainMask).first
+        else {
             print("Не удалось получить доступ к директории кеша.")
             return
         }
@@ -71,10 +70,9 @@ final class DataCacheManager {
         catch { print("Ошибка при удалении кеша: \(error)") }
     }
     public func calculateCacheSize() -> String {
-        guard FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first != nil else {
-            return "(0.0 кб)"
-        }
-
+        guard FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first != nil 
+        else { return "(_._ кб)" }
+        
         do {
             var totalCacheSizeInBytes = 0
             for (_, studyWeek) in cache {
@@ -85,12 +83,9 @@ final class DataCacheManager {
             
             let totalCacheSizeInKilobytes = Double(totalCacheSizeInBytes) / 1024.0
             let totalCacheSizeInMegabytes = totalCacheSizeInKilobytes / 1024.0
-
-            if totalCacheSizeInMegabytes >= 1.0 {
-                return String(format: "%.2f мб", totalCacheSizeInMegabytes)
-            } else {
-                return String(format: "%.2f кб", totalCacheSizeInKilobytes)
-            }
+            
+            if totalCacheSizeInMegabytes >= 1.0 { return String(format: "%.2f мб", totalCacheSizeInMegabytes) }
+            else { return String(format: "%.2f кб", totalCacheSizeInKilobytes) }
         } catch {
             print("Ошибка при расчете размера кеша: \(error)")
             return "(0.0 кб)"
@@ -98,7 +93,7 @@ final class DataCacheManager {
     }
     
     // MARK: - Private
-
+    
     private func getCachedData(for week: String) -> StudyWeek? { return cache[week] }
     private func cacheData(_ data: StudyWeek, for week: String) {
         cache[week] = data
@@ -113,7 +108,8 @@ final class DataCacheManager {
         return url
     }
     private func loadCacheFromFile() {
-        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        guard let cacheDirectory = FileManager.default.urls(for: .cachesDirectory,
+                                                            in: .userDomainMask).first
         else { return }
         let cacheFileURL = cacheDirectory.appendingPathComponent(cacheFileName)
         

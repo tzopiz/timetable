@@ -18,10 +18,10 @@ final class OverviewNavBar: TTBaseView {
 
 extension OverviewNavBar {
     override func setupViews() {
-        setupView(scheduleNavigatorView)
-        setupView(weekView)
-        setupView(separator)
-        setupView(monthButton)
+        addSubview(scheduleNavigatorView)
+        addSubview(weekView)
+        addSubview(separator)
+        addSubview(monthButton)
     }
     override func layoutViews() {
         scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,

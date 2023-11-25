@@ -45,7 +45,7 @@ extension FeedbackView {
         stackView.axis = .horizontal
         stackView.spacing = 20
         stackView.alignment = .center
-        setupView(stackView)
+        addSubview(stackView)
     }
     override func layoutViews() {
         super.layoutViews()

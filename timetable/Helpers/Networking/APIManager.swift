@@ -38,68 +38,66 @@ extension APIManager {
             }
             
             // Если данные загружены успешно и удалось преобразовать их в строку с кодировкой UTF-8
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                do {
-                    let doc = try SwiftSoup.parse(html),
-                        startDateElement = try doc.select("#timetable-week-navigator-chosen-week a"),
-                        startDate = try? startDateElement.attr("data-weekmonday")
-                    var dayDataArray: [StudyDay] = []
+            guard let data = data, let html = String(data: data, encoding: .utf8) else { return }
+            do {
+                let doc = try SwiftSoup.parse(html),
+                    startDateElement = try doc.select("#timetable-week-navigator-chosen-week a"),
+                    startDate = try? startDateElement.attr("data-weekmonday")
+                var dayDataArray: [StudyDay] = []
+                
+                for element in try doc.select("div.panel.panel-default") {
+                    guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first()
+                    else { continue }
                     
-                    for element in try doc.select("div.panel.panel-default") {
-                        guard let dateElement = try element.select("div.panel-heading > h4.panel-title").first()
-                        else { continue }
+                    let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
+                    var lessons: [Lesson] = []
+                    
+                    for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
+                        let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
                         
-                        let date = try dateElement.text().trimmingCharacters(in: .whitespacesAndNewlines)
-                        var lessons: [Lesson] = []
-                        
-                        for lessonElement in try element.select("ul.panel-collapse > li.common-list-item") {
-                            let time = try lessonElement.select("div.studyevent-datetime > div.with-icon > div > span.moreinfo").first()?.text() ?? ""
+                        var name: String!
+                        if let nameElement = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first() {
+                            name = try nameElement.text()
+                            var details = ""
                             
-                            var name: String!
-                            if let nameElement = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo").first() {
-                                name = try nameElement.text()
-                                var details = ""
-                                
-                                if let detailsElement = try doc.select("div.studyevent-subject > div.with-icon:nth-child(2) > div > span").first() {
-                                    details = try detailsElement.text()
-                                    name = name + "\n" + details
-                                }
+                            if let detailsElement = try doc.select("div.studyevent-subject > div.with-icon:nth-child(2) > div > span").first() {
+                                details = try detailsElement.text()
+                                name = name + "\n" + details
                             }
-
-                            let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link, div.col-sm-3.studyevent-multiple-locations").first()?.text() ?? ""
-                            
-                            var teacher = ""
-                            if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a, div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
-                                teacher = try educatorElement.text()
-                            } else {
-                                if i == 0 {
-                                    let educatorElements = try doc.select("div.studyevent-educators > div.with-icon > div.locations-educators-modal-btn > span.hoverable.link")
-                                    for educatorElement in educatorElements {
-                                        let teachers = try educatorElement.text()
-                                        educators.append(teachers)
-                                    }
-                                }
-                                if i < educators.count {
-                                    teacher = educators[i]
-                                    i += 1
-                                } else { teacher = "error" }
-                            }
-                            
-                            let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
-                            
-                            let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
-                            lessons.append(lesson)
                         }
-                        let schoolDay = StudyDay(date: date, lessons: lessons)
-                        dayDataArray.append(schoolDay)
+                        
+                        let location = try lessonElement.select("div.studyevent-locations > div.with-icon > div.address-modal-btn > span.hoverable.link, div.col-sm-3.studyevent-multiple-locations").first()?.text() ?? ""
+                        
+                        var teacher = ""
+                        if let educatorElement = try lessonElement.select("div.studyevent-educators > div.with-icon > div > div > span > span > a, div.studyevent-educators > div.with-icon > div > span.hoverable > span > a").first() {
+                            teacher = try educatorElement.text()
+                        } else {
+                            if i == 0 {
+                                let educatorElements = try doc.select("div.studyevent-educators > div.with-icon > div.locations-educators-modal-btn > span.hoverable.link")
+                                for educatorElement in educatorElements {
+                                    let teachers = try educatorElement.text()
+                                    educators.append(teachers)
+                                }
+                            }
+                            if i < educators.count {
+                                teacher = educators[i]
+                                i += 1
+                            } else { teacher = "error" }
+                        }
+                        
+                        let isCancelled = try lessonElement.select("div.studyevent-subject > div.with-icon > div > span.moreinfo.cancelled").first() != nil
+                        
+                        let lesson = Lesson(time: time, name: name, location: location, teacher: teacher, isCancelled: isCancelled)
+                        lessons.append(lesson)
                     }
-                    
-                    // Вызываем завершающее замыкание с объектом schoolWeek
-                    let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate),
-                                               days: dayDataArray).addingFreeDays(firstDay)
-                    completion(schoolWeek)
-                } catch { print("Ошибка при разборе HTML: \(error)") }
-            }
+                    let schoolDay = StudyDay(date: date, lessons: lessons)
+                    dayDataArray.append(schoolDay)
+                }
+                
+                let schoolWeek = StudyWeek(startDate: Date().getMonthChanges(for: startDate),
+                                           days: dayDataArray).addingFreeDays(firstDay)
+                completion(schoolWeek)
+            } catch { print("Ошибка при разборе HTML: \(error)") }
         }.resume()
     }
     
@@ -114,29 +112,28 @@ extension APIManager {
                 return
             } // TODO: there no only faculties at the end
             
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                do {
-                    // Создаем экземпляр SwiftSoup и загружаем HTML-контент
-                    let doc = try SwiftSoup.parse(html)
-                    
-                    // Выбираем все элементы <li> с классом "list-group-item"
-                    let liElements = try doc.select("li.list-group-item")
-                    
-                    // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
-                    var elementArray: [(text: String, link: String)] = []
-                    
-                    for liElement in liElements {
-                        if let aElement = try liElement.select("a").first(),
-                           let href = try? aElement.attr("href"), !href.isEmpty,
-                           let text = try? aElement.text(), !text.isEmpty {
-                            elementArray.append((text: text, link: href))
-                        }
+            guard let data = data, let html = String(data: data, encoding: .utf8) else { return }
+            do {
+                // Создаем экземпляр SwiftSoup и загружаем HTML-контент
+                let doc = try SwiftSoup.parse(html)
+                
+                // Выбираем все элементы <li> с классом "list-group-item"
+                let liElements = try doc.select("li.list-group-item")
+                
+                // Обходим каждый элемент <li> и извлекаем значение атрибута href из элемента <a>
+                var elementArray: [(text: String, link: String)] = []
+                
+                for liElement in liElements {
+                    if let aElement = try liElement.select("a").first(),
+                       let href = try? aElement.attr("href"), !href.isEmpty,
+                       let text = try? aElement.text(), !text.isEmpty {
+                        elementArray.append((text: text, link: href))
                     }
-                    completion(elementArray)
-                } catch {
-                    print("Ошибка: \(error)")
-                    completion([])
                 }
+                completion(elementArray)
+            } catch {
+                print("Ошибка: \(error)")
+                completion([])
             }
         }
         task.resume()
@@ -152,22 +149,18 @@ extension APIManager {
                 print("Error: \(error)")
                 return
             }
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                do {
-                    let doc = try SwiftSoup.parse(html)
-                    let panelElements = try doc.select(".panel-group .panel")
-                    var titles: [String] = []
-                    
-                    for panelElement in panelElements {
-                        let titleElement = try panelElement.select(".panel-heading .panel-title a")
-                        
-                        if let title = try? titleElement.text() {
-                            titles.append(title)
-                        }
-                    }
-                    completion(titles)
-                } catch { print("Ошибка при парсинге HTML: \(error)") }
-            }
+            guard let data = data, let html = String(data: data, encoding: .utf8) else { return }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let panelElements = try doc.select(".panel-group .panel")
+                var titles: [String] = []
+                
+                for panelElement in panelElements {
+                    let titleElement = try panelElement.select(".panel-heading .panel-title a")
+                    if let title = try? titleElement.text() { titles.append(title) }
+                }
+                completion(titles)
+            } catch { print("Ошибка при парсинге HTML: \(error)") }
         }
         task.resume()
     }
@@ -186,17 +179,20 @@ extension APIManager {
                 return
             }
             
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                do {
-                    let doc = try SwiftSoup.parse(html)
-                    let h2Elements = try doc.select("h2")
-                    let title = try h2Elements.first()?.text()
-                    completion(title)
-                } catch {
-                    print("Ошибка при парсинге HTML: \(error)")
-                    completion(nil)
-                }
-            } else { completion(nil) }
+            guard let data = data, let html = String(data: data, encoding: .utf8)
+            else {
+                completion(nil)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let h2Elements = try doc.select("h2")
+                let title = try h2Elements.first()?.text()
+                completion(title)
+            } catch {
+                print("Ошибка при парсинге HTML: \(error)")
+                completion(nil)
+            }
         }
         task.resume()
     }

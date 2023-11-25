@@ -53,10 +53,6 @@ extension UIView {
     }
     @IBAction func handleIn() { UIView.animate(withDuration: 0.15) { self.alpha = 0.55 } }
     @IBAction func handleOut() { UIView.animate(withDuration: 0.15) { self.alpha = 1 } }
-    func setupView(_ view: UIView) {
-        addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
     func roundCorners(with borderLayer: inout CAShapeLayer, _ corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds,
                                 byRoundingCorners: corners,

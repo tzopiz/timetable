@@ -91,7 +91,7 @@ extension TTBaseController {
     /// Добавьте код для добавления подвидов на контроллер,
     /// таких как их инициализация, настройка свойств и добавление на представление.
     func setupViews() {
-        view.setupView(collectionView)
+        view.addSubview(collectionView)
     }
     
     /// Устанавливает ограничения для подвидов внутри контроллера.

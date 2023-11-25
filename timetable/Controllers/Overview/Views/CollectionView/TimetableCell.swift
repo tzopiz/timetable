@@ -61,8 +61,8 @@ final class TimetableCell: BaseCell {
 
 extension TimetableCell {
     override func setupViews() {
-        contentView.setupView(stackView)
-        setupView(firstLineView)
+        contentView.addSubview(stackView)
+        addSubview(firstLineView)
         
         firstLineView.addArrangedSubview(clock)
         firstLineView.addArrangedSubview(time)
@@ -72,7 +72,7 @@ extension TimetableCell {
         stackView.addArrangedSubview(address)
         stackView.addArrangedSubview(teacherName)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         stackView.anchor(top: contentView.topAnchor, paddingTop: 8,
                          bottom: contentView.bottomAnchor, paddingBottom: -8,
                          left: contentView.leadingAnchor, paddingLeft: 16,
@@ -81,7 +81,7 @@ extension TimetableCell {
         self.contentView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
         clock.setDimensions(height: 16, width: 16)
     }
-    override func configureAppearance() {
+    override func configureViews() {
         self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
     }

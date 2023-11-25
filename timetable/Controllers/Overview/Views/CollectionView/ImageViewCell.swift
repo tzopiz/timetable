@@ -14,15 +14,15 @@ final class ImageViewCell: BaseCell {
  
 extension ImageViewCell {
     override func setupViews() {
-        contentView.setupView(imageView)
+        contentView.addSubview(imageView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         imageView.anchor(top: contentView.topAnchor, paddingTop: 8,
                          bottom: contentView.bottomAnchor, paddingBottom: -8,
                          left: contentView.leadingAnchor, paddingLeft: 16,
                          right: contentView.trailingAnchor, paddingRight: -16)
     }
-    override func configureAppearance() {
+    override func configureViews() {
         self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
     }

@@ -25,7 +25,7 @@ final class HeaderWithButtonView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(expandButton)
         

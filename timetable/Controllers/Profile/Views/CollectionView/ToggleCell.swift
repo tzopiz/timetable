@@ -16,14 +16,14 @@ final class ToggleCell: BaseCell {
 extension ToggleCell {
     override func setupViews() {
         super.setupViews()
-        setupView(switcher)
+        addSubview(switcher)
     }
-    override func constraintViews() {
-        super.constraintViews()
+    override func layoutViews() {
+        super.layoutViews()
         switcher.anchor(right: trailingAnchor, paddingRight: -20, centerY: centerYAnchor)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         switcher.isOn = UserDefaults.standard.cachingTimetable
         switcher.onTintColor = R.color.active()
         switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)

@@ -48,7 +48,7 @@ public class TTButton: UIButton {
 
 private extension TTButton {
     /// set up subview on button
-    func setupViews() { setupView(label) }
+    func setupViews() { addSubview(label) }
     /// add constaraints to subviews
     func layoutViews() {
         var horisontalOffset: CGFloat {

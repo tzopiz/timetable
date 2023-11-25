@@ -64,8 +64,8 @@ final class OverviewController: TTBaseController {
 extension OverviewController {
     override func setupViews() {
         super.setupViews()
-        view.setupView(navBar)
-        view.setupView(backgroundView)
+        view.addSubview(navBar)
+        view.addSubview(backgroundView)
     }
     override func layoutViews() {
         navBar.anchor(top: view.topAnchor,

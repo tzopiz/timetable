@@ -69,7 +69,7 @@ public final class CoreDataMamanager: NSObject {
             switch type {
             case .deadlineTop:
                 return tasks.sorted { t1, t2 in
-                    if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
+                    if t1.deadline?.stripTime([.year, .month, .day]) == t2.deadline?.stripTime([.year, .month, .day]) {
                         return t1.isImportant.description > t2.isImportant.description
                     }
                     else {
@@ -78,7 +78,7 @@ public final class CoreDataMamanager: NSObject {
                 }
             case .deadlineDown:
                 return tasks.sorted { t1, t2 in
-                    if t1.deadline?.stripTime(.toDays) == t2.deadline?.stripTime(.toDays) {
+                    if t1.deadline?.stripTime([.year, .month, .day]) == t2.deadline?.stripTime([.year, .month, .day]) {
                         return t1.isImportant.description > t2.isImportant.description
                     }
                     else {
@@ -181,14 +181,10 @@ extension CoreDataMamanager {
             if profiles?.count == 0 {
                 profile = NSEntityDescription.insertNewObject(forEntityName: "Profile",
                                                               into: context) as? Profile
-            } else {
-                profile = profiles?.first
-            }
+            } else { profile = profiles?.first }
             if image == nil &&  profile?.photo == nil{
                 profile?.photo = R.image.person_crop_circle_fill()!.pngData()
-            } else if image != nil {
-                profile?.photo = image?.pngData()
-            }
+            } else if let image = image { profile?.photo = image.pngData() }
             save()
         }
     }

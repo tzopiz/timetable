@@ -18,10 +18,10 @@ final class CacheInfoCell: BaseCell {
 extension CacheInfoCell {
     override func setupViews() {
         super.setupViews()
-        setupView(cacheSizeLabel)
+        addSubview(cacheSizeLabel)
     }
-    override func constraintViews() {
-        super.constraintViews()
+    override func layoutViews() {
+        super.layoutViews()
         cacheSizeLabel.anchor(top: topAnchor, paddingTop: 16,
                               bottom: bottomAnchor, paddingBottom: -16,
                               right: trailingAnchor, paddingRight: -16)

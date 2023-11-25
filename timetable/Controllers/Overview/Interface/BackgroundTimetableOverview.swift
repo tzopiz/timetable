@@ -38,7 +38,7 @@ extension BackgroundTimetableOverview {
     override func setupViews() {
         super.setupViews()
 
-        setupView(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(title)
     }

@@ -18,10 +18,10 @@ final class InteractiveCell: BaseCell {
 extension InteractiveCell {
     override func setupViews() {
         super.setupViews()
-        setupView(button)
+        addSubview(button)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         
         let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ?
         "Темная": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ?
