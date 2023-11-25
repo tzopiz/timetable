@@ -61,6 +61,6 @@ extension BaseCell {
     }
     /// configre appearence subviews
     func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = R.color.blackWhite()
     }
 }

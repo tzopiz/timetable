@@ -43,22 +43,22 @@ extension UIImage {
     ///     // Здесь вы можете использовать новую цветную иконку по своему усмотрению
     /// }
     ///```
-    static func changeColorOfImage(image: UIImage, color: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
-        color.setFill()
-        
-        let context = UIGraphicsGetCurrentContext()
-        context?.translateBy(x: 0, y: image.size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-        context?.setBlendMode(.normal)
-        
-        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        context?.clip(to: imageRect, mask: image.cgImage!)
-        context?.fill(imageRect)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
+//    static func changeColorOfImage(image: UIImage, color: UIColor) -> UIImage? {
+//        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+//        color.setFill()
+//        
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.translateBy(x: 0, y: image.size.height)
+//        context?.scaleBy(x: 1.0, y: -1.0)
+//        context?.setBlendMode(.normal)
+//        
+//        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+//        context?.clip(to: imageRect, mask: image.cgImage!)
+//        context?.fill(imageRect)
+//        
+//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        
+//        return newImage
+//    }
 }

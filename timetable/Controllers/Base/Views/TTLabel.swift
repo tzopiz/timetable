@@ -11,12 +11,12 @@ import UIKit
 /// numberOfLines = 0
 /// textAlignment = .left
 /// lineBreakMode = .byWordWrapping
-/// textColor = App.Colors.text
+/// textColor = R.color.title
 /// font = App.Fonts.helveticaNeue(with: 15)
 /// ```
 public class TTLabel: UILabel {
     init(text: String = "",
-         textColor: UIColor = App.Colors.title,
+         textColor: UIColor? = R.color.title(),
          fontSize: CGFloat = 15,
          textAlignment: NSTextAlignment = .left,
          lineBreakMode: NSLineBreakMode = .byWordWrapping) {

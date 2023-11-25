@@ -25,28 +25,21 @@ final class TimetableCell: BaseCell {
     }()
     private let time = TTLabel()
     private let nameSubject = TTLabel(fontSize: 17)
-    private let address = TTLabel(textColor: App.Colors.subtitle, fontSize: 13)
-    private let teacherName = TTLabel(textColor: App.Colors.subtitle, fontSize: 13)
+    private let address = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
+    private let teacherName = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
     private let clock = UIImageView(image: App.Images.clock)
 
     func configure(time: String, nameSubject: String, location: String, teacherName: String, isCancelled: Bool) {
         if isCancelled { // bolt
-            let attributedTimeString = NSAttributedString(string: time, attributes: [
+            guard let red = R.color.red() else { return }
+            let attributes: [NSAttributedString.Key: Any] = [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                NSAttributedString.Key.strikethroughColor: App.Colors.red
-            ])
-            let attributedNameString = NSAttributedString(string: nameSubject, attributes: [
-                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                NSAttributedString.Key.strikethroughColor: App.Colors.red
-            ])
-            let attributedLocationString = NSAttributedString(string: location, attributes: [
-                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                NSAttributedString.Key.strikethroughColor: App.Colors.red
-            ])
-            let attributedTeacherString = NSAttributedString(string: teacherName, attributes: [
-                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                NSAttributedString.Key.strikethroughColor: App.Colors.red
-            ])
+                NSAttributedString.Key.strikethroughColor: red
+            ]
+            let attributedTimeString = NSAttributedString(string: time, attributes: attributes)
+            let attributedNameString = NSAttributedString(string: nameSubject, attributes: attributes)
+            let attributedLocationString = NSAttributedString(string: location, attributes: attributes)
+            let attributedTeacherString = NSAttributedString(string: teacherName, attributes: attributes)
             
             self.time.attributedText = attributedTimeString
             self.nameSubject.attributedText = attributedNameString
@@ -89,7 +82,7 @@ extension TimetableCell {
         clock.setDimensions(height: 16, width: 16)
     }
     override func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
     }
 }

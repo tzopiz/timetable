@@ -8,24 +8,28 @@
 import UIKit
 
 extension UIView {
-    func addBottomBorder(separator: inout UIView, with color: UIColor, height: CGFloat) {
+    func addBottomBorder(separator: inout UIView, with color: UIColor?, height: CGFloat) {
+        guard let color = color else { return }
         separator.backgroundColor = color
         separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
         separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
     }
-    func addBottomBorder(with color: UIColor, height: CGFloat) {
+    func addBottomBorder(with color: UIColor?, height: CGFloat) {
+        guard let color = color else { return }
         let separator = UIView()
         separator.backgroundColor = color
         separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
         separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
         addSubview(separator)
     }
-    func addTopBorder(separator: inout UIView, with color: UIColor, height: CGFloat) {
+    func addTopBorder(separator: inout UIView, with color: UIColor?, height: CGFloat) {
+        guard let color = color else { return }
         separator.backgroundColor = color
         separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
         separator.frame = CGRect(x: 0, y: 0, width: frame.width, height: height)
     }
-    func addTopBorder(with color: UIColor, height: CGFloat) {
+    func addTopBorder(with color: UIColor?, height: CGFloat) {
+        guard let color = color else { return }
         let separator = UIView()
         separator.backgroundColor = color
         separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
@@ -110,13 +114,5 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         if let width = width { widthAnchor.constraint(equalToConstant: width).isActive = true }
         if let height = height { heightAnchor.constraint(equalToConstant: height).isActive = true }
-    }
-}
-extension UIView {
-    func addBottomBorderGPT(withColor color: UIColor, thickness: CGFloat) {
-        let bottomBorder = CALayer()
-        bottomBorder.backgroundColor = color.cgColor
-        bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - thickness, width: self.frame.size.width, height: thickness)
-        self.layer.addSublayer(bottomBorder)
     }
 }

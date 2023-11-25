@@ -9,10 +9,10 @@ import UIKit
 
 final class BackgroundTimetableOverview: TTBaseView {
     private let imageView: UIImageView = {
-        let imageView = UIImageView(image: nil)
+        let imageView = UIImageView()
         return imageView
     }()
-    private let title = TTLabel(textColor: App.Colors.subtitle, fontSize: 20, textAlignment: .center)
+    private let title = TTLabel(textColor: R.color.subtitle(), fontSize: 20, textAlignment: .center)
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

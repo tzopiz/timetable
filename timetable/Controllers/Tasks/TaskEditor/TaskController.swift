@@ -50,8 +50,8 @@ extension TaskController {
     }
     override func constraintViews() {
         stackView.anchor(top: view.topAnchor, bottom: view.bottomAnchor,
-                        left: view.leadingAnchor, paddingLeft: 16,
-                        right: view.trailingAnchor, paddingRight: -16)
+                         left: view.leadingAnchor, paddingLeft: 16,
+                         right: view.trailingAnchor, paddingRight: -16)
     }
     override func configureAppearance() {
         super.configureAppearance()
@@ -102,6 +102,11 @@ extension TaskController {
             self.present(alertController, animated: true)
         }
         let actionNotification = UIAction(title: "Уведомление", image: UIImage(systemName: "bell")) { _ in
+            let dataPickerVC = DataPickerController()
+            dataPickerVC.modalPresentationStyle = .custom
+            dataPickerVC.transitioningDelegate = self
+            self.present(dataPickerVC, animated: true)
+            
             if self.task.deadline == nil {
                 let calendar = Calendar.current
                 let deadline = calendar.date(byAdding: .day, value: Int.random(in: 0...5), to: Date())
@@ -144,5 +149,15 @@ extension TaskController {
     @IBAction func importanceChangeItemAction() {
         task.isImportant.toggle()
         importanceChangeItem?.image = task.isImportant ? App.Images.isImportant : App.Images.NotIsImportant
+    }
+}
+
+extension TaskController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionAnimator()
     }
 }

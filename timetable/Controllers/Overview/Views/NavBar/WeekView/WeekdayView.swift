@@ -20,8 +20,8 @@ extension WeekView {
             return stackView
         }()
         
-        private var normalColor = UIColor()
-        private var tappedColor = UIColor()
+        private var normalColor: UIColor?
+        private var tappedColor: UIColor?
         
         var scrollCompletion: ((Int) -> Void)?
         
@@ -40,16 +40,16 @@ extension WeekView {
             let day = Date.calendar.component(.day, from: currenrDay)
             let isToday = currenrDay.stripTime(.toDays) == Date().stripTime(.toDays)
 
-            backgroundColor = isToday ? App.Colors.active : App.Colors.background
+            normalColor = isToday ? R.color.active() : R.color.background()
+            tappedColor = R.color.commonButtonTappedColor()
             
-            normalColor = isToday ? App.Colors.active : App.Colors.background
-            tappedColor = App.Colors.commonButtonTappedColor
+            backgroundColor = normalColor
             
             nameLabel.text = name.uppercased()
-            nameLabel.textColor = isToday ? .white : App.Colors.subtitle
+            nameLabel.textColor = isToday ? .white : R.color.subtitle()
 
             dateLabel.text = "\(day)"
-            dateLabel.textColor = isToday ? .white : App.Colors.subtitle
+            dateLabel.textColor = isToday ? .white : R.color.subtitle()
         }
         static func getFirstDay(with index: Int) -> Date {
             let startOfWeek = Date().startOfWeek

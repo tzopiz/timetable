@@ -13,6 +13,8 @@
 		0A223B6F29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B6D29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodeld */; };
 		0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */; };
 		0A223B7529C8A5E500C8EDBF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */; };
+		0A2316FB2AD42F0400DB3837 /* DataPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2316FA2AD42F0400DB3837 /* DataPickerController.swift */; };
+		0A2316FD2AD434CB00DB3837 /* CustomTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2316FC2AD434CB00DB3837 /* CustomTransitionAnimator.swift */; };
 		0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5D929D4960200EE17EA /* TimeTableModel.swift */; };
 		0A58D5E529D4CCB900EE17EA /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E429D4CCB900EE17EA /* BaseCell.swift */; };
 		0A58D5E729D4CF2D00EE17EA /* InteractiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A58D5E629D4CF2D00EE17EA /* InteractiveCell.swift */; };
@@ -30,6 +32,7 @@
 		0AA605802A8A8D4A008C4A6B /* CacheInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */; };
 		0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605A42A8AC290008C4A6B /* TasksController.swift */; };
 		0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA605AA2A8AC290008C4A6B /* TasksCell.swift */; };
+		0AA7D41C2B11737300AA856D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7D41B2B11737300AA856D /* R.generated.swift */; };
 		0AB612E62A66FEF0007E6757 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB612E52A66FEF0007E6757 /* FeedbackView.swift */; };
 		0AC485C729E05F63009B9EE5 /* FacultiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C629E05F63009B9EE5 /* FacultiesController.swift */; };
 		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
@@ -92,6 +95,8 @@
 		0A223B6E29C893FE00C8EDBF /* CoreDataTimetable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTimetable.xcdatamodel; sourceTree = "<group>"; };
 		0A223B7129C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A223B7429C8A5E500C8EDBF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0A2316FA2AD42F0400DB3837 /* DataPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPickerController.swift; sourceTree = "<group>"; };
+		0A2316FC2AD434CB00DB3837 /* CustomTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionAnimator.swift; sourceTree = "<group>"; };
 		0A58D5D929D4960200EE17EA /* TimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
 		0A58D5E429D4CCB900EE17EA /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		0A58D5E629D4CF2D00EE17EA /* InteractiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveCell.swift; sourceTree = "<group>"; };
@@ -110,6 +115,7 @@
 		0AA6057F2A8A8D4A008C4A6B /* CacheInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInfoCell.swift; sourceTree = "<group>"; };
 		0AA605A42A8AC290008C4A6B /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		0AA605AA2A8AC290008C4A6B /* TasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
+		0AA7D41B2B11737300AA856D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		0AB612E52A66FEF0007E6757 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		0AC485C629E05F63009B9EE5 /* FacultiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesController.swift; sourceTree = "<group>"; };
 		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
@@ -287,6 +293,8 @@
 			isa = PBXGroup;
 			children = (
 				0AD936322AD0B18E00FA5022 /* TaskInfoView.swift */,
+				0A2316FA2AD42F0400DB3837 /* DataPickerController.swift */,
+				0A2316FC2AD434CB00DB3837 /* CustomTransitionAnimator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +323,22 @@
 				0AA605AA2A8AC290008C4A6B /* TasksCell.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		0AA7D4192B11714600AA856D /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				0AA7D41B2B11737300AA856D /* R.generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		0AA7D41A2B1172D800AA856D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0AA7D4192B11714600AA856D /* Generated */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		0AC82F792A894A6700E67D4F /* Resources */ = {
@@ -352,6 +376,7 @@
 		0ACC4E3D29C660CE00B3D6AC /* timetable */ = {
 			isa = PBXGroup;
 			children = (
+				0AA7D41A2B1172D800AA856D /* Resources */,
 				0ACC4E7029C661AA00B3D6AC /* README.md */,
 				0ACC4E6F29C661AA00B3D6AC /* tasks.md */,
 				0ACC4EA129C6620300B3D6AC /* Helpers */,
@@ -572,7 +597,7 @@
 			buildConfigurationList = 0ACC4E6529C660CF00B3D6AC /* Build configuration list for PBXNativeTarget "timetable" */;
 			buildPhases = (
 				8CB2798C1F5375E9818F31C2 /* [CP] Check Pods Manifest.lock */,
-				0A58D5D629D4906B00EE17EA /* SwiftLint Run Script */,
+				0AA7D4182B116FD200AA856D /* R.swift generate */,
 				0ACC4E3729C660CE00B3D6AC /* Sources */,
 				0ACC4E3829C660CE00B3D6AC /* Frameworks */,
 				0ACC4E3929C660CE00B3D6AC /* Resources */,
@@ -695,7 +720,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A58D5D629D4906B00EE17EA /* SwiftLint Run Script */ = {
+		0AA7D4182B116FD200AA856D /* R.swift generate */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
@@ -704,14 +729,14 @@
 			);
 			inputPaths = (
 			);
-			name = "SwiftLint Run Script";
+			name = "R.swift generate";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/timetable/Resources/Generated/R.generated.swift\"\n";
 		};
 		55210E5550AE16D96700268C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -798,12 +823,15 @@
 				0ACC4EBF29C6620300B3D6AC /* TTBaseController.swift in Sources */,
 				0A71EAB929D700BC00C13723 /* UIWindow + ext.swift in Sources */,
 				0ACC4EBD29C6620300B3D6AC /* TimetableCell.swift in Sources */,
+				0A2316FB2AD42F0400DB3837 /* DataPickerController.swift in Sources */,
 				0ACC4EB329C6620300B3D6AC /* NavigationController.swift in Sources */,
+				0A2316FD2AD434CB00DB3837 /* CustomTransitionAnimator.swift in Sources */,
 				0A58D5DA29D4960200EE17EA /* TimeTableModel.swift in Sources */,
 				0A223B7329C8A5BA00C8EDBF /* Tasks+CoreDataProperties.swift in Sources */,
 				0ACC4EC829C6620300B3D6AC /* UIView + ext.swift in Sources */,
 				0ACC4EC129C6620300B3D6AC /* SectionView.swift in Sources */,
 				0ACC4EBB29C6620300B3D6AC /* WeekdayView.swift in Sources */,
+				0AA7D41C2B11737300AA856D /* R.generated.swift in Sources */,
 				0AA605AF2A8AC290008C4A6B /* TasksCell.swift in Sources */,
 				0ACC4EBE29C6620300B3D6AC /* OverviewController.swift in Sources */,
 				0ACC4EC629C6620300B3D6AC /* Date + ext.swift in Sources */,
@@ -909,7 +937,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -965,7 +993,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

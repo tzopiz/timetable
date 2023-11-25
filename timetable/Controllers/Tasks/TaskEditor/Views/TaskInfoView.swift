@@ -11,9 +11,9 @@ final class TaskInfoView: TTBaseView {
     private let nameTaskField: UITextField = {
         let textField = UITextField()
         textField.font = App.Fonts.HelveticaNeueBold(with: 21)
-        textField.textColor = App.Colors.title
+        textField.textColor = R.color.title()
         textField.placeholder = App.Strings.untitle
-        textField.backgroundColor = App.Colors.background
+        textField.backgroundColor = R.color.background()
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftViewMode = .always
         return textField
@@ -21,8 +21,8 @@ final class TaskInfoView: TTBaseView {
     private let taskInfoView: UITextView = {
         let textView = UITextView()
         textView.font = App.Fonts.helveticaNeue(with: 16)
-        textView.textColor = App.Colors.title
-        textView.backgroundColor = App.Colors.background
+        textView.textColor = R.color.title()
+        textView.backgroundColor = R.color.background()
         return textView
     }()
     private let stackView: UIStackView = {

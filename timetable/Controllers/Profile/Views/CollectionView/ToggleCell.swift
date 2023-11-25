@@ -25,7 +25,7 @@ extension ToggleCell {
     override func configureAppearance() {
         super.configureAppearance()
         switcher.isOn = UserDefaults.standard.cachingTimetable
-        switcher.onTintColor = App.Colors.active
+        switcher.onTintColor = R.color.active()
         switcher.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
     }
 }

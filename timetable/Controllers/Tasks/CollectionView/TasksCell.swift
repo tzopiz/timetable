@@ -25,7 +25,7 @@ final class TasksCell: BaseCell {
         return label
     }()
     private let noteInfoLabel: TTLabel = {
-        let label = TTLabel(textColor: App.Colors.subtitle, fontSize: 15)
+        let label = TTLabel(textColor: R.color.subtitle(), fontSize: 15)
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 1
         return label
@@ -39,21 +39,21 @@ final class TasksCell: BaseCell {
         self.task = task
         self.noteNameLabel.text = task.name
         self.noteInfoLabel.text = task.info
-        buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone, for: .normal)
+        buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmark_circle : App.Images.circle, for: .normal)
         if let deadline = task.deadline {
             deadlineLabel.isHidden = false
             let calendar = Calendar.current
             if calendar.isDateInToday(deadline) {
                 deadlineLabel.text = "Дедлайн сегодня: " + Date().formattedDeadline(deadline)
-                deadlineLabel.textColor = App.Colors.red
+                deadlineLabel.textColor = R.color.red()
             }
             else {
                 if deadline > Date.now {
                     deadlineLabel.text = "Дедлайн: " + Date().formattedDeadline(deadline)
-                    deadlineLabel.textColor = App.Colors.active
+                    deadlineLabel.textColor = R.color.active()
                 } else {
                     deadlineLabel.text = "Дедлайн был: " + Date().formattedDeadline(deadline)
-                    deadlineLabel.textColor = App.Colors.subtitle
+                    deadlineLabel.textColor = R.color.subtitle()
                 }
             }
         } else {
@@ -76,7 +76,8 @@ final class TasksCell: BaseCell {
             
             let gradientLayer = CAGradientLayer()
             gradientLayer.frame = bounds
-            gradientLayer.colors = [App.Colors.purple.cgColor, App.Colors.active.cgColor]
+            guard let purple = R.color.purple(), let active = R.color.active() else { return }
+            gradientLayer.colors = [purple.cgColor, active.cgColor]
             
             let maskLayer = CAShapeLayer()
             maskLayer.path = trianglePath.cgPath
@@ -92,13 +93,13 @@ final class TasksCell: BaseCell {
         }
     }
     
-    override func isHighlighted() { self.backgroundColor = App.Colors.secondary.withAlphaComponent(0.4) }
-    override func isUnHighlighted() { self.backgroundColor = App.Colors.BlackWhite }
+    override func isHighlighted() { self.backgroundColor = R.color.secondary()!.withAlphaComponent(0.4) }
+    override func isUnHighlighted() { self.backgroundColor = R.color.blackWhite() }
     
     @IBAction func updateCheckmarkView() {
         guard let task = self.task else { return }
         task.isDone = !task.isDone
-        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmarkDone : App.Images.checkmarkNotDone,
+        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmark_circle : App.Images.circle,
                                           for: .normal)
         CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
         self.task = task
@@ -124,7 +125,7 @@ extension TasksCell {
                          centerY: centerYAnchor)
     }
     override func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
         self.clipsToBounds = true
         buttonCheckmarkView.addTarget(self, action: #selector(updateCheckmarkView), for: .touchUpInside)

@@ -42,7 +42,7 @@ extension OverviewNavBar {
         separator.setDimensions(height: 1)
     }
     override func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = R.color.blackWhite()
         
         scheduleNavigatorView.swipeCompletion =  { [weak self] direction in
             guard let self = self else { return }
@@ -58,10 +58,10 @@ extension OverviewNavBar {
             self.scrollCompletion?(index)
         }
         
-        monthButton.backgroundColor = App.Colors.secondary
+        monthButton.backgroundColor = R.color.secondary()
         monthButton.isUserInteractionEnabled = false // TODO: show datapicker
         
-        separator.backgroundColor = App.Colors.separator
+        separator.backgroundColor = R.color.secondary()
     }
     
     func swipeWeekView(to direct: WeekView.SwipeDirections) {

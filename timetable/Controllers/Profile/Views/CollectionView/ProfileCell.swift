@@ -11,19 +11,12 @@ final class ProfileCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: ProfileCell.self) }
 
-    private let subtitle: TTLabel = {
-        let label = TTLabel()
-        
-        label.textColor = App.Colors.subtitle
-        
-        
-        return label
-    }()
+    private let subtitle = TTLabel(textColor: R.color.subtitle())
     private let leftView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 44
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = App.Colors.separator.cgColor
+        imageView.layer.borderColor = R.color.separator()?.cgColor
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -32,7 +25,7 @@ final class ProfileCell: BaseCell {
     func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         super.configure(title: title)
         subtitle.text = UserDefaults.standard.group
-        let profileImage = App.Images.imageProfile
+        let profileImage = App.Images.person_crop_circle_fill
         leftView.image = profileImage
         leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }

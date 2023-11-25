@@ -30,12 +30,11 @@ final class TabBarController: UITabBarController {
 
     private func configureAppearance() {
         tabBar.backgroundColor = .white
-        tabBar.tintColor = App.Colors.active
+        tabBar.tintColor = R.color.active()
         tabBar.backgroundImage = UIImage()
         tabBar.shadowImage = UIImage()
-        tabBar.backgroundColor = App.Colors.BlackWhite
-        // tabBar.layer.borderColor = App.Colors.BlackWhite.cgColor
-        tabBar.addTopBorder(with: App.Colors.separator, height: 1/2)
+        tabBar.backgroundColor = R.color.blackWhite()
+        tabBar.addTopBorder(with: R.color.separator(), height: 1/2)
 
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))

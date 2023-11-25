@@ -23,7 +23,7 @@ extension ImageViewCell {
                          right: contentView.trailingAnchor, paddingRight: -16)
     }
     override func configureAppearance() {
-        self.backgroundColor = App.Colors.BlackWhite
+        self.backgroundColor = R.color.blackWhite()
         self.layer.cornerRadius = 16
     }
 }

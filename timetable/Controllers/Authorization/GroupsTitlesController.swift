@@ -24,7 +24,7 @@ final class GroupsTitlesController: TTBaseController {
 extension GroupsTitlesController {
     override func configureAppearance() {
         super.configureAppearance()
-        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         title = "Программы"
         
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)

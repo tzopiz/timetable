@@ -13,7 +13,7 @@ final class TasksController: TTBaseController {
     private let menuButton: TTButton = {
         let button = TTButton(with: .primary)
         button.setImage(UIImage(systemName: "arrow.up.and.down.text.horizontal"), for: .normal)
-        button.tintColor = App.Colors.active
+        button.tintColor = R.color.active()
         return button
     }()
 }
@@ -24,7 +24,7 @@ extension TasksController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.tasks
-        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         
         collectionView.register(TasksCell.self, forCellWithReuseIdentifier: TasksCell.reuseIdentifier)
         collectionView.register(SectionView.self,

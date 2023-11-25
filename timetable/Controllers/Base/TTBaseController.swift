@@ -35,8 +35,8 @@ class TTBaseController: UIViewController {
     func addNavBarButton(at position: NavBarPosition, with title: String = "", image: UIImage? = nil) {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(App.Colors.active, for: .normal)
-        button.setTitleColor(App.Colors.inactive, for: .disabled)
+        button.setTitleColor(R.color.active(), for: .normal)
+        button.setTitleColor(R.color.inactive(), for: .disabled)
         button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
         if let image = image { button.setImage(image, for: .normal)}
         
@@ -111,7 +111,7 @@ extension TTBaseController {
     func configureAppearance() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.backgroundColor = App.Colors.background
+        view.backgroundColor = R.color.background()
         let refreshControl = UIRefreshControl()
         collectionView.refreshControl = refreshControl
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)

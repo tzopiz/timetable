@@ -9,7 +9,7 @@ import UIKit
 
 final class CacheInfoCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: CacheInfoCell.self) }
-    private let cacheSizeLabel = TTLabel(textColor: App.Colors.inactive, fontSize: 15, textAlignment: .right)
+    private let cacheSizeLabel = TTLabel(textColor: R.color.inactive(), fontSize: 15, textAlignment: .right)
     func configure(title: String, cacheSize: String) {
         super.configure(title: title)
         cacheSizeLabel.text = cacheSize

@@ -40,7 +40,7 @@ final class TTButton: UIButton {
         label.font = App.Fonts.helveticaNeue(with: size)
     }
     /// set tintcolor, label.tintColor and label.textColor
-    func setTintColor(_ color: UIColor) {
+    func setTintColor(_ color: UIColor?) {
         tintColor = color
         label.tintColor = color
         label.textColor = color
@@ -66,14 +66,12 @@ private extension TTButton {
     func configureAppearance() {
         switch type {
         case .primary:
-            
-            setTintColor(App.Colors.title)
+            setTintColor(R.color.title())
             label.font = App.Fonts.helveticaNeue(with: 22)
         case .secondary:
             label.textAlignment = .center
             layer.cornerRadius = 7
-            setTintColor(App.Colors.active)
-            
+            setTintColor(R.color.active())
         }
         makeSystem(self)
     }

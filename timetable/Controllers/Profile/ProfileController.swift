@@ -71,7 +71,7 @@ extension ProfileController {
     override func configureAppearance() {
         super.configureAppearance()
         navigationItem.title = App.Strings.profile
-        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
         collectionView.register(CacheInfoCell.self, forCellWithReuseIdentifier: CacheInfoCell.reuseIdentifier)
@@ -79,13 +79,13 @@ extension ProfileController {
         collectionView.register(ToggleCell.self, forCellWithReuseIdentifier: ToggleCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         dataSource = [
-            .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.imageProfile, type: .profile)),
-            .init(item: .init(title: App.Strings.changeGroup, image: App.Images.changeGroup,  type: .base)),
+            .init(item: .init(title: "Фамилия Имя Отчество",  image: App.Images.person_crop_circle_fill, type: .profile)),
+            .init(item: .init(title: App.Strings.changeGroup, image: App.Images.person_2_gobackward,  type: .base)),
             .init(item: .init(title: App.Strings.appearance,  image: App.Images.theme,        type: .theme)),
             .init(item: .init(title: App.Strings.cacheMode,   image: App.Images.theme,        type: .switcher)),
-            .init(item: .init(title: App.Strings.clearCache,  image: App.Images.aboutApp,     type: .clearCache)),
-            .init(item: .init(title: App.Strings.exit,        image: App.Images.exit,         type: .base)),
-            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.aboutApp,     type: .base))
+            .init(item: .init(title: App.Strings.clearCache,  image: App.Images.info_circle,     type: .clearCache)),
+            .init(item: .init(title: App.Strings.exit,        image: App.Images.rectangle_portrait_and_arrow_forward,         type: .base)),
+            .init(item: .init(title: App.Strings.aboutApp,    image: App.Images.info_circle,     type: .base))
         ]
         collectionView.refreshControl = nil
     }

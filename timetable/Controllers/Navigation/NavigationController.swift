@@ -14,10 +14,11 @@ final class NavigationController: UINavigationController {
         configureAppearance()
     }
     private func configureAppearance() {
-        view.backgroundColor = App.Colors.BlackWhite
+        view.backgroundColor = R.color.blackWhite()
         navigationBar.isTranslucent = false
+        guard let titleColor = R.color.title() else { return }
         navigationBar.standardAppearance.titleTextAttributes = [
-            .foregroundColor: App.Colors.title,
+            .foregroundColor: titleColor,
             .font: App.Fonts.helveticaNeue(with: 17)
         ]
     }

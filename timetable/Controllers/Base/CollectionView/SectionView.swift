@@ -11,7 +11,7 @@ final class SectionView: UICollectionReusableView {
     
     static let reuseIdentifier = String(describing: SectionView.self)
     
-    private let title = TTLabel(textColor: App.Colors.subtitle, fontSize: 13, textAlignment: .center)
+    private let title = TTLabel(textColor: R.color.subtitle(), fontSize: 13, textAlignment: .center)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

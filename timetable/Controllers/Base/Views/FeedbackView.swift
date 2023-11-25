@@ -18,7 +18,7 @@ final class FeedbackView: TTBaseView {
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.tintColor = App.Colors.active
+        button.tintColor = R.color.active()
         button.addTarget(self, action: #selector(openLink(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityIdentifier = link

@@ -17,7 +17,7 @@ extension FacultiesController {
     override func configureAppearance() {
         super.configureAppearance()
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        navigationController?.navigationBar.addBottomBorder(with: App.Colors.separator, height: 1)
+        navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         title = "SPBU"
     }
     override func viewWillAppear(_ animated: Bool) {
