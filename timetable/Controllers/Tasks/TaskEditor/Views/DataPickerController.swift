@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class DataPickerController: TTBaseController {
     private let dataPicker: UIDatePicker = {
@@ -29,10 +30,14 @@ extension DataPickerController {
         view.insertSubview(swipeAreaView, belowSubview: dataPicker)
     }
     override func layoutViews() {
-        dataPicker.anchor(top: view.topAnchor, paddingTop: 16,
-                          left: view.leadingAnchor, right: view.trailingAnchor)
-        swipeAreaView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, paddingBottom: 30,
-                             left: view.leadingAnchor, right: view.trailingAnchor)
+        dataPicker.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.trailing.equalToSuperview()
+        }
+        swipeAreaView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(30)
+        }
     }
     override func configureViews() {
         view.backgroundColor = .clear

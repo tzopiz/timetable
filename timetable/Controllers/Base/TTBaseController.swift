@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class TTBaseController: UIViewController {
     enum NavBarPosition {
@@ -98,10 +99,7 @@ extension TTBaseController {
     /// Добавьте код для установки ограничений для подвидов,
     /// таких как установка автолейаут-ограничений, задание отступов и т.д.
     func layoutViews() {
-        collectionView.anchor(top: view.topAnchor,
-                              bottom: view.bottomAnchor,
-                              left: view.leadingAnchor,
-                              right: view.trailingAnchor)
+        collectionView.snp.makeConstraints { $0.leading.trailing.top.bottom.equalToSuperview() }
     }
     
     /// Настраивает внешний вид контроллера.

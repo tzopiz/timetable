@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BaseCell: UICollectionViewCell {
     
@@ -55,9 +56,10 @@ extension BaseCell {
     }
     /// add constaraints to subviews
     func layoutViews() {
-        stackInfoView.anchor(top: contentView.topAnchor, bottom: contentView.bottomAnchor,
-                             left: contentView.leadingAnchor, paddingLeft: 16,
-                             right: contentView.trailingAnchor, paddingRight: -16)
+        stackInfoView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
     }
     /// configre appearence subviews
     func configureViews() {

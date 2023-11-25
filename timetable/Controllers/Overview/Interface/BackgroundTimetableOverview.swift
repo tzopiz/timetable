@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class BackgroundTimetableOverview: TTBaseView {
     private let imageView: UIImageView = {
@@ -30,22 +31,24 @@ final class BackgroundTimetableOverview: TTBaseView {
         }
     }
     func configure(height: CGFloat, width: CGFloat) {
-        imageView.setDimensions(height: height, width: width)
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(height)
+            make.width.equalTo(width)
+        }
     }
 }
 
 extension BackgroundTimetableOverview {
     override func setupViews() {
         super.setupViews()
-
         addSubview(stackView)
+        
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(title)
     }
     override func layoutViews() {
         super.layoutViews()
-        stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
-      
+        stackView.snp.makeConstraints { $0.center.equalToSuperview() }      
     }
     override func configureViews() {
         super.configureViews()

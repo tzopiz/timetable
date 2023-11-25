@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 public class TTButton: UIButton {
     enum TTButtonType {
@@ -57,9 +58,10 @@ private extension TTButton {
             case .secondary: return 10
             }
         }
-        label.anchor(left: leadingAnchor, paddingLeft: 10,
-                     right: trailingAnchor, paddingRight: -10,
-                     centerY: centerYAnchor)
+        label.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
+        }
     }
     /// configre appearence subviews
     func configureViews() {

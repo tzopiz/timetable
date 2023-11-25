@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TimetableCell: BaseCell {
     
@@ -73,13 +74,16 @@ extension TimetableCell {
         stackView.addArrangedSubview(teacherName)
     }
     override func layoutViews() {
-        stackView.anchor(top: contentView.topAnchor, paddingTop: 8,
-                         bottom: contentView.bottomAnchor, paddingBottom: -8,
-                         left: contentView.leadingAnchor, paddingLeft: 16,
-                         right: contentView.trailingAnchor, paddingRight: -16)
-        self.contentView.setDimensions(width: bounds.width)
-        self.contentView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
-        clock.setDimensions(height: 16, width: 16)
+        contentView.snp.makeConstraints { make in
+            make.width.equalTo(bounds.width)
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
+        stackView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        clock.snp.makeConstraints { $0.height.width.equalTo(16) }
+        
     }
     override func configureViews() {
         self.backgroundColor = R.color.blackWhite()

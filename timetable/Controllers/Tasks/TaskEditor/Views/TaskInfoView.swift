@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TaskInfoView: TTBaseView {
     private let nameTaskField: UITextField = {
@@ -51,9 +52,7 @@ extension TaskInfoView {
         stackView.addArrangedSubview(taskInfoView)
     }
     override func layoutViews() {
-        stackView.anchor(top: topAnchor, bottom: bottomAnchor,
-                         left: leadingAnchor, paddingLeft: 0,
-                         right: trailingAnchor, paddingRight: -0)
-        nameTaskField.setDimensions(height: 50)
+        stackView.snp.makeConstraints { $0.leading.trailing.top.bottom.equalToSuperview() }
+        nameTaskField.snp.makeConstraints { $0.height.equalTo(50) }
     }
 }

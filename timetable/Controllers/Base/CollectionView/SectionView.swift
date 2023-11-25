@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class SectionView: UICollectionReusableView {
     
@@ -36,9 +37,10 @@ private extension SectionView {
     func setupViews() { addSubview(title) }
     /// add constaraints to subviews
     func constaintViews() {
-        title.anchor(left: leadingAnchor, paddingLeft: 32,
-                     right: trailingAnchor, paddingRight: -32,
-                     centerY: centerYAnchor, centerX: centerXAnchor)
+        title.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(32)
+            make.center.equalToSuperview()
+        }
     }
     /// configre appearence subviews
     func configureAppearance() {}

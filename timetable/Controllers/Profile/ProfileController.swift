@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 enum CellType {
     case base
@@ -61,12 +62,15 @@ extension ProfileController {
     }
     override func layoutViews() {
         super.layoutViews()
-        versionLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 4,
-                            left: view.leadingAnchor, paddingLeft: 16,
-                            right: view.trailingAnchor, paddingRight: -16)
-        versionLabel.setDimensions(height: 20)
-        feedbackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -8,
-                            centerX: collectionView.centerXAnchor)
+        versionLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        feedbackView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
+            make.centerX.equalToSuperview()
+        }
     }
     override func configureViews() {
         super.configureViews()
@@ -78,7 +82,7 @@ extension ProfileController {
         collectionView.register(InteractiveCell.self, forCellWithReuseIdentifier: InteractiveCell.reuseIdentifier)
         collectionView.register(ToggleCell.self, forCellWithReuseIdentifier: ToggleCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        dataSource = [ .init(item: .init(title: "Фамилия Имя Отчество",
+        dataSource = [ .init(item: .init(title: "Корчагин Дмитрий Сергеевич",
                                          image: R.image.person_crop_circle_fill()!,
                                          type: .profile)),
                        .init(item: .init(title: App.Strings.changeGroup,

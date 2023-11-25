@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension WeekView {
     final class WeekdayView: TTBaseView {
@@ -66,7 +67,7 @@ extension WeekView.WeekdayView {
         stackView.addArrangedSubview(dateLabel)
     }
     override func layoutViews() {
-        stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
+        stackView.snp.makeConstraints { $0.center.equalToSuperview() }
     }
     override func configureViews() {
         layer.cornerRadius = 5

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class FeedbackView: TTBaseView {
     
@@ -49,9 +50,9 @@ extension FeedbackView {
     }
     override func layoutViews() {
         super.layoutViews()
-        stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
-        vkButton.setDimensions(height: 20, width: 20)
-        tgButton.setDimensions(height: 20, width: 20)
-        githubButton.setDimensions(height: 20, width: 20)
+        stackView.snp.makeConstraints { $0.top.leading.trailing.bottom.equalToSuperview() }
+        vkButton.snp.makeConstraints { $0.height.width.equalTo(20) }
+        tgButton.snp.makeConstraints { $0.height.width.equalTo(20) }
+        githubButton.snp.makeConstraints { $0.height.width.equalTo(20) }
     }
 }

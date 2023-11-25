@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TaskController: TTBaseController {
     
@@ -49,9 +50,10 @@ extension TaskController {
         stackView.addArrangedSubview(taskInfoView)
     }
     override func layoutViews() {
-        stackView.anchor(top: view.topAnchor, bottom: view.bottomAnchor,
-                         left: view.leadingAnchor, paddingLeft: 16,
-                         right: view.trailingAnchor, paddingRight: -16)
+        stackView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
     }
     override func configureViews() {
         super.configureViews()

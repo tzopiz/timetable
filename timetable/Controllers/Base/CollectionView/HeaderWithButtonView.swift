@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class HeaderWithButtonView: UICollectionReusableView {
     
@@ -28,12 +29,12 @@ final class HeaderWithButtonView: UICollectionReusableView {
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(expandButton)
-        
-        stackView.anchor(top: topAnchor, bottom: bottomAnchor,
-                         left: leadingAnchor, paddingLeft: 16,
-                         right: trailingAnchor, paddingRight: -16)
-        
-        expandButton.setDimensions(width: 32)
+          
+        stackView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        expandButton.snp.makeConstraints { $0.width.equalTo(32) }
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     

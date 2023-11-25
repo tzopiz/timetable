@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ImageViewCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: ImageViewCell.self) }
@@ -17,10 +18,10 @@ extension ImageViewCell {
         contentView.addSubview(imageView)
     }
     override func layoutViews() {
-        imageView.anchor(top: contentView.topAnchor, paddingTop: 8,
-                         bottom: contentView.bottomAnchor, paddingBottom: -8,
-                         left: contentView.leadingAnchor, paddingLeft: 16,
-                         right: contentView.trailingAnchor, paddingRight: -16)
+        imageView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
     }
     override func configureViews() {
         self.backgroundColor = R.color.blackWhite()

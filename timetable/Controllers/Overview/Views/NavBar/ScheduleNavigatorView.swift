@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ScheduleNavigatorView: TTBaseView {
     private let stackView: UIStackView = {
@@ -55,7 +56,7 @@ final class ScheduleNavigatorView: TTBaseView {
     }
     
     override func layoutViews() {
-        stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
+        stackView.snp.makeConstraints { $0.leading.trailing.top.bottom.equalToSuperview() }
     }
     
     @IBAction private func backButtonTapped() { swipeCompletion?(.back) }

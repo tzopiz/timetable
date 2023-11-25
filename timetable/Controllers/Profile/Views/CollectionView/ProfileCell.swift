@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ProfileCell: BaseCell {
     
@@ -42,12 +43,17 @@ extension ProfileCell {
         addSubview(leftView)
     }
     override func layoutViews() {
-        leftView.anchor(left: leadingAnchor, paddingLeft: 16, centerY: centerYAnchor)
-        title.setDimensions(height: 40)
-        stackInfoView.anchor(left: leftView.trailingAnchor, paddingLeft: 16,
-                             right: trailingAnchor, paddingRight: -16,
-                             centerY: centerYAnchor)
-        leftView.setDimensions(height: 88, width: 88)
+        leftView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(88)
+        }
+        title.snp.makeConstraints { $0.height.equalTo(40) }
+        stackInfoView.snp.makeConstraints { make in
+            make.leading.equalTo(leftView.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+        }
     }
     override func configureViews() {
         super.configureViews()

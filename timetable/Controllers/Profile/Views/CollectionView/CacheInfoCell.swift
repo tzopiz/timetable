@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CacheInfoCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: CacheInfoCell.self) }
@@ -22,8 +23,6 @@ extension CacheInfoCell {
     }
     override func layoutViews() {
         super.layoutViews()
-        cacheSizeLabel.anchor(top: topAnchor, paddingTop: 16,
-                              bottom: bottomAnchor, paddingBottom: -16,
-                              right: trailingAnchor, paddingRight: -16)
+        cacheSizeLabel.snp.makeConstraints { $0.top.bottom.trailing.equalToSuperview().inset(16) }
     }
 }

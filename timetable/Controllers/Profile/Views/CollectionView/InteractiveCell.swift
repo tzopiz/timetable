@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class InteractiveCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: InteractiveCell.self) }
@@ -29,9 +30,12 @@ extension InteractiveCell {
         button.setTitle(title)
         button.setFontSize(18)
         button.addButtonTarget(target: self, action: #selector(showAlertController))
-        button.setDimensions(height: 40)
-        button.anchor(right: trailingAnchor, paddingRight: -16,
-                      centerY: centerYAnchor)
+
+        button.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
+        }
     }
 }
 

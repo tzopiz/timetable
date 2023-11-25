@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ToggleCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: ToggleCell.self) }
@@ -20,7 +21,10 @@ extension ToggleCell {
     }
     override func layoutViews() {
         super.layoutViews()
-        switcher.anchor(right: trailingAnchor, paddingRight: -20, centerY: centerYAnchor)
+        switcher.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview()
+        }
     }
     override func configureViews() {
         super.configureViews()

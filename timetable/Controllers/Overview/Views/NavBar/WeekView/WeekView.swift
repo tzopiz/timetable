@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class WeekView: TTBaseView {
     enum SwipeDirections {
@@ -30,7 +31,7 @@ extension WeekView {
         addSubview(stackView)
     }
     override func layoutViews() {
-        stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
+        stackView.snp.makeConstraints { $0.leading.trailing.top.bottom.equalToSuperview() }
     }
     
     override func configureViews() {

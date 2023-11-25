@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class OverviewController: TTBaseController {
     
@@ -68,15 +69,13 @@ extension OverviewController {
         view.addSubview(backgroundView)
     }
     override func layoutViews() {
-        navBar.anchor(top: view.topAnchor,
-                      left: view.leadingAnchor,
-                      right: view.trailingAnchor)
+        navBar.snp.makeConstraints { $0.top.leading.trailing.equalToSuperview() }
         
-        collectionView.anchor(top: navBar.bottomAnchor,
-                              bottom: view.bottomAnchor,
-                              left: view.leadingAnchor,
-                              right: view.trailingAnchor)
-        backgroundView.anchor(centerY: view.centerYAnchor, centerX: view.centerXAnchor)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.bottom.leading.trailing.equalToSuperview()
+        }
+        backgroundView.snp.makeConstraints { $0.center.equalToSuperview() }
     }
     override func configureViews() {
         super.configureViews()
@@ -93,7 +92,7 @@ extension OverviewController {
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         backgroundView.isHidden = true
-        backgroundView.configure(height: view.bounds.height / 3, width: view.bounds.width - 32)
+        backgroundView.configure(height: view.bounds.size.height / 3, width: view.bounds.size.width - 32)
         
         navBar.swipeCompletion = { [weak self] direction in
             guard let self = self else { return }

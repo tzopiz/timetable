@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class OverviewNavBar: TTBaseView {
     private let weekView = WeekView()
@@ -24,22 +25,25 @@ extension OverviewNavBar {
         addSubview(monthButton)
     }
     override func layoutViews() {
-        scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
-                                     left: leadingAnchor, paddingLeft: 16,
-                                     centerY: monthButton.centerYAnchor)
-        
-        monthButton.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
-                           right: trailingAnchor, paddingRight: -16)
-        monthButton.setDimensions(height: 28)
-        
-        weekView.anchor(top: scheduleNavigatorView.bottomAnchor, paddingTop: 16,
-                        bottom: bottomAnchor, paddingBottom: -16,
-                        left: leadingAnchor, paddingLeft: 16,
-                        right: trailingAnchor, paddingRight: -16)
-        weekView.setDimensions(height: 47)
-        
-        separator.anchor(bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
-        separator.setDimensions(height: 1)
+        scheduleNavigatorView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(7)
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalTo(monthButton.snp.centerY)
+        }
+        monthButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(7)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(28)
+        }
+        weekView.snp.makeConstraints { make in
+            make.top.equalTo(scheduleNavigatorView.snp.bottom).offset(16)
+            make.bottom.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(47)
+        }
+        separator.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
     override func configureViews() {
         self.backgroundColor = R.color.blackWhite()

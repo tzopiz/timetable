@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TasksCell: BaseCell {
     
@@ -118,12 +119,16 @@ extension TasksCell {
         stackView.addArrangedSubview(deadlineLabel)
     }
     override func layoutViews() {
-        buttonCheckmarkView.setDimensions(height: 28, width: 28)
-        buttonCheckmarkView.anchor(left: leadingAnchor, paddingLeft: 16,
-                                   centerY: centerYAnchor)
-        stackView.anchor(left: buttonCheckmarkView.trailingAnchor, paddingLeft: 16,
-                         right: trailingAnchor, paddingRight: -16,
-                         centerY: centerYAnchor)
+        buttonCheckmarkView.snp.makeConstraints { make in
+            make.height.width.equalTo(28)
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+        }
+        stackView.snp.makeConstraints { make in
+            make.leading.equalTo(buttonCheckmarkView.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+        }
     }
     override func configureViews() {
         self.backgroundColor = R.color.blackWhite()
