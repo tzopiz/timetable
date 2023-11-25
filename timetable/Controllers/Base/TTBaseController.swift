@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class TTBaseController: UIViewController {
+class TTBaseController: UIViewController {
     enum NavBarPosition {
         case left
         case right
@@ -16,11 +16,11 @@ public class TTBaseController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         
-        return view
+        return collectionView
     }()
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -632,9 +632,9 @@
 			buildConfigurationList = 0ACC4E6529C660CF00B3D6AC /* Build configuration list for PBXNativeTarget "timetable" */;
 			buildPhases = (
 				8CB2798C1F5375E9818F31C2 /* [CP] Check Pods Manifest.lock */,
-				0AA7D4182B116FD200AA856D /* R.swift generate */,
 				0ACC4E3729C660CE00B3D6AC /* Sources */,
 				0ACC4E3829C660CE00B3D6AC /* Frameworks */,
+				0AA7D4182B116FD200AA856D /* R.swift generate */,
 				0ACC4E3929C660CE00B3D6AC /* Resources */,
 				55210E5550AE16D96700268C /* [CP] Embed Pods Frameworks */,
 			);
