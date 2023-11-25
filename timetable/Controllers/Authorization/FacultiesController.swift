@@ -54,9 +54,9 @@ extension FacultiesController {
     -> Int { faculties.count }
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath
-        ) as? BaseCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
+                                                            for: indexPath ) as? BaseCell
+        else { return UICollectionViewCell() }
         let faculty = faculties[indexPath.row]
         let width = collectionView.bounds.width - 32
         let height = heightForLabel(text: faculty.text, font: R.font.robotoRegular(size: 17)!, width: width) + 16
@@ -100,3 +100,5 @@ extension FacultiesController {
                                  referenceSizeForHeaderInSection section: Int)
     -> CGSize { CGSize(width: 0, height: 0) }
 }
+
+// TODO: -may be create base for auth controllers?

@@ -11,10 +11,6 @@ import SnapKit
 final class InteractiveCell: BaseCell {
     override class var reuseIdentifier: String { return String(describing: InteractiveCell.self) }
     private let button = TTButton(with: .secondary)
-    
-    func configure(title: String, type: CellType = .base) {
-        super.configure(title: title)
-    }
 }
 extension InteractiveCell {
     override func setupViews() {
@@ -57,19 +53,23 @@ extension InteractiveCell {
             let title = UserDefaults.standard.theme.getUserInterfaceStyle() == .dark ? "Темное": UserDefaults.standard.theme.getUserInterfaceStyle() == .light ? "Светлое" : "Системное"
             self.button.setTitle(title)
         }
-        alert.addAction(UIAlertAction(title: firstTitle, style: .default,  handler: { (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: firstTitle, style: .default,
+                                      handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .light
             updateData()
         }))
-        alert.addAction(UIAlertAction(title: secondTitle, style: .default, handler: { (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: secondTitle, style: .default,
+                                      handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .dark
             updateData()
         }))
-        alert.addAction(UIAlertAction(title: thirdTitle, style: .default,  handler: { (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: thirdTitle, style: .default,
+                                      handler: { (action: UIAlertAction) in
             UserDefaults.standard.theme = .device
             updateData()
         }))
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel,
+                                      handler: nil))
         viewController?.present(alert, animated: true, completion: nil)
     }
 }

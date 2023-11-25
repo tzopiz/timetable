@@ -36,11 +36,15 @@ extension ToggleCell {
 extension ToggleCell {
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         if !switcher.isOn {
-            let alert = UIAlertController(title: "Внимание", message: "Вы точно хотите удалить кеш?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel,  handler: { (action: UIAlertAction) in
+            let alert = UIAlertController(title: "Внимание",
+                                          message: "Вы точно хотите удалить кеш?",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel,
+                                          handler: { (action: UIAlertAction) in
                 self.switcher.isOn = true
             }))
-            alert.addAction(UIAlertAction(title: "Очистить", style: .destructive,  handler: { (action: UIAlertAction) in
+            alert.addAction(UIAlertAction(title: "Очистить", style: .destructive,
+                                          handler: { (action: UIAlertAction) in
                 UserDefaults.standard.cachingTimetable = sender.isOn
                 let cacheManager = DataCacheManager()
                 cacheManager.clearCache()

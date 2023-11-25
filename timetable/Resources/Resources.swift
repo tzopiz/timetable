@@ -21,7 +21,7 @@ enum App {
         }
     }
     enum Images {
-        static func icon(for tab: Tabs) -> UIImage? {
+        static func icon(for tab: TabBarController.Tabs) -> UIImage? {
             switch tab {
             case .overview: return UIImage(systemName: "house")
             case .tasks:    return UIImage(systemName: "list.bullet.rectangle")

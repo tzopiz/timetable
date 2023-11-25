@@ -67,9 +67,10 @@ extension GroupsController {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                               withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
-                                                                               for: indexPath) as? HeaderWithButtonView
+        guard let headerView = collectionView
+            .dequeueReusableSupplementaryView(ofKind: kind,
+                                              withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
+                                              for: indexPath) as? HeaderWithButtonView
         else { return UICollectionReusableView() }
         let section = groups[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,

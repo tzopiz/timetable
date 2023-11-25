@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 
 class CustomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    // Реализуйте методы протокола UIViewControllerAnimatedTransitioning
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        // Укажите длительность анимации
         return 0.5
     }
 

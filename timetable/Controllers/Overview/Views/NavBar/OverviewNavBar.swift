@@ -12,7 +12,7 @@ final class OverviewNavBar: TTBaseView {
     private let weekView = WeekView()
     private let scheduleNavigatorView = ScheduleNavigatorView()
     private let monthButton = TTButton(with: .secondary)
-    private var separator = UIView()
+    private let separator = TTBaseView()
     var swipeCompletion: ((WeekView.SwipeDirections) -> Void)?
     var scrollCompletion: ((Int) -> Void)?
 }
@@ -65,7 +65,7 @@ extension OverviewNavBar {
         monthButton.backgroundColor = R.color.secondary()
         monthButton.isUserInteractionEnabled = false // TODO: show datapicker
         
-        separator.backgroundColor = R.color.secondary()
+        separator.backgroundColor = R.color.separator()
     }
     
     func swipeWeekView(to direct: WeekView.SwipeDirections) {

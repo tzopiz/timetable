@@ -20,14 +20,14 @@ final class TasksCell: BaseCell {
         return stackView
     }()
     private let noteNameLabel: TTLabel = {
-        let label = TTLabel(fontSize: 17)
-        label.lineBreakMode = .byCharWrapping
+        let label = TTLabel(fontSize: 17, lineBreakMode: .byCharWrapping)
         label.numberOfLines = 1
         return label
     }()
     private let noteInfoLabel: TTLabel = {
-        let label = TTLabel(textColor: R.color.subtitle(), fontSize: 15)
-        label.lineBreakMode = .byCharWrapping
+        let label = TTLabel(textColor: R.color.subtitle(),
+                            fontSize: 15,
+                            lineBreakMode: .byCharWrapping)
         label.numberOfLines = 1
         return label
     }()
@@ -88,8 +88,8 @@ final class TasksCell: BaseCell {
             layer.addSublayer(gradientLayer)
         } else {
             if let sublayers = layer.sublayers {
-                for sublayer in sublayers {
-                    if sublayer is CAGradientLayer { sublayer.removeFromSuperlayer() }
+                for sublayer in sublayers where sublayer is CAGradientLayer {
+                    sublayer.removeFromSuperlayer()
                 }
             }
         }

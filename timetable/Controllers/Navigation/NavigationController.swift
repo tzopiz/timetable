@@ -8,12 +8,9 @@
 import UIKit
 
 final class NavigationController: UINavigationController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureAppearance()
-    }
-    private func configureAppearance() {
         view.backgroundColor = R.color.blackWhite()
         navigationBar.isTranslucent = false
         guard let titleColor = R.color.title() else { return }

@@ -9,10 +9,7 @@ import UIKit
 import SnapKit
 
 final class BackgroundTimetableOverview: TTBaseView {
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
+    private let imageView = UIImageView()
     private let title = TTLabel(textColor: R.color.subtitle(), fontSize: 20, textAlignment: .center)
     private let stackView: UIStackView = {
         let stackView = UIStackView()

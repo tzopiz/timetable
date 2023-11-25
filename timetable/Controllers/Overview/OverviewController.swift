@@ -16,28 +16,20 @@ final class OverviewController: TTBaseController {
     private var timetableData: StudyWeek?
     
     override func refreshData() {
-        // Показываем индикатор загрузки (UIRefreshControl)
         self.collectionView.refreshControl?.beginRefreshing()
         
         cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
-            guard let self = self else { return }
-            if let cachedData = cachedData {
-                // Если данные из кеша доступны, обновляем коллекцию с ними
-                DispatchQueue.main.async {
-                    self.updateCollectionView(with: cachedData)
-                    // Завершаем обновление (скрытие индикатора загрузки)
-                    self.collectionView.refreshControl?.endRefreshing()
-                }
+            guard let self = self, let cachedData = cachedData else { return }
+            DispatchQueue.main.async {
+                self.updateCollectionView(with: cachedData)
+                self.collectionView.refreshControl?.endRefreshing()
             }
             // Загружаем данные с сервера
             loadData() { [weak self] studyWeek in
-                guard let self = self else { return }
-                if studyWeek != cachedData {
-                    DispatchQueue.main.async {
-                        self.updateCollectionView(with: studyWeek)
-                        // Завершаем обновление (скрытие индикатора загрузки)
-                        self.collectionView.refreshControl?.endRefreshing()
-                    }
+                guard let self = self, studyWeek != cachedData else { return }
+                DispatchQueue.main.async {
+                    self.updateCollectionView(with: studyWeek)
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             }
         }
@@ -45,9 +37,11 @@ final class OverviewController: TTBaseController {
     
     private func loadData(completion: @escaping (StudyWeek) -> Void) {
         cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
-            guard self != nil else { return }
-            if let studyWeek = studyWeek { completion(studyWeek) }
-            else { completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))}
+            guard self != nil, let studyWeek = studyWeek else {
+                completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))
+                return
+            }
+            completion(studyWeek)
         }
     }
     
@@ -55,7 +49,7 @@ final class OverviewController: TTBaseController {
         guard let studyWeek = studyWeek else { return }
         
         timetableData = studyWeek
-        animateImageAppearance(shouldAppear: (timetableData?.days.count ?? 0) == 0)
+        animateImageAppearance(animated: (timetableData?.days.count ?? 0) == 0)
         navBar.updateButtonTitle(with: studyWeek.startDate)
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
@@ -127,25 +121,27 @@ extension OverviewController {
         else { return UICollectionViewCell() }
         if lesson.isEmpty {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BaseCell.reuseIdentifier, for: indexPath
-            ) as? BaseCell else { return UICollectionViewCell() }
+                withReuseIdentifier: BaseCell.reuseIdentifier,
+                for: indexPath) as? BaseCell
+            else { return UICollectionViewCell() }
             cell.configure(title: "Занятий нет", textAlignment: .center)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TimetableCell.reuseIdentifier, for: indexPath
-            ) as? TimetableCell else { return UICollectionViewCell() }
-            
-            cell.configure(time: lesson.time, nameSubject: lesson.name, location: lesson.location, teacherName: lesson.teacher, isCancelled: lesson.isCancelled)
+                withReuseIdentifier: TimetableCell.reuseIdentifier,
+                for: indexPath) as? TimetableCell
+            else { return UICollectionViewCell() }
+            cell.configure(lesson)
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: SectionView.reuseIdentifier,
-                                                                         for: indexPath) as? SectionView
+        guard let view = collectionView
+            .dequeueReusableSupplementaryView(ofKind: kind,
+                                              withReuseIdentifier: SectionView.reuseIdentifier,
+                                              for: indexPath) as? SectionView
         else { return UICollectionReusableView() }
         view.configure(with: timetableData?.days[indexPath.section].date ?? "")
         return view
@@ -161,19 +157,29 @@ extension OverviewController {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return CGSize(width: 0, height: 0) }
         // TODO: heap warnings ambigious high
-        let timeLabelHeight = heightForLabel(text: item.time, font: R.font.robotoRegular(size: 15)!, width: width - 32)
-        let nameLabelHeight = heightForLabel(text: item.name, font: R.font.robotoRegular(size: 17)!, width: width - 32)
-        let locationLabelHeight = heightForLabel(text: item.location, font: R.font.robotoRegular(size: 13)!, width: width - 32)
-        let teacherLabelHeight = heightForLabel(text: item.teacher, font: R.font.robotoRegular(size: 13)!, width: width - 32)
-        let totalHeight = timeLabelHeight + nameLabelHeight + locationLabelHeight + teacherLabelHeight + 24 + 16
+        let timeLabelHeight = heightForLabel(text: item.time,
+                                             font: R.font.robotoRegular(size: 15)!,
+                                             width: width - 32)
+        let nameLabelHeight = heightForLabel(text: item.name,
+                                             font: R.font.robotoRegular(size: 17)!,
+                                             width: width - 32)
+        let locationLabelHeight = heightForLabel(text: item.location,
+                                                 font: R.font.robotoRegular(size: 13)!,
+                                                 width: width - 32)
+        let teacherLabelHeight = heightForLabel(text: item.teacher,
+                                                font: R.font.robotoRegular(size: 13)!,
+                                                width: width - 32)
+        let totalHeight = timeLabelHeight + nameLabelHeight +
+        locationLabelHeight + teacherLabelHeight + 24 + 16
         return CGSize(width: width, height: totalHeight)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        guard let days = timetableData?.days else { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0) }
+        let edgeInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+        guard let days = timetableData?.days else { return edgeInsets }
         if section == days.count - 1 { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 16.0, right: 16.0) }
-        else { return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0) }
+        else { return edgeInsets }
     }
 }
 
@@ -189,19 +195,20 @@ extension OverviewController {
             let yOffset = collectionView
                 .layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader,
                                                          at: IndexPath(item: 0, section: index))?.frame.origin.y ?? 0 - headerHeight
-            DispatchQueue.main.async { self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true) }
+            DispatchQueue.main.async {
+                self.collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+            }
         } else { scrollCollectionViewToTop() }
     }
     
-    func animateImageAppearance(shouldAppear: Bool) {
-        switch shouldAppear {
-        case true:
+    func animateImageAppearance(animated: Bool) {
+        if animated {
             self.backgroundView.isHidden = false
             self.backgroundView.updateImage()
             TTBaseView.animate(withDuration: 0.2, animations: {
                 self.backgroundView.transform = .identity
             })
-        case false:
+        } else {
             TTBaseView.animate(withDuration: 0.2, animations: {
                 self.backgroundView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             }) { _ in

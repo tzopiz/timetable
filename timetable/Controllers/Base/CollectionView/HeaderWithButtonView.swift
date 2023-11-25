@@ -13,10 +13,8 @@ final class HeaderWithButtonView: UICollectionReusableView {
     static let reuseIdentifier = String(describing: HeaderWithButtonView.self)
     
     private let titleLabel = TTLabel(fontSize: 19)
-    private let expandButton: TTButton = {
-        let button = TTButton(with: .secondary)
-        return button
-    }()
+    private let expandButton = TTButton(with: .secondary)
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal

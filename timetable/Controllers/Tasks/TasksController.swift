@@ -76,8 +76,8 @@ extension TasksController {
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TasksCell.reuseIdentifier, for: indexPath
-        ) as? TasksCell else { return UICollectionViewCell() }
+            withReuseIdentifier: TasksCell.reuseIdentifier, for: indexPath) as? TasksCell
+        else { return UICollectionViewCell() }
         let task = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
         cell.configure(task: task)
         cell.delegate = self
@@ -94,7 +94,8 @@ extension TasksController {
         if kind == UICollectionView.elementKindSectionFooter {
             guard let footerView = collectionView
                 .dequeueReusableSupplementaryView(ofKind: kind,
-                                                  withReuseIdentifier: SectionView.reuseIdentifier, for: indexPath) as? SectionView
+                                                  withReuseIdentifier: SectionView.reuseIdentifier,
+                                                  for: indexPath) as? SectionView
             else { return UICollectionReusableView() }
             footerView.configure(with: UserDefaults.standard.taskSortKey.title, textSize: 13)
             
@@ -106,7 +107,9 @@ extension TasksController {
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
         let width = collectionView.frame.width - 32
-        if CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey).count == 0 { return CGSize(width: width, height: 0) }
+        if CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey).count == 0 {
+            return CGSize(width: width, height: 0)
+        }
         else { return CGSize(width: width, height: 10) }
         
     }
@@ -130,9 +133,11 @@ extension TasksController {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = CoreDataMamanager.shared.fetchTasksDefined(with: taskSortKey)[indexPath.row]
-        if let _ = item.deadline, item.info != "" { return CGSize(width: collectionView.frame.width - 32, height: 90) }
-        else if item.deadline == nil, item.info == "" {return CGSize(width: collectionView.frame.width - 32, height: 60) }
-        else { return CGSize(width: collectionView.frame.width - 32, height: 70) }
+        if let _ = item.deadline, item.info != "" {
+            return CGSize(width: collectionView.frame.width - 32, height: 90)
+        } else if item.deadline == nil, item.info == "" {
+            return CGSize(width: collectionView.frame.width - 32, height: 60)
+        } else { return CGSize(width: collectionView.frame.width - 32, height: 70) }
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

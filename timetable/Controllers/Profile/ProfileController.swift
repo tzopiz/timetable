@@ -8,29 +8,28 @@
 import UIKit
 import SnapKit
 
-enum CellType {
-    case base
-    case profile
-    case switcher
-    case theme
-    case clearCache
-}
-
-struct SettingsData {
-    struct Data {
-        let title: String
-        let image: UIImage
-        let type: CellType
-    }
-    let item: Data
-}
-
 final class ProfileController: TTBaseController {
+    enum CellType {
+        case base
+        case profile
+        case switcher
+        case theme
+        case clearCache
+    }
+
+    struct SettingsData {
+        struct Data {
+            let title: String
+            let image: UIImage
+            let type: CellType
+        }
+        let item: Data
+    }
+
     private var dataSource: [SettingsData] = []
     private let feedbackView = FeedbackView()
     private let versionLabel: TTLabel = {
-        let label = TTLabel()
-        label.text = Bundle.main.releaseVersionNumber
+        let label = TTLabel(text: Bundle.main.releaseVersionNumber)
         label.font = R.font.robotoRegular(size: 7)
         label.textAlignment = .center
         label.isHidden = true
@@ -38,9 +37,11 @@ final class ProfileController: TTBaseController {
     }()
     
     private func showConfirmationAlert() {
-        let alertController = UIAlertController(title: "Подтверждение", message: "Вы точно хотите очистить кеш?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Подтверждение",
+                                                message: "Вы точно хотите очистить кеш?",
+                                                preferredStyle: .alert)
         
-        let confirmAction = UIAlertAction(title: "Очистить", style: .destructive) { (_) in
+        let confirmAction = UIAlertAction(title: "Очистить", style: .destructive) { _ in
             let cacheManager = DataCacheManager()
             cacheManager.clearCache()
             self.collectionView.reloadData()
@@ -50,7 +51,7 @@ final class ProfileController: TTBaseController {
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true)
     }
 }
 
@@ -65,7 +66,7 @@ extension ProfileController {
         versionLabel.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(20)
+            make.height.equalTo(50)
         }
         feedbackView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
@@ -116,39 +117,47 @@ extension ProfileController {
         let item = dataSource[indexPath.row].item
         switch item.type {
         case .profile:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseIdentifier,
-                                                                for: indexPath) as? ProfileCell else
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseIdentifier,
+                                     for: indexPath) as? ProfileCell
+            else
             { return UICollectionViewCell() }
             cell.configure(title: item.title)
             return cell
         case .theme:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InteractiveCell.reuseIdentifier,
-                                                                for: indexPath) as? InteractiveCell else
-            { return UICollectionViewCell() }
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: InteractiveCell.reuseIdentifier,
+                                     for: indexPath) as? InteractiveCell 
+            else { return UICollectionViewCell() }
             cell.configure(title: item.title)
             return cell
         case .switcher:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ToggleCell.reuseIdentifier,
-                                                                for: indexPath) as? ToggleCell else
-            { return UICollectionViewCell() }
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: ToggleCell.reuseIdentifier,
+                                     for: indexPath) as? ToggleCell
+            else { return UICollectionViewCell() }
             cell.configure(title: item.title)
             cell.delegate = self
             return cell
         case .clearCache:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CacheInfoCell.reuseIdentifier,
-                                                                for: indexPath) as? CacheInfoCell else
-            { return UICollectionViewCell() }
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: CacheInfoCell.reuseIdentifier,
+                                     for: indexPath) as? CacheInfoCell
+            else { return UICollectionViewCell() }
             let cacheSize = DataCacheManager().calculateCacheSize()
             cell.configure(title: item.title, cacheSize: cacheSize)
             return cell
         default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
-                                                                for: indexPath) as? BaseCell else
-            { return UICollectionViewCell() }
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: BaseCell.reuseIdentifier,
+                                     for: indexPath) as? BaseCell
+            else { return UICollectionViewCell() }
             cell.configure(title: item.title)
             return cell
         }
     }
+    // MARK: - overriding each new vc
+    // create new Base class to same vc's
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? BaseCell
         cell?.isHighlighted()

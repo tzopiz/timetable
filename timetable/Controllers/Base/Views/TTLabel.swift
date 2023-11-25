@@ -15,7 +15,7 @@ import UIKit
 /// font = R.font.robotoRegular(size: 15)
 /// ```
 public class TTLabel: UILabel {
-    init(text: String = "",
+    init(text: String? = nil,
          textColor: UIColor? = R.color.title(),
          fontSize: CGFloat = 15,
          textAlignment: NSTextAlignment = .left,

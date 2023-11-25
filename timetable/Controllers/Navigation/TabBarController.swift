@@ -7,13 +7,13 @@
 
 import UIKit
 
-enum Tabs: Int, CaseIterable {
-    case tasks
-    case overview
-    case profile
-}
-
 final class TabBarController: UITabBarController {
+    
+    enum Tabs: Int, CaseIterable {
+        case tasks
+        case overview
+        case profile
+    }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

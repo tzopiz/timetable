@@ -50,7 +50,9 @@ class TTBaseController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
     }
-    func scrollCollectionViewToTop() { self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true) }
+    func scrollCollectionViewToTop() {
+        self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
     func heightForLabel(text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let label = TTLabel()
         label.text = text
@@ -64,8 +66,11 @@ class TTBaseController: UIViewController {
 // MARK: - UICollectionViewDataSource
 
 extension TTBaseController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 0 }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int)
+    -> Int { 0 }
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath)
     -> UICollectionViewCell { UICollectionViewCell() }
 }
 

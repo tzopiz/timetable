@@ -17,7 +17,6 @@ extension WeekView {
             let stackView = UIStackView()
             stackView.spacing = 3
             stackView.axis = .vertical
-            stackView.isUserInteractionEnabled = false
             return stackView
         }()
         
@@ -73,13 +72,10 @@ extension WeekView.WeekdayView {
         layer.cornerRadius = 5
         layer.masksToBounds = true
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        addTapGesture(tapNumber: 1, target: self, action: #selector(handleTap))
+        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        
-        tapGesture.numberOfTapsRequired = 1
         longPressGesture.minimumPressDuration = 0.05
-        
-        self.addGestureRecognizer(tapGesture)
         self.addGestureRecognizer(longPressGesture)
         
     }

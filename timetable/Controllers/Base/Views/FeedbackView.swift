@@ -32,9 +32,8 @@ final class FeedbackView: TTBaseView {
     @objc private static func openLink(_ sender: UIButton) {
         guard let link = sender.accessibilityIdentifier,
               let encodedLink = link.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encodedLink) else {
-            return
-        }
+              let url = URL(string: encodedLink) 
+        else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

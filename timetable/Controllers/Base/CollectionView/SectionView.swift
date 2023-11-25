@@ -43,5 +43,5 @@ private extension SectionView {
         }
     }
     /// configre appearence subviews
-    func configureAppearance() {}
+    func configureAppearance() { }
 }

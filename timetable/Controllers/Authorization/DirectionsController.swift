@@ -65,9 +65,10 @@ extension DirectionsController {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                               withReuseIdentifier: SectionView.reuseIdentifier,
-                                                                               for: indexPath) as? SectionView
+        guard let headerView = collectionView
+            .dequeueReusableSupplementaryView(ofKind: kind,
+                                              withReuseIdentifier: SectionView.reuseIdentifier,
+                                              for: indexPath) as? SectionView
         else { return UICollectionReusableView() }
         headerView.configure(with: headerTitle, textSize: 19)
         return headerView
@@ -109,7 +110,9 @@ extension DirectionsController {
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let height = heightForLabel(text: headerTitle, font: R.font.robotoRegular(size: 19)!, width: width - 32) + 16
+        let height = heightForLabel(text: headerTitle,
+                                    font: R.font.robotoRegular(size: 19)!,
+                                    width: width - 32) + 16
         return CGSize(width: width, height: height)
     }
 }

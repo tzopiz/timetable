@@ -11,7 +11,7 @@ import SnapKit
 final class TimetableCell: BaseCell {
     
     override class var reuseIdentifier: String { return String(describing: TimetableCell.self) }
-    
+    // TODO: custom stackview with parametrs
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -29,34 +29,32 @@ final class TimetableCell: BaseCell {
     private let address = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
     private let teacherName = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
     private let clock = UIImageView(image: R.image.clock())
-
-    func configure(time: String, nameSubject: String, location: String, teacherName: String, isCancelled: Bool) {
-        if isCancelled { // bolt
+    func configure(_ lesson: Lesson) {
+        var attributedTimeString: NSAttributedString
+        var attributedNameString: NSAttributedString
+        var attributedLocationString: NSAttributedString
+        var attributedTeacherString: NSAttributedString
+        if lesson.isCancelled { // bolt
             guard let red = R.color.red() else { return }
             let attributes: [NSAttributedString.Key: Any] = [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
                 NSAttributedString.Key.strikethroughColor: red
             ]
-            let attributedTimeString = NSAttributedString(string: time, attributes: attributes)
-            let attributedNameString = NSAttributedString(string: nameSubject, attributes: attributes)
-            let attributedLocationString = NSAttributedString(string: location, attributes: attributes)
-            let attributedTeacherString = NSAttributedString(string: teacherName, attributes: attributes)
+            attributedTimeString = NSAttributedString(string: lesson.time, attributes: attributes)
+            attributedNameString = NSAttributedString(string: lesson.name, attributes: attributes)
+            attributedLocationString = NSAttributedString(string: lesson.location, attributes: attributes)
+            attributedTeacherString = NSAttributedString(string: lesson.teacher, attributes: attributes)
             
-            self.time.attributedText = attributedTimeString
-            self.nameSubject.attributedText = attributedNameString
-            self.address.attributedText = attributedLocationString
-            self.teacherName.attributedText = attributedTeacherString
         } else {
-            let attributedTimeString = NSAttributedString(string: time)
-            let attributedNameString = NSAttributedString(string: nameSubject)
-            let attributedLocationString = NSAttributedString(string: location)
-            let attributedTeacherString = NSAttributedString(string: teacherName)
-            
-            self.time.attributedText = attributedTimeString
-            self.nameSubject.attributedText = attributedNameString
-            self.address.attributedText = attributedLocationString
-            self.teacherName.attributedText = attributedTeacherString
+            attributedTimeString = NSAttributedString(string: lesson.time)
+            attributedNameString = NSAttributedString(string: lesson.name)
+            attributedLocationString = NSAttributedString(string: lesson.location)
+            attributedTeacherString = NSAttributedString(string: lesson.teacher)
         }
+        self.time.attributedText = attributedTimeString
+        self.nameSubject.attributedText = attributedNameString
+        self.address.attributedText = attributedLocationString
+        self.teacherName.attributedText = attributedTeacherString
     }
 }
 

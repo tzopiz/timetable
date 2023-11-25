@@ -21,9 +21,8 @@ final class ProfileCell: BaseCell {
         imageView.clipsToBounds = true
         return imageView
     }()
-    var completion: (() -> (UIImage))?
     
-    func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
+    func configure(title: String, image: UIImage? = nil) {
         super.configure(title: title)
         subtitle.text = UserDefaults.standard.group
         let profileImage = R.image.person_crop_circle_fill()

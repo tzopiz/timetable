@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 public class TTButton: UIButton {
+    // TODO: change name's
     enum TTButtonType {
         case primary
         case secondary

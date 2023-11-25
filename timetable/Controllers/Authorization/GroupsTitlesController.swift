@@ -80,9 +80,10 @@ extension GroupsTitlesController {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                               withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
-                                                                               for: indexPath) as? HeaderWithButtonView
+        guard let headerView = collectionView
+            .dequeueReusableSupplementaryView(ofKind: kind,
+                                              withReuseIdentifier: HeaderWithButtonView.reuseIdentifier,
+                                              for: indexPath) as? HeaderWithButtonView
         else { return UICollectionReusableView() }
         let section = groupsTitles[indexPath.section]
         headerView.configure(with: section.title, status: section.isExpanded, tag: indexPath.section,
@@ -111,7 +112,7 @@ extension GroupsTitlesController {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let width = collectionView.bounds.width - 32
         let item = groupsTitles[indexPath.section].items[indexPath.row]
         let height = heightForLabel(text: item.text, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         
@@ -124,9 +125,11 @@ extension GroupsTitlesController {
     override func collectionView(_ collectionView: UICollectionView,
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
+        let width = collectionView.bounds.width - 32
         let section = groupsTitles[section]
-        let height = heightForLabel(text: section.title, font: R.font.robotoRegular(size: 19)!, width: width - 32) + 16
+        let height = heightForLabel(text: section.title, 
+                                    font: R.font.robotoRegular(size: 19)!,
+                                    width: width - 32) + 16
         
         return CGSize(width: width, height: height)
     }
