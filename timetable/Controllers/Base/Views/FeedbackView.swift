@@ -9,12 +9,16 @@ import UIKit
 
 final class FeedbackView: TTBaseView {
     
-    private let vkButton: UIButton = createSocialMediaButton(App.Images.vk_icon, link: App.Strings.vk_link)
-    private let githubButton: UIButton = createSocialMediaButton(App.Images.github_icon, link: App.Strings.github_link)
-    private let tgButton: UIButton = createSocialMediaButton(App.Images.tg_icon, link: App.Strings.tg_link)
+    private let vkButton: UIButton = createSocialMediaButton(R.image.vk_icon(),
+                                                             link: App.Strings.vk_link)
+    private let githubButton: UIButton = createSocialMediaButton(R.image.github_icon(),
+                                                                 link: App.Strings.github_link)
+    private let tgButton: UIButton = createSocialMediaButton(R.image.tg_icon(),
+                                                             link: App.Strings.tg_link)
     private var stackView: UIStackView!
     
-    private static func createSocialMediaButton(_ image: UIImage, link: String) -> UIButton {
+    private static func createSocialMediaButton(_ image: UIImage?, link: String) -> UIButton {
+        guard let image = image else { return UIButton() }
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit

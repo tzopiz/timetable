@@ -20,11 +20,13 @@ final class BackgroundTimetableOverview: TTBaseView {
         return stackView
     }()
     func updateImage() {
+        let lessonsCanceledLight = [R.image.background1Light(),R.image.background2Light(),
+                                    R.image.background3Light(),R.image.background4Light(),
+                                    R.image.background5Light(),R.image.background6Light()]
+        let lessonsCanceledDark = [R.image.background1Dark(), R.image.background2Dark()]
         switch UserDefaults.standard.theme {
-        case .light, .device:
-            imageView.image = App.Images.lessonsCanceledLight.randomElement()
-        case .dark:
-            imageView.image = App.Images.lessonsCanceledDark.randomElement()
+        case .light, .device: imageView.image = lessonsCanceledLight.randomElement()!
+        case .dark: imageView.image = lessonsCanceledDark.randomElement()!
         }
     }
     func configure(height: CGFloat, width: CGFloat) {

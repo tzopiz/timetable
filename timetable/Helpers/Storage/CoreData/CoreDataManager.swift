@@ -185,7 +185,7 @@ extension CoreDataMamanager {
                 profile = profiles?.first
             }
             if image == nil &&  profile?.photo == nil{
-                profile?.photo = App.Images.person_crop_circle_fill.pngData()
+                profile?.photo = R.image.person_crop_circle_fill()!.pngData()
             } else if image != nil {
                 profile?.photo = image?.pngData()
             }
@@ -206,7 +206,7 @@ extension CoreDataMamanager {
         do {
             guard let profiles = try? context.fetch(fetchRequest) as? [Profile],
                   let profile = profiles.first else { return }
-            let pngImage = App.Images.person_crop_circle_fill.pngData()
+            let pngImage = R.image.person_crop_circle_fill()!.pngData()
             profile.photo = pngImage
         }
         save()

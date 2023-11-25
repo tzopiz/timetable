@@ -39,7 +39,8 @@ final class TasksCell: BaseCell {
         self.task = task
         self.noteNameLabel.text = task.name
         self.noteInfoLabel.text = task.info
-        buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmark_circle : App.Images.circle, for: .normal)
+        buttonCheckmarkView.setImage(task.isDone ? R.image.checkmark_circle() : R.image.circle(),
+                                     for: .normal)
         if let deadline = task.deadline {
             deadlineLabel.isHidden = false
             let calendar = Calendar.current
@@ -99,7 +100,7 @@ final class TasksCell: BaseCell {
     @IBAction func updateCheckmarkView() {
         guard let task = self.task else { return }
         task.isDone = !task.isDone
-        self.buttonCheckmarkView.setImage(task.isDone ? App.Images.checkmark_circle : App.Images.circle,
+        self.buttonCheckmarkView.setImage(task.isDone ? R.image.checkmark_circle() : R.image.circle(),
                                           for: .normal)
         CoreDataMamanager.shared.updataTypeTask(with: task.id, isDone: task.isDone)
         self.task = task

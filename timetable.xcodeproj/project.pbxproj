@@ -50,8 +50,6 @@
 		0AC485C929E06884009B9EE5 /* GroupsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */; };
 		0AC82F722A893EF300E67D4F /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC82F712A893EF300E67D4F /* ImageViewCell.swift */; };
 		0AC82F742A8946C800E67D4F /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC82F732A8946C800E67D4F /* ToggleCell.swift */; };
-		0AC82F762A8949C100E67D4F /* Resources + ext String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC82F752A8949C100E67D4F /* Resources + ext String.swift */; };
-		0AC82F782A894A2800E67D4F /* Resources + ext Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC82F772A894A2800E67D4F /* Resources + ext Image.swift */; };
 		0ACC4E4829C660CF00B3D6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */; };
 		0ACC4E4B29C660CF00B3D6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACC4E4929C660CF00B3D6AC /* LaunchScreen.storyboard */; };
 		0ACC4E5629C660CF00B3D6AC /* timetableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4E5529C660CF00B3D6AC /* timetableTests.swift */; };
@@ -145,8 +143,6 @@
 		0AC485C829E06884009B9EE5 /* GroupsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTitlesController.swift; sourceTree = "<group>"; };
 		0AC82F712A893EF300E67D4F /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		0AC82F732A8946C800E67D4F /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
-		0AC82F752A8949C100E67D4F /* Resources + ext String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resources + ext String.swift"; sourceTree = "<group>"; };
-		0AC82F772A894A2800E67D4F /* Resources + ext Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resources + ext Image.swift"; sourceTree = "<group>"; };
 		0ACC4E3B29C660CE00B3D6AC /* timetable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timetable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACC4E4729C660CF00B3D6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ACC4E4A29C660CF00B3D6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -389,8 +385,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACC4EA229C6620300B3D6AC /* Resources.swift */,
-				0AC82F752A8949C100E67D4F /* Resources + ext String.swift */,
-				0AC82F772A894A2800E67D4F /* Resources + ext Image.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -854,12 +848,10 @@
 				0ACC4EAE29C6620300B3D6AC /* SceneDelegate.swift in Sources */,
 				0AC82F742A8946C800E67D4F /* ToggleCell.swift in Sources */,
 				0A98A2822A64172E00F4947D /* ModelAuth.swift in Sources */,
-				0AC82F782A894A2800E67D4F /* Resources + ext Image.swift in Sources */,
 				0AA605AB2A8AC290008C4A6B /* TasksController.swift in Sources */,
 				0AD936332AD0B18E00FA5022 /* TaskInfoView.swift in Sources */,
 				0A9FA52D2AA77B0A004EF8B6 /* APIManager.swift in Sources */,
 				0A98A27E2A63C6A800F4947D /* DirectionsController.swift in Sources */,
-				0AC82F762A8949C100E67D4F /* Resources + ext String.swift in Sources */,
 				0ACC4EB429C6620300B3D6AC /* TabBarController.swift in Sources */,
 				0ACC4EBC29C6620300B3D6AC /* WeekView.swift in Sources */,
 				0ACC4EC029C6620300B3D6AC /* TTBaseView.swift in Sources */,

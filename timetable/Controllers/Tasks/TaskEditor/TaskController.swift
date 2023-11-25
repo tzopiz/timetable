@@ -27,7 +27,7 @@ final class TaskController: TTBaseController {
         self.task = task
         taskInfoView.configure(name: task.name, info: task.info)
         super.init(nibName: nil, bundle: nil)
-        importanceChangeItem = UIBarButtonItem(image: task.isImportant ? App.Images.isImportant : App.Images.NotIsImportant,
+        importanceChangeItem = UIBarButtonItem(image: task.isImportant ? R.image.star_fill() : R.image.star(),
                                                style: .done, target: self,
                                                action: #selector(importanceChangeItemAction))
     }
@@ -148,7 +148,7 @@ extension TaskController {
     }
     @IBAction func importanceChangeItemAction() {
         task.isImportant.toggle()
-        importanceChangeItem?.image = task.isImportant ? App.Images.isImportant : App.Images.NotIsImportant
+        importanceChangeItem?.image = task.isImportant ? R.image.star_fill() : R.image.star()
     }
 }
 

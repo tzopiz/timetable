@@ -25,7 +25,7 @@ final class ProfileCell: BaseCell {
     func configure(title: String, type: CellType = .base, image: UIImage? = nil) {
         super.configure(title: title)
         subtitle.text = UserDefaults.standard.group
-        let profileImage = App.Images.person_crop_circle_fill
+        let profileImage = R.image.person_crop_circle_fill()
         leftView.image = profileImage
         leftView.addTapGesture(tapNumber: 1, target: self, action: #selector(changePhotoProfile))
     }

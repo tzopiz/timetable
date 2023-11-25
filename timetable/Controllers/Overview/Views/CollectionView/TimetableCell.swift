@@ -27,7 +27,7 @@ final class TimetableCell: BaseCell {
     private let nameSubject = TTLabel(fontSize: 17)
     private let address = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
     private let teacherName = TTLabel(textColor: R.color.subtitle(), fontSize: 13)
-    private let clock = UIImageView(image: App.Images.clock)
+    private let clock = UIImageView(image: R.image.clock())
 
     func configure(time: String, nameSubject: String, location: String, teacherName: String, isCancelled: Bool) {
         if isCancelled { // bolt
