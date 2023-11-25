@@ -43,12 +43,4 @@ extension App {
         static let github_link = "https://github.com/tzopiz"
         
     }
-    enum Fonts {
-        static func helveticaNeue(with size: CGFloat) -> UIFont {
-            UIFont(name: "HelveticaNeue", size: size) ?? UIFont()
-        }
-        static func HelveticaNeueBold(with size: CGFloat) -> UIFont {
-            UIFont(name: "HelveticaNeue-Bold", size: size) ?? UIFont()
-        }
-    }
 }

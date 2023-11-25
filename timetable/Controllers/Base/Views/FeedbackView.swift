@@ -43,14 +43,11 @@ extension FeedbackView {
         stackView.alignment = .center
         setupView(stackView)
     }
-    override func constraintViews() {
-        super.constraintViews()
+    override func layoutViews() {
+        super.layoutViews()
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
         vkButton.setDimensions(height: 20, width: 20)
         tgButton.setDimensions(height: 20, width: 20)
         githubButton.setDimensions(height: 20, width: 20)
-    }
-    override func configureAppearance() {
-        super.configureAppearance()
     }
 }

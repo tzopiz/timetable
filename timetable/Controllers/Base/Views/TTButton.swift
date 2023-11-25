@@ -20,14 +20,14 @@ final class TTButton: UIButton {
         super.init(frame: .zero)
         self.type = type
         setupViews()
-        constaintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
         setupViews()
-        constaintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     func setTitle(_ title: String?) {
         label.text = title
@@ -37,7 +37,7 @@ final class TTButton: UIButton {
     }
     /// set helveticaNeue font with size
     func setFontSize(_ size: CGFloat) {
-        label.font = App.Fonts.helveticaNeue(with: size)
+        label.font = R.font.robotoRegular(size: size)!
     }
     /// set tintcolor, label.tintColor and label.textColor
     func setTintColor(_ color: UIColor?) {
@@ -51,7 +51,7 @@ private extension TTButton {
     /// set up subview on button
     func setupViews() { setupView(label) }
     /// add constaraints to subviews
-    func constaintViews() {
+    func layoutViews() {
         var horisontalOffset: CGFloat {
             switch type {
             case .primary: return 0
@@ -63,11 +63,11 @@ private extension TTButton {
                      centerY: centerYAnchor)
     }
     /// configre appearence subviews
-    func configureAppearance() {
+    func configureViews() {
         switch type {
         case .primary:
             setTintColor(R.color.title())
-            label.font = App.Fonts.helveticaNeue(with: 22)
+            label.font = R.font.robotoRegular(size: 22)
         case .secondary:
             label.textAlignment = .center
             layer.cornerRadius = 7

@@ -30,7 +30,7 @@ final class ProfileController: TTBaseController {
     private let versionLabel: TTLabel = {
         let label = TTLabel()
         label.text = Bundle.main.releaseVersionNumber
-        label.font = App.Fonts.helveticaNeue(with: 7)
+        label.font = R.font.robotoRegular(size: 7)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -59,8 +59,8 @@ extension ProfileController {
         collectionView.addSubview(versionLabel)
         collectionView.addSubview(feedbackView)
     }
-    override func constraintViews() {
-        super.constraintViews()
+    override func layoutViews() {
+        super.layoutViews()
         versionLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 4,
                             left: view.leadingAnchor, paddingLeft: 16,
                             right: view.trailingAnchor, paddingRight: -16)
@@ -68,8 +68,8 @@ extension ProfileController {
         feedbackView.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: -8,
                             centerX: collectionView.centerXAnchor)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         navigationItem.title = App.Strings.profile
         navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         

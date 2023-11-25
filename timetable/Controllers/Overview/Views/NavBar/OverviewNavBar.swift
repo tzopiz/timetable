@@ -23,7 +23,7 @@ extension OverviewNavBar {
         setupView(separator)
         setupView(monthButton)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         scheduleNavigatorView.anchor(top: safeAreaLayoutGuide.topAnchor, paddingTop: 7,
                                      left: leadingAnchor, paddingLeft: 16,
                                      centerY: monthButton.centerYAnchor)
@@ -41,7 +41,7 @@ extension OverviewNavBar {
         separator.anchor(bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
         separator.setDimensions(height: 1)
     }
-    override func configureAppearance() {
+    override func configureViews() {
         self.backgroundColor = R.color.blackWhite()
         
         scheduleNavigatorView.swipeCompletion =  { [weak self] direction in

@@ -54,7 +54,7 @@ final class ScheduleNavigatorView: TTBaseView {
         forwardButton.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
     }
     
-    override func constraintViews() {
+    override func layoutViews() {
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
     

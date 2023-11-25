@@ -11,14 +11,14 @@ public class TTBaseView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
 }
 
@@ -31,13 +31,13 @@ extension TTBaseView {
     }
     
     /// Устанавливает ограничения для подвидов внутри представления.
-    func constraintViews() {
+    func layoutViews() {
         // Добавьте код для установки ограничений для подвидов,
         // таких как установка автолейаут-ограничений, задание отступов и т.д.
     }
     
     /// Настраивает внешний вид представления.
-    func configureAppearance() {
+    func configureViews() {
         // Добавьте код для настройки внешнего вида представления,
         // таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
         // Вы также можете применять стили, добавлять тени, закруглять углы и т.д.

@@ -29,12 +29,12 @@ extension WeekView {
     override func setupViews() {
         setupView(stackView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         stackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leadingAnchor, right: trailingAnchor)
     }
     
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         self.backgroundColor = .clear
         
         let russianLocale = Locale(identifier: "ru_RU")

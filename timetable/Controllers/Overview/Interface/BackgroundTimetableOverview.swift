@@ -40,13 +40,13 @@ extension BackgroundTimetableOverview {
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(title)
     }
-    override func constraintViews() {
-        super.constraintViews()
+    override func layoutViews() {
+        super.layoutViews()
         stackView.anchor(centerY: centerYAnchor, centerX: centerXAnchor)
       
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         title.text = "На этой недели пар нет.\nСамое время отдохнуть!"
     }
 }

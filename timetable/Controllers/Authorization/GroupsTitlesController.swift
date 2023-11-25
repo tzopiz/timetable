@@ -22,8 +22,8 @@ final class GroupsTitlesController: TTBaseController {
 // MARK: -Configure
 
 extension GroupsTitlesController {
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         title = "Программы"
         
@@ -72,7 +72,7 @@ extension GroupsTitlesController {
         else { return UICollectionViewCell() }
         let item = groupsTitles[indexPath.section].items[indexPath.item]
         let width = collectionView.bounds.width - 32
-        let height = heightForLabel(text: item.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        let height = heightForLabel(text: item.text, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         cell.configure(title: item.text, cornerRadius: height / 4)
         
         return cell
@@ -113,7 +113,7 @@ extension GroupsTitlesController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         let item = groupsTitles[indexPath.section].items[indexPath.row]
-        let height = heightForLabel(text: item.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        let height = heightForLabel(text: item.text, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         
         return CGSize(width: width, height: height)
     }
@@ -126,7 +126,7 @@ extension GroupsTitlesController {
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         let section = groupsTitles[section]
-        let height = heightForLabel(text: section.title, font: App.Fonts.helveticaNeue(with: 19), width: width - 32) + 16
+        let height = heightForLabel(text: section.title, font: R.font.robotoRegular(size: 19)!, width: width - 32) + 16
         
         return CGSize(width: width, height: height)
     }

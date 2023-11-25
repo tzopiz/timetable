@@ -19,7 +19,7 @@ final class NavigationController: UINavigationController {
         guard let titleColor = R.color.title() else { return }
         navigationBar.standardAppearance.titleTextAttributes = [
             .foregroundColor: titleColor,
-            .font: App.Fonts.helveticaNeue(with: 17)
+            .font: R.font.robotoRegular(size: 17)!
         ]
     }
 }

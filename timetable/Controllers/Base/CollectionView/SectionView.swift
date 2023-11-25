@@ -27,7 +27,7 @@ final class SectionView: UICollectionReusableView {
     }
     func configure(with str: String, textSize size: CGFloat = 13) {
         self.title.text = str
-        title.font = App.Fonts.helveticaNeue(with: size)
+        title.font = R.font.robotoRegular(size: size)!
     }
 }
 

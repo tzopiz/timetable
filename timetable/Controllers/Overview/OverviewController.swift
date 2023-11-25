@@ -67,7 +67,7 @@ extension OverviewController {
         view.setupView(navBar)
         view.setupView(backgroundView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         navBar.anchor(top: view.topAnchor,
                       left: view.leadingAnchor,
                       right: view.trailingAnchor)
@@ -78,8 +78,8 @@ extension OverviewController {
                               right: view.trailingAnchor)
         backgroundView.anchor(centerY: view.centerYAnchor, centerX: view.centerXAnchor)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         navigationController?.isNavigationBarHidden = true
         
         collectionView.register(TimetableCell.self,
@@ -162,10 +162,10 @@ extension OverviewController {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         guard let item = timetableData?.days[indexPath.section].lessons[indexPath.row] else { return CGSize(width: 0, height: 0) }
         // TODO: heap warnings ambigious high
-        let timeLabelHeight = heightForLabel(text: item.time, font: App.Fonts.helveticaNeue(with: 15), width: width - 32)
-        let nameLabelHeight = heightForLabel(text: item.name, font: App.Fonts.helveticaNeue(with: 17), width: width - 32)
-        let locationLabelHeight = heightForLabel(text: item.location, font: App.Fonts.helveticaNeue(with: 13), width: width - 32)
-        let teacherLabelHeight = heightForLabel(text: item.teacher, font: App.Fonts.helveticaNeue(with: 13), width: width - 32)
+        let timeLabelHeight = heightForLabel(text: item.time, font: R.font.robotoRegular(size: 15)!, width: width - 32)
+        let nameLabelHeight = heightForLabel(text: item.name, font: R.font.robotoRegular(size: 17)!, width: width - 32)
+        let locationLabelHeight = heightForLabel(text: item.location, font: R.font.robotoRegular(size: 13)!, width: width - 32)
+        let teacherLabelHeight = heightForLabel(text: item.teacher, font: R.font.robotoRegular(size: 13)!, width: width - 32)
         let totalHeight = timeLabelHeight + nameLabelHeight + locationLabelHeight + teacherLabelHeight + 24 + 16
         return CGSize(width: width, height: totalHeight)
     }

@@ -12,7 +12,7 @@ import UIKit
 /// textAlignment = .left
 /// lineBreakMode = .byWordWrapping
 /// textColor = R.color.title
-/// font = App.Fonts.helveticaNeue(with: 15)
+/// font = R.font.robotoRegular(size: 15)
 /// ```
 public class TTLabel: UILabel {
     init(text: String = "",
@@ -24,12 +24,12 @@ public class TTLabel: UILabel {
         self.textAlignment = textAlignment
         self.lineBreakMode = lineBreakMode
         self.textColor = textColor
-        self.font = App.Fonts.helveticaNeue(with: fontSize)
+        self.font = R.font.robotoRegular(size: fontSize)
         self.text = text
         self.numberOfLines = 0
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -45,13 +45,13 @@ extension TTLabel {
     }
     
     /// Устанавливает ограничения для подвидов внутри представления.
-    func constraintViews() {
+    func layoutViews() {
         // Добавьте код для установки ограничений для подвидов,
         // таких как установка автолейаут-ограничений, задание отступов и т.д.
     }
     
     /// Настраивает внешний вид представления.
-    func configureAppearance() {
+    func configureViews() {
         // Добавьте код для настройки внешнего вида представления,
         // таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
         // Вы также можете применять стили, добавлять тени, закруглять углы и т.д.

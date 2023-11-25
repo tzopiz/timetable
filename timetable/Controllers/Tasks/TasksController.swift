@@ -21,8 +21,8 @@ final class TasksController: TTBaseController {
 // MARK: - Configure
 
 extension TasksController {
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         navigationItem.title = App.Strings.tasks
         navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         

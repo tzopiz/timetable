@@ -48,13 +48,13 @@ extension TaskController {
         view.setupView(stackView)
         stackView.addArrangedSubview(taskInfoView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         stackView.anchor(top: view.topAnchor, bottom: view.bottomAnchor,
                          left: view.leadingAnchor, paddingLeft: 16,
                          right: view.trailingAnchor, paddingRight: -16)
     }
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         
         title = "Задача"
         

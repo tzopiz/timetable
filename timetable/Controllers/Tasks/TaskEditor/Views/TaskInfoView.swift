@@ -10,7 +10,7 @@ import UIKit
 final class TaskInfoView: TTBaseView {
     private let nameTaskField: UITextField = {
         let textField = UITextField()
-        textField.font = App.Fonts.HelveticaNeueBold(with: 21)
+        textField.font = R.font.robotoBold(size: 21)
         textField.textColor = R.color.title()
         textField.placeholder = App.Strings.untitle
         textField.backgroundColor = R.color.background()
@@ -20,7 +20,7 @@ final class TaskInfoView: TTBaseView {
     }()
     private let taskInfoView: UITextView = {
         let textView = UITextView()
-        textView.font = App.Fonts.helveticaNeue(with: 16)
+        textView.font = R.font.robotoRegular(size: 16)
         textView.textColor = R.color.title()
         textView.backgroundColor = R.color.background()
         return textView
@@ -50,7 +50,7 @@ extension TaskInfoView {
         stackView.addArrangedSubview(nameTaskField)
         stackView.addArrangedSubview(taskInfoView)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         stackView.anchor(top: topAnchor, bottom: bottomAnchor,
                          left: leadingAnchor, paddingLeft: 0,
                          right: trailingAnchor, paddingRight: -0)

@@ -15,8 +15,8 @@ final class DirectionsController: TTBaseController {
 // MARK: - Configure
 
 extension DirectionsController {
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         title = "Направления"
         
@@ -57,7 +57,7 @@ extension DirectionsController {
         else { return UICollectionViewCell() }
         let item = directions[indexPath.item]
         let width = collectionView.bounds.width - 32
-        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        let height = heightForLabel(text: item, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         cell.configure(title: item, cornerRadius: height / 4)
         
         return cell
@@ -97,7 +97,7 @@ extension DirectionsController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         let item = directions[indexPath.item]
-        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        let height = heightForLabel(text: item, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         
         return CGSize(width: width, height: height)
     }
@@ -109,7 +109,7 @@ extension DirectionsController {
                                  layout collectionViewLayout: UICollectionViewLayout,
                                  referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
-        let height = heightForLabel(text: headerTitle, font: App.Fonts.helveticaNeue(with: 19), width: width - 32) + 16
+        let height = heightForLabel(text: headerTitle, font: R.font.robotoRegular(size: 19)!, width: width - 32) + 16
         return CGSize(width: width, height: height)
     }
 }

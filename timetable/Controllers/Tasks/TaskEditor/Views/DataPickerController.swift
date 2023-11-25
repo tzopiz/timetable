@@ -28,13 +28,13 @@ extension DataPickerController {
         view.setupView(dataPicker)
         view.insertSubview(swipeAreaView, belowSubview: dataPicker)
     }
-    override func constraintViews() {
+    override func layoutViews() {
         dataPicker.anchor(top: view.topAnchor, paddingTop: 16,
                           left: view.leadingAnchor, right: view.trailingAnchor)
         swipeAreaView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, paddingBottom: 30,
                              left: view.leadingAnchor, right: view.trailingAnchor)
     }
-    override func configureAppearance() {
+    override func configureViews() {
         view.backgroundColor = .clear
         // TODO: - Fetch tap / watch other method to present
         let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))

@@ -25,8 +25,8 @@ class TTBaseController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        constraintViews()
-        configureAppearance()
+        layoutViews()
+        configureViews()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,7 +37,7 @@ class TTBaseController: UIViewController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(R.color.active(), for: .normal)
         button.setTitleColor(R.color.inactive(), for: .disabled)
-        button.titleLabel?.font = App.Fonts.helveticaNeue(with: 17)
+        button.titleLabel?.font = R.font.robotoRegular(size: 17)!
         if let image = image { button.setImage(image, for: .normal)}
         
         switch position {
@@ -97,7 +97,7 @@ extension TTBaseController {
     /// Устанавливает ограничения для подвидов внутри контроллера.
     /// Добавьте код для установки ограничений для подвидов,
     /// таких как установка автолейаут-ограничений, задание отступов и т.д.
-    func constraintViews() {
+    func layoutViews() {
         collectionView.anchor(top: view.topAnchor,
                               bottom: view.bottomAnchor,
                               left: view.leadingAnchor,
@@ -108,7 +108,7 @@ extension TTBaseController {
     /// Добавьте код для настройки внешнего вида контроллера,
     /// таких как установка фона, цветов, шрифтов и других свойств визуальных элементов.
     /// Вы также можете применять стили, добавлять тени, закруглять углы и т.д.
-    func configureAppearance() {
+    func configureViews() {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.backgroundColor = R.color.background()
@@ -139,3 +139,16 @@ extension TTBaseController: UICollectionViewUpdatable {
         DispatchQueue.main.async { self.collectionView.reloadData() }
     }
 }
+
+//final class <#ViewController#>: BaseViewController {
+//    
+//}
+//
+//// MARK: - Configure
+//
+//extension <#ViewController#> {
+//    override func setupComponents() { }
+//    override func layoutComponents() { }
+//    override func configureComponents() { }
+//}
+

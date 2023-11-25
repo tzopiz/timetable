@@ -14,8 +14,8 @@ final class FacultiesController: TTBaseController {
 // MARK: - Configure
 
 extension FacultiesController {
-    override func configureAppearance() {
-        super.configureAppearance()
+    override func configureViews() {
+        super.configureViews()
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
         navigationController?.navigationBar.addBottomBorder(with: R.color.separator(), height: 1)
         title = "SPBU"
@@ -59,7 +59,7 @@ extension FacultiesController {
         ) as? BaseCell else { return UICollectionViewCell() }
         let faculty = faculties[indexPath.row]
         let width = collectionView.bounds.width - 32
-        let height = heightForLabel(text: faculty.text, font: App.Fonts.helveticaNeue(with: 17), width: width) + 16
+        let height = heightForLabel(text: faculty.text, font: R.font.robotoRegular(size: 17)!, width: width) + 16
         cell.configure(title: faculty.text, textAlignment: .center, cornerRadius: height / 4)
         return cell
     }
@@ -87,7 +87,7 @@ extension FacultiesController {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 32 // Adjusted width (collectionView width minus 32 points)
         let item = faculties[indexPath.item].text
-        let height = heightForLabel(text: item, font: App.Fonts.helveticaNeue(with: 17), width: width) + 32
+        let height = heightForLabel(text: item, font: R.font.robotoRegular(size: 17)!, width: width) + 32
         
         return CGSize(width: width, height: height)
     }

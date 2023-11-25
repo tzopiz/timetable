@@ -26,7 +26,7 @@ class BaseCell: UICollectionViewCell {
         self.title.text = title
         if let color = color { self.backgroundColor = color }
         if let alignment = alignment { self.title.textAlignment = alignment }
-        if let size = size { self.title.font = App.Fonts.helveticaNeue(with: size) }
+        if let size = size { self.title.font = R.font.robotoRegular(size: size)! }
         self.layer.cornerRadius = cornerRadius
     }
     func isHighlighted() { self.alpha = 0.4 }
