@@ -7,12 +7,11 @@
 
 import UIKit
 
-public enum TTButtonType {
-    case primary
-    case secondary
-}
-
-final class TTButton: UIButton {
+public class TTButton: UIButton {
+    enum TTButtonType {
+        case primary
+        case secondary
+    }
 
     private var type: TTButtonType = .primary
     private let label = TTLabel()
@@ -30,20 +29,20 @@ final class TTButton: UIButton {
         configureViews()
     }
     func setTitle(_ title: String?) {
-        label.text = title
+        self.label.text = title
     }
     func addButtonTarget(target: Any?, action: Selector) {
-        addTarget(target, action: action, for: .touchUpInside)
+        self.addTarget(target, action: action, for: .touchUpInside)
     }
     /// set helveticaNeue font with size
     func setFontSize(_ size: CGFloat) {
-        label.font = R.font.robotoRegular(size: size)!
+        self.label.font = R.font.robotoRegular(size: size)!
     }
     /// set tintcolor, label.tintColor and label.textColor
     func setTintColor(_ color: UIColor?) {
-        tintColor = color
-        label.tintColor = color
-        label.textColor = color
+        self.tintColor = color
+        self.label.tintColor = color
+        self.label.textColor = color
     }
 }
 

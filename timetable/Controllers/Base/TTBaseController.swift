@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TTBaseController: UIViewController {
+public class TTBaseController: UIViewController {
     enum NavBarPosition {
         case left
         case right
@@ -139,16 +139,3 @@ extension TTBaseController: UICollectionViewUpdatable {
         DispatchQueue.main.async { self.collectionView.reloadData() }
     }
 }
-
-//final class <#ViewController#>: BaseViewController {
-//    
-//}
-//
-//// MARK: - Configure
-//
-//extension <#ViewController#> {
-//    override func setupComponents() { }
-//    override func layoutComponents() { }
-//    override func configureComponents() { }
-//}
-

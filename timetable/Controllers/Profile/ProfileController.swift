@@ -78,29 +78,27 @@ extension ProfileController {
         collectionView.register(InteractiveCell.self, forCellWithReuseIdentifier: InteractiveCell.reuseIdentifier)
         collectionView.register(ToggleCell.self, forCellWithReuseIdentifier: ToggleCell.reuseIdentifier)
         collectionView.register(BaseCell.self, forCellWithReuseIdentifier: BaseCell.reuseIdentifier)
-        dataSource = [
-            .init(item: .init(title: "Фамилия Имя Отчество",
-                              image: R.image.person_crop_circle_fill()!,
-                              type: .profile)),
-            .init(item: .init(title: App.Strings.changeGroup,
-                              image: R.image.person_2_gobackward()!,
-                              type: .base)),
-            .init(item: .init(title: App.Strings.appearance,
-                              image: R.image.theme()!,
-                              type: .theme)),
-            .init(item: .init(title: App.Strings.cacheMode,
-                              image: R.image.theme()!,
-                              type: .switcher)),
-            .init(item: .init(title: App.Strings.clearCache,
-                              image: R.image.info_circle()!,
-                              type: .clearCache)),
-            .init(item: .init(title: App.Strings.exit,
-                              image: R.image.rectangle_portrait_and_arrow_forward()!,
-                              type: .base)),
-            .init(item: .init(title: App.Strings.aboutApp,
-                              image: R.image.info_circle()!,
-                              type: .base))
-        ]
+        dataSource = [ .init(item: .init(title: "Фамилия Имя Отчество",
+                                         image: R.image.person_crop_circle_fill()!,
+                                         type: .profile)),
+                       .init(item: .init(title: App.Strings.changeGroup,
+                                         image: R.image.person_2_gobackward()!,
+                                         type: .base)),
+                       .init(item: .init(title: App.Strings.appearance,
+                                         image: R.image.theme()!,
+                                         type: .theme)),
+                       .init(item: .init(title: App.Strings.cacheMode,
+                                         image: R.image.theme()!,
+                                         type: .switcher)),
+                       .init(item: .init(title: App.Strings.clearCache,
+                                         image: R.image.info_circle()!,
+                                         type: .clearCache)),
+                       .init(item: .init(title: App.Strings.exit,
+                                         image: R.image.rectangle_portrait_and_arrow_forward()!,
+                                         type: .base)),
+                       .init(item: .init(title: App.Strings.aboutApp,
+                                         image: R.image.info_circle()!,
+                                         type: .base))]
         collectionView.refreshControl = nil
     }
 }
@@ -169,10 +167,10 @@ extension ProfileController {
             
             let navVC = UINavigationController(rootViewController: vc_1)
             navVC.setViewControllers([vc_1, vc_2, vc_3, vc_4], animated: false)
-
+            
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             windowScenes?.windows.first?.switchRootViewController(navVC)
-
+            
         case 4: showConfirmationAlert()
         case 5:
             UserDefaults.standard.registered = false

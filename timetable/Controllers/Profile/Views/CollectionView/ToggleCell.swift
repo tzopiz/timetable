@@ -45,7 +45,7 @@ extension ToggleCell {
             let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let window = windowScenes?.windows.first
             let viewController = window?.rootViewController
-            viewController?.present(alert, animated: true, completion: nil)
+            viewController?.present(alert, animated: true)
         } else { UserDefaults.standard.cachingTimetable = sender.isOn }
     }
 }
