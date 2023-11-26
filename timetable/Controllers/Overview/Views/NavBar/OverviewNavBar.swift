@@ -21,8 +21,8 @@ extension OverviewNavBar {
     override func setupViews() {
         addSubview(scheduleNavigatorView)
         addSubview(weekView)
-        addSubview(separator)
         addSubview(monthButton)
+        addSubview(separator)
     }
     override func layoutViews() {
         scheduleNavigatorView.snp.makeConstraints { make in

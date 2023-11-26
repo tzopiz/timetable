@@ -9,15 +9,14 @@ import UIKit
 import SnapKit
 
 final class ProfileController: TTBaseController {
-    enum CellType {
-        case base
-        case profile
-        case switcher
-        case theme
-        case clearCache
-    }
-
     struct SettingsData {
+        enum CellType {
+            case base
+            case profile
+            case switcher
+            case theme
+            case clearCache
+        }
         struct Data {
             let title: String
             let image: UIImage

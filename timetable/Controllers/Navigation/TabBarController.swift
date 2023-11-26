@@ -34,7 +34,7 @@ final class TabBarController: UITabBarController {
         tabBar.backgroundImage = UIImage()
         tabBar.shadowImage = UIImage()
         tabBar.backgroundColor = R.color.blackWhite()
-        tabBar.addTopBorder(with: R.color.separator(), height: 1/2)
+        tabBar.addTopBorder(with: R.color.separator(), height: 2/3)
 
         let controllers: [NavigationController] = Tabs.allCases.map { tab in
             let controller = NavigationController(rootViewController: getController(for: tab))
@@ -43,7 +43,7 @@ final class TabBarController: UITabBarController {
                                                  tag: tab.rawValue)
             return controller
         }
-        setViewControllers(controllers, animated: false)
+        setViewControllers(controllers, animated: true)
     }
     private func getController(for tab: Tabs) -> TTBaseController {
         switch tab {

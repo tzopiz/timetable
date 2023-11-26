@@ -19,17 +19,21 @@ final class OverviewController: TTBaseController {
         self.collectionView.refreshControl?.beginRefreshing()
         
         cacheManager.getDownloadedTimetable(with: navBar.getFirstDay()) { [weak self] cachedData in
-            guard let self = self, let cachedData = cachedData else { return }
-            DispatchQueue.main.async {
-                self.updateCollectionView(with: cachedData)
-                self.collectionView.refreshControl?.endRefreshing()
-            }
-            // Загружаем данные с сервера
-            loadData() { [weak self] studyWeek in
-                guard let self = self, studyWeek != cachedData else { return }
+            guard let self = self else { return }
+            if let cachedData = cachedData {
                 DispatchQueue.main.async {
-                    self.updateCollectionView(with: studyWeek)
+                    self.updateCollectionView(with: cachedData)
                     self.collectionView.refreshControl?.endRefreshing()
+                }
+            }
+            // Загружаем данные с сайта
+            loadData() { [weak self] studyWeek in
+                guard let self = self else { return }
+                if studyWeek != cachedData {
+                    DispatchQueue.main.async {
+                        self.updateCollectionView(with: studyWeek)
+                        self.collectionView.refreshControl?.endRefreshing()
+                    }
                 }
             }
         }
@@ -37,11 +41,9 @@ final class OverviewController: TTBaseController {
     
     private func loadData(completion: @escaping (StudyWeek) -> Void) {
         cacheManager.loadTimetableData(with: navBar.getFirstDay()) { [weak self] studyWeek, err in
-            guard self != nil, let studyWeek = studyWeek else {
-                completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))
-                return
-            }
-            completion(studyWeek)
+            guard self != nil else { return }
+            if let studyWeek = studyWeek { completion(studyWeek) }
+            else { completion(StudyWeek(startDate: "Что-то сломалось.🙈", days: []))}
         }
     }
     
@@ -97,11 +99,13 @@ extension OverviewController {
             if !isEmpty { self.scrollToDay(with: index) }
         }
         
-        let backSwipe = UISwipeGestureRecognizer(target: self,action: #selector(backSwipeWeek))
+        let backSwipe = UISwipeGestureRecognizer(target: self,
+                                                 action: #selector(backSwipeWeek))
         backSwipe.direction = .right
         collectionView.addGestureRecognizer(backSwipe)
         
-        let forwardSwipe = UISwipeGestureRecognizer(target: self,action: #selector(forwardSwipeWeek))
+        let forwardSwipe = UISwipeGestureRecognizer(target: self,
+                                                    action: #selector(forwardSwipeWeek))
         forwardSwipe.direction = .left
         collectionView.addGestureRecognizer(forwardSwipe)
     }

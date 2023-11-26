@@ -11,28 +11,34 @@ extension UIView {
     func addBottomBorder(separator: inout UIView, with color: UIColor?, height: CGFloat) {
         guard let color = color else { return }
         separator.backgroundColor = color
-        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
-        separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
+        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin,
+                                      .flexibleTopMargin, .flexibleWidth]
+        separator.frame = CGRect(x: 0, y: frame.height - height,
+                                 width: frame.width, height: height)
     }
     func addTopBorder(separator: inout UIView, with color: UIColor?, height: CGFloat) {
         guard let color = color else { return }
         separator.backgroundColor = color
-        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
+        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin,
+                                      .flexibleTopMargin, .flexibleWidth]
         separator.frame = CGRect(x: 0, y: 0, width: frame.width, height: height)
     }
     func addBottomBorder(with color: UIColor?, height: CGFloat) {
         guard let color = color else { return }
         let separator = UIView()
         separator.backgroundColor = color
-        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
-        separator.frame = CGRect(x: 0, y: frame.height - height, width: frame.width, height: height)
+        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin,
+                                      .flexibleTopMargin, .flexibleWidth]
+        separator.frame = CGRect(x: 0, y: frame.height - height,
+                                 width: frame.width, height: height)
         addSubview(separator)
     }
     func addTopBorder(with color: UIColor?, height: CGFloat) {
         guard let color = color else { return }
         let separator = UIView()
         separator.backgroundColor = color
-        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
+        separator.autoresizingMask = [.flexibleHeight, .flexibleBottomMargin,
+                                      .flexibleTopMargin, .flexibleWidth]
         separator.frame = CGRect(x: 0, y: 0, width: frame.width, height: height)
         addSubview(separator)
     }
